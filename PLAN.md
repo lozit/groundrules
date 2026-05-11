@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.1.0 -->
+<!-- generated-by: starter-kit v0.2.0 -->
 # PLAN — Starting-Claude
 
 **Active** plan/todo for the project. Maintained by Claude during work.
@@ -7,13 +7,14 @@ This file differs from the long-term roadmap: it describes what is happening **n
 
 ## In progress
 
-- [ ] Add EN variants for all remaining FR-only templates (V0.1 gap, see V0.1.1)
+- [ ] Re-test bootstrap from-scratch in /tmp with the new V0.2 CLAUDE.md template (verify all sections render correctly with placeholders)
 - [ ] First ADR: marketplace.json location (was at root, moved to `.claude-plugin/`)
+- [ ] First ADR: choice of plain text placeholder substitution over a templating engine
 
 ## Up next
 
-- [ ] V0.2 — `/starter-kit:add-adr` skill (quick ADR creation)
-- [ ] V0.2 — `/starter-kit:learn` skill (quick LEARNINGS entry)
+- [ ] V0.3 — `/starter-kit:add-adr` skill (quick ADR creation from `adr-template.{lang}.md`)
+- [ ] V0.3 — `/starter-kit:learn` skill (quick LEARNINGS entry, dated, prepended)
 - [ ] V0.4 — `/starter-kit:migrate` skill (upgrade projects bootstrapped with older versions)
 - [ ] Publish marketplace on GitHub for shareable distribution
 
@@ -23,8 +24,9 @@ This file differs from the long-term roadmap: it describes what is happening **n
 
 ## Recently done
 
-- [x] Project bootstrapped (2026-05-11)
+- [x] V0.2 — `CLAUDE.md.{fr,en}.tpl` restructured to integrate best practices from shanraisshan/howborisusesclaudecode (Setup/Build/Test, mutable file philosophy, settings/rules, verification, plan mode, worktrees) (2026-05-11)
 - [x] V0.1.1 — EN variants for LEARNINGS, brief, media, PLAN, ARCHITECTURE, CHANGELOG, GLOSSARY, adr-template (2026-05-11)
+- [x] V0.1 — Project bootstrapped, skill + 15 templates + dogfood (2026-05-11)
 
 ---
 

@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.1.0 -->
+<!-- generated-by: starter-kit v0.2.0 -->
 # media/ — Visual assets
 
 Images, mockups, screenshots, videos, audio, diagrams — anything binary and visual.

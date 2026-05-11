@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.1.0 -->
+<!-- generated-by: starter-kit v0.2.0 -->
 # Changelog
 
 Toutes les modifications notables de ce projet sont documentées dans ce fichier.

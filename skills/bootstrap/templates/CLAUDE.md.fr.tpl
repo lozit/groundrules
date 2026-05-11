@@ -1,84 +1,115 @@
-<!-- generated-by: starter-kit v0.1.0 -->
+<!-- generated-by: starter-kit v0.2.0 -->
 # CLAUDE.md — {{PROJECT_NAME}}
 
-Ce fichier guide Claude Code quand il travaille dans ce projet. Lis-le entièrement avant chaque session non triviale.
+> Ce fichier est **mutable et itératif**. Mets-le à jour à chaque erreur de Claude ou convention découverte. Cible : < 200 lignes.
 
-## Description du projet
+## Description
 
 {{DESCRIPTION}}
 
-## Arborescence et localisation des fichiers clés
+## Setup / Build / Test
 
-- `README.md` — présentation publique du projet, installation, usage
-- `CLAUDE.md` — ce fichier : instructions pour toi
-- `PLAN.md` — plan/todo actif (si présent). Tiens-le à jour pendant le travail.
+> **Test critique** : un nouveau dev (ou Claude) doit pouvoir lancer le projet et ses tests **du premier coup** avec les commandes ci-dessous. Si ce n'est pas le cas, complète cette section avant tout.
+
+- Installer les deps : `<à compléter>`
+- Lancer en dev : `<à compléter>`
+- Tester : `<à compléter>`
+- Linter : `<à compléter>`
+- Build : `<à compléter>`
+
+## Fichiers et dossiers clés
+
+- `README.md` — présentation publique
+- `CLAUDE.md` — ce fichier
+- `PLAN.md` — todo actif (si présent), maintenu en cours de travail
 - `docs/` — documentation projet
-  - `docs/decisions/` — ADR (Architecture Decision Records). Un fichier par décision structurante.
-  - `docs/LEARNINGS.md` — apprentissages au fil du projet (fichier plat, ordre antichronologique)
-  - `docs/ARCHITECTURE.md` — snapshot de l'architecture actuelle (si présent)
+  - `docs/decisions/` — ADR (un fichier par décision structurante)
+  - `docs/LEARNINGS.md` — apprentissages au fil du projet (antichronologique)
+  - `docs/ARCHITECTURE.md` — snapshot archi (si présent)
   - `docs/GLOSSARY.md` — vocabulaire métier (si présent)
-- `brief/` — notes amont, specs brutes, mails, brainstorm. Lis ce dossier en début de session si tu cherches du contexte métier.
-- `media/` — assets visuels (images, mockups, vidéos)
+- `brief/` — notes amont (lis ce dossier pour le contexte métier en début de session)
+- `media/` — assets visuels
+- `.claude/` — config Claude Code
+  - `.claude/settings.json` — config équipe, checké dans git
+  - `.claude/rules/*.md` — règles auto-chargées (frontmatter `paths:` pour scoping)
+  - `.claude/commands/`, `.claude/skills/`, `.claude/agents/`, `.claude/hooks/` — automatisations
 
 ## Conventions
 
 ### Commits
 
-Convention Conventional Commits :
-- `feat:` nouvelle fonctionnalité
-- `fix:` correction de bug
-- `chore:` maintenance, configuration
-- `docs:` documentation
-- `refactor:` refactorisation sans changement de comportement
-- `test:` ajout/modification de tests
-
-Privilégie des commits petits et atomiques. Ne mélange pas une refactorisation et une feature dans le même commit.
+Conventional Commits : `feat:`, `fix:`, `chore:`, `docs:`, `refactor:`, `test:`. Petits et atomiques. Ne pas mélanger refactor et feature.
 
 ### Code
 
 {{STACK}}
 
-Préfère la lisibilité à la concision. Pas d'abstractions prématurées : trois lignes similaires valent mieux qu'une abstraction conjecturale.
+Lisibilité > concision. Pas d'abstractions prématurées. Pas de commentaires qui paraphrasent le code — réservés au "pourquoi" non évident.
+
+### Permissions et settings
+
+- Permissions safe pré-allouées via `/permissions` (ex : `"Bash(npm run *)"`, `"Bash(git status)"`)
+- Config équipe dans `.claude/settings.json`, checké dans git
+- Pour des règles spécifiques à un sous-dossier : `.claude/rules/<topic>.md` avec frontmatter `paths:` plutôt que d'alourdir ce fichier
+
+## Vérifier le travail
+
+Avant de déclarer une tâche terminée :
+
+- Exécuter la commande de test ci-dessus
+- Pour UI : utiliser réellement la feature dans un navigateur, pas juste compiler
+- Pour data : vérifier les données réelles, pas juste l'absence d'erreur
+- Produire un **behavior diff** (avant/après) — pas juste "j'ai lancé les tests"
+
+> *"Prove to me this works"* — si tu ne peux pas le prouver, ce n'est pas fini.
 
 ## Quand documenter
 
-### ADR — proposer un nouveau document
+### ADR — `docs/decisions/`
 
-Dès qu'une **décision structurante** est prise (choix de techno, de pattern, de tradeoff), propose à l'utilisateur de créer un ADR dans `docs/decisions/`.
+Dès qu'une **décision structurante** est prise (techno, pattern, tradeoff), propose un ADR. Copie `0000-template.md` → `NNNN-titre-kebab.md`. Garde-le < 1 page.
 
-Format : copie `docs/decisions/0000-template.md` en `NNNN-titre-kebab.md` (incrémente le numéro). Remplis Context, Decision, Consequences. Garde-le court (< 1 page).
+### LEARNINGS — `docs/LEARNINGS.md`
 
-### LEARNINGS — ajouter une entrée
+Dès qu'un **apprentissage non-trivial** émerge (piège évité, bug subtil, convention découverte), ajoute une entrée datée en tête.
 
-Dès qu'un **apprentissage non-trivial** émerge (un piège évité, une convention découverte, un bug subtil), ajoute une entrée datée en tête de `docs/LEARNINGS.md`.
+### PLAN.md
 
-Format :
-```
-## YYYY-MM-DD — Titre court
-Ce qu'on a appris, pourquoi c'est intéressant.
-```
+Maintenir à jour : cocher fait, ajouter émergent, noter blocages.
 
-N'écris une entrée que si elle a une vraie valeur pour un futur lecteur (toi dans 3 mois, un nouveau dev). Pas de bruit.
+## Mettre à jour ce fichier
 
-### PLAN.md — maintenir à jour
+Ce fichier est vivant.
 
-Si présent, mets `PLAN.md` à jour au fil du travail :
-- Coche les tâches faites
-- Ajoute les tâches émergentes
-- Note les blocages
+- Quand Claude se trompe : ajoute la règle pour qu'il ne recommence pas
+- Quand tu repères une convention non écrite : codifie-la ici
+- Pour une règle qui **doit absolument survivre** à la croissance du fichier : `<important if="situation">règle</important>`
+- Si le fichier dépasse 200 lignes ou si une section gonfle : extraire vers `docs/` ou `.claude/rules/`
+- Pour les règles applicables à un certain type de fichier : préférer `.claude/rules/` avec `paths:` plutôt que de tout mettre ici
+
+> *"Anytime we see Claude do something incorrectly we add it to the CLAUDE.md"* — itère jusqu'à ce que le taux d'erreur soit acceptable.
+
+## Workflow Claude Code
+
+- **Plan mode** (`shift+tab`) avant toute tâche non triviale
+- **`/compact [hint]`** en cours de tâche pour comprimer le contexte ; **`/clear`** quand tu changes de tâche
+- **Git worktrees** pour sessions parallèles : `claude --worktree <nom>`
+- **Skills/commands custom** dans `.claude/` — si tu fais quelque chose plus d'une fois par jour, automatise-le
+- **Délégation > pair-programming** : avec Opus 4.6+, donne le **goal**, les **contraintes**, et les **critères d'acceptation** en premier message, plutôt que de guider ligne par ligne
 
 ## Workflow git
 
-- Ne committe que sur demande explicite (jamais de commit automatique en fin de tâche)
-- Avant de commiter, vérifie qu'il n'y a pas de secret ou de fichier de debug à inclure
+- Ne committer que sur demande explicite (jamais en fin de tâche par défaut)
+- Vérifier qu'aucun secret ni fichier de debug n'est inclus
 - Branche par feature si la modification est non triviale
 
 ## À ne pas faire
 
-- Ne pas ajouter de dépendances sans valider avec l'utilisateur
-- Ne pas créer de nouveaux fichiers de documentation sans nécessité (préférer enrichir l'existant)
-- Ne pas générer de commentaires de code qui paraphrasent le code (le "quoi"). Garde les commentaires pour le "pourquoi" non évident.
-- Ne pas faire de refactorisations opportunistes en cours de feature
+- Ne pas ajouter de dépendances sans confirmer
+- Ne pas commiter sans demande explicite
+- Ne pas créer de nouveaux fichiers doc sans nécessité (préférer enrichir)
+- Ne pas faire de refactor opportuniste pendant une feature
+- Ne pas ignorer une règle de ce fichier — si elle ne tient pas, **modifie-la**, ne la contourne pas
 
 ## Stack technique
 
@@ -86,4 +117,4 @@ Si présent, mets `PLAN.md` à jour au fil du travail :
 
 ## Notes
 
-Ce projet a été amorcé avec [starter-kit](https://github.com/guillaumeferrari/starter-kit) le {{DATE}}.
+Projet amorcé avec [starter-kit](https://github.com/guillaumeferrari/starter-kit) le {{DATE}}.

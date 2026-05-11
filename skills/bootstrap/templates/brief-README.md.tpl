@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.1.0 -->
+<!-- generated-by: starter-kit v0.2.0 -->
 # brief/ — Notes amont
 
 Ce dossier contient tout ce qui a été écrit **avant** de démarrer le projet et qui sert de contexte métier :
