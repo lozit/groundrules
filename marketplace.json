@@ -1,0 +1,20 @@
+{
+  "name": "starter-kit-local",
+  "owner": {
+    "name": "Guillaume Ferrari",
+    "email": "guillaume@paranoid.foo"
+  },
+  "metadata": {
+    "description": "Marketplace locale mono-plugin pour développer et tester starter-kit en local",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "starter-kit",
+      "source": "./",
+      "description": "Bootstrap interactif de nouveaux projets Claude Code",
+      "version": "0.1.0",
+      "category": "scaffold"
+    }
+  ]
+}

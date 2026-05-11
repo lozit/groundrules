@@ -1,0 +1,30 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*~
+
+# Logs
+*.log
+logs/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Build / dist (à adapter selon la stack)
+dist/
+build/
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+target/
+
+# Claude Code
+.claude/local/

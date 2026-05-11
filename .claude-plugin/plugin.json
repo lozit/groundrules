@@ -1,0 +1,11 @@
+{
+  "name": "starter-kit",
+  "version": "0.1.0",
+  "description": "Bootstrap interactif de nouveaux projets Claude Code : interview, structure docs/, git init, remote optionnel.",
+  "author": {
+    "name": "Guillaume Ferrari",
+    "email": "guillaume@paranoid.foo"
+  },
+  "homepage": "https://github.com/guillaumeferrari/starter-kit",
+  "keywords": ["bootstrap", "scaffold", "starter", "project-init"]
+}
