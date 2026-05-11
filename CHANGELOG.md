@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.4.0 -->
+<!-- generated-by: starter-kit v0.5.0 -->
 # Changelog
 
 All notable changes to this project are documented in this file.
@@ -6,36 +6,37 @@ All notable changes to this project are documented in this file.
 Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versions follow [Semantic Versioning](https://semver.org/).
 
-## [Unreleased — 0.4.0]
+## [Unreleased — 0.5.0]
 
 ### Added
-- New skill `/starter-kit:migrate` — upgrades a starter-kit-bootstrapped project to the current plugin version:
-  - Reads `OLD` from `.starter-kit.json`, `NEW` from `plugin.json`
-  - For each tracked file: regenerates content with original answers, compares to disk, classifies as identical / content-differs
-  - Detects new templates introduced in newer versions (proposes optional creation)
-  - Per-file decision via `AskUserQuestion`: show diff / overwrite / keep mine / save as `.new` (for manual merge)
-  - Updates `.starter-kit.json` with new version + migration entry
-  - Supports `--dry-run` via `$ARGUMENTS` (reports without writing)
-  - Refuses downgrade if project version > plugin version
-  - Never commits automatically
+- **Intent capture in `bootstrap`** (new Phase 3): the skill now asks if the user has a brief, accepts paste, file path, or in-interview questions (goal, users, constraints, non-goals, acceptance criteria). Produces:
+  - `brief/00-INTENT.md` — raw source (when paste or file path)
+  - `docs/00-VISION.md` — structured synthesis (always, unless skipped)
+  - Templates: `brief-INTENT.md.{fr,en}.tpl`, `docs-VISION.md.{fr,en}.tpl`
+- New skill **`/starter-kit:apply-best-practices`** — fetches `https://github.com/shanraisshan/claude-code-best-practice` via WebFetch, passes the project's `docs/00-VISION.md` as context, returns recommendations grouped by category (CLAUDE.md sections, `.claude/rules/`, settings.json permissions, hooks, custom skills) with High/Medium/Low priority. User picks via multi-select. Safe items applied automatically; hooks and custom skills saved to `docs/best-practices-pending.md` for manual review.
+- `.starter-kit.json` schema extended with `intent` field (source, goal, users, constraints, nonGoals, acceptanceCriteria) and `appliedPractices` (array of `{appliedAt, source, items[]}`).
 
 ### Changed
-- `.starter-kit.json` schema extended:
-  - `bootstrappedWithVersion` — frozen at first bootstrap (does NOT change on migration)
-  - `migrations` — array of `{from, to, at}` entries, appended on each migration
-  - `starterKitVersion` remains the "current effective" version (mutable)
-  - Backward-compatible: migrate handles missing fields with sensible defaults
-- `bootstrap/SKILL.md` phase 4: documents the new `.starter-kit.json` schema explicitly
-- Plugin version bumped 0.3.0 → 0.4.0
+- `bootstrap/SKILL.md` renumbered: Phase 3 (Intent) inserted, former Phase 3-7 shifted to Phase 4-8. Final recap (Phase 8) now suggests running `/starter-kit:apply-best-practices`.
+- Plugin version bumped 0.4.0 → 0.5.0 across `plugin.json`, `marketplace.json`, all template signatures, `.starter-kit.json`.
+
+### Dogfood
+- Backfilled `brief/00-INTENT.md` retroactively from the original prompt that started this project.
+- Synthesized `docs/00-VISION.md` capturing goal, 6 constraints, 5 non-goals, 7 acceptance criteria.
+- `.starter-kit.json` records the V0.2 manual integration of shanraisshan/howborisusesclaudecode best practices under `appliedPractices` (so a future `/starter-kit:apply-best-practices` run can diff against them and propose new items).
+
+## [0.4.0] — internal, never released
+
+### Added
+- New skill `/starter-kit:migrate` — upgrades a starter-kit-bootstrapped project to the current plugin version (diff per file, overwrite/keep/save-as-`.new`, `--dry-run` support, refuses downgrade).
+- `.starter-kit.json` schema extended: `bootstrappedWithVersion` (immutable) + `migrations` array (append-only).
 
 ## [0.3.0] — internal, never released
 
 ### Added
-- New skill `/starter-kit:add-adr` — creates a new ADR in `docs/decisions/` with auto-incremented number, language inferred from `.starter-kit.json`, slugified filename, and automatic index update in `decisions/README.md`. Accepts `$ARGUMENTS` for the title.
-- New skill `/starter-kit:learn` — prepends a dated entry to `docs/LEARNINGS.md`. Short by design (title + 1-line context + 1-line lesson). Accepts `$ARGUMENTS` for the title.
-- First two real ADRs documenting the project's lived experience:
-  - `0001-marketplace-json-location.md`
-  - `0002-plain-text-placeholder-substitution.md`
+- `/starter-kit:add-adr` — auto-incremented ADR creation with index update.
+- `/starter-kit:learn` — dated entry prepended to `docs/LEARNINGS.md`.
+- First two ADRs: `0001-marketplace-json-location.md`, `0002-plain-text-placeholder-substitution.md`.
 
 ## [0.2.0] — internal, never released
 

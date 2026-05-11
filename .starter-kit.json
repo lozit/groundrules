@@ -1,9 +1,10 @@
 {
-  "starterKitVersion": "0.4.0",
+  "starterKitVersion": "0.5.0",
   "bootstrappedAt": "2026-05-11",
   "bootstrappedWithVersion": "0.1.0",
   "migrations": [
-    {"from": "0.1.0", "to": "0.4.0", "at": "2026-05-11", "note": "dev-bumped during plugin authorship (informal, not via /starter-kit:migrate)"}
+    {"from": "0.1.0", "to": "0.4.0", "at": "2026-05-11", "note": "dev-bumped during plugin authorship (informal, not via /starter-kit:migrate)"},
+    {"from": "0.4.0", "to": "0.5.0", "at": "2026-05-11", "note": "V0.5 intent capture: backfilled brief/00-INTENT.md and docs/00-VISION.md retroactively from the original prompt"}
   ],
   "answers": {
     "projectName": "Starting-Claude",
@@ -15,9 +16,53 @@
     "hasArchitecture": true,
     "hasGlossary": false,
     "hasChangelog": true,
-    "remoteProvider": null,
-    "remoteVisibility": null
+    "remoteProvider": "github",
+    "remoteVisibility": "public"
   },
+  "intent": {
+    "source": "paste",
+    "filePath": null,
+    "goal": "Construire un plugin Claude Code partageable qui standardise l'amorçage de nouveaux projets via un slash command interactif. Génère structure de doc (CLAUDE.md, docs/, ADR, learnings, brief, vision), git init, remote optionnel, application dynamique des bonnes pratiques fetchées en ligne.",
+    "users": "Guillaume Ferrari (solo) + communauté Claude Code installant via la marketplace publique sur GitHub (lozit/claude-code-starter-kit).",
+    "constraints": [
+      "Plugin Claude Code natif (.claude-plugin/, skills/), pas de runtime externe",
+      "Pas de moteur de templates — substitution texte simple {{KEY}} (cf. ADR 0002)",
+      "Bilingue FR/EN sur tous les templates utilisateur",
+      "Stack-agnostique (pas d'opinion forte Node/Python/etc.)",
+      "Fonctionne majoritairement offline (WebFetch seulement dans apply-best-practices)",
+      "CLAUDE.md généré sous 200 lignes (cible shanraisshan)"
+    ],
+    "nonGoals": [
+      "Ne remplace pas l'écriture du CLAUDE.md (c'est un starter, pas un générateur)",
+      "Pas de gestion CI/CD (pas de templates GitHub Actions/GitLab CI)",
+      "Pas de support pour tooling non-Claude-Code (Cursor, Continue, etc.)",
+      "Pas de génération de code applicatif (pas de squelette React/Python/etc.)",
+      "Pas d'IA propriétaire pour la synthèse — Claude lui-même fait le boulot"
+    ],
+    "acceptanceCriteria": [
+      "Bootstrap d'un nouveau projet en < 5 minutes",
+      "5 skills opérationnels : bootstrap, add-adr, learn, migrate, apply-best-practices",
+      "Structure générée complète (README, CLAUDE.md, docs/, brief/, media/, conditionnels)",
+      "Intent capturable au bootstrap (brief paste / fichier / interview / skip)",
+      "apply-best-practices fetche shanraisshan, filtre par vision, propose multi-select",
+      "Plugin publié sur GitHub marketplace publique",
+      "Dogfood : le repo Starting-Claude utilise sa propre structure et vision"
+    ]
+  },
+  "appliedPractices": [
+    {
+      "appliedAt": "2026-05-11",
+      "source": "shanraisshan/claude-code-best-practice + howborisusesclaudecode.com (manual integration during V0.2 authorship)",
+      "note": "Manually integrated in CLAUDE.md.{fr,en}.tpl during V0.2 dev — not via /starter-kit:apply-best-practices since that skill didn't exist yet. Future runs of apply-best-practices on this repo would diff against these and propose new items.",
+      "items": [
+        {"category": "claudemd-section", "name": "Setup / Build / Test (commandes en tête)", "status": "applied"},
+        {"category": "claudemd-section", "name": "Mettre à jour ce fichier (philosophie Boris)", "status": "applied"},
+        {"category": "claudemd-section", "name": "Vérifier le travail (Prove it works)", "status": "applied"},
+        {"category": "claudemd-section", "name": "Workflow Claude Code (plan mode, /compact, worktrees)", "status": "applied"},
+        {"category": "claudemd-reference", "name": ".claude/settings.json, .claude/rules/*.md, <important if=...> tags", "status": "applied (mentioned, not yet exercised in dogfood)"}
+      ]
+    }
+  ],
   "generatedFiles": [
     "docs/decisions/README.md",
     "docs/decisions/0000-template.md",
@@ -27,6 +72,8 @@
     "PLAN.md",
     "docs/ARCHITECTURE.md",
     "CHANGELOG.md",
+    "brief/00-INTENT.md",
+    "docs/00-VISION.md",
     ".starter-kit.json"
   ],
   "skippedFiles": {

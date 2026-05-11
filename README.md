@@ -6,7 +6,8 @@ Plugin Claude Code qui **bootstrappe** un nouveau projet via un slash command in
 
 ## Slash commands fournis
 
-- `/starter-kit:bootstrap` — interview + génération from-scratch d'un nouveau projet
+- `/starter-kit:bootstrap` — interview + capture d'intent (brief paste / fichier / interview) + génération from-scratch d'un nouveau projet
+- `/starter-kit:apply-best-practices` — fetche `shanraisshan/claude-code-best-practice` à jour et propose les recommandations adaptées à `docs/00-VISION.md` du projet
 - `/starter-kit:add-adr` — créer un nouvel ADR avec numéro auto, index mis à jour
 - `/starter-kit:learn` — ajouter une entrée datée à `docs/LEARNINGS.md`
 - `/starter-kit:migrate` — mettre à jour un projet existant vers la version courante du plugin (diff par fichier, jamais d'écrasement sans confirmation, supporte `--dry-run`)
@@ -92,7 +93,8 @@ Si absent, le plugin affiche les commandes prêtes à coller pour exécution man
 - [x] V0.2 — `CLAUDE.md` template restructuré avec best practices (Boris Cherny, shanraisshan)
 - [x] V0.3 — skills `/starter-kit:add-adr` (nouvel ADR auto-incrémenté) et `/starter-kit:learn` (entrée datée dans LEARNINGS)
 - [x] V0.4 — skill `/starter-kit:migrate` (diff par fichier, `.new` fallback, `--dry-run`)
-- [ ] Publication marketplace publique sur GitHub
+- [x] V0.5 — intent capture dans `bootstrap` + skill `/starter-kit:apply-best-practices` (fetch shanraisshan, propose adapté à la vision)
+- [x] Publication marketplace publique sur GitHub : [lozit/claude-code-starter-kit](https://github.com/lozit/claude-code-starter-kit)
 
 ## Licence
 
