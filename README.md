@@ -34,10 +34,10 @@ Tous les fichiers générés portent une signature `<!-- generated-by: starter-k
 /plugin install starter-kit@starter-kit-local
 ```
 
-### Depuis GitHub (si publié)
+### Depuis GitHub
 
 ```bash
-/plugin marketplace add https://github.com/guillaumeferrari/starter-kit
+/plugin marketplace add https://github.com/lozit/claude-code-starter-kit
 /plugin install starter-kit
 ```
 

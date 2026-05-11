@@ -117,4 +117,4 @@ This file is alive.
 
 ## Notes
 
-Project bootstrapped with [starter-kit](https://github.com/guillaumeferrari/starter-kit) on {{DATE}}.
+Project bootstrapped with [starter-kit](https://github.com/lozit/claude-code-starter-kit) on {{DATE}}.

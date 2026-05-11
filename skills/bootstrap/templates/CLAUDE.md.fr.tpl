@@ -117,4 +117,4 @@ Ce fichier est vivant.
 
 ## Notes
 
-Projet amorcé avec [starter-kit](https://github.com/guillaumeferrari/starter-kit) le {{DATE}}.
+Projet amorcé avec [starter-kit](https://github.com/lozit/claude-code-starter-kit) le {{DATE}}.
