@@ -1,10 +1,11 @@
 {
-  "starterKitVersion": "0.5.0",
+  "starterKitVersion": "0.6.0",
   "bootstrappedAt": "2026-05-11",
   "bootstrappedWithVersion": "0.1.0",
   "migrations": [
     {"from": "0.1.0", "to": "0.4.0", "at": "2026-05-11", "note": "dev-bumped during plugin authorship (informal, not via /starter-kit:migrate)"},
-    {"from": "0.4.0", "to": "0.5.0", "at": "2026-05-11", "note": "V0.5 intent capture: backfilled brief/00-INTENT.md and docs/00-VISION.md retroactively from the original prompt"}
+    {"from": "0.4.0", "to": "0.5.0", "at": "2026-05-11", "note": "V0.5 intent capture: backfilled brief/00-INTENT.md and docs/00-VISION.md retroactively from the original prompt"},
+    {"from": "0.5.0", "to": "0.6.0", "at": "2026-05-11", "note": "V0.6 add /starter-kit:verify-bootstrap skill"}
   ],
   "answers": {
     "projectName": "Starting-Claude",
@@ -71,7 +72,7 @@
         {"category": "claude-rule", "name": "plugin-meta.md (paths: .claude-plugin/, skills/, *.tpl)", "target": ".claude/rules/plugin-meta.md", "status": "applied"},
         {"category": "settings", "name": "Permissions preset (git, gh, glab, common bash, WebFetch domains)", "target": ".claude/settings.json", "status": "applied"},
         {"category": "hook", "name": "PreToolUse validation {{KEY}} non substitué", "target": "docs/best-practices-pending.md", "status": "pending (saved for manual review)"},
-        {"category": "skill", "name": "/starter-kit:verify-bootstrap (V0.6 idea)", "target": "docs/best-practices-pending.md", "status": "deferred"},
+        {"category": "skill", "name": "/starter-kit:verify-bootstrap", "target": "skills/verify-bootstrap/SKILL.md", "status": "applied (V0.6)"},
         {"category": "command", "name": "/watch-bootstrap (low priority)", "target": "docs/best-practices-pending.md", "status": "deferred"}
       ]
     }

@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.5.0 -->
+<!-- generated-by: starter-kit v0.6.0 -->
 # Best practices pending — à reviewer manuellement
 
 Fichier généré par `/starter-kit:apply-best-practices` le 2026-05-11. Contient les recommandations **non-appliquées automatiquement** (hooks, skills custom) en attente de revue humaine.
@@ -37,33 +37,9 @@ if (tool.type === 'filesystem.write' || tool.type === 'Write') {
 
 ---
 
-## Skill différée : `/starter-kit:verify-bootstrap`
+## ~~Skill différée : `/starter-kit:verify-bootstrap`~~ — **implémenté en V0.6** ✅
 
-**Source** : shanraisshan/claude-code-best-practice (#9)
-**Priorité** : Medium (idée V0.6)
-**Raison** : "Prove it works" (Boris). Après un bootstrap, valider que les fichiers générés sont cohérents : CLAUDE.md < 200 lignes, settings.json JSON valide, `.git` initialisé, signatures `generated-by` toutes à la même version, etc.
-
-### Esquisse
-
-```
-# skills/verify-bootstrap/SKILL.md
-
-description: Valide la cohérence d'un projet starter-kit-bootstrappé.
-disable-model-invocation: true
-
-Phases :
-1. Détecte .starter-kit.json, lit version courante
-2. Vérifie chaque fichier listé dans generatedFiles :
-   - Existe sur disque
-   - A la signature generated-by avec la version courante
-   - Pas de {{KEY}} résiduel
-3. Vérifie CLAUDE.md < 200 lignes
-4. Vérifie .git/ existe et premier commit présent
-5. Vérifie .claude/settings.json est du JSON valide (si présent)
-6. Affiche checklist : ✅ / ⚠️ / ❌ par fichier
-```
-
-À considérer pour V0.6.
+Le skill est désormais disponible : `skills/verify-bootstrap/SKILL.md`. Run `/starter-kit:verify-bootstrap` (rapport seul) ou `/starter-kit:verify-bootstrap --fix` (corrige les version mismatches de signature). Détecte aussi `{{KEY}}` résiduels et valide JSON.
 
 ---
 

@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.5.0 -->
+<!-- generated-by: starter-kit v0.6.0 -->
 # Architecture — {{PROJECT_NAME}}
 
 **Living** snapshot of the current architecture. Updated as the structure evolves.

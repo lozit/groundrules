@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.5.0 -->
+<!-- generated-by: starter-kit v0.6.0 -->
 # Vision — {{PROJECT_NAME}}
 
 > Synthèse de l'intent du projet. Source : {{INTENT_SOURCE}}. À mettre à jour quand l'intent évolue (rare ; les décisions tactiques vont dans `docs/decisions/`).

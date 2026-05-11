@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.5.0 -->
+<!-- generated-by: starter-kit v0.6.0 -->
 # 0004 — `.starter-kit.json` schema with `bootstrappedWithVersion` and `migrations` array
 
 **Date**: 2026-05-11
@@ -37,7 +37,7 @@ Final schema:
 
 ```json
 {
-  "starterKitVersion": "0.5.0",
+  "starterKitVersion": "0.6.0",
   "bootstrappedAt": "2026-05-11",
   "bootstrappedWithVersion": "0.1.0",
   "migrations": [

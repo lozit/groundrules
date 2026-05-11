@@ -11,6 +11,7 @@ Plugin Claude Code qui **bootstrappe** un nouveau projet via un slash command in
 - `/starter-kit:add-adr` — créer un nouvel ADR avec numéro auto, index mis à jour
 - `/starter-kit:learn` — ajouter une entrée datée à `docs/LEARNINGS.md`
 - `/starter-kit:migrate` — mettre à jour un projet existant vers la version courante du plugin (diff par fichier, jamais d'écrasement sans confirmation, supporte `--dry-run`)
+- `/starter-kit:verify-bootstrap` — valider la cohérence d'un projet starter-kit (signatures versions, placeholders résiduels `{{KEY}}`, CLAUDE.md taille, JSON valide, git). Supporte `--fix` pour les corrections triviales (bump signatures).
 
 ## Ce que fait `/starter-kit:bootstrap`
 
@@ -94,6 +95,7 @@ Si absent, le plugin affiche les commandes prêtes à coller pour exécution man
 - [x] V0.3 — skills `/starter-kit:add-adr` (nouvel ADR auto-incrémenté) et `/starter-kit:learn` (entrée datée dans LEARNINGS)
 - [x] V0.4 — skill `/starter-kit:migrate` (diff par fichier, `.new` fallback, `--dry-run`)
 - [x] V0.5 — intent capture dans `bootstrap` + skill `/starter-kit:apply-best-practices` (fetch shanraisshan, propose adapté à la vision)
+- [x] V0.6 — skill `/starter-kit:verify-bootstrap` (rapport + `--fix`)
 - [x] Publication marketplace publique sur GitHub : [lozit/claude-code-starter-kit](https://github.com/lozit/claude-code-starter-kit)
 
 ## Licence
