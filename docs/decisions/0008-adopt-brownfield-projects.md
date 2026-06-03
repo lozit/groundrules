@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.8.0 -->
+<!-- generated-by: starter-kit v0.9.0 -->
 # 0008 — Adopt existing (brownfield) projects via a dedicated skill
 
 **Date**: 2026-06-03

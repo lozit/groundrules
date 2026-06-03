@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.8.0 -->
+<!-- generated-by: starter-kit v0.9.0 -->
 # Architecture Decisions (ADR)
 
 This folder contains the project's **Architecture Decision Records**: each structural decision made during the project is recorded in a file.
@@ -42,3 +42,4 @@ No ADR needed for trivial choices or implementation details.
 | [0010](0010-managed-project-claude-md-deference.md) | Defer to an existing tool-managed project CLAUDE.md (no generation, opt-in docs pointer) | Accepted | 2026-06-03 |
 | [0011](0011-detect-no-ai-attribution-policy.md) | Detect a "no AI attribution" policy and adapt suggested commits | Accepted | 2026-06-03 |
 | [0012](0012-english-only.md) | English-only (drop bilingual FR/EN templates) | Accepted | 2026-06-04 |
+| [0013](0013-media-under-docs.md) | Move media under docs/ (docs/media/) | Accepted | 2026-06-04 |

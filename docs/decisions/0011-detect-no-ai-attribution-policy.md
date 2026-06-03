@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.8.0 -->
+<!-- generated-by: starter-kit v0.9.0 -->
 # 0011 — Detect a "no AI attribution" policy and adapt suggested commits
 
 **Date**: 2026-06-03

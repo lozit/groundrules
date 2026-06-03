@@ -28,7 +28,7 @@ If `$ARGUMENTS` contains `--dry-run` (or `dry-run`), run all analysis phases but
 
 Read `${CLAUDE_PLUGIN_ROOT}/CHANGELOG.md`. Extract and show the entries between OLD and NEW so the user understands what they'll get.
 
-> **Migrations that rename files**: some versions rename generated files (e.g. V0.7 renamed `docs/00-VISION.md` → `docs/VISION.md` and `brief/00-INTENT.md` → `brief/INTENT.md`). When migrating across such a version, detect the old name on disk and offer to `git mv` it to the new name (never duplicate; never delete without confirmation).
+> **Migrations that rename/move files**: some versions rename or relocate generated files — e.g. V0.7 renamed `docs/00-VISION.md` → `docs/VISION.md` and `brief/00-INTENT.md` → `brief/INTENT.md`; V0.9 moved `media/` → `docs/media/`. When migrating across such a version, detect the old path on disk and offer to `git mv` it to the new path (never duplicate; never delete without confirmation). For `media/` → `docs/media/`: if a top-level `media/` exists and was the starter-kit one, offer the move; if the project has its own unrelated `media/`/`public/`, leave it and just create `docs/media/`.
 
 ## Phase 3 — Analyze tracked files
 

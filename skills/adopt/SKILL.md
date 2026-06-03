@@ -83,7 +83,7 @@ Reuse `bootstrap`'s intent logic (Phase 3) for the synthesis.
 Pre-check based on the scan. Only offer what **doesn't already exist**:
 - `CLAUDE.md` **only if absent** (if it already exists → see "CLAUDE.md project file already present", no generation). If absent and **`HAS_GLOBAL_CLAUDE=true`**: default to the **lean** variant (`CLAUDE.lean.md.tpl`) that complements the global without restating it; otherwise the full variant. Same logic as `bootstrap` Phase 5 "CLAUDE.md template selection" (placeholder `{{GLOBAL_CLAUDE_NOTE}}`).
 - `docs/decisions/` (ADR) + `docs/LEARNINGS.md`
-- `brief/` + `media/` (explanatory READMEs)
+- `brief/` + `docs/media/` (explanatory READMEs)
 - Specialized docs (pre-suggested from the scan): `I18N` if i18n detected · `SECURITY` if `.env`/APIs · `DATA_MODEL` if ORM/SDK · `DESIGN_SYSTEM` if UI · `ARCHITECTURE`/`GLOSSARY`/`CHANGELOG` as desired.
 
 ### Call 4 — Planning reconciliation (if equivalents detected)

@@ -1,5 +1,5 @@
 {
-  "starterKitVersion": "0.8.0",
+  "starterKitVersion": "0.9.0",
   "bootstrappedAt": "2026-05-11",
   "bootstrappedWithVersion": "0.1.0",
   "migrations": [
@@ -7,7 +7,8 @@
     {"from": "0.4.0", "to": "0.5.0", "at": "2026-05-11", "note": "V0.5 intent capture: backfilled brief/00-INTENT.md and docs/00-VISION.md retroactively from the original prompt"},
     {"from": "0.5.0", "to": "0.6.0", "at": "2026-05-11", "note": "V0.6 add /starter-kit:verify-bootstrap skill"},
     {"from": "0.6.0", "to": "0.7.0", "at": "2026-06-03", "note": "V0.7 add optional specialized docs (DATA_MODEL, SECURITY, DESIGN_SYSTEM, ROADMAP, I18N); de-number entry docs: brief/00-INTENT.md -> brief/INTENT.md, docs/00-VISION.md -> docs/VISION.md (ADR 0007)"},
-    {"from": "0.7.0", "to": "0.8.0", "at": "2026-06-04", "note": "V0.8 English-only: dropped bilingual FR/EN templates + {{LANG}} logic, translated skills/docs to English (ADR 0012)"}
+    {"from": "0.7.0", "to": "0.8.0", "at": "2026-06-04", "note": "V0.8 English-only: dropped bilingual FR/EN templates + {{LANG}} logic, translated skills/docs to English (ADR 0012)"},
+    {"from": "0.8.0", "to": "0.9.0", "at": "2026-06-04", "note": "V0.9 moved media/ -> docs/media/ to avoid collision with project media/public folders (ADR 0013)"}
   ],
   "answers": {
     "projectName": "Starting-Claude",
@@ -44,7 +45,7 @@
     "acceptanceCriteria": [
       "Bootstrap d'un nouveau projet en < 5 minutes",
       "7 skills opérationnels : bootstrap, adopt, add-adr, learn, migrate, apply-best-practices, verify-bootstrap",
-      "Structure générée complète (README, CLAUDE.md, docs/, brief/, media/, conditionnels)",
+      "Structure générée complète (README, CLAUDE.md, docs/, brief/, docs/media/, conditionnels)",
       "Intent capturable au bootstrap (brief paste / fichier / interview / skip)",
       "apply-best-practices fetche shanraisshan, filtre par vision, propose multi-select",
       "Plugin publié sur GitHub marketplace publique",
@@ -83,7 +84,7 @@
     "docs/decisions/0000-template.md",
     "docs/LEARNINGS.md",
     "brief/README.md",
-    "media/README.md",
+    "docs/media/README.md",
     "PLAN.md",
     "docs/ARCHITECTURE.md",
     "CHANGELOG.md",

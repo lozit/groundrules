@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.8.0 -->
+<!-- generated-by: starter-kit v0.9.0 -->
 # Internationalization (i18n) — {{PROJECT_NAME}}
 
 **Living** strategy for multilingual support.

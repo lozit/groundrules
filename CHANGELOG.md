@@ -1,10 +1,20 @@
-<!-- generated-by: starter-kit v0.8.0 -->
+<!-- generated-by: starter-kit v0.9.0 -->
 # Changelog
 
 All notable changes to this project are documented in this file.
 
 Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versions follow [Semantic Versioning](https://semver.org/).
+
+## [Unreleased — 0.9.0]
+
+### Changed
+- **`media/` moved to `docs/media/`** — the asset folder is now generated under `docs/` instead of at the project root, to avoid colliding with a project's own top-level `media/` or `public/`. Updated across `bootstrap` (scan + mapping), `adopt`, the `CLAUDE.md`/`README` templates, and the dogfood (`media/README.md` → `docs/media/README.md` via `git mv`). See ADR 0013.
+- `/starter-kit:migrate` learns the move: for a pre-0.9 project it offers to `git mv` a starter-kit `media/` to `docs/media/` (leaves a project's own unrelated `media/`/`public/` untouched).
+- Plugin version bumped 0.8.0 → 0.9.0 across `plugin.json`, `marketplace.json`, all template/doc signatures, and `.starter-kit.json` (`starterKitVersion` + new migration entry).
+
+### Decisions
+- ADR `0013-media-under-docs.md` — rationale for moving the asset folder under `docs/`.
 
 ## [0.8.0]
 

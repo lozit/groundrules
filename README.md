@@ -22,7 +22,7 @@ All generated files are in **English**.
 
 - `README.md`, `CLAUDE.md`, `.gitignore` — always
 - `docs/decisions/` (Michael Nygard ADR), `docs/LEARNINGS.md` — always
-- `brief/`, `media/` — always, with explanatory READMEs
+- `brief/`, `docs/media/` — always, with explanatory READMEs
 - `PLAN.md`, `docs/ARCHITECTURE.md`, `docs/GLOSSARY.md`, `CHANGELOG.md` — depending on your answers
 - optional specialized docs — `docs/DATA_MODEL.md`, `docs/SECURITY.md`, `docs/DESIGN_SYSTEM.md`, `docs/ROADMAP.md`, `docs/I18N.md`
 - `git init` + first commit
@@ -43,7 +43,7 @@ Every generated file carries a `<!-- generated-by: starter-kit -->` signature to
 | `docs/decisions/0000-template.md` | ADR template to copy: Context, Decision, Alternatives considered, Consequences (positive / tradeoffs), Status. |
 | `docs/LEARNINGS.md` | Journal of non-trivial learnings, reverse-chronological. One entry = dated title + Context + Lesson. Fed by `/starter-kit:learn`. |
 | `brief/README.md` | Explains the role of the `brief/` folder: upstream notes and raw specs (client specs, brainstorms, emails, scoping notes) before migrating to `docs/`. |
-| `media/README.md` | Explains the role of the `media/` folder: visual and binary assets (images, mockups, screenshots, diagrams), with naming and format conventions. |
+| `docs/media/README.md` | Explains the role of the `docs/media/` folder: visual and binary assets (images, mockups, screenshots, diagrams), with naming and format conventions. |
 | `.starter-kit.json` | Bootstrap manifest (not meant for manual editing): plugin version, chosen options, intent source, generated/ignored files. Used by resume mode and the `migrate`/`verify-bootstrap` skills. |
 
 ### Created based on your answers
@@ -134,6 +134,7 @@ If absent, the plugin shows the ready-to-paste commands for manual execution.
 - [x] V0.6 — skill `/starter-kit:verify-bootstrap` (report + `--fix`)
 - [x] V0.7 — optional specialized docs in `bootstrap` (`DATA_MODEL`, `SECURITY`, `DESIGN_SYSTEM`, `ROADMAP`, `I18N`); VISION/INTENT de-numbering; superpowers interop; broadened planning detection; skill `/starter-kit:adopt` (brownfield); global/enterprise CLAUDE.md awareness
 - [x] V0.8 — English-only: dropped the bilingual FR/EN templates and the `{{LANG}}` logic (less maintenance, all projects in English)
+- [x] V0.9 — `media/` moved under `docs/media/` (avoid collision with project `media/`/`public/`)
 - [x] Public marketplace published on GitHub: [lozit/claude-code-starter-kit](https://github.com/lozit/claude-code-starter-kit)
 
 ## License

@@ -4,7 +4,7 @@ paths:
   - "skills/**"
   - "**/*.tpl"
 ---
-<!-- generated-by: starter-kit v0.8.0 -->
+<!-- generated-by: starter-kit v0.9.0 -->
 
 # Plugin meta-development rules
 
@@ -18,7 +18,7 @@ This repo is a Claude Code plugin, not an application. All logic lives in **Mark
 
 The repo has **two disjoint layers** (cf. ADR 0003 + the root `CLAUDE.md`):
 - **Layer A** = published sources (`.claude-plugin/`, `skills/`)
-- **Layer B** = self-applied project docs (`README.md`, root `CLAUDE.md`, `docs/`, `brief/`, `media/`, `PLAN.md`...)
+- **Layer B** = self-applied project docs (`README.md`, root `CLAUDE.md`, `docs/`, `brief/`, `docs/media/`, `PLAN.md`...)
 
 When you change something, ask: "layer A (sources) or layer B (dogfood)?". The paths never overlap.
 

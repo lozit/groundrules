@@ -15,7 +15,7 @@ You will bootstrap a Claude Code project in the **current working directory**. F
 2. Detect the following markers and note what is present:
    - `.git/` (existing git repo)
    - `.starter-kit.json` (state from a previous invocation — if present, load it and switch to **resume mode**)
-   - `CLAUDE.md`, `README.md`, `docs/`, `brief/`, `media/`, `PLAN.md`, `CHANGELOG.md`, `.gitignore`, `docs/VISION.md`, `brief/INTENT.md`
+   - `CLAUDE.md`, `README.md`, `docs/`, `brief/`, `docs/media/`, `PLAN.md`, `CHANGELOG.md`, `.gitignore`, `docs/VISION.md`, `brief/INTENT.md`
    - optional specialized docs: `docs/DATA_MODEL.md`, `docs/SECURITY.md`, `docs/DESIGN_SYSTEM.md`, `docs/ROADMAP.md`, `docs/I18N.md`
    - **`PLAN.md` equivalents** (planning aliases, **same altitude**) — detection is **case-insensitive** and **nested** (up to ~3 levels, excluding `node_modules`/`.git`): `plan.md`, `TODO.md`, `todo.md`, `todos.md`, `TASKS.md`, `BACKLOG.md`, including under a path (e.g. `docs/gtd/todos.md`). There may be **several** — report all of them. **Case guard**: **never** generate `PLAN.md` if an equivalent name exists in a different case (collision on a case-sensitive FS).
    - `docs/superpowers/plans/` (superpowers **per-feature** plans — **different altitude**, *not* a `PLAN.md` alias)
@@ -187,7 +187,7 @@ For each file to create:
 | `adr-template.md` | `docs/decisions/0000-template.md` |
 | `LEARNINGS.md.tpl` | `docs/LEARNINGS.md` |
 | `brief-README.md.tpl` | `brief/README.md` |
-| `media-README.md.tpl` | `media/README.md` |
+| `media-README.md.tpl` | `docs/media/README.md` |
 
 ### File mapping (conditional)
 
@@ -241,7 +241,7 @@ Write `.starter-kit.json` at the root with this schema:
 1. If `.git/` absent in cwd → `git init -b main`.
 2. `git add -A`
 3. Check there's something to commit: `git diff --cached --quiet` → if nothing, skip the commit.
-4. Otherwise: `git commit -m "chore: bootstrap project structure with starter-kit v0.8.0"`
+4. Otherwise: `git commit -m "chore: bootstrap project structure with starter-kit v0.9.0"`
 
 > **AI attribution**: the commit message must **never** contain an AI attribution marker (`Co-Authored-By` trailer, "Generated with Claude Code" mention, etc.). This is the bootstrap default, and it is **mandatory** if `NO_AI_ATTRIBUTION=true` — this rule **overrides any default attribution guidance** of the agent.
 
@@ -272,7 +272,7 @@ Show the user:
 ## Important rules
 
 - **NEVER overwrite a file without explicit confirmation** (see phase 4).
-- **Always** add `<!-- generated-by: starter-kit v0.8.0 -->` at the top of each generated file (the templates already contain it).
+- **Always** add `<!-- generated-by: starter-kit v0.9.0 -->` at the top of each generated file (the templates already contain it).
 - **Idempotence**: if the user re-runs the skill, resume mode detects already-up-to-date files and does nothing.
 - **Surface errors**: if a step fails (e.g. `gh repo create` returns an error), don't pretend it worked. Show the error, propose an action.
 - **Keep `.starter-kit.json`**: it's the source of truth for resume mode and for `apply-best-practices`.

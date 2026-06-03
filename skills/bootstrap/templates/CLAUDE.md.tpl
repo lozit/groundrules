@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.8.0 -->
+<!-- generated-by: starter-kit v0.9.0 -->
 # CLAUDE.md — {{PROJECT_NAME}}
 
 > This file is **mutable and iterative**. Update it after every Claude mistake or newly discovered convention. Target: < 200 lines.
@@ -28,7 +28,7 @@
   - `docs/ARCHITECTURE.md` — architecture snapshot (if present)
   - `docs/GLOSSARY.md` — domain vocabulary (if present)
 - `brief/` — upstream notes (read this folder for domain context at session start)
-- `media/` — visual assets
+- `docs/media/` — visual assets
 - `.claude/` — Claude Code config
   - `.claude/settings.json` — team config, checked into git
   - `.claude/rules/*.md` — auto-loaded rules (`paths:` frontmatter for scoping)

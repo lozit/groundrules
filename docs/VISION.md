@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.8.0 -->
+<!-- generated-by: starter-kit v0.9.0 -->
 # Vision — Starting-Claude
 
 > Synthesis of the project intent. Source: `brief/INTENT.md` (retroactive paste of the original prompt). Update when the intent evolves (rare; tactical decisions go in `docs/decisions/`).
@@ -33,7 +33,7 @@ Build a shareable Claude Code plugin that standardizes the bootstrapping of new 
 
 - A user can bootstrap a new project in < 5 minutes: `mkdir foo && cd foo && claude` → `/starter-kit:bootstrap` → interview answers → generated files + git initialized.
 - 7 operational skills: `bootstrap`, `adopt`, `add-adr`, `learn`, `migrate`, `apply-best-practices`, `verify-bootstrap`.
-- Generated structure: `README.md`, `CLAUDE.md` (with Setup/Build/Test, Verifying the work, Updating this file, Claude Code workflow sections, etc.), `docs/decisions/`, `docs/LEARNINGS.md`, `brief/`, `media/`, optionally `PLAN.md` / `ARCHITECTURE.md` / `GLOSSARY.md` / `CHANGELOG.md` / `VISION.md` / specialized docs (`DATA_MODEL` / `SECURITY` / `DESIGN_SYSTEM` / `ROADMAP` / `I18N`).
+- Generated structure: `README.md`, `CLAUDE.md` (with Setup/Build/Test, Verifying the work, Updating this file, Claude Code workflow sections, etc.), `docs/decisions/`, `docs/LEARNINGS.md`, `brief/`, `docs/media/`, optionally `PLAN.md` / `ARCHITECTURE.md` / `GLOSSARY.md` / `CHANGELOG.md` / `VISION.md` / specialized docs (`DATA_MODEL` / `SECURITY` / `DESIGN_SYSTEM` / `ROADMAP` / `I18N`).
 - Intent capturable at bootstrap (brief paste / brief file / interview / skip).
 - `apply-best-practices` fetches shanraisshan, filters by the project vision, proposes a multi-select, applies the safe items automatically.
 - Plugin published on GitHub with a public marketplace: installable via `/plugin marketplace add https://github.com/lozit/claude-code-starter-kit`.
