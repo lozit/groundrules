@@ -1,51 +1,51 @@
-<!-- generated-by: starter-kit v0.7.0 -->
-# Modèle de données — {{PROJECT_NAME}}
+<!-- generated-by: starter-kit v0.8.0 -->
+# Data Model — {{PROJECT_NAME}}
 
-Description **vivante** du modèle de données. Mise à jour à chaque évolution de schéma.
+**Living** description of the data model. Update it whenever the schema changes.
 
-Pour le **pourquoi** des choix (moteur, dénormalisation...) → voir `docs/decisions/`.
+For the **why** behind choices (engine, denormalization...) → see `docs/decisions/`.
 
-## Vue d'ensemble
+## Overview
 
-Paragraphe ou diagramme : les entités principales et leurs relations.
+Paragraph or diagram: the main entities and their relationships.
 
-<!-- Exemple Mermaid :
+<!-- Mermaid example:
 ```mermaid
 erDiagram
-    USER ||--o{ ORDER : passe
-    ORDER ||--|{ LINE_ITEM : contient
+    USER ||--o{ ORDER : places
+    ORDER ||--|{ LINE_ITEM : contains
 ```
 -->
 
-## Entités
+## Entities
 
-### Entité A
+### Entity A
 
-| Champ | Type | Contraintes | Description |
+| Field | Type | Constraints | Description |
 |---|---|---|---|
-| `id` | `uuid` | PK | Identifiant |
+| `id` | `uuid` | PK | Identifier |
 | `...` | `...` | `...` | `...` |
 
-### Entité B
+### Entity B
 
-| Champ | Type | Contraintes | Description |
+| Field | Type | Constraints | Description |
 |---|---|---|---|
-| `id` | `uuid` | PK | Identifiant |
+| `id` | `uuid` | PK | Identifier |
 
-## Relations
+## Relationships
 
-- `A` 1—N `B` : ...
+- `A` 1—N `B`: ...
 
-## Règles d'accès / sécurité au niveau ligne
+## Access rules / row-level security
 
-> Si la BD applique des règles d'accès par ligne (RLS) ou des policies, documente-les ici. Sinon, supprime cette section.
+> If the DB enforces row-level access rules (RLS) or policies, document them here. Otherwise, delete this section.
 
-- `A` : un utilisateur ne voit que ses propres lignes (`owner_id = auth.uid()`).
+- `A`: a user only sees their own rows (`owner_id = auth.uid()`).
 
-## Index et performance
+## Indexes and performance
 
-- `A(created_at)` — pour les requêtes par date.
+- `A(created_at)` — for date-range queries.
 
 ## Migrations
 
-Où vivent les migrations (dossier, outil) et comment en créer une : `<à compléter>`.
+Where migrations live (folder, tool) and how to create one: `<fill in>`.

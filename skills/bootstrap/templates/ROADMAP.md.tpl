@@ -1,30 +1,30 @@
-<!-- generated-by: starter-kit v0.7.0 -->
+<!-- generated-by: starter-kit v0.8.0 -->
 # Roadmap — {{PROJECT_NAME}}
 
-Découpage **long terme** en lots / jalons livrables.
+**Long-term** breakdown into deliverable milestones / increments.
 
-> Distinct de `PLAN.md` (todo **actif** du moment) : la roadmap décrit la trajectoire, pas la tâche en cours. Les décisions structurantes vont dans `docs/decisions/`.
+> Distinct from `PLAN.md` (the **active** todo right now): the roadmap describes the trajectory, not the current task. Structural decisions go in `docs/decisions/`.
 
-## Vision condensée
+## Condensed vision
 
-Une phrase sur où on veut aller : `<à compléter>`.
+One sentence on where we want to go: `<fill in>`.
 
-## Lots
+## Milestones
 
-### Lot 1 — MVP
+### Milestone 1 — MVP
 
-- **Objectif** : `<à compléter>`
-- **Contenu** : `<à compléter>`
-- **Critère de sortie** : `<à compléter>`
-- **Statut** : À venir / En cours / Livré
+- **Goal**: `<fill in>`
+- **Scope**: `<fill in>`
+- **Exit criteria**: `<fill in>`
+- **Status**: Upcoming / In progress / Shipped
 
-### Lot 2 — `<titre>`
+### Milestone 2 — `<title>`
 
-- **Objectif** : `<à compléter>`
-- **Contenu** : `<à compléter>`
-- **Critère de sortie** : `<à compléter>`
-- **Statut** : À venir
+- **Goal**: `<fill in>`
+- **Scope**: `<fill in>`
+- **Exit criteria**: `<fill in>`
+- **Status**: Upcoming
 
-## Hors scope (pour l'instant)
+## Out of scope (for now)
 
-Idées explicitement reportées : `<à compléter>`.
+Ideas explicitly deferred: `<fill in>`.

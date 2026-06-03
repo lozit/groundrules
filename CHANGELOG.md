@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.7.0 -->
+<!-- generated-by: starter-kit v0.8.0 -->
 # Changelog
 
 All notable changes to this project are documented in this file.
@@ -6,7 +6,19 @@ All notable changes to this project are documented in this file.
 Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versions follow [Semantic Versioning](https://semver.org/).
 
-## [Unreleased — 0.7.0]
+## [Unreleased — 0.8.0]
+
+### Changed
+- **English-only** — dropped the bilingual FR/EN support. All `*.fr.tpl`/`*.fr.md` templates removed; English is now the single template set (one `.tpl` per file, no language suffix; `adr-template.md`). Removed the `{{LANG}}` placeholder, the "language" interview question, and all per-language template selection across `bootstrap`/`adopt`/`migrate`/`add-adr`/`learn`. The 7 `SKILL.md` files and the dogfood docs (README, root CLAUDE.md, VISION, INTENT, rules, best-practices-pending) were translated to English. Rationale: all projects are done in English; maintaining two language variants was overhead for no benefit. See ADR 0012.
+- Plugin version bumped 0.7.0 → 0.8.0 across `plugin.json`, `marketplace.json`, all template/doc signatures, and `.starter-kit.json` (`starterKitVersion` + new migration entry; obsolete `answers.lang` dropped).
+
+### Migration note
+- `/starter-kit:migrate` on a pre-0.8 (bilingual) project does **not** overwrite French content with English: it reports language-change files for manual review and offers the new English template as `<file>.new`.
+
+### Decisions
+- ADR `0012-english-only.md` — rationale for dropping the bilingual FR/EN templates and the `{{LANG}}` logic.
+
+## [0.7.0]
 
 ### Added
 - **Optional specialized docs in `bootstrap`** (new interview call "Appel 2b", multiSelect): the skill can now generate, on demand, any of:

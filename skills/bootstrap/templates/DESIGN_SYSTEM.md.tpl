@@ -1,48 +1,48 @@
-<!-- generated-by: starter-kit v0.7.0 -->
+<!-- generated-by: starter-kit v0.8.0 -->
 # Design System — {{PROJECT_NAME}}
 
-Référence **vivante** de l'identité visuelle et des composants d'interface.
+**Living** reference of the visual identity and UI components.
 
-Garde-la synchronisée avec le code (tokens, thème). Le **pourquoi** des choix → `docs/decisions/`.
+Keep it in sync with the code (tokens, theme). The **why** behind choices → `docs/decisions/`.
 
-## Principes
+## Principles
 
-Quelques principes directeurs (sobriété, accessibilité, densité...) : `<à compléter>`.
+A few guiding principles (restraint, accessibility, density...): `<fill in>`.
 
-## Couleurs
+## Colors
 
-| Token | Valeur | Usage |
+| Token | Value | Usage |
 |---|---|---|
-| `--color-primary` | `#......` | Actions principales |
-| `--color-bg` | `#......` | Fond |
-| `--color-text` | `#......` | Texte |
+| `--color-primary` | `#......` | Primary actions |
+| `--color-bg` | `#......` | Background |
+| `--color-text` | `#......` | Text |
 
-## Typographie
+## Typography
 
-- Police principale : `<à compléter>`
-- Échelle : `<à compléter>` (ex. 12 / 14 / 16 / 20 / 24 / 32)
-- Graisses : `<à compléter>`
+- Primary font: `<fill in>`
+- Scale: `<fill in>` (e.g. 12 / 14 / 16 / 20 / 24 / 32)
+- Weights: `<fill in>`
 
-## Espacements et grille
+## Spacing and grid
 
-- Unité de base : `<à compléter>` (ex. 4px / 8px)
-- Points de rupture responsive : `<à compléter>`
+- Base unit: `<fill in>` (e.g. 4px / 8px)
+- Responsive breakpoints: `<fill in>`
 
-## Composants
+## Components
 
-### Bouton
+### Button
 
-Variantes (primaire, secondaire, danger), états (hover, focus, disabled) : `<à compléter>`.
+Variants (primary, secondary, danger), states (hover, focus, disabled): `<fill in>`.
 
-### Champ de formulaire
+### Form field
 
-États (vide, rempli, erreur, désactivé) : `<à compléter>`.
+States (empty, filled, error, disabled): `<fill in>`.
 
-## Accessibilité
+## Accessibility
 
-- Contrastes (WCAG AA min) : `<à compléter>`
-- Focus visible, navigation clavier : `<à compléter>`
+- Contrast (WCAG AA min): `<fill in>`
+- Visible focus, keyboard navigation: `<fill in>`
 
-## Où vivent les tokens
+## Where tokens live
 
-Fichier(s) source des tokens / thème dans le code : `<à compléter>`.
+Source file(s) for tokens / theme in the code: `<fill in>`.

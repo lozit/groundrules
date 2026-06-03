@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.7.0 -->
+<!-- generated-by: starter-kit v0.8.0 -->
 # 0001 — `marketplace.json` lives in `.claude-plugin/`, not at the repo root
 
 **Date**: 2026-05-11

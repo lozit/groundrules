@@ -1,41 +1,43 @@
-<!-- generated-by: starter-kit v0.7.0 -->
+<!-- generated-by: starter-kit v0.8.0 -->
 # Brief / Intent — Starting-Claude
 
-Contenu brut amont (paste, copie de mail, transcription d'appel, doc PO, etc.) décrivant l'intention du projet.
+Raw upstream content (paste, email copy, call transcript, PO doc, etc.) describing the project intent.
 
-Ce fichier est la **source brute**. La synthèse structurée (goal, users, constraints, non-goals, acceptance) vit dans `docs/VISION.md`.
+This file is the **raw source**. The structured synthesis (goal, users, constraints, non-goals, acceptance) lives in `docs/VISION.md`.
 
 ---
 
-> Capturé rétroactivement le 2026-05-11 depuis le premier message qui a lancé le projet (avant que la phase d'intent capture n'existe dans le plugin lui-même — voir ADR à venir sur le bootstrap rétroactif).
+> Captured retroactively on 2026-05-11 from the first message that kicked off the project (before the intent-capture phase existed in the plugin itself).
 
-Je voudrais créer un moyen de démarrer le mieux possible un projet Claude Code. Donc j'imagine une slash command peut-être ? à toi de me dire si c'est la bonne méthode.
+> Note: the original prompt was written in French; it has been translated to English (the project is now English-only — cf. ADR 0012). The intent is preserved.
 
-Généralement je commence avec ce CLAUDE.md trouvé ici : https://resources.leadgenman.com/claudemdfile et ensuite je regarde comment l'améliorer avec ce document ici : https://github.com/shanraisshan/claude-code-best-practice
-Il y a d'autres ressources intéressantes sur les bonnes pratiques ici : https://howborisusesclaudecode.com/ et https://github.com/0xquinto/bcherny-claude
+I'd like to create a way to start a Claude Code project as well as possible. So I imagine maybe a slash command? Tell me if that's the right method.
 
-En plus d'une configuration de projet adaptée, je voudrais aussi un peu standardiser ce que je fais :
-- Systématiquement utiliser GIT
-- Facultativement utiliser GITLAB ou GITHUB pour héberger certains projets
-- Avoir une arborescence pré-définie pour documenter le projet : je veux que le plan/todo soit présent dans mon dossier de travail, je veux un README.md qui correspond à ce que l'on doit produire sur un projet GIT (explication du projet, comment on installe etc). Peut-être une DOCUMENTATION.md si nécessaire. Je voudrais que les décisions que l'on prend soient notées dans cette arborescence. Idem pour les choses que l'on a apprises. Je voudrais aussi un dossier qui contiendra tout ce que j'ai écrit en amont pour décrire le projet (peut-être là aussi on peut créer une arborescence) et aussi pour stocker les fichiers nécessaires aux projets. Une zone pour des médias. Etc.
+I usually start with this CLAUDE.md found here: https://resources.leadgenman.com/claudemdfile and then I look at how to improve it with this document: https://github.com/shanraisshan/claude-code-best-practice
+There are other interesting resources on best practices here: https://howborisusesclaudecode.com/ and https://github.com/0xquinto/bcherny-claude
 
-Un ami a fait cette structure :
+In addition to a tailored project configuration, I'd also like to standardize a bit what I do:
+- Always use GIT
+- Optionally use GITLAB or GITHUB to host some projects
+- Have a predefined tree to document the project: I want the plan/todo present in my working folder, I want a README.md matching what should be produced on a GIT project (project explanation, how to install, etc.). Maybe a DOCUMENTATION.md if needed. I'd like the decisions we make to be recorded in this tree. Same for the things we've learned. I'd also like a folder containing everything I wrote upfront to describe the project (maybe a tree there too) and to store the files needed for the project. An area for media. Etc.
+
+A friend made this structure:
 ```
 docs/
-  00-VISION.md          contexte métier, objectifs, ce qui est hors V1
-  01-ARCHITECTURE.md    stack, environnements, décisions structurantes
-  02-DATA_MODEL.md      schémas Supabase, règles RLS
-  03-MODULES.md         spécifications des 6 modules V1
-  04-I18N.md            stratégie bilingue FR/EN
-  05-SALESFORCE.md      mapping des champs, flux de synchronisation
-  06-DESIGN_SYSTEM.md   couleurs, typographies, composants
-  07-SECURITY_RGPD.md   authentification, RLS, conformité
-  08-NOTIFICATIONS.md   matrice push et emails transactionnels
-  09-ROADMAP.md         découpage en lots livrables
-  10-PROPERTIES.md      données de référence des 5 propriétés
-  tickets/              un fichier .md par ticket
+  00-VISION.md          business context, goals, what's out of V1
+  01-ARCHITECTURE.md    stack, environments, structural decisions
+  02-DATA_MODEL.md      database schemas, RLS rules
+  03-MODULES.md         specs of the 6 V1 modules
+  04-I18N.md            bilingual strategy
+  05-INTEGRATION.md     field mapping, sync flows
+  06-DESIGN_SYSTEM.md   colors, typography, components
+  07-SECURITY_GDPR.md   authentication, RLS, compliance
+  08-NOTIFICATIONS.md   push and transactional-email matrix
+  09-ROADMAP.md         breakdown into deliverable increments
+  10-REFERENCE_DATA.md  reference data
+  tickets/              one .md file per ticket
 ```
 
-Ça me paraît un peu complexe, mais c'est un bon système.
+It looks a bit complex to me, but it's a good system.
 
-J'imagine qu'on pourrait démarrer le projet soit en répondant à des questions que tu poserais, soit en constituant une documentation qui servirait de point de départ.
+I imagine we could start the project either by answering questions you'd ask, or by assembling documentation that would serve as a starting point.

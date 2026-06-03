@@ -1,112 +1,111 @@
 ---
 name: apply-best-practices
-description: Fetch shanraisshan/claude-code-best-practice, propose les recommandations adaptées à la vision du projet, applique celles que l'utilisateur sélectionne.
+description: Fetch shanraisshan/claude-code-best-practice, propose recommendations tailored to the project vision, apply the ones the user selects.
 disable-model-invocation: true
 allowed-tools: Read, Write, Edit, WebFetch, AskUserQuestion, Bash
 ---
 
 # /starter-kit:apply-best-practices
 
-Tu vas fetcher les bonnes pratiques Claude Code maintenues à jour par la communauté, les filtrer en fonction de la **vision** du projet, et appliquer les recommandations sélectionnées par l'utilisateur.
+You will fetch the up-to-date, community-maintained Claude Code best practices, filter them against the project **vision**, and apply the recommendations the user selects.
 
-## Phase 1 — Pré-requis
+## Phase 1 — Prerequisites
 
-1. `.starter-kit.json` doit exister dans le cwd. Sinon : *"Ce projet n'a pas été amorcé avec starter-kit. Lance d'abord `/starter-kit:bootstrap`."* Stop.
-2. `docs/VISION.md` doit exister. Sinon : *"Pas de vision du projet trouvée. Cette commande a besoin de l'intent pour proposer des pratiques adaptées. Lance `/starter-kit:bootstrap` (ou ajoute manuellement la vision avant de relancer)."* Stop.
-3. Lis `.starter-kit.json` → extrais `answers.lang` pour la langue de l'interaction.
-4. Lis `docs/VISION.md` → contenu intégral à passer au fetch.
+1. `.starter-kit.json` must exist in the cwd. Otherwise: *"This project was not bootstrapped with starter-kit. Run `/starter-kit:bootstrap` first."* Stop.
+2. `docs/VISION.md` must exist. Otherwise: *"No project vision found. This command needs the intent to propose tailored practices. Run `/starter-kit:bootstrap` (or add the vision manually before re-running)."* Stop.
+3. Read `docs/VISION.md` → full content to pass to the fetch.
 
-## Phase 2 — Fetch des bonnes pratiques
+## Phase 2 — Fetch the best practices
 
-Utilise `WebFetch` sur `https://github.com/shanraisshan/claude-code-best-practice` avec ce prompt (à adapter à la langue) :
+Use `WebFetch` on `https://github.com/shanraisshan/claude-code-best-practice` with this prompt:
 
-> Voici la vision d'un projet Claude Code :
+> Here is the vision of a Claude Code project:
 >
 > ```
-> <contenu intégral de docs/VISION.md>
+> <full content of docs/VISION.md>
 > ```
 >
-> Extrais de cette page les meilleures pratiques Claude Code qui sont **pertinentes pour CE projet précisément** (pas une liste générique). Catégorise les recommandations en :
+> Extract from this page the Claude Code best practices that are **relevant for THIS project specifically** (not a generic list). Categorize the recommendations into:
 >
-> 1. **Sections à ajouter ou enrichir dans `CLAUDE.md`** — pour chaque section, donner : nom proposé, contenu suggéré en 3-6 lignes, raison liée à la vision
-> 2. **Fichiers `.claude/rules/<topic>.md`** — pour chaque règle, donner : nom de fichier, frontmatter `paths:` si applicable, contenu, raison
-> 3. **Permissions à pré-allouer dans `.claude/settings.json`** — liste des patterns (`Bash(npm run *)`, `Edit(/docs/**)`, etc.) avec justification
-> 4. **Hooks à considérer** — type de hook (PreToolUse, PostToolUse, Stop...), but, snippet
-> 5. **Skills / agents / slash commands custom à créer** — nom, but, déclencheur
+> 1. **Sections to add or enrich in `CLAUDE.md`** — for each section: proposed name, suggested content in 3-6 lines, reason tied to the vision
+> 2. **`.claude/rules/<topic>.md` files** — for each rule: filename, `paths:` frontmatter if applicable, content, reason
+> 3. **Permissions to pre-allow in `.claude/settings.json`** — list of patterns (`Bash(npm run *)`, `Edit(/docs/**)`, etc.) with justification
+> 4. **Hooks to consider** — hook type (PreToolUse, PostToolUse, Stop...), purpose, snippet
+> 5. **Custom skills / agents / slash commands to create** — name, purpose, trigger
 >
-> Pour chaque recommandation, attribue une priorité **High / Medium / Low** basée sur l'adéquation à la vision. Maximum 15 recommandations totales — privilégie la pertinence sur l'exhaustivité.
+> For each recommendation, assign a **High / Medium / Low** priority based on the fit to the vision. Maximum 15 recommendations total — prefer relevance over exhaustiveness.
 >
-> Format de sortie : Markdown structuré, une recommandation par bloc avec `### NOM` + `**Catégorie** | **Priorité** | **Raison** | **Contenu suggéré**`.
+> Output format: structured Markdown, one recommendation per block with `### NAME` + `**Category** | **Priority** | **Reason** | **Suggested content**`.
 
-## Phase 3 — Présenter les recommandations
+## Phase 3 — Present the recommendations
 
-Affiche le résultat du WebFetch à l'utilisateur, formaté lisiblement.
+Show the WebFetch result to the user, formatted readably.
 
-Note : si WebFetch échoue (réseau, repo déplacé, etc.) → afficher l'erreur, proposer de réessayer ou skip. Stop si skip.
+Note: if WebFetch fails (network, repo moved, etc.) → show the error, offer to retry or skip. Stop if skip.
 
-## Phase 4 — Sélection
+## Phase 4 — Selection
 
-Pose une `AskUserQuestion` multi-select avec les recommandations. Si > 10 items, grouper par catégorie en plusieurs appels (max 4 options par appel pour bonne UX).
+Ask a multi-select `AskUserQuestion` with the recommendations. If > 10 items, group by category across several calls (max 4 options per call for good UX).
 
-Pour chaque recommandation, l'option label : `[PRIO] Nom court — raison en 1 ligne`.
+For each recommendation, the option label: `[PRIO] Short name — reason in 1 line`.
 
-## Phase 5 — Récap avant application
+## Phase 5 — Recap before applying
 
-Affiche en texte les recommandations sélectionnées et ce qui va concrètement changer (fichier par fichier).
+Show in text the selected recommendations and what will concretely change (file by file).
 
-`AskUserQuestion` finale : `Appliquer maintenant` / `Sauver les recommandations dans docs/best-practices-pending.md et appliquer plus tard` / `Annuler`.
+Final `AskUserQuestion`: `Apply now` / `Save the recommendations to docs/best-practices-pending.md and apply later` / `Cancel`.
 
 ## Phase 6 — Application
 
-Pour chaque recommandation sélectionnée :
+For each selected recommendation:
 
-### Si "section CLAUDE.md"
+### If "CLAUDE.md section"
 
-- Lis le `CLAUDE.md` actuel
-- Trouve l'endroit logique d'insertion (avant la section "À ne pas faire" / "Don't" qui est généralement en fin)
-- Utilise `Edit` pour insérer la nouvelle section avec son contenu suggéré
-- Vérifie que le fichier reste sous 200 lignes ; si dépassé, alerter l'utilisateur et suggérer extraction vers `.claude/rules/`
+- Read the current `CLAUDE.md`
+- Find the logical insertion point (before the "Don't" section, usually near the end)
+- Use `Edit` to insert the new section with its suggested content
+- Check the file stays under 200 lines; if exceeded, alert the user and suggest extracting to `.claude/rules/`
 
-### Si "fichier `.claude/rules/<topic>.md`"
+### If "`.claude/rules/<topic>.md` file"
 
-- Crée le fichier avec son frontmatter (incluant `paths:` si suggéré) et son contenu
-- **Signature** : placer `<!-- generated-by: starter-kit vX.Y.Z -->` sur la ligne immédiatement après le `---` closing du frontmatter (PAS en ligne 1, car le frontmatter doit y rester). Format :
+- Create the file with its frontmatter (including `paths:` if suggested) and content
+- **Signature**: place `<!-- generated-by: starter-kit vX.Y.Z -->` on the line immediately after the closing `---` of the frontmatter (NOT on line 1, because the frontmatter must stay there). Format:
   ```
   ---
   paths:
     - "..."
   ---
-  <!-- generated-by: starter-kit v0.7.0 -->
+  <!-- generated-by: starter-kit v0.8.0 -->
 
-  # Titre
+  # Title
   ...
   ```
-- Vérifie que le dossier `.claude/rules/` existe (créer si besoin via `Write` qui crée les parents)
+- Check the `.claude/rules/` folder exists (create if needed via `Write`, which creates parents)
 
-### Si "permission `.claude/settings.json`"
+### If "`.claude/settings.json` permission"
 
-- Lis `.claude/settings.json` s'il existe ; sinon démarre avec `{}` minimal
-- Ajoute la permission au tableau `permissions.allow` (créer la clé si absente)
+- Read `.claude/settings.json` if it exists; otherwise start with a minimal `{}`
+- Add the permission to the `permissions.allow` array (create the key if absent)
 - Write back
 
-### Si "hook"
+### If "hook"
 
-- N'applique **pas automatiquement** — affiche le snippet à coller manuellement dans `.claude/settings.json` ou `.claude/hooks/`
-- Raison : les hooks ont des effets de bord (commandes shell) qui exigent revue humaine
-- Sauve le snippet dans `docs/best-practices-pending.md` pour qu'il ne soit pas oublié
+- Do **not** apply automatically — show the snippet to paste manually into `.claude/settings.json` or `.claude/hooks/`
+- Reason: hooks have side effects (shell commands) that require human review
+- Save the snippet to `docs/best-practices-pending.md` so it isn't forgotten
 
-### Si "skill / agent / command custom"
+### If "custom skill / agent / command"
 
-- N'applique pas — affiche le nom et le but, suggère à l'utilisateur de le créer manuellement ou de relancer `apply-best-practices` après avoir réfléchi
-- Sauve le suggestion dans `docs/best-practices-pending.md`
+- Don't apply — show the name and purpose, suggest the user create it manually or re-run `apply-best-practices` after some thought
+- Save the suggestion to `docs/best-practices-pending.md`
 
-### Si "sauver pour plus tard" choisi en phase 5
+### If "save for later" chosen in phase 5
 
-Au lieu d'appliquer, écris tout dans `docs/best-practices-pending.md` (format Markdown structuré, copie/colle facile). Pas d'application directe.
+Instead of applying, write everything to `docs/best-practices-pending.md` (structured Markdown, easy copy/paste). No direct application.
 
-## Phase 7 — Mise à jour de `.starter-kit.json`
+## Phase 7 — Update `.starter-kit.json`
 
-Ajoute (ou met à jour) le champ `appliedPractices` :
+Add (or update) the `appliedPractices` field:
 
 ```json
 "appliedPractices": [
@@ -121,24 +120,24 @@ Ajoute (ou met à jour) le champ `appliedPractices` :
 ]
 ```
 
-L'array est append-only : chaque exécution ajoute un objet daté (utile si shanraisshan évolue et que l'utilisateur réapplique).
+The array is append-only: each run adds a dated object (useful if shanraisshan evolves and the user re-applies).
 
-## Phase 8 — Récap final
+## Phase 8 — Final recap
 
-Affiche :
-- ✅ Pratiques appliquées (avec fichier modifié/créé)
-- 📁 Pratiques en attente (sauvées dans `docs/best-practices-pending.md`)
-- ⏭️ Pratiques ignorées (non sélectionnées par l'utilisateur)
-- 📋 Next steps :
-  - Reviewer `docs/best-practices-pending.md` pour les hooks et skills suggérés
-  - Reviewer `CLAUDE.md` (si modifié) avant de commiter
-  - Lancer `/starter-kit:apply-best-practices` à nouveau plus tard si shanraisshan évolue
+Show:
+- ✅ Applied practices (with modified/created file)
+- 📁 Pending practices (saved to `docs/best-practices-pending.md`)
+- ⏭️ Ignored practices (not selected by the user)
+- 📋 Next steps:
+  - Review `docs/best-practices-pending.md` for the suggested hooks and skills
+  - Review `CLAUDE.md` (if modified) before committing
+  - Run `/starter-kit:apply-best-practices` again later if shanraisshan evolves
 
-**Ne JAMAIS commiter automatiquement.**
+**NEVER commit automatically.**
 
-## Règles importantes
+## Important rules
 
-- Le fetch est **fait à chaque exécution** : pas de cache local des recommandations (sinon le repo source — qui évolue régulièrement — ne sert à rien).
-- Pour les modifications de `CLAUDE.md`, **toujours montrer le diff** avant de write (afficher l'ancien et le nouveau via Edit's natural display).
-- Si `appliedPractices` existe déjà (re-exécution), ne pas dupliquer les pratiques déjà appliquées ; signaler "déjà appliqué le YYYY-MM-DD" et permettre de skip ou ré-appliquer (utile si la pratique a évolué).
-- Hooks et skills custom ne sont **jamais** appliqués automatiquement — toujours sauvés en `pending`.
+- The fetch is **done on every run**: no local cache of the recommendations (otherwise the source repo — which evolves regularly — is pointless).
+- For `CLAUDE.md` modifications, **always show the diff** before writing (show old and new via Edit's natural display).
+- If `appliedPractices` already exists (re-run), don't duplicate already-applied practices; report "already applied on YYYY-MM-DD" and allow skip or re-apply (useful if the practice evolved).
+- Custom hooks and skills are **never** applied automatically — always saved as `pending`.

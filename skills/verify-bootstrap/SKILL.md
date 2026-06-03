@@ -1,102 +1,103 @@
 ---
 name: verify-bootstrap
-description: Vérifie qu'un projet starter-kit-bootstrappé est cohérent. Signatures versions, placeholders résiduels, CLAUDE.md taille, JSON valide, git, fichiers vs generatedFiles. Supporte --fix pour les corrections triviales.
+description: Verify that a starter-kit-bootstrapped project is coherent. Version signatures, leftover placeholders, CLAUDE.md size, valid JSON, git, files vs generatedFiles. Supports --fix for trivial corrections.
 disable-model-invocation: true
 allowed-tools: Read, Edit, Bash, AskUserQuestion
 ---
 
 # /starter-kit:verify-bootstrap
 
-Tu vas vérifier la cohérence d'un projet amorcé avec starter-kit. Tu produiras un rapport ✅ / ⚠️ / ❌ et, sur demande, corriger les items safe.
+You will check the coherence of a starter-kit-bootstrapped project. You will produce a ✅ / ⚠️ / ❌ report and, on request, fix the safe items.
 
-Si `$ARGUMENTS` contient `--fix` (ou `fix`), passe en **mode correction** après le rapport. Sinon, rapport seul.
+If `$ARGUMENTS` contains `--fix` (or `fix`), switch to **fix mode** after the report. Otherwise, report only.
 
-## Phase 1 — Pré-requis
+## Phase 1 — Prerequisites
 
-1. `.starter-kit.json` doit exister dans le cwd. Sinon : *"Ce projet n'a pas été amorcé avec starter-kit, rien à vérifier."* Stop.
-2. Lis `.starter-kit.json` → extrais :
+1. `.starter-kit.json` must exist in the cwd. Otherwise: *"This project was not bootstrapped with starter-kit, nothing to verify."* Stop.
+2. Read `.starter-kit.json` → extract:
    - `starterKitVersion` → **EXPECTED_VERSION**
-   - `generatedFiles` → liste des fichiers à valider
-   - `bootstrappedWithVersion` (info)
+   - `generatedFiles` → list of files to validate
+   - `bootstrappedWithVersion` (info; may be `null` for an adopted project)
 
-## Phase 2 — Validations par fichier
+## Phase 2 — Per-file validations
 
-Pour chaque fichier dans `generatedFiles`, exécute ces checks dans l'ordre :
+For each file in `generatedFiles`, run these checks in order:
 
 ### 2.1 Existence
 
-`test -f <path>` → si absent, marquer **❌ manquant** et passer au fichier suivant (les checks suivants n'ont pas de sens).
+`test -f <path>` → if absent, mark **❌ missing** and move to the next file (the following checks are moot).
 
-### 2.2 Signature présente
+### 2.2 Signature present
 
-Lis les **10 premières lignes** du fichier (pour accommoder une YAML frontmatter qui peut compter jusqu'à 8-9 lignes : `---\nname: ...\npaths:\n  - "..."\n  - "..."\n---\n<!-- signature -->`). Cherche la regex `<!-- generated-by: starter-kit v([0-9]+\.[0-9]+\.[0-9]+) -->` :
-- **Match** → extraire la version (FOUND_VERSION), continuer
-- **No match** → **❌ signature absente**, passer aux checks suivants quand même
+Read the **first 10 lines** of the file (to accommodate a YAML frontmatter that can run 8-9 lines: `---\nname: ...\npaths:\n  - "..."\n  - "..."\n---\n<!-- signature -->`). Search for the regex `<!-- generated-by: starter-kit v([0-9]+\.[0-9]+\.[0-9]+) -->`:
+- **Match** → extract the version (FOUND_VERSION), continue
+- **No match** → **❌ signature missing**, run the following checks anyway
 
-**Exceptions** : les fichiers JSON (`.starter-kit.json`, `.claude/settings.json`, etc.) n'ont pas de signature (commentaire HTML invalide en JSON). Pour ces fichiers, skip ce check.
+**Exceptions**: JSON files (`.starter-kit.json`, `.claude/settings.json`, etc.) have no signature (HTML comment invalid in JSON). For those files, skip this check.
 
-**Note frontmatter YAML** : pour les fichiers commençant par `---` (rules, skills), la signature **doit** être sur la ligne juste après le `---` closing. Ex :
+**YAML frontmatter note**: for files starting with `---` (rules, skills), the signature **must** be on the line right after the closing `---`. E.g.:
 ```
 ---
 paths:
   - "..."
 ---
-<!-- generated-by: starter-kit v0.7.0 -->
+<!-- generated-by: starter-kit v0.8.0 -->
 ```
 
 ### 2.3 Version match
 
-Si signature trouvée :
+If a signature is found:
 - `FOUND_VERSION == EXPECTED_VERSION` → **✅ version OK**
-- Sinon → **⚠️ version mismatch (FOUND_VERSION vs EXPECTED_VERSION)**
+- Otherwise → **⚠️ version mismatch (FOUND_VERSION vs EXPECTED_VERSION)**
 
-### 2.4 Placeholders résiduels
+### 2.4 Leftover placeholders
 
-Cherche dans tout le contenu du fichier les **placeholders connus** de bootstrap phase 5 (whitelist exacte) :
+Search the whole file content for the **known placeholders** from bootstrap phase 5 (exact whitelist):
 
 ```
-\{\{(PROJECT_NAME|DESCRIPTION|LANG|STACK|DATE|HAS_PLAN|HAS_ARCHITECTURE|HAS_GLOSSARY|HAS_CHANGELOG|HAS_DATA_MODEL|HAS_SECURITY|HAS_DESIGN_SYSTEM|HAS_ROADMAP|HAS_I18N|GLOBAL_CLAUDE_NOTE|REMOTE_PROVIDER|REMOTE_VISIBILITY|CONTENT|INTENT_SOURCE|GOAL|USERS|CONSTRAINTS|NONGOALS|ACCEPTANCE)\}\}
+\{\{(PROJECT_NAME|DESCRIPTION|STACK|DATE|HAS_PLAN|HAS_ARCHITECTURE|HAS_GLOSSARY|HAS_CHANGELOG|HAS_DATA_MODEL|HAS_SECURITY|HAS_DESIGN_SYSTEM|HAS_ROADMAP|HAS_I18N|GLOBAL_CLAUDE_NOTE|REMOTE_PROVIDER|REMOTE_VISIBILITY|CONTENT|INTENT_SOURCE|GOAL|USERS|CONSTRAINTS|NONGOALS|ACCEPTANCE)\}\}
 ```
 
-- **Aucun match** → **✅ pas de placeholder**
-- **Match** → **❌ placeholders non substitués : {{PROJECT_NAME}}, {{DESCRIPTION}}, ...**
+- **No match** → **✅ no placeholder**
+- **Match** → **❌ unsubstituted placeholders: {{PROJECT_NAME}}, {{DESCRIPTION}}, ...**
 
-**Important : ne PAS matcher** `{{KEY}}`, `{{X}}`, `{{Y}}`, `{{NNNN}}`, etc. — ce sont des références documentaires (en backticks dans le texte) qui parlent du concept de placeholder. Seules les vraies clés bootstrap déclenchent l'erreur.
+**Important: do NOT match** `{{KEY}}`, `{{X}}`, `{{Y}}`, `{{NNNN}}`, etc. — those are documentation references (in backticks in the text) talking about the placeholder concept. Only the real bootstrap keys trigger the error.
 
-**Exception** : si le fichier est dans `skills/bootstrap/templates/` ou est lui-même un `*.tpl`, skip ce check (les templates contiennent ces placeholders par design — c'est uniquement le cas dans le dogfood, pas dans un projet utilisateur normal).
+**Exception**: if the file is in `skills/bootstrap/templates/` or is itself a `*.tpl`, skip this check (templates contain these placeholders by design — only relevant in the dogfood, not a normal user project).
 
-## Phase 3 — Validations structurelles
+## Phase 3 — Structural validations
 
 ### 3.1 `.git/`
 
-`test -d .git` → **✅ git initialisé** / **⚠️ pas de git** (peut-être intentionnel mais inhabituel)
+`test -d .git` → **✅ git initialized** / **⚠️ no git** (maybe intentional but unusual)
 
-### 3.2 CLAUDE.md taille
+### 3.2 CLAUDE.md size
 
-Si `CLAUDE.md` existe :
-- `wc -l CLAUDE.md` → nombre de lignes
-- **≤ 200** → **✅ CLAUDE.md X/200 lignes**
-- **> 200** → **⚠️ CLAUDE.md X lignes (cible : < 200, considérer extraire vers `.claude/rules/`)**
+If `CLAUDE.md` exists:
+- `wc -l CLAUDE.md` → number of lines
+- **≤ 200** → **✅ CLAUDE.md X/200 lines**
+- **> 200** → **⚠️ CLAUDE.md X lines (target: < 200, consider extracting to `.claude/rules/`)**
 
-### 3.3 JSON valides
+### 3.3 Valid JSON
 
-Pour chacun des fichiers suivants s'il existe :
+For each of the following files if it exists:
 - `.starter-kit.json`
 - `.claude/settings.json`
-- `.claude-plugin/plugin.json` (présent uniquement si le projet est lui-même un plugin)
+- `.claude-plugin/plugin.json` (present only if the project is itself a plugin)
 
-Test JSON : `python3 -c "import json,sys; json.load(open(sys.argv[1]))" <file>` (ou `node -e "JSON.parse(require('fs').readFileSync('<file>'))"`).
-- **OK** → **✅ JSON valide**
-- **Parse error** → **❌ JSON invalide : <message>**
+JSON test: `python3 -c "import json,sys; json.load(open(sys.argv[1]))" <file>` (or `node -e "JSON.parse(require('fs').readFileSync('<file>'))"`).
+- **OK** → **✅ valid JSON**
+- **Parse error** → **❌ invalid JSON: <message>**
 
-### 3.4 Cohérence générale
+### 3.4 General coherence
 
-- Si `intent.source = "skipped"` mais `docs/VISION.md` existe → **⚠️ incohérence : intent skipped mais vision présente**
-- Si `intent.source` ≠ `"skipped"` mais `docs/VISION.md` manque → **❌ vision attendue mais absente**
+- If `intent.source = "skipped"` but `docs/VISION.md` exists → **⚠️ inconsistency: intent skipped but vision present**
+- If `intent.source` ≠ `"skipped"` but `docs/VISION.md` missing → **❌ vision expected but absent**
+- **Adopted project** (`adopted: true`): `bootstrappedWithVersion` is `null` by design — do not flag it. If `adoptedFiles` is present, check each listed path exists (**⚠️** if a mapped file is gone).
 
-## Phase 4 — Affichage du rapport
+## Phase 4 — Report output
 
-Format texte clair, groupé par catégorie :
+Clear text format, grouped by category:
 
 ```
 === Verify Bootstrap Report ===
@@ -104,72 +105,72 @@ Project: <project name from .starter-kit.json>
 Expected version: <EXPECTED_VERSION>
 Bootstrapped with: <bootstrappedWithVersion>
 
---- Fichiers (X/Y trackés) ---
+--- Files (X/Y tracked) ---
 ✅ docs/decisions/README.md
-   ✅ signature v0.7.0 · ✅ pas de placeholder
+   ✅ signature v0.8.0 · ✅ no placeholder
 ✅ docs/VISION.md
-   ✅ signature v0.7.0 · ✅ pas de placeholder
+   ✅ signature v0.8.0 · ✅ no placeholder
 ⚠️ docs/ARCHITECTURE.md
-   ⚠️ signature v0.6.0 (expected v0.7.0)
+   ⚠️ signature v0.7.0 (expected v0.8.0)
 ❌ docs/missing-file.md
-   ❌ fichier absent
+   ❌ file absent
 
---- Structurel ---
-✅ .git/ initialisé
-✅ CLAUDE.md : 78/200 lignes
-✅ .starter-kit.json JSON valide
-✅ .claude/settings.json JSON valide
-✅ Cohérence intent/vision
+--- Structural ---
+✅ .git/ initialized
+✅ CLAUDE.md: 78/200 lines
+✅ .starter-kit.json valid JSON
+✅ .claude/settings.json valid JSON
+✅ intent/vision coherence
 
---- Synthèse ---
+--- Summary ---
 ✅ N items OK
-⚠️ M items à attention (version mismatch, taille)
-❌ K items en erreur (manquants, placeholders, JSON invalide)
+⚠️ M items need attention (version mismatch, size)
+❌ K items in error (missing, placeholders, invalid JSON)
 ```
 
-## Phase 5 — Mode correction (si `--fix`)
+## Phase 5 — Fix mode (if `--fix`)
 
-> Si `$ARGUMENTS` ne contient pas `--fix`, **skip cette phase**. Afficher seulement : *"Pour appliquer les corrections triviales, relance avec : `/starter-kit:verify-bootstrap --fix`"*
+> If `$ARGUMENTS` does not contain `--fix`, **skip this phase**. Show only: *"To apply trivial fixes, re-run with: `/starter-kit:verify-bootstrap --fix`"*
 
-### Items corrigibles automatiquement
+### Auto-fixable items
 
-- **Version mismatch (⚠️)** : remplacer la ligne signature `<!-- generated-by: starter-kit vX.Y.Z -->` par la version courante via `Edit`.
+- **Version mismatch (⚠️)**: replace the signature line `<!-- generated-by: starter-kit vX.Y.Z -->` with the current version via `Edit`.
 
-### Items NON corrigibles automatiquement (afficher, ne pas toucher)
+### NON auto-fixable items (show, don't touch)
 
-- Fichier manquant → l'utilisateur doit décider (recréer via `migrate` ? oublier ?)
-- Placeholder résiduel `{{KEY}}` → bug de bootstrap, à remonter (problème de mapping dans SKILL.md)
-- JSON invalide → édition manuelle nécessaire
-- CLAUDE.md > 200 lignes → refactor manuel (extraire vers `.claude/rules/`)
-- Incohérence intent/vision → l'utilisateur décide
+- Missing file → the user must decide (recreate via `migrate`? forget it?)
+- Leftover `{{KEY}}` placeholder → bootstrap bug, to report (mapping issue in SKILL.md)
+- Invalid JSON → manual editing required
+- CLAUDE.md > 200 lines → manual refactor (extract to `.claude/rules/`)
+- intent/vision inconsistency → the user decides
 
 ### Confirmation
 
-Pour les corrections de version mismatch :
-- Liste les fichiers concernés
-- `AskUserQuestion` : `Corriger les N signatures` / `Annuler`
-- Si oui, applique les Edit
-- Affiche : `✅ Signatures corrigées : N fichiers`
+For version-mismatch fixes:
+- List the affected files
+- `AskUserQuestion`: `Fix the N signatures` / `Cancel`
+- If yes, apply the Edits
+- Show: `✅ Signatures fixed: N files`
 
-## Phase 6 — Récap final
+## Phase 6 — Final recap
 
 ```
-=== Résultat ===
-Mode : rapport / fix
-Corrections appliquées : N signatures
-Items restants : K erreurs, M warnings
+=== Result ===
+Mode: report / fix
+Fixes applied: N signatures
+Remaining items: K errors, M warnings
 ```
 
-Si tout est ✅ : *"Projet cohérent. Aucune correction nécessaire."*
+If everything is ✅: *"Project coherent. No fix needed."*
 
-Si erreurs restantes : suggestion par catégorie d'action manuelle.
+If remaining errors: per-category suggestion of manual action.
 
-**Ne JAMAIS commiter automatiquement** — laisse l'utilisateur reviewer les corrections de signature avant de committer.
+**NEVER commit automatically** — let the user review the signature fixes before committing.
 
-## Règles importantes
+## Important rules
 
-- **Lecture seule par défaut** : sans `--fix`, le skill ne modifie aucun fichier.
-- **Fix limité aux signatures** : tout autre type de correction nécessite une intervention humaine.
-- **Pas d'effet sur `.starter-kit.json`** : le skill ne modifie pas l'état — il rapporte et corrige des fichiers utilisateur seulement.
-- Pour la regex de signature, accepter `v0.0.0` (3 nombres séparés par `.`) sans contrainte sur la longueur — futur-proof.
-- Si `python3` et `node` sont tous deux absents pour le check JSON, utiliser un fallback : `cat <file> | python -m json.tool > /dev/null 2>&1` ou simplement skip avec un warning *"Pas de parseur JSON disponible"*.
+- **Read-only by default**: without `--fix`, the skill modifies no file.
+- **Fix limited to signatures**: any other kind of correction requires human intervention.
+- **No effect on `.starter-kit.json`**: the skill does not modify state — it reports and fixes user files only.
+- For the signature regex, accept `v0.0.0` (3 numbers separated by `.`) with no length constraint — future-proof.
+- If both `python3` and `node` are absent for the JSON check, use a fallback: `cat <file> | python -m json.tool > /dev/null 2>&1` or simply skip with a warning *"No JSON parser available"*.

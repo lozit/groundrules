@@ -1,26 +1,26 @@
-<!-- generated-by: starter-kit v0.7.0 -->
+<!-- generated-by: starter-kit v0.8.0 -->
 # PLAN — {{PROJECT_NAME}}
 
-Plan/todo **actif** du projet. Maintenu par Claude au fil du travail.
+**Active** plan/todo for the project. Maintained by Claude during work.
 
-Ce fichier est différent de la roadmap long terme : il décrit ce qui est en cours **maintenant**.
+This file differs from the long-term roadmap: it describes what is happening **now**.
 
-## En cours
+## In progress
 
-- [ ] (ajouter ici les premières tâches actives)
+- [ ] (add the first active tasks here)
 
-## À faire ensuite
-
-- [ ] ...
-
-## En attente / bloqué
+## Up next
 
 - [ ] ...
 
-## Fait récemment
+## Waiting / blocked
 
-- [x] Bootstrap du projet ({{DATE}})
+- [ ] ...
+
+## Recently done
+
+- [x] Project bootstrapped ({{DATE}})
 
 ---
 
-**Convention** : Claude met à jour ce fichier en début/fin de session. Les tâches faites restent dans "Fait récemment" pendant ~1 semaine puis sont archivées (supprimées ou déplacées vers CHANGELOG).
+**Convention**: Claude updates this file at the start/end of each session. Completed tasks stay in "Recently done" for ~1 week then are archived (deleted or moved to CHANGELOG).

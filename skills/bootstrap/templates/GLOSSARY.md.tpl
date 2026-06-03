@@ -1,18 +1,18 @@
-<!-- generated-by: starter-kit v0.7.0 -->
-# Glossaire — {{PROJECT_NAME}}
+<!-- generated-by: starter-kit v0.8.0 -->
+# Glossary — {{PROJECT_NAME}}
 
-Vocabulaire métier du projet. Une entrée par terme, ordre alphabétique.
+Domain vocabulary for the project. One entry per term, alphabetical order.
 
-Garde les définitions courtes et précises. Le but : qu'un nouveau dev (ou Claude) comprenne rapidement le langage du domaine.
+Keep definitions short and precise. The goal: a new developer (or Claude) quickly understands the domain language.
 
 ---
 
 ## A
 
-**Terme A** — Définition courte.
+**Term A** — Short definition.
 
 ## B
 
-**Terme B** — Définition courte.
+**Term B** — Short definition.
 
-<!-- Continue par ordre alphabétique -->
+<!-- Continue alphabetically -->

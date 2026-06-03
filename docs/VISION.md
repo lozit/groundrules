@@ -1,48 +1,48 @@
-<!-- generated-by: starter-kit v0.7.0 -->
+<!-- generated-by: starter-kit v0.8.0 -->
 # Vision — Starting-Claude
 
-> Synthèse de l'intent du projet. Source : `brief/INTENT.md` (paste rétroactif du prompt initial). À mettre à jour quand l'intent évolue (rare ; les décisions tactiques vont dans `docs/decisions/`).
+> Synthesis of the project intent. Source: `brief/INTENT.md` (retroactive paste of the original prompt). Update when the intent evolves (rare; tactical decisions go in `docs/decisions/`).
 
-## Objectif
+## Goal
 
-Construire un plugin Claude Code partageable qui standardise l'amorçage de nouveaux projets via un slash command interactif. Le plugin doit générer une structure de documentation cohérente (CLAUDE.md aligné sur les meilleures pratiques, docs/, ADR, learnings, brief, médias, vision/intent), initialiser git, et optionnellement créer le remote GitHub/GitLab. Bonus : appliquer dynamiquement les bonnes pratiques fetchées en ligne, adaptées à la vision de chaque projet.
+Build a shareable Claude Code plugin that standardizes the bootstrapping of new projects via an interactive slash command. The plugin must generate a coherent documentation structure (CLAUDE.md aligned with best practices, docs/, ADR, learnings, brief, media, vision/intent), initialize git, and optionally create the GitHub/GitLab remote. Bonus: dynamically apply best practices fetched online, tailored to each project's vision.
 
-## Utilisateurs / personas
+## Users / personas
 
-- **Guillaume Ferrari** (solo) — utilise l'outil pour démarrer ses propres projets Claude Code rapidement et avec une discipline documentaire cohérente.
-- **Communauté Claude Code** (secondaire) — toute personne installant le plugin via la marketplace publique sur GitHub (`lozit/claude-code-starter-kit`).
+- **Guillaume Ferrari** (solo) — uses the tool to start his own Claude Code projects quickly and with consistent documentation discipline.
+- **Claude Code community** (secondary) — anyone installing the plugin via the public marketplace on GitHub (`lozit/claude-code-starter-kit`).
 
-## Contraintes
+## Constraints
 
-- Doit être un **plugin Claude Code natif** (`.claude-plugin/plugin.json` + `marketplace.json` + `skills/`) — pas de runtime externe.
-- **Pas de moteur de templates** (Jinja, Handlebars) — substitution texte simple sur `{{KEY}}` (cf. ADR 0002).
-- **Bilingue FR/EN** sur tous les templates utilisateur.
-- **Stack-agnostique** : pas d'opinion forte sur Node, Python, etc. — `.gitignore` minimal par défaut.
-- Doit fonctionner **majoritairement offline** : `apply-best-practices` est le seul skill qui requiert internet (WebFetch).
-- **CLAUDE.md généré sous 200 lignes** (cible shanraisshan) pour rester utilisable.
+- Must be a **native Claude Code plugin** (`.claude-plugin/plugin.json` + `marketplace.json` + `skills/`) — no external runtime.
+- **No template engine** (Jinja, Handlebars) — plain text substitution on `{{KEY}}` (cf. ADR 0002).
+- **English-only** for all user templates (cf. ADR 0012) — the bilingual FR/EN support was dropped in V0.8 (maintenance for no benefit; all projects are done in English).
+- **Stack-agnostic**: no strong opinion on Node, Python, etc. — minimal `.gitignore` by default.
+- Must work **mostly offline**: `apply-best-practices` is the only skill that requires the internet (WebFetch).
+- **Generated CLAUDE.md under 200 lines** (shanraisshan target) to stay usable.
 
-## Hors scope V1 (non-goals)
+## V1 non-goals
 
-- **Ne remplace pas l'écriture du CLAUDE.md** — c'est un starter, pas un générateur intelligent. L'utilisateur édite et enrichit le CLAUDE.md généré.
-- **Pas de gestion CI/CD** — pas de templates GitHub Actions ou GitLab CI par défaut. C'est de la responsabilité du projet, pas du starter.
-- **Pas de support pour tooling non-Claude-Code** — Cursor, Continue, autres assistants ne sont pas ciblés.
-- **Pas de génération de code applicatif** — pas de squelette React, Python, etc. Le plugin produit de la doc + structure, pas du code.
-- **Pas d'IA agentique propriétaire pour la synthèse intent** — utilise simplement Claude (le runtime du plugin) pour synthétiser brief → vision.
+- **Does not replace writing CLAUDE.md** — it's a starter, not a smart generator. The user edits and enriches the generated CLAUDE.md.
+- **No CI/CD management** — no GitHub Actions or GitLab CI templates by default. That's the project's responsibility, not the starter's.
+- **No support for non-Claude-Code tooling** — Cursor, Continue, other assistants are not targeted.
+- **No application-code generation** — no React/Python/etc. skeleton. The plugin produces docs + structure, not code.
+- **No proprietary agentic AI for intent synthesis** — simply use Claude (the plugin runtime) to synthesize brief → vision.
 
-## Critères d'acceptation V1
+## V1 acceptance criteria
 
-- Un utilisateur peut amorcer un nouveau projet en < 5 minutes : `mkdir foo && cd foo && claude` → `/starter-kit:bootstrap` → réponses interview → fichiers générés + git initialisé.
-- 7 skills opérationnels : `bootstrap`, `adopt`, `add-adr`, `learn`, `migrate`, `apply-best-practices`, `verify-bootstrap`.
-- Structure générée : `README.md`, `CLAUDE.md` (avec sections Setup/Build/Test, Vérifier le travail, Mettre à jour ce fichier, Workflow Claude Code, etc.), `docs/decisions/`, `docs/LEARNINGS.md`, `brief/`, `media/`, optionnellement `PLAN.md` / `ARCHITECTURE.md` / `GLOSSARY.md` / `CHANGELOG.md` / `VISION.md` / docs spécialisées (`DATA_MODEL` / `SECURITY` / `DESIGN_SYSTEM` / `ROADMAP` / `I18N`).
-- Intent capturable au bootstrap (brief paste / brief fichier / interview / skip).
-- `apply-best-practices` fetche shanraisshan, filtre par la vision du projet, propose multi-select, applique le safe automatiquement.
-- Plugin publié sur GitHub avec marketplace publique : installable via `/plugin marketplace add https://github.com/lozit/claude-code-starter-kit`.
-- Dogfood : le repo `Starting-Claude` lui-même utilise sa propre structure et sa propre vision (ce fichier).
+- A user can bootstrap a new project in < 5 minutes: `mkdir foo && cd foo && claude` → `/starter-kit:bootstrap` → interview answers → generated files + git initialized.
+- 7 operational skills: `bootstrap`, `adopt`, `add-adr`, `learn`, `migrate`, `apply-best-practices`, `verify-bootstrap`.
+- Generated structure: `README.md`, `CLAUDE.md` (with Setup/Build/Test, Verifying the work, Updating this file, Claude Code workflow sections, etc.), `docs/decisions/`, `docs/LEARNINGS.md`, `brief/`, `media/`, optionally `PLAN.md` / `ARCHITECTURE.md` / `GLOSSARY.md` / `CHANGELOG.md` / `VISION.md` / specialized docs (`DATA_MODEL` / `SECURITY` / `DESIGN_SYSTEM` / `ROADMAP` / `I18N`).
+- Intent capturable at bootstrap (brief paste / brief file / interview / skip).
+- `apply-best-practices` fetches shanraisshan, filters by the project vision, proposes a multi-select, applies the safe items automatically.
+- Plugin published on GitHub with a public marketplace: installable via `/plugin marketplace add https://github.com/lozit/claude-code-starter-kit`.
+- Dogfood: the `Starting-Claude` repo itself uses its own structure and its own vision (this file).
 
 ---
 
-Pour aller plus loin :
-- `brief/` — notes brutes amont (specs, emails, brainstorms) — voir `brief/INTENT.md` pour le prompt initial
-- `docs/decisions/` — décisions structurantes (4 ADR à ce jour)
-- `docs/LEARNINGS.md` — apprentissages non-triviaux
-- `docs/ARCHITECTURE.md` — snapshot archi (deux couches : sources plugin / dogfood projet)
+To go further:
+- `brief/` — raw upstream notes (specs, emails, brainstorms) — see `brief/INTENT.md` for the original prompt
+- `docs/decisions/` — structural decisions (12 ADRs to date)
+- `docs/LEARNINGS.md` — non-trivial learnings
+- `docs/ARCHITECTURE.md` — architecture snapshot (two layers: plugin sources / dogfood project)

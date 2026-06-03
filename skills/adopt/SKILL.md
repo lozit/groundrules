@@ -1,62 +1,62 @@
 ---
 name: adopt
-description: Adopter un projet existant (brownfield) dans starter-kit — scanne, mappe l'existant aux rôles starter-kit, capture l'intent depuis les docs existantes, génère seulement le manquant, backfill .starter-kit.json. Jamais d'écrasement.
+description: Adopt an existing (brownfield) project into starter-kit — scan, map the existing files to starter-kit roles, capture intent from existing docs, generate only what's missing, backfill .starter-kit.json. Never overwrites.
 disable-model-invocation: true
 allowed-tools: Read, Write, Edit, Bash, AskUserQuestion
 ---
 
 # /starter-kit:adopt
 
-Tu vas faire entrer un **projet existant** (déjà du code, des docs, un git) sous gestion starter-kit, **sans rien casser**. Différent de `bootstrap` (from-scratch) et de `migrate` (mise à jour d'un projet déjà starter-kit).
+You will bring an **existing project** (already has code, docs, a git repo) under starter-kit management, **without breaking anything**. Different from `bootstrap` (from-scratch) and `migrate` (updating an already-starter-kit project). All generated files are in **English** (the plugin is English-only).
 
-Si `$ARGUMENTS` contient `--dry-run` (ou `dry-run`) : exécute toutes les phases d'analyse mais **n'écris aucun fichier** ; termine par un rapport « aurait fait ».
+If `$ARGUMENTS` contains `--dry-run` (or `dry-run`): run all analysis phases but **write no file**; end with a "would have done" report.
 
-## Phase 0 — Garde-fous
+## Phase 0 — Guardrails
 
-1. Si `.starter-kit.json` existe dans le cwd → *"Ce projet est déjà géré par starter-kit. Utilise `/starter-kit:migrate` pour le mettre à jour."* Stop.
-2. Si le dossier est **vide** (hors `.git`) → *"Dossier vide : utilise `/starter-kit:bootstrap`."* Stop.
-3. Sinon → on est bien dans un cas brownfield, continue.
+1. If `.starter-kit.json` exists in the cwd → *"This project is already managed by starter-kit. Use `/starter-kit:migrate` to update it."* Stop.
+2. If the folder is **empty** (excluding `.git`) → *"Empty folder: use `/starter-kit:bootstrap`."* Stop.
+3. Otherwise → this is indeed a brownfield case, continue.
 
-## Phase 1 — Scan & classification (mapping de rôles)
+## Phase 1 — Scan & classification (role mapping)
 
-1. `ls -la` + détection stack : `package.json` (Node/Nuxt/Vite…), `pyproject.toml`/`requirements.txt`, `Cargo.toml`, `go.mod`, etc. Note aussi : `.git/` + `git remote -v` (GitHub/GitLab), `.env`/`.env.*` (secrets), `i18n/`/`locales/` (multilingue), un ORM/SDK de données (Prisma, Supabase, Drizzle…), un dossier UI (`components/`, `app.vue`…).
-   - **CLAUDE.md global / entreprise** : `~/.claude/CLAUDE.md` + politique managée (`/Library/Application Support/ClaudeCode/CLAUDE.md` macOS, `/etc/claude-code/CLAUDE.md` Linux). Si présent → `HAS_GLOBAL_CLAUDE=true` (ne jamais l'écraser). Très fréquent en contexte entreprise — c'est précisément là que le CLAUDE.md projet doit **déférer**.
-   - **Politique d'attribution IA** : en **lecture seule**, cherche dans les CLAUDE.md détectés (projet + global) une règle interdisant l'attribution IA (`no AI attribution`, `Co-Authored-By`, `Generated with Claude`, `pas d'attribution`…). Si trouvé → `NO_AI_ATTRIBUTION=true`. Fréquent en entreprise (certains CLAUDE.md managés l'interdisent explicitement).
-2. **Détecte superpowers** : présence de `docs/superpowers/plans/` ou `specs/`. Si oui → altitude différente, **ne pas** traiter comme planning racine (cf. interop dans le template `CLAUDE.md`).
-3. **Détecte les équivalents de `PLAN.md`** (voir « Détection planning » plus bas) — il peut y en avoir **plusieurs**, possiblement nichés.
-4. **Classe chaque élément existant** dans un rôle starter-kit. Construis un tableau :
+1. `ls -la` + stack detection: `package.json` (Node/Nuxt/Vite…), `pyproject.toml`/`requirements.txt`, `Cargo.toml`, `go.mod`, etc. Also note: `.git/` + `git remote -v` (GitHub/GitLab), `.env`/`.env.*` (secrets), `i18n/`/`locales/` (multilingual), a data ORM/SDK (Prisma, Supabase, Drizzle…), a UI folder (`components/`, `app.vue`…).
+   - **Global / enterprise CLAUDE.md**: `~/.claude/CLAUDE.md` + managed policy (`/Library/Application Support/ClaudeCode/CLAUDE.md` macOS, `/etc/claude-code/CLAUDE.md` Linux). If present → `HAS_GLOBAL_CLAUDE=true` (never overwrite it). Very common in enterprise contexts — precisely where the project CLAUDE.md must **defer**.
+   - **AI attribution policy**: **read-only**, look in the detected CLAUDE.md files (project + global) for a rule forbidding AI attribution (`no AI attribution`, `Co-Authored-By`, `Generated with Claude`…). If found → `NO_AI_ATTRIBUTION=true`. Common in enterprise (some managed CLAUDE.md files forbid it explicitly).
+2. **Detect superpowers**: presence of `docs/superpowers/plans/` or `specs/`. If so → different altitude, **do not** treat as root planning (see interop in the `CLAUDE.md` template).
+3. **Detect `PLAN.md` equivalents** (see "Planning detection" below) — there may be **several**, possibly nested.
+4. **Classify each existing item** into a starter-kit role. Build a table:
 
-| Existant | Rôle starter-kit | Action proposée |
+| Existing | Starter-kit role | Proposed action |
 |---|---|---|
-| `README.md` | README | adopter tel quel ; si **boilerplate** (gabarit GitHub/GitLab « Getting started… ») → proposer régénérer |
-| `plan.md` / `TODO.md` / … | PLAN (vue active) | réconciliation (Phase 2) — **jamais** créer un `PLAN.md` qui entre en collision de casse |
-| `docs/**/todos.md` | backlog | adopter ; documenter le rôle dans `CLAUDE.md` |
-| doc métier (`*regles-metier*`, `CR-*`, specs…) | source d'intent | proposer comme source pour `brief/INTENT.md` / `docs/VISION.md` |
-| `docs/superpowers/**` | artefacts par-feature | ne pas toucher ; noter l'interop |
-| `docs/ARCHITECTURE.md`, `GLOSSARY.md`… déjà présents | doc projet | adopter tel quel (ne pas régénérer) |
-| `CLAUDE.md` présent ? | instructions | **absent** → à générer (cf. Appel 3) ; **présent** → ne jamais écraser, voir « CLAUDE.md projet déjà présent » |
+| `README.md` | README | adopt as-is; if **boilerplate** (GitHub/GitLab "Getting started…" template) → offer to regenerate |
+| `plan.md` / `TODO.md` / … | PLAN (active view) | reconciliation (Phase 2) — **never** create a `PLAN.md` that collides in case |
+| `docs/**/todos.md` | backlog | adopt; document the role in `CLAUDE.md` |
+| business doc (`*business-rules*`, `CR-*`, specs…) | intent source | offer as source for `brief/INTENT.md` / `docs/VISION.md` |
+| `docs/superpowers/**` | per-feature artifacts | don't touch; note the interop |
+| `docs/ARCHITECTURE.md`, `GLOSSARY.md`… already present | project doc | adopt as-is (don't regenerate) |
+| `CLAUDE.md` present? | instructions | **absent** → to generate (see Call 3); **present** → never overwrite, see "CLAUDE.md project file already present" |
 
-### CLAUDE.md projet déjà présent (souvent tool-managé)
+### CLAUDE.md project file already present (often tool-managed)
 
-Si un `CLAUDE.md` existe déjà à la racine (sans signature starter-kit) :
+If a `CLAUDE.md` already exists at the root (without a starter-kit signature):
 
-1. **Ne jamais le générer ni l'écraser.** On ne peut pas avoir deux CLAUDE.md ; le sien fait foi.
-2. **Détecte s'il est tool-managé** : cherche des marqueurs comme `Auto-managed`, `Do not edit`, le nom d'un gestionnaire d'entreprise (ex. `claude-manager`), des barrières de sections managées, ou une **zone libre** explicite (marqueur type `END MANAGED` / `below this line is yours` / titre `## Project-Specific Notes`).
-3. **Pointeur de découvrabilité (opt-in)** : si une zone libre est détectée, propose (`AskUserQuestion`) d'y **ajouter** (via `Edit`, append seulement) un court pointeur vers les docs starter-kit, pour que Claude les trouve. **N'écris JAMAIS dans les sections managées.** Contenu suggéré :
+1. **Never generate or overwrite it.** There can't be two CLAUDE.md; theirs is authoritative.
+2. **Detect whether it's tool-managed**: look for markers like `Auto-managed`, `Do not edit`, an enterprise manager name (e.g. `claude-manager`), managed-section fences, or an explicit **free zone** (marker like `END MANAGED` / `below this line is yours` / a `## Project-Specific Notes` heading).
+3. **Discoverability pointer (opt-in)**: if a free zone is detected, offer (`AskUserQuestion`) to **append** (via `Edit`, append only) a short pointer to the starter-kit docs, so Claude finds them. **NEVER write into the managed sections.** Suggested content:
 
    ```
-   ### Docs projet (starter-kit)
-   - Vision : `docs/VISION.md` · Décisions : `docs/decisions/` · Apprentissages : `docs/LEARNINGS.md` · Plan actif : `PLAN.md`
+   ### Project docs (starter-kit)
+   - Vision: `docs/VISION.md` · Decisions: `docs/decisions/` · Learnings: `docs/LEARNINGS.md` · Active plan: `PLAN.md`
    ```
 
-4. Si **aucune** zone libre détectée (fichier entièrement managé sans section éditable) → **skip** (ne rien écrire), et le signaler dans le récap.
-5. Enregistre dans `.starter-kit.json` `adoptedFiles["CLAUDE.md"] = "instructions (managé par <tool si connu>)"`.
+4. If **no** free zone is detected (fully managed file with no editable section) → **skip** (write nothing), and report it in the recap.
+5. Record in `.starter-kit.json` `adoptedFiles["CLAUDE.md"] = "instructions (managed by <tool if known>)"`.
 
-> Dans un contexte fortement managé (le CLAUDE.md couvre déjà commits, sécurité, CHANGELOG, stack…), la valeur de starter-kit se concentre sur `docs/` (VISION, decisions, LEARNINGS, brief) et `PLAN.md` — pas sur le CLAUDE.md. Ne réintroduis pas de doublons. **Signale tout conflit** repéré entre une règle du CLAUDE.md managé et une convention starter-kit (ex. attribution de commit), sans le résoudre toi-même.
+> In a heavily-managed context (the CLAUDE.md already covers commits, security, CHANGELOG, stack…), starter-kit's value concentrates on `docs/` (VISION, decisions, LEARNINGS, brief) and `PLAN.md` — not the CLAUDE.md. Don't reintroduce duplicates. **Surface any conflict** spotted between a managed-CLAUDE.md rule and a starter-kit convention (e.g. commit attribution), without resolving it yourself.
 
-### Détection planning (élargie)
+### Planning detection (broadened)
 
-Cherche, hors `node_modules`/`.git`, **insensible à la casse**, jusqu'à ~3 niveaux de profondeur :
+Search, excluding `node_modules`/`.git`, **case-insensitive**, up to ~3 levels deep:
 
 ```bash
 find . -path ./node_modules -prune -o -path ./.git -prune -o \
@@ -64,57 +64,56 @@ find . -path ./node_modules -prune -o -path ./.git -prune -o \
      -o -iname 'tasks.md' -o -iname 'backlog.md' \) -maxdepth 3 -print
 ```
 
-- Reporte **tous** les résultats (pas seulement le premier).
-- **Garde-fou casse** : ne **jamais** générer `PLAN.md` si un fichier de nom équivalent existe en casse différente (ex. `plan.md`). Sur un FS sensible à la casse (Linux/CI) ça créerait deux fichiers `plan.md`/`PLAN.md` → collision au checkout sur macOS/Windows.
+- Report **all** results (not just the first).
+- **Case guard**: **never** generate `PLAN.md` if an equivalent name exists in a different case (e.g. `plan.md`). On a case-sensitive FS (Linux/CI) this would create two files `plan.md`/`PLAN.md` → collision on checkout on macOS/Windows.
 
-## Phase 2 — Interview brownfield (questions groupées, 4 max/appel)
+## Phase 2 — Brownfield interview (grouped questions, 4 max/call)
 
-### Appel 1 — Base
-- **Langue** des fichiers générés : `FR` / `mix (README EN)` / `EN`.
-- **Confirmer le nom du projet** (suggérer le `name` de `package.json` ou le dossier).
+### Call 1 — Base
+- **Confirm the project name** (suggest the `name` from `package.json` or the folder).
 
-### Appel 2 — Intent
-*"Quelle source pour la vision du projet ?"* — propose en priorité les **docs métier détectées** :
-- `Utiliser <doc détectée>` (ex. `CR-regles-metier.md`) → `Read` puis synthèse vers `docs/VISION.md` (et copie source dans `brief/INTENT.md`).
-- `Je colle le contenu` / `Un autre fichier (chemin)` / `Pose-moi les questions` / `Skip`.
+### Call 2 — Intent
+*"Which source for the project vision?"* — offer the **detected business docs** first:
+- `Use <detected doc>` (e.g. `CR-business-rules.md`) → `Read` then synthesize into `docs/VISION.md` (and copy the source into `brief/INTENT.md`).
+- `I'll paste the content` / `Another file (path)` / `Ask me the questions` / `Skip`.
 
-Réutilise la logique d'intent de `bootstrap` (Phase 3) pour la synthèse.
+Reuse `bootstrap`'s intent logic (Phase 3) for the synthesis.
 
-### Appel 3 — Quoi générer (multiSelect, seulement le **manquant**)
-Pré-coche selon le scan. Ne propose que ce qui **n'existe pas déjà** :
-- `CLAUDE.md` **seulement s'il est absent** (s'il existe déjà → voir « CLAUDE.md projet déjà présent », pas de génération). Si absent et **`HAS_GLOBAL_CLAUDE=true`** : propose par défaut la variante **lean** (`CLAUDE.lean.md.{lang}.tpl`) qui complète le global sans le redire ; sinon variante complète. Même logique que `bootstrap` Phase 5 « Sélection du template CLAUDE.md » (placeholder `{{GLOBAL_CLAUDE_NOTE}}`).
+### Call 3 — What to generate (multiSelect, only the **missing**)
+Pre-check based on the scan. Only offer what **doesn't already exist**:
+- `CLAUDE.md` **only if absent** (if it already exists → see "CLAUDE.md project file already present", no generation). If absent and **`HAS_GLOBAL_CLAUDE=true`**: default to the **lean** variant (`CLAUDE.lean.md.tpl`) that complements the global without restating it; otherwise the full variant. Same logic as `bootstrap` Phase 5 "CLAUDE.md template selection" (placeholder `{{GLOBAL_CLAUDE_NOTE}}`).
 - `docs/decisions/` (ADR) + `docs/LEARNINGS.md`
-- `brief/` + `media/` (README explicatifs)
-- Docs spécialisées (pré-suggérées d'après le scan) : `I18N` si i18n détecté · `SECURITY` si `.env`/APIs · `DATA_MODEL` si ORM/SDK · `DESIGN_SYSTEM` si UI · `ARCHITECTURE`/`GLOSSARY`/`CHANGELOG` au choix.
+- `brief/` + `media/` (explanatory READMEs)
+- Specialized docs (pre-suggested from the scan): `I18N` if i18n detected · `SECURITY` if `.env`/APIs · `DATA_MODEL` if ORM/SDK · `DESIGN_SYSTEM` if UI · `ARCHITECTURE`/`GLOSSARY`/`CHANGELOG` as desired.
 
-### Appel 4 — Réconciliation planning (si équivalents détectés)
-Si **un ou plusieurs** équivalents trouvés :
-- **Adopter l'existant** → pas de `PLAN.md` ; enregistrer le(s) fichier(s) comme rôle PLAN dans `.starter-kit.json`.
-- **Générer `PLAN.md` à part** → seulement si **aucune** collision de casse ; l'utilisateur assume la coexistence.
-- **Consolider** → reporter les tâches de l'existant dans le fichier choisi comme canonique ; suggérer (sans le faire) de supprimer les doublons.
-Si plusieurs équivalents : clarifie leurs rôles (ex. `plan.md` = vue active, `docs/gtd/todos.md` = backlog) et documente-les dans `CLAUDE.md`. Si superpowers présent : `PLAN.md`/`plan.md` doit **pointer** vers le plan superpowers actif.
+### Call 4 — Planning reconciliation (if equivalents detected)
+If **one or more** equivalents found:
+- **Adopt the existing one** → no `PLAN.md`; record the file(s) with the PLAN role in `.starter-kit.json`.
+- **Generate `PLAN.md` separately** → only if **no** case collision; the user accepts the coexistence.
+- **Consolidate** → carry the existing tasks into the file chosen as canonical; suggest (without doing it) deleting the duplicates.
+If several equivalents: clarify their roles (e.g. `plan.md` = active view, `docs/gtd/todos.md` = backlog) and document them in `CLAUDE.md`. If superpowers present: `PLAN.md`/`plan.md` should **point to** the active superpowers plan.
 
-## Phase 3 — Récap & confirmation
+## Phase 3 — Recap & confirmation
 
-Affiche, en texte clair :
-- 🆕 Fichiers qui seront **créés** (manquants)
-- 🔗 Fichiers **adoptés** (existants, mappés à un rôle, non modifiés)
-- ⏭️ Fichiers **laissés tels quels** (étrangers non mappés)
-- ❗ Avertissements (collision de casse évitée, README boilerplate, planning fragmenté)
+Show, in clear text:
+- 🆕 Files that will be **created** (missing)
+- 🔗 Files **adopted** (existing, mapped to a role, unmodified)
+- ⏭️ Files **left as-is** (foreign, unmapped)
+- ❗ Warnings (case collision avoided, README boilerplate, fragmented planning)
 
-Puis `AskUserQuestion` : `Confirmer` / `Annuler`. (En `--dry-run`, stop ici avec le rapport.)
+Then `AskUserQuestion`: `Confirm` / `Cancel`. (In `--dry-run`, stop here with the report.)
 
-## Phase 4 — Génération (manquant uniquement)
+## Phase 4 — Generation (missing only)
 
-Pour chaque fichier à créer : même mécanique que `bootstrap` Phase 5 (lire le template `${CLAUDE_PLUGIN_ROOT}/skills/bootstrap/templates/<tpl>`, substituer `{{KEY}}`, `Write`). **Ne jamais écraser** un fichier existant ; **ne jamais supprimer**. Sélection de langue identique à bootstrap.
+For each file to create: same mechanics as `bootstrap` Phase 5 (read the template `${CLAUDE_PLUGIN_ROOT}/skills/bootstrap/templates/<tpl>`, substitute `{{KEY}}`, `Write`). **Never overwrite** an existing file; **never delete**.
 
 ## Phase 5 — Backfill `.starter-kit.json`
 
-Écris `.starter-kit.json` (schéma de bootstrap, cf. ADR 0004) avec les marqueurs d'adoption :
+Write `.starter-kit.json` (bootstrap schema, see ADR 0004) with the adoption markers:
 
 ```json
 {
-  "starterKitVersion": "<version courante>",
+  "starterKitVersion": "<current version>",
   "adopted": true,
   "adoptedAt": "YYYY-MM-DD",
   "bootstrappedWithVersion": null,
@@ -123,31 +122,31 @@ Pour chaque fichier à créer : même mécanique que `bootstrap` Phase 5 (lire l
   "intent": { "source": "file|paste|interview|skipped", ... },
   "appliedPractices": [],
   "policies": { "noAiAttribution": true | false },
-  "generatedFiles": [ ... fichiers CRÉÉS par adopt ... ],
-  "adoptedFiles": { "<path>": "<rôle: README|PLAN|backlog|intent-source|...>" },
-  "skippedFiles": { "<path>": "<raison>" }
+  "generatedFiles": [ ... files CREATED by adopt ... ],
+  "adoptedFiles": { "<path>": "<role: README|PLAN|backlog|intent-source|...>" },
+  "skippedFiles": { "<path>": "<reason>" }
 }
 ```
 
-`adopted: true` + `bootstrappedWithVersion: null` distinguent un projet adopté d'un projet bootstrappé. `adoptedFiles` mappe l'existant aux rôles (info pour `migrate`/`verify-bootstrap`).
+`adopted: true` + `bootstrappedWithVersion: null` distinguish an adopted project from a bootstrapped one. `adoptedFiles` maps the existing files to roles (info for `migrate`/`verify-bootstrap`).
 
-## Phase 6 — Récap final
+## Phase 6 — Final recap
 
-- ✅ Créés / 🔗 Adoptés / ⏭️ Laissés
-- 📋 Next steps :
-  1. Compléter `CLAUDE.md` (Setup/Build/Test depuis les scripts du projet, stack, gotchas)
-  2. Si intent capturé : `/starter-kit:apply-best-practices`
-  3. Relire `docs/VISION.md` ; amender si la synthèse a manqué quelque chose
-  4. Décider du sort des plannings fragmentés (consolider si pertinent)
-  5. Commiter quand prêt — **si `NO_AI_ATTRIBUTION=true`**, le message de commit ne doit contenir **aucun** marqueur d'attribution IA (`Co-Authored-By`, « Generated with Claude Code »…), même si une consigne par défaut de l'agent l'ajouterait. adopt **ne commit pas** lui-même ; il fournit juste un message suggéré conforme.
+- ✅ Created / 🔗 Adopted / ⏭️ Left as-is
+- 📋 Next steps:
+  1. Flesh out `CLAUDE.md` (Setup/Build/Test from the project scripts, stack, gotchas)
+  2. If intent captured: `/starter-kit:apply-best-practices`
+  3. Re-read `docs/VISION.md`; amend if the synthesis missed something
+  4. Decide the fate of fragmented planning (consolidate if relevant)
+  5. Commit when ready — **if `NO_AI_ATTRIBUTION=true`**, the commit message must contain **no** AI attribution marker (`Co-Authored-By`, "Generated with Claude Code"…), even if a default agent guideline would add it. adopt **does not commit** itself; it only provides a compliant suggested message.
 
-**Pas de `git init`** (le projet a déjà un git) ni de création de remote. Si `.git/` est absent : le signaler et suggérer `git init`, sans l'imposer.
+**No `git init`** (the project already has git) nor remote creation. If `.git/` is absent: report it and suggest `git init`, without imposing it.
 
-## Règles importantes
+## Important rules
 
-- **Jamais d'écrasement ni de suppression** sans action explicite (et même là, adopt ne supprime pas — il suggère).
-- **Garde-fou casse** : ne jamais créer un fichier qui collisionne en casse avec un existant.
-- **superpowers** : `docs/superpowers/**` n'est pas un planning racine — altitude différente, ne pas le toucher.
-- **Fidélité à la source** pour la synthèse d'intent : ne pas inventer ; « À préciser » si la source est mince.
-- `--dry-run` : aucune écriture, juste le rapport.
-- **Ne jamais commiter automatiquement.**
+- **Never overwrite or delete** without explicit action (and even then, adopt does not delete — it suggests).
+- **Case guard**: never create a file that collides in case with an existing one.
+- **superpowers**: `docs/superpowers/**` is not root planning — different altitude, don't touch it.
+- **Faithfulness to the source** for intent synthesis: don't invent; "To be defined" if the source is thin.
+- `--dry-run`: no writes, just the report.
+- **Never commit automatically.**

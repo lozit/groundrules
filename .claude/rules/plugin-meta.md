@@ -4,7 +4,7 @@ paths:
   - "skills/**"
   - "**/*.tpl"
 ---
-<!-- generated-by: starter-kit v0.7.0 -->
+<!-- generated-by: starter-kit v0.8.0 -->
 
 # Plugin meta-development rules
 
@@ -12,24 +12,28 @@ Auto-loaded when Claude touches plugin sources (manifests, skills, templates).
 
 ## Template over code
 
-Cette repo est un plugin Claude Code, pas une application. Toute logique vit dans des **instructions Markdown** dans `skills/*/SKILL.md` que Claude exécute à la demande. Pour les templates utilisateur (`*.tpl`), substitution texte simple `{{KEY}}` uniquement — jamais de moteur de template (Jinja, Handlebars...) ni de génération de code applicatif. Cf. ADR 0002.
+This repo is a Claude Code plugin, not an application. All logic lives in **Markdown instructions** in `skills/*/SKILL.md` that Claude executes on demand. For user templates (`*.tpl`), plain text `{{KEY}}` substitution only — never a template engine (Jinja, Handlebars...) nor application-code generation. Cf. ADR 0002.
 
-## Dogfooding et deux couches
+## Dogfooding and two layers
 
-Le repo est en **deux couches disjointes** (cf. ADR 0003 + le `CLAUDE.md` racine) :
-- **Couche A** = sources publiées (`.claude-plugin/`, `skills/`, `marketplace.json`)
-- **Couche B** = doc projet auto-appliquée (`README.md`, `CLAUDE.md` racine, `docs/`, `brief/`, `media/`, `PLAN.md`...)
+The repo has **two disjoint layers** (cf. ADR 0003 + the root `CLAUDE.md`):
+- **Layer A** = published sources (`.claude-plugin/`, `skills/`)
+- **Layer B** = self-applied project docs (`README.md`, root `CLAUDE.md`, `docs/`, `brief/`, `media/`, `PLAN.md`...)
 
-Quand tu modifies quelque chose, demande-toi : "couche A (sources) ou couche B (dogfood) ?". Les chemins ne se chevauchent jamais.
+When you change something, ask: "layer A (sources) or layer B (dogfood)?". The paths never overlap.
+
+## English-only
+
+The plugin generates **English-only** output (cf. ADR 0012). There is one `.tpl` per file, no language suffix and no `{{LANG}}` logic. Don't reintroduce French templates or a language interview question.
 
 ## User handoff
 
-Tout `CLAUDE.md` produit par `bootstrap` est un **starter**, pas une vérité finale. L'utilisateur édite et enrichit. Les sections du template (Setup/Build/Test, Verifying the work, etc.) doivent être **rempliçables** : placeholders explicites (`<à compléter>`), pas de valeur fabriquée. Pour les ADR, LEARNINGS et VISION, idem : structure fournie, contenu remplissable par le user.
+Any `CLAUDE.md` produced by `bootstrap` is a **starter**, not a final truth. The user edits and enriches it. The template sections (Setup/Build/Test, Verifying the work, etc.) must be **fillable**: explicit placeholders (`<fill in>`), no fabricated values. Same for ADRs, LEARNINGS and VISION: structure provided, content fillable by the user.
 
-## Versioning et signatures
+## Versioning and signatures
 
-Tout fichier généré porte `<!-- generated-by: starter-kit vX.Y.Z -->`. Bumper la version dans `.claude-plugin/plugin.json`, `marketplace.json`, et la signature dans **tous** les templates à chaque release significative. Cf. CLAUDE.md racine section "Versioning".
+Every generated file carries `<!-- generated-by: starter-kit vX.Y.Z -->`. Bump the version in `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json`, and the signature in **all** templates at each significant release. Cf. the root CLAUDE.md "Versioning" section.
 
-## Idempotence et mode reprise
+## Idempotence and resume mode
 
-Tous les skills à effets de bord (`bootstrap`, `migrate`, `apply-best-practices`) doivent supporter la **réexécution** sans dégât : détecter ce qui existe déjà, proposer "skip / overwrite / save as .new", ne jamais écraser silencieusement.
+All side-effecting skills (`bootstrap`, `adopt`, `migrate`, `apply-best-practices`) must support **re-running** without damage: detect what already exists, offer "skip / overwrite / save as .new", never silently overwrite.

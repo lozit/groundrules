@@ -1,15 +1,15 @@
-<!-- generated-by: starter-kit v0.7.0 -->
+<!-- generated-by: starter-kit v0.8.0 -->
 # Changelog
 
-Toutes les modifications notables de ce projet sont documentées dans ce fichier.
+All notable changes to this project are documented in this file.
 
-Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/),
-versions respectant [Semantic Versioning](https://semver.org/lang/fr/).
+Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
 ### Added
-- Bootstrap du projet avec starter-kit le {{DATE}}
+- Project bootstrapped with starter-kit on {{DATE}}
 
 ### Changed
 

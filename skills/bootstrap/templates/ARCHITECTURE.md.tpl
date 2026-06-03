@@ -1,40 +1,40 @@
-<!-- generated-by: starter-kit v0.7.0 -->
+<!-- generated-by: starter-kit v0.8.0 -->
 # Architecture — {{PROJECT_NAME}}
 
-Snapshot **vivant** de l'architecture actuelle. Mis à jour au fil des évolutions structurelles.
+**Living** snapshot of the current architecture. Updated as the structure evolves.
 
-Pour le **pourquoi** des choix → voir `docs/decisions/`.
+For the **why** behind choices → see `docs/decisions/`.
 
-## Vue d'ensemble
+## Overview
 
-Diagramme ou paragraphe haut niveau : composants principaux et leurs relations.
+High-level diagram or paragraph: main components and their relationships.
 
 ## Stack
 
 {{STACK}}
 
-## Composants
+## Components
 
-### Composant A
+### Component A
 
-Rôle, responsabilités, dépendances.
+Role, responsibilities, dependencies.
 
-### Composant B
+### Component B
 
-Rôle, responsabilités, dépendances.
+Role, responsibilities, dependencies.
 
-## Flux principaux
+## Main flows
 
-Décrire les 2-3 flux les plus importants (auth, lecture, écriture...).
+Describe the 2-3 most important flows (auth, read, write...).
 
-## Environnements
+## Environments
 
-- **Local** : ...
-- **Staging** : ...
-- **Production** : ...
+- **Local**: ...
+- **Staging**: ...
+- **Production**: ...
 
-## Points d'attention
+## Points of attention
 
-- Points fragiles connus
-- Limites de scalabilité actuelles
-- Dette technique majeure
+- Known fragile points
+- Current scalability limits
+- Major technical debt

@@ -1,88 +1,87 @@
 ---
 name: add-adr
-description: Créer un nouvel ADR dans docs/decisions/ — numéro auto-incrémenté, langue déduite, index mis à jour.
+description: Create a new ADR in docs/decisions/ — auto-incremented number, updated index.
 disable-model-invocation: true
 allowed-tools: Read, Write, Edit, Bash, AskUserQuestion
 ---
 
 # /starter-kit:add-adr
 
-Tu vas créer un nouvel **Architecture Decision Record** dans le projet courant.
+You will create a new **Architecture Decision Record** in the current project. All output is in **English**.
 
-## Phase 1 — Contexte projet
+## Phase 1 — Project context
 
-1. Vérifie que `docs/decisions/` existe dans le cwd. Sinon : avertir l'utilisateur que le projet n'a pas la structure starter-kit et proposer `/starter-kit:bootstrap` d'abord. Stop.
-2. Lis `.starter-kit.json` à la racine si présent — en extraire `answers.lang` (`fr` / `en` / `mix`). Si absent ou `mix`, défaut = `en`.
-3. Calcule le **prochain numéro d'ADR** :
+1. Check that `docs/decisions/` exists in the cwd. Otherwise: warn the user the project doesn't have the starter-kit structure and suggest `/starter-kit:bootstrap` first. Stop.
+2. Compute the **next ADR number**:
    - `ls docs/decisions/[0-9]*.md 2>/dev/null`
-   - Extrais le préfixe NNNN de chaque nom de fichier (ignore `0000-template.md`)
-   - Prochain numéro = max + 1, formaté sur 4 chiffres (ex: `0003`)
-   - Si aucun ADR existant (hors template) → `0001`
+   - Extract the NNNN prefix of each filename (ignore `0000-template.md`)
+   - Next number = max + 1, formatted on 4 digits (e.g. `0003`)
+   - If no existing ADR (excluding the template) → `0001`
 
-## Phase 2 — Collecter les infos
+## Phase 2 — Collect the info
 
-Si `$ARGUMENTS` est non-vide, utilise-le comme **titre** brut (la première ligne).
+If `$ARGUMENTS` is non-empty, use it as the raw **title** (the first line).
 
-Sinon, pose les questions via `AskUserQuestion` (un seul appel, max 3 questions) :
+Otherwise, ask via `AskUserQuestion` (a single call, max 3 questions):
 
-- **Titre court** (1 phrase, ex: "Database choice for analytics module")
-- **Statut initial** : `Proposed` (recommandé) / `Accepted`
-- **Mode** : `Squelette` (juste le template avec placeholders à remplir) / `Pré-rempli` (poser 2 questions de plus pour Context et Decision en 1-2 phrases chacune)
+- **Short title** (1 sentence, e.g. "Database choice for analytics module")
+- **Initial status**: `Proposed` (recommended) / `Accepted`
+- **Mode**: `Skeleton` (just the template with placeholders to fill) / `Pre-filled` (ask 2 more questions for Context and Decision, 1-2 sentences each)
 
-Si mode `Pré-rempli`, faire un 2e appel :
-- **Context (1-3 phrases)** : pourquoi cette décision se pose maintenant
-- **Decision (1-2 phrases)** : ce qui est décidé
+If `Pre-filled` mode, make a 2nd call:
+- **Context (1-3 sentences)**: why this decision arises now
+- **Decision (1-2 sentences)**: what is decided
 
-## Phase 3 — Slugification du titre
+## Phase 3 — Title slugification
 
-Convertir le titre en kebab-case pour le nom de fichier :
-- Tout en minuscules
+Convert the title to kebab-case for the filename:
+- All lowercase
 - Strip accents (é→e, à→a, etc.)
-- Caractères non-alphanumériques → tiret
-- Tirets consécutifs → un seul tiret
-- Trim tirets en début/fin
-- Limite à ~60 caractères
+- Non-alphanumeric characters → dash
+- Consecutive dashes → a single dash
+- Trim leading/trailing dashes
+- Limit to ~60 characters
 
-Exemple : `"Database choice for the analytics module"` → `database-choice-for-the-analytics-module`
+Example: `"Database choice for the analytics module"` → `database-choice-for-the-analytics-module`
 
-Nom final : `NNNN-{slug}.md`
+Final name: `NNNN-{slug}.md`
 
-## Phase 4 — Génération
+## Phase 4 — Generation
 
-1. Lis le template : `${CLAUDE_PLUGIN_ROOT}/skills/bootstrap/templates/adr-template.{lang}.md`
-2. Substitutions à faire dans le contenu lu :
-   - `NNNN — Titre court de la décision` (FR) ou `NNNN — Short decision title` (EN) → `NNNN — {Titre fourni}`
-   - `**Date** : YYYY-MM-DD` ou `**Date**: YYYY-MM-DD` → date du jour ISO
-   - `**Statut** : Proposé | Accepté | ...` ou `**Status**: Proposed | Accepted | ...` → `**Statut/Status**: {Statut choisi}`
-   - Mettre à jour la signature `<!-- generated-by: starter-kit vX.Y.Z -->` à la version actuelle du plugin (lire depuis `${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json`)
-   - Si mode `Pré-rempli` : remplacer la section Context et Decision par les phrases fournies (laisser Alternatives/Consequences/Notes avec leurs placeholders)
-3. Écris à `docs/decisions/NNNN-{slug}.md` via `Write`.
+1. Read the template: `${CLAUDE_PLUGIN_ROOT}/skills/bootstrap/templates/adr-template.md`
+2. Substitutions to make in the read content:
+   - `NNNN — Short decision title` → `NNNN — {provided title}`
+   - `**Date**: YYYY-MM-DD` → today's date in ISO
+   - `**Status**: Proposed | Accepted | ...` → `**Status**: {chosen status}`
+   - Update the signature `<!-- generated-by: starter-kit vX.Y.Z -->` to the current plugin version (read from `${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json`)
+   - If `Pre-filled` mode: replace the Context and Decision sections with the provided sentences (leave Alternatives/Consequences/Notes with their placeholders)
+3. Write to `docs/decisions/NNNN-{slug}.md` via `Write`.
 
-## Phase 5 — Mettre à jour l'index
+## Phase 5 — Update the index
 
-Lis `docs/decisions/README.md`. Trouve la ligne tableau correspondant au dernier ADR existant (ou la ligne `| 0000 | Template | — | — |` si premier ADR).
+Read `docs/decisions/README.md`. Find the table row matching the last existing ADR (or the `| 0000 | Template | — | — |` row if it's the first ADR).
 
-Insère **après cette ligne** une nouvelle ligne :
+Insert **after that row** a new row:
 
 ```
-| [NNNN](NNNN-{slug}.md) | {Titre} | {Statut} | {Date} |
+| [NNNN](NNNN-{slug}.md) | {Title} | {Status} | {Date} |
 ```
 
-Utilise l'outil `Edit` avec `old_string` = la ligne précédente, `new_string` = la ligne précédente + `\n` + la nouvelle ligne.
+Use the `Edit` tool with `old_string` = the previous row, `new_string` = the previous row + `\n` + the new row.
 
-## Phase 6 — Récap
+## Phase 6 — Recap
 
-Affiche à l'utilisateur :
-- ✅ Chemin du nouvel ADR créé
-- ✅ Numéro attribué
-- 📋 Next steps :
-  - Ouvrir le fichier et remplir les sections Alternatives / Consequences
-  - Si mode `Squelette` : remplir Context et Decision
+Show the user:
+- ✅ Path of the new ADR created
+- ✅ Assigned number
+- 📋 Next steps:
+  - Open the file and fill the Alternatives / Consequences sections
+  - If `Skeleton` mode: fill Context and Decision
 
-**Ne JAMAIS commit automatiquement** — laisse l'utilisateur décider quand commiter.
+**NEVER commit automatically** — let the user decide when to commit.
 
-## Règles importantes
+## Important rules
 
-- Si un ADR avec le même slug existe déjà → afficher l'erreur, proposer un titre légèrement différent.
-- Ne pas écraser un ADR existant.
-- Conserver la signature `generated-by` pour cohérence avec les autres fichiers du projet.
+- If an ADR with the same slug already exists → show the error, suggest a slightly different title.
+- Don't overwrite an existing ADR.
+- Keep the `generated-by` signature for consistency with the other project files.

@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.7.0 -->
+<!-- generated-by: starter-kit v0.8.0 -->
 # CLAUDE.md — {{PROJECT_NAME}}
 
 > This file is **mutable and iterative**. Update it after every Claude mistake or newly discovered convention. Target: < 200 lines.

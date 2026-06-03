@@ -1,32 +1,32 @@
-<!-- generated-by: starter-kit v0.7.0 -->
-# Internationalisation (i18n) — {{PROJECT_NAME}}
+<!-- generated-by: starter-kit v0.8.0 -->
+# Internationalization (i18n) — {{PROJECT_NAME}}
 
-Stratégie **vivante** de gestion multilingue.
+**Living** strategy for multilingual support.
 
-Pour le **pourquoi** des choix structurants → voir `docs/decisions/`.
+For the **why** behind structural choices → see `docs/decisions/`.
 
-## Langues supportées
+## Supported languages
 
-- Langue par défaut : `<à compléter>`
-- Langues additionnelles : `<à compléter>`
-- Stratégie de repli (fallback) : `<à compléter>`
+- Default language: `<fill in>`
+- Additional languages: `<fill in>`
+- Fallback strategy: `<fill in>`
 
-## Organisation des traductions
+## Translation organization
 
-- Outil / librairie : `<à compléter>`
-- Emplacement des fichiers de traduction : `<à compléter>`
-- Convention de clés : `<à compléter>` (ex. `page.section.element`)
+- Tool / library: `<fill in>`
+- Location of translation files: `<fill in>`
+- Key convention: `<fill in>` (e.g. `page.section.element`)
 
-## Formats localisés
+## Localized formats
 
-- Dates / heures : `<à compléter>`
-- Nombres / devises : `<à compléter>`
-- Pluriels et genres : `<à compléter>`
+- Dates / times: `<fill in>`
+- Numbers / currencies: `<fill in>`
+- Plurals and genders: `<fill in>`
 
-## Détection et sélection de la langue
+## Language detection and selection
 
-Comment la langue de l'utilisateur est déterminée (URL, header, préférence stockée) : `<à compléter>`.
+How the user's language is determined (URL, header, stored preference): `<fill in>`.
 
-## Process de traduction
+## Translation process
 
-Qui traduit, quand, et comment les nouvelles clés sont ajoutées : `<à compléter>`.
+Who translates, when, and how new keys are added: `<fill in>`.

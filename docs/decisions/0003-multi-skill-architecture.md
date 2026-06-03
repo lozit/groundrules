@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.7.0 -->
+<!-- generated-by: starter-kit v0.8.0 -->
 # 0003 — Multi-skill architecture with `disable-model-invocation: true`
 
 **Date**: 2026-05-11
