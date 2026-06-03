@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.6.0 -->
+<!-- generated-by: starter-kit v0.7.0 -->
 # Glossaire — {{PROJECT_NAME}}
 
 Vocabulaire métier du projet. Une entrée par terme, ordre alphabétique.

@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.6.0 -->
+<!-- generated-by: starter-kit v0.7.0 -->
 # PLAN — {{PROJECT_NAME}}
 
 Plan/todo **actif** du projet. Maintenu par Claude au fil du travail.

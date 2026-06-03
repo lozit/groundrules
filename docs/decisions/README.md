@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.6.0 -->
+<!-- generated-by: starter-kit v0.7.0 -->
 # Architecture Decisions (ADR)
 
 This folder contains the project's **Architecture Decision Records**: each structural decision made during the project is recorded in a file.
@@ -35,3 +35,9 @@ No ADR needed for trivial choices or implementation details.
 | [0003](0003-multi-skill-architecture.md) | Multi-skill architecture with `disable-model-invocation: true` | Accepted | 2026-05-11 |
 | [0004](0004-starter-kit-json-schema.md) | `.starter-kit.json` schema with `bootstrappedWithVersion` and `migrations` | Accepted | 2026-05-11 |
 | [0005](0005-intent-capture-and-apply-best-practices.md) | Intent capture in bootstrap + separate `apply-best-practices` skill | Accepted | 2026-05-11 |
+| [0006](0006-optional-specialized-docs.md) | Optional specialized docs in bootstrap (DATA_MODEL, SECURITY, DESIGN_SYSTEM, ROADMAP, I18N) | Accepted | 2026-06-03 |
+| [0007](0007-denumber-entry-docs.md) | Drop the numeric prefix on entry docs (VISION / INTENT) | Accepted | 2026-06-03 |
+| [0008](0008-adopt-brownfield-projects.md) | Adopt existing (brownfield) projects via a dedicated `/starter-kit:adopt` skill | Accepted | 2026-06-03 |
+| [0009](0009-global-claude-md-awareness.md) | Global/enterprise CLAUDE.md awareness + lean project CLAUDE.md | Accepted | 2026-06-03 |
+| [0010](0010-managed-project-claude-md-deference.md) | Defer to an existing tool-managed project CLAUDE.md (no generation, opt-in docs pointer) | Accepted | 2026-06-03 |
+| [0011](0011-detect-no-ai-attribution-policy.md) | Detect a "no AI attribution" policy and adapt suggested commits | Accepted | 2026-06-03 |

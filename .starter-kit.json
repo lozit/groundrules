@@ -1,11 +1,12 @@
 {
-  "starterKitVersion": "0.6.0",
+  "starterKitVersion": "0.7.0",
   "bootstrappedAt": "2026-05-11",
   "bootstrappedWithVersion": "0.1.0",
   "migrations": [
     {"from": "0.1.0", "to": "0.4.0", "at": "2026-05-11", "note": "dev-bumped during plugin authorship (informal, not via /starter-kit:migrate)"},
     {"from": "0.4.0", "to": "0.5.0", "at": "2026-05-11", "note": "V0.5 intent capture: backfilled brief/00-INTENT.md and docs/00-VISION.md retroactively from the original prompt"},
-    {"from": "0.5.0", "to": "0.6.0", "at": "2026-05-11", "note": "V0.6 add /starter-kit:verify-bootstrap skill"}
+    {"from": "0.5.0", "to": "0.6.0", "at": "2026-05-11", "note": "V0.6 add /starter-kit:verify-bootstrap skill"},
+    {"from": "0.6.0", "to": "0.7.0", "at": "2026-06-03", "note": "V0.7 add optional specialized docs (DATA_MODEL, SECURITY, DESIGN_SYSTEM, ROADMAP, I18N); de-number entry docs: brief/00-INTENT.md -> brief/INTENT.md, docs/00-VISION.md -> docs/VISION.md (ADR 0007)"}
   ],
   "answers": {
     "projectName": "Starting-Claude",
@@ -42,7 +43,7 @@
     ],
     "acceptanceCriteria": [
       "Bootstrap d'un nouveau projet en < 5 minutes",
-      "5 skills opérationnels : bootstrap, add-adr, learn, migrate, apply-best-practices",
+      "7 skills opérationnels : bootstrap, adopt, add-adr, learn, migrate, apply-best-practices, verify-bootstrap",
       "Structure générée complète (README, CLAUDE.md, docs/, brief/, media/, conditionnels)",
       "Intent capturable au bootstrap (brief paste / fichier / interview / skip)",
       "apply-best-practices fetche shanraisshan, filtre par vision, propose multi-select",
@@ -86,8 +87,8 @@
     "PLAN.md",
     "docs/ARCHITECTURE.md",
     "CHANGELOG.md",
-    "brief/00-INTENT.md",
-    "docs/00-VISION.md",
+    "brief/INTENT.md",
+    "docs/VISION.md",
     "docs/best-practices-pending.md",
     ".claude/rules/plugin-meta.md",
     ".claude/settings.json",

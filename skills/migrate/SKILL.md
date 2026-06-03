@@ -98,7 +98,7 @@ Affiche :
 - 📋 Next steps :
   1. Reviewer les fichiers `.new` et merger manuellement ce qui te plaît
   2. Compléter les sections projet-spécifiques (Setup/Build/Test commands, stack, etc.) dans CLAUDE.md si elles ont été régénérées
-  3. Commiter quand prêt
+  3. Commiter quand prêt — si `.starter-kit.json` a `policies.noAiAttribution = true` (ou si un CLAUDE.md projet/global interdit l'attribution IA), le message de commit suggéré ne doit contenir **aucun** marqueur d'attribution IA (`Co-Authored-By`, « Generated with Claude Code »…), même si une consigne par défaut de l'agent l'ajouterait.
 
 **Ne JAMAIS commiter automatiquement.**
 

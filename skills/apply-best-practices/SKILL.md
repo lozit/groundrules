@@ -12,9 +12,9 @@ Tu vas fetcher les bonnes pratiques Claude Code maintenues à jour par la commun
 ## Phase 1 — Pré-requis
 
 1. `.starter-kit.json` doit exister dans le cwd. Sinon : *"Ce projet n'a pas été amorcé avec starter-kit. Lance d'abord `/starter-kit:bootstrap`."* Stop.
-2. `docs/00-VISION.md` doit exister. Sinon : *"Pas de vision du projet trouvée. Cette commande a besoin de l'intent pour proposer des pratiques adaptées. Lance `/starter-kit:bootstrap` (ou ajoute manuellement la vision avant de relancer)."* Stop.
+2. `docs/VISION.md` doit exister. Sinon : *"Pas de vision du projet trouvée. Cette commande a besoin de l'intent pour proposer des pratiques adaptées. Lance `/starter-kit:bootstrap` (ou ajoute manuellement la vision avant de relancer)."* Stop.
 3. Lis `.starter-kit.json` → extrais `answers.lang` pour la langue de l'interaction.
-4. Lis `docs/00-VISION.md` → contenu intégral à passer au fetch.
+4. Lis `docs/VISION.md` → contenu intégral à passer au fetch.
 
 ## Phase 2 — Fetch des bonnes pratiques
 
@@ -23,7 +23,7 @@ Utilise `WebFetch` sur `https://github.com/shanraisshan/claude-code-best-practic
 > Voici la vision d'un projet Claude Code :
 >
 > ```
-> <contenu intégral de docs/00-VISION.md>
+> <contenu intégral de docs/VISION.md>
 > ```
 >
 > Extrais de cette page les meilleures pratiques Claude Code qui sont **pertinentes pour CE projet précisément** (pas une liste générique). Catégorise les recommandations en :
@@ -76,7 +76,7 @@ Pour chaque recommandation sélectionnée :
   paths:
     - "..."
   ---
-  <!-- generated-by: starter-kit v0.6.0 -->
+  <!-- generated-by: starter-kit v0.7.0 -->
 
   # Titre
   ...

@@ -41,7 +41,7 @@ Lis les **10 premières lignes** du fichier (pour accommoder une YAML frontmatte
 paths:
   - "..."
 ---
-<!-- generated-by: starter-kit v0.6.0 -->
+<!-- generated-by: starter-kit v0.7.0 -->
 ```
 
 ### 2.3 Version match
@@ -55,7 +55,7 @@ Si signature trouvée :
 Cherche dans tout le contenu du fichier les **placeholders connus** de bootstrap phase 5 (whitelist exacte) :
 
 ```
-\{\{(PROJECT_NAME|DESCRIPTION|LANG|STACK|DATE|HAS_PLAN|HAS_ARCHITECTURE|HAS_GLOSSARY|HAS_CHANGELOG|REMOTE_PROVIDER|REMOTE_VISIBILITY|CONTENT|INTENT_SOURCE|GOAL|USERS|CONSTRAINTS|NONGOALS|ACCEPTANCE)\}\}
+\{\{(PROJECT_NAME|DESCRIPTION|LANG|STACK|DATE|HAS_PLAN|HAS_ARCHITECTURE|HAS_GLOSSARY|HAS_CHANGELOG|HAS_DATA_MODEL|HAS_SECURITY|HAS_DESIGN_SYSTEM|HAS_ROADMAP|HAS_I18N|GLOBAL_CLAUDE_NOTE|REMOTE_PROVIDER|REMOTE_VISIBILITY|CONTENT|INTENT_SOURCE|GOAL|USERS|CONSTRAINTS|NONGOALS|ACCEPTANCE)\}\}
 ```
 
 - **Aucun match** → **✅ pas de placeholder**
@@ -91,8 +91,8 @@ Test JSON : `python3 -c "import json,sys; json.load(open(sys.argv[1]))" <file>` 
 
 ### 3.4 Cohérence générale
 
-- Si `intent.source = "skipped"` mais `docs/00-VISION.md` existe → **⚠️ incohérence : intent skipped mais vision présente**
-- Si `intent.source` ≠ `"skipped"` mais `docs/00-VISION.md` manque → **❌ vision attendue mais absente**
+- Si `intent.source = "skipped"` mais `docs/VISION.md` existe → **⚠️ incohérence : intent skipped mais vision présente**
+- Si `intent.source` ≠ `"skipped"` mais `docs/VISION.md` manque → **❌ vision attendue mais absente**
 
 ## Phase 4 — Affichage du rapport
 
@@ -106,11 +106,11 @@ Bootstrapped with: <bootstrappedWithVersion>
 
 --- Fichiers (X/Y trackés) ---
 ✅ docs/decisions/README.md
-   ✅ signature v0.6.0 · ✅ pas de placeholder
-✅ docs/00-VISION.md
-   ✅ signature v0.6.0 · ✅ pas de placeholder
+   ✅ signature v0.7.0 · ✅ pas de placeholder
+✅ docs/VISION.md
+   ✅ signature v0.7.0 · ✅ pas de placeholder
 ⚠️ docs/ARCHITECTURE.md
-   ⚠️ signature v0.5.0 (expected v0.6.0)
+   ⚠️ signature v0.6.0 (expected v0.7.0)
 ❌ docs/missing-file.md
    ❌ fichier absent
 

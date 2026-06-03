@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.6.0 -->
+<!-- generated-by: starter-kit v0.7.0 -->
 # Learnings — Starting-Claude
 
 Non-trivial learnings that emerged during the project. Reverse-chronological order (newest at the top).
@@ -6,6 +6,11 @@ Non-trivial learnings that emerged during the project. Reverse-chronological ord
 One entry per learning. Keep the format simple: title, context, lesson.
 
 ---
+
+## 2026-06-03 — Ecosystem interop: compare by altitude, not by name
+
+**Context**: Asked whether starter-kit's `PLAN.md` / `docs/VISION.md` duplicate superpowers' `docs/superpowers/plans/` and `specs/`. Both have "plan" and "design/vision" artifacts, so on names they look like duplicates.
+**Lesson**: When checking overlap between two tools, compare **altitude (project vs feature) and lifecycle (durable/hand-curated vs volatile/agent-generated)**, not just the noun. starter-kit = durable project memory (the *why*); superpowers = per-feature working docs of a TDD loop (the *how*). The only real friction was `PLAN.md` (one rolling "now" view) vs per-feature plan files — resolved by *referencing* not *duplicating*. Default to documenting the division of labor (a conditional note in the CLAUDE.md template) rather than changing behavior — cheaper and doesn't presume the other tool is present.
 
 ## 2026-05-11 — Verify-bootstrap regex must be whitelist, not catch-all
 

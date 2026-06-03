@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.6.0 -->
+<!-- generated-by: starter-kit v0.7.0 -->
 # Apprentissages — {{PROJECT_NAME}}
 
 Apprentissages non-triviaux émergés au fil du projet. Ordre antichronologique (le plus récent en haut).

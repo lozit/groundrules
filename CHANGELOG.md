@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.6.0 -->
+<!-- generated-by: starter-kit v0.7.0 -->
 # Changelog
 
 All notable changes to this project are documented in this file.
@@ -6,7 +6,39 @@ All notable changes to this project are documented in this file.
 Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versions follow [Semantic Versioning](https://semver.org/).
 
-## [Unreleased — 0.6.0]
+## [Unreleased — 0.7.0]
+
+### Added
+- **Optional specialized docs in `bootstrap`** (new interview call "Appel 2b", multiSelect): the skill can now generate, on demand, any of:
+  - `docs/DATA_MODEL.md` — entities, relationships, row-level access rules, indexes, migrations
+  - `docs/SECURITY.md` — authentication, authorization, personal data & GDPR, secrets, attack surface
+  - `docs/DESIGN_SYSTEM.md` — colors/tokens, typography, spacing, components, accessibility
+  - `docs/ROADMAP.md` — long-term milestones (distinct from the active `PLAN.md`)
+  - `docs/I18N.md` — supported languages, translation organization, localized formats
+- Templates added (FR + EN): `DATA_MODEL`, `SECURITY`, `DESIGN_SYSTEM`, `ROADMAP`, `I18N` (10 files).
+- New `bootstrap` placeholders: `{{HAS_DATA_MODEL}}`, `{{HAS_SECURITY}}`, `{{HAS_DESIGN_SYSTEM}}`, `{{HAS_ROADMAP}}`, `{{HAS_I18N}}`.
+- **"No AI attribution" policy detection** — `bootstrap`/`adopt` read (read-only) the project + global `CLAUDE.md` for a rule forbidding AI attribution (`no AI attribution`, `Co-Authored-By`, `Generated with Claude`…) and set `policies.noAiAttribution` in `.starter-kit.json`. When set, commits made (`bootstrap`) or suggested (`adopt`, `migrate`) carry **no AI attribution trailer/footer**, overriding the agent's default. Skills still never auto-commit beyond `bootstrap`'s own commit. See ADR 0011.
+- **Deference to a tool-managed project CLAUDE.md** — when `bootstrap` (resume) / `adopt` find a `CLAUDE.md` already present (no starter-kit signature, often tool-managed e.g. a corporate `claude-manager`), starter-kit **never generates or overwrites** it. It detects management markers + a free zone (`END MANAGED` / `## Project-Specific Notes`) and offers (opt-in) to append a discoverability pointer to the starter-kit docs **into the free zone only**; if no free zone, it skips. Conflicts between managed rules and starter-kit conventions (e.g. commit AI-attribution) are surfaced, not resolved. Records `adoptedFiles["CLAUDE.md"]`. Takes precedence over the lean logic below. See ADR 0010.
+- **Global/enterprise CLAUDE.md awareness** — `bootstrap`/`adopt` detect a global CLAUDE.md (`~/.claude/CLAUDE.md` + OS-managed policy paths). When present, the generated project CLAUDE.md **defers** to it: a new **lean** template pair (`CLAUDE.lean.md.{fr,en}.tpl`) keeps only project-specific sections + a deference header ("loaded in addition to the global; on conflict the global/enterprise rule wins"), and the full template gains a `{{GLOBAL_CLAUDE_NOTE}}` placeholder (filled when a global is detected, empty otherwise). No enterprise file is ever overwritten (different path) or silently diluted (content). See ADR 0009.
+- **New skill `/starter-kit:adopt`** — onboards an existing (brownfield) project: scans, maps existing files to starter-kit roles (README, PLAN, backlog, intent-source, superpowers-interop), captures intent from existing docs, generates only what's missing, backfills `.starter-kit.json` with `adopted: true` + `adoptedFiles`. Never overwrites/deletes; no git init/remote; supports `--dry-run`. Fills the brownfield gap that `migrate` (refuses non-managed projects) and `bootstrap` (treats existing files as foreign) left open. See ADR 0008.
+- **Pre-existing planning detection** in `bootstrap` Phase 1 (and reused by `adopt`): detects `PLAN.md` aliases — now **case-insensitive** (`plan.md`), **nested** (`docs/gtd/todos.md`), and **multiple** at once (`TODO.md`, `todos.md`, `TASKS.md`, `BACKLOG.md`…). When found, Appel 3 asks a reconciliation question (adopt existing / create alongside / port content into `PLAN.md`) instead of the standard yes/no — never overwrites, never deletes the alias. **Case-collision guard**: never generates `PLAN.md` when a case-variant exists (avoids a cross-platform git hazard). `docs/superpowers/plans/` is explicitly *not* treated as an alias (different altitude); `PLAN.md` is kept and should point to the active superpowers plan.
+
+### Changed
+- **De-numbered the entry docs** (dropped the `00-` prefix): `brief/00-INTENT.md` → `brief/INTENT.md`, `docs/00-VISION.md` → `docs/VISION.md`. The partial numbering scheme (only VISION/INTENT carried a number, no other doc did) provided no real ordering benefit. Updated across `bootstrap`/`apply-best-practices`/`verify-bootstrap` SKILLs, `brief-INTENT` templates, `README.md`, `.starter-kit.json` (`generatedFiles`), and the dogfood files themselves. Historical references (CHANGELOG `[0.5.0]`, ADR 0005, the migration `note`, the peer-structure quote) kept verbatim.
+- Plugin version bumped 0.6.0 → 0.7.0 across `plugin.json`, `marketplace.json`, all template/doc signatures, and `.starter-kit.json` (`starterKitVersion` + new migration entry).
+- `bootstrap/SKILL.md`: Phase 1 scan list, Phase 2 interview (new Appel 2b), Phase 5 placeholders and conditional file mapping updated.
+- `README.md`: detailed "Fichiers générés" section extended with the 5 specialized docs.
+- `CLAUDE.md.{fr,en}.tpl`: added a conditional "Interop with superpowers" note clarifying that starter-kit's durable project docs and [superpowers](https://github.com/obra/superpowers)' per-feature `docs/superpowers/specs|plans/` live at different altitudes (no duplication); `PLAN.md` should reference the active superpowers plan rather than duplicate tasks.
+
+### Decisions
+- ADR `0006-optional-specialized-docs.md` — rationale for adding these docs as opt-in conditional templates (and for excluding `tickets/`, Salesforce-style and project-specific docs).
+- ADR `0007-denumber-entry-docs.md` — rationale for dropping the `00-` prefix on VISION/INTENT.
+- ADR `0008-adopt-brownfield-projects.md` — rationale for a dedicated `/starter-kit:adopt` skill + broadened planning detection.
+- ADR `0009-global-claude-md-awareness.md` — rationale for global CLAUDE.md detection + lean project CLAUDE.md.
+- ADR `0010-managed-project-claude-md-deference.md` — rationale for deferring to an existing tool-managed project CLAUDE.md.
+- ADR `0011-detect-no-ai-attribution-policy.md` — rationale for detecting a no-AI-attribution policy and adapting suggested commits.
+
+## [0.6.0]
 
 ### Added
 - New skill **`/starter-kit:verify-bootstrap`** — validates the coherence of a starter-kit-bootstrapped project:

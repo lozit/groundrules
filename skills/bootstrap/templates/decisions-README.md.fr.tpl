@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.6.0 -->
+<!-- generated-by: starter-kit v0.7.0 -->
 # Décisions d'architecture (ADR)
 
 Ce dossier contient les **Architecture Decision Records** du projet : chaque décision structurante prise au cours du projet est consignée dans un fichier.

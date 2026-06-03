@@ -1,8 +1,8 @@
-<!-- generated-by: starter-kit v0.6.0 -->
+<!-- generated-by: starter-kit v0.7.0 -->
 # CLAUDE.md — {{PROJECT_NAME}}
 
 > Ce fichier est **mutable et itératif**. Mets-le à jour à chaque erreur de Claude ou convention découverte. Cible : < 200 lignes.
-
+{{GLOBAL_CLAUDE_NOTE}}
 ## Description
 
 {{DESCRIPTION}}
@@ -33,6 +33,14 @@
   - `.claude/settings.json` — config équipe, checké dans git
   - `.claude/rules/*.md` — règles auto-chargées (frontmatter `paths:` pour scoping)
   - `.claude/commands/`, `.claude/skills/`, `.claude/agents/`, `.claude/hooks/` — automatisations
+
+### Interop avec superpowers (si tu utilises ce plugin)
+
+Si tu utilises aussi [superpowers](https://github.com/obra/superpowers), il n'y a **pas de doublon** : les artefacts sont à des altitudes différentes.
+
+- **Mémoire projet durable** (le *pourquoi*, stable, curée à la main) : `docs/VISION.md`, `docs/decisions/`, `docs/ROADMAP.md`, `docs/ARCHITECTURE.md`.
+- **Artefacts par feature** (le *comment*, volatil, générés par le workflow TDD de superpowers) : `docs/superpowers/specs/*-design.md` et `docs/superpowers/plans/*.md`.
+- `PLAN.md` reste la vue **« maintenant »** transversale ; quand une feature est pilotée par superpowers, fais-y **pointer** le plan actif (`docs/superpowers/plans/<date>-<feature>.md`) au lieu de dupliquer les tâches.
 
 ## Conventions
 

@@ -1,7 +1,7 @@
-<!-- generated-by: starter-kit v0.6.0 -->
+<!-- generated-by: starter-kit v0.7.0 -->
 # Vision — Starting-Claude
 
-> Synthèse de l'intent du projet. Source : `brief/00-INTENT.md` (paste rétroactif du prompt initial). À mettre à jour quand l'intent évolue (rare ; les décisions tactiques vont dans `docs/decisions/`).
+> Synthèse de l'intent du projet. Source : `brief/INTENT.md` (paste rétroactif du prompt initial). À mettre à jour quand l'intent évolue (rare ; les décisions tactiques vont dans `docs/decisions/`).
 
 ## Objectif
 
@@ -32,8 +32,8 @@ Construire un plugin Claude Code partageable qui standardise l'amorçage de nouv
 ## Critères d'acceptation V1
 
 - Un utilisateur peut amorcer un nouveau projet en < 5 minutes : `mkdir foo && cd foo && claude` → `/starter-kit:bootstrap` → réponses interview → fichiers générés + git initialisé.
-- 4 skills opérationnels : `bootstrap`, `add-adr`, `learn`, `migrate`, `apply-best-practices`.
-- Structure générée : `README.md`, `CLAUDE.md` (avec sections Setup/Build/Test, Vérifier le travail, Mettre à jour ce fichier, Workflow Claude Code, etc.), `docs/decisions/`, `docs/LEARNINGS.md`, `brief/`, `media/`, optionnellement `PLAN.md` / `ARCHITECTURE.md` / `GLOSSARY.md` / `CHANGELOG.md` / `00-VISION.md`.
+- 7 skills opérationnels : `bootstrap`, `adopt`, `add-adr`, `learn`, `migrate`, `apply-best-practices`, `verify-bootstrap`.
+- Structure générée : `README.md`, `CLAUDE.md` (avec sections Setup/Build/Test, Vérifier le travail, Mettre à jour ce fichier, Workflow Claude Code, etc.), `docs/decisions/`, `docs/LEARNINGS.md`, `brief/`, `media/`, optionnellement `PLAN.md` / `ARCHITECTURE.md` / `GLOSSARY.md` / `CHANGELOG.md` / `VISION.md` / docs spécialisées (`DATA_MODEL` / `SECURITY` / `DESIGN_SYSTEM` / `ROADMAP` / `I18N`).
 - Intent capturable au bootstrap (brief paste / brief fichier / interview / skip).
 - `apply-best-practices` fetche shanraisshan, filtre par la vision du projet, propose multi-select, applique le safe automatiquement.
 - Plugin publié sur GitHub avec marketplace publique : installable via `/plugin marketplace add https://github.com/lozit/claude-code-starter-kit`.
@@ -42,7 +42,7 @@ Construire un plugin Claude Code partageable qui standardise l'amorçage de nouv
 ---
 
 Pour aller plus loin :
-- `brief/` — notes brutes amont (specs, emails, brainstorms) — voir `brief/00-INTENT.md` pour le prompt initial
+- `brief/` — notes brutes amont (specs, emails, brainstorms) — voir `brief/INTENT.md` pour le prompt initial
 - `docs/decisions/` — décisions structurantes (4 ADR à ce jour)
 - `docs/LEARNINGS.md` — apprentissages non-triviaux
 - `docs/ARCHITECTURE.md` — snapshot archi (deux couches : sources plugin / dogfood projet)

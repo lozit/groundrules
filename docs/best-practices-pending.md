@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.6.0 -->
+<!-- generated-by: starter-kit v0.7.0 -->
 # Best practices pending — à reviewer manuellement
 
 Fichier généré par `/starter-kit:apply-best-practices` le 2026-05-11. Contient les recommandations **non-appliquées automatiquement** (hooks, skills custom) en attente de revue humaine.
