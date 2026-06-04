@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.10.0 -->
+<!-- generated-by: starter-kit v0.10.1 -->
 # 0012 — English-only (drop bilingual FR/EN templates)
 
 **Date**: 2026-06-04

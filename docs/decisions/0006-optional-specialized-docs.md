@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.10.0 -->
+<!-- generated-by: starter-kit v0.10.1 -->
 # 0006 — Optional specialized docs in bootstrap
 
 **Date**: 2026-06-03

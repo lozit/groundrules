@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.10.0 -->
+<!-- generated-by: starter-kit v0.10.1 -->
 # Brief / Intent — {{PROJECT_NAME}}
 
 Raw upstream content (paste, email excerpt, call transcript, PO doc, etc.) describing the project intent.

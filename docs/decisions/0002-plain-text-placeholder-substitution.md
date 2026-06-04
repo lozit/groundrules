@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.10.0 -->
+<!-- generated-by: starter-kit v0.10.1 -->
 # 0002 — Plain text placeholder substitution, no templating engine
 
 **Date**: 2026-05-11

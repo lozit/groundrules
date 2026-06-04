@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.10.0 -->
+<!-- generated-by: starter-kit v0.10.1 -->
 # 0007 — Drop the numeric prefix on entry docs (VISION / INTENT)
 
 **Date**: 2026-06-03

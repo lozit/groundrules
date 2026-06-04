@@ -1,10 +1,15 @@
-<!-- generated-by: starter-kit v0.10.0 -->
+<!-- generated-by: starter-kit v0.10.1 -->
 # Changelog
 
 All notable changes to this project are documented in this file.
 
 Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versions follow [Semantic Versioning](https://semver.org/).
+
+## [0.10.1]
+
+### Changed
+- Meta: documented the **batch-small-changes** release cadence in the root `CLAUDE.md` (accumulate under `[Unreleased]`; bump/tag/release only on explicit request).
 
 ## [0.10.0]
 

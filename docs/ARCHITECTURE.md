@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.10.0 -->
+<!-- generated-by: starter-kit v0.10.1 -->
 # Architecture — Starting-Claude
 
 **Living** snapshot of the current architecture. Updated as the structure evolves.

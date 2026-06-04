@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.10.0 -->
+<!-- generated-by: starter-kit v0.10.1 -->
 # CLAUDE.md — {{PROJECT_NAME}}
 
 > **Relationship with the global CLAUDE.md**: this file is loaded **in addition to** the global CLAUDE.md (`~/.claude/CLAUDE.md` + managed enterprise policy) — it does not replace it. It holds **project-specific** content only. Do not restate global rules (commits, workflow, tool/MCP choices, verification, output conventions…). **On conflict, the global/enterprise rule wins.**

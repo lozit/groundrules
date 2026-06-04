@@ -1,5 +1,5 @@
 {
-  "starterKitVersion": "0.10.0",
+  "starterKitVersion": "0.10.1",
   "bootstrappedAt": "2026-05-11",
   "bootstrappedWithVersion": "0.1.0",
   "migrations": [
@@ -9,7 +9,8 @@
     {"from": "0.6.0", "to": "0.7.0", "at": "2026-06-03", "note": "V0.7 add optional specialized docs (DATA_MODEL, SECURITY, DESIGN_SYSTEM, ROADMAP, I18N); de-number entry docs: brief/00-INTENT.md -> brief/INTENT.md, docs/00-VISION.md -> docs/VISION.md (ADR 0007)"},
     {"from": "0.7.0", "to": "0.8.0", "at": "2026-06-04", "note": "V0.8 English-only: dropped bilingual FR/EN templates + {{LANG}} logic, translated skills/docs to English (ADR 0012)"},
     {"from": "0.8.0", "to": "0.9.0", "at": "2026-06-04", "note": "V0.9 moved media/ -> docs/media/ to avoid collision with project media/public folders (ADR 0013)"},
-    {"from": "0.9.0", "to": "0.10.0", "at": "2026-06-04", "note": "V0.10 adopt always offers optional/specialized docs (Call 3b); living-docs maintenance rule in generated CLAUDE.md"}
+    {"from": "0.9.0", "to": "0.10.0", "at": "2026-06-04", "note": "V0.10 adopt always offers optional/specialized docs (Call 3b); living-docs maintenance rule in generated CLAUDE.md"},
+    {"from": "0.10.0", "to": "0.10.1", "at": "2026-06-04", "note": "V0.10.1 meta/docs only: documented the batch-small-changes release cadence (no user-facing change)"}
   ],
   "answers": {
     "projectName": "Starting-Claude",

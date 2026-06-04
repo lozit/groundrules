@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.10.0 -->
+<!-- generated-by: starter-kit v0.10.1 -->
 # 0013 — Move media under docs/ (docs/media/ instead of top-level media/)
 
 **Date**: 2026-06-04

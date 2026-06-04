@@ -45,16 +45,16 @@ Reloading after a change: a **new skill directory** requires a full restart of C
 
 ## Template conventions
 
-- Every template carries `<!-- generated-by: starter-kit v0.10.0 -->` at the top.
+- Every template carries `<!-- generated-by: starter-kit v0.10.1 -->` at the top.
 - Placeholders in `{{KEY}}` format (plain text substitution, no template engine).
 - Available placeholders defined in `skills/bootstrap/SKILL.md` (Phase 5).
 - **English-only**: one `.tpl` per file, no language suffix (cf. ADR 0012). `gitignore.minimal` and `adr-template.md` are plain files.
 
 ## Versioning
 
-- Bump `version` in `.claude-plugin/plugin.json` AND `.claude-plugin/marketplace.json` at each release.
-- Bump the `<!-- generated-by: starter-kit vX.Y.Z -->` signature in all templates consistently.
-- Keep `CHANGELOG.md` up to date (Keep-a-Changelog).
+- **Batch small changes** — do NOT cut a version per change. Apply the change and add a line under `CHANGELOG.md` `## [Unreleased]`. Bump version, sweep signatures, tag, and create a GitHub release **only when explicitly asked** ("release" / "ship vX.Y.Z").
+- At release time: bump `version` in `.claude-plugin/plugin.json` AND `.claude-plugin/marketplace.json`, bump the `<!-- generated-by: starter-kit vX.Y.Z -->` signature in all templates/docs consistently, finalize the `## [Unreleased]` heading to `## [X.Y.Z]`, add a `.starter-kit.json` migration entry, then commit + push + `git tag -a vX.Y.Z` + `gh release create`.
+- Keep `CHANGELOG.md` up to date (Keep-a-Changelog) — `[Unreleased]` is the accumulator between releases.
 
 ## When to document
 
