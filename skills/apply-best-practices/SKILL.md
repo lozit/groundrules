@@ -75,7 +75,7 @@ For each selected recommendation:
   paths:
     - "..."
   ---
-  <!-- generated-by: starter-kit v0.9.0 -->
+  <!-- generated-by: starter-kit v0.10.0 -->
 
   # Title
   ...

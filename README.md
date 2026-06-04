@@ -135,6 +135,7 @@ If absent, the plugin shows the ready-to-paste commands for manual execution.
 - [x] V0.7 — optional specialized docs in `bootstrap` (`DATA_MODEL`, `SECURITY`, `DESIGN_SYSTEM`, `ROADMAP`, `I18N`); VISION/INTENT de-numbering; superpowers interop; broadened planning detection; skill `/starter-kit:adopt` (brownfield); global/enterprise CLAUDE.md awareness
 - [x] V0.8 — English-only: dropped the bilingual FR/EN templates and the `{{LANG}}` logic (less maintenance, all projects in English)
 - [x] V0.9 — `media/` moved under `docs/media/` (avoid collision with project `media/`/`public/`)
+- [x] V0.10 — `adopt` always offers the optional docs; generated `CLAUDE.md` gets a "living docs" maintenance rule
 - [x] Public marketplace published on GitHub: [lozit/claude-code-starter-kit](https://github.com/lozit/claude-code-starter-kit)
 
 ## License

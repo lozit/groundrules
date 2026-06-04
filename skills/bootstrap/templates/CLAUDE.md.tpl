@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.9.0 -->
+<!-- generated-by: starter-kit v0.10.0 -->
 # CLAUDE.md — {{PROJECT_NAME}}
 
 > This file is **mutable and iterative**. Update it after every Claude mistake or newly discovered convention. Target: < 200 lines.
@@ -84,6 +84,19 @@ When a **non-trivial learning** emerges (pitfall avoided, subtle bug, discovered
 ### PLAN.md
 
 Keep current: check off done, add emerging tasks, note blockers.
+
+### Keep generated docs current (living docs)
+
+Every file created at bootstrap/adopt is **living** — keep it in sync **in the same change** that makes it stale; don't let it drift. Updating an affected doc is **part of the task**, not a follow-up. Whenever your work touches one of these areas, update the matching file (if present):
+
+- `README.md` — when a change makes it inaccurate
+- `docs/VISION.md` — goal / users / scope / constraints change
+- `docs/ARCHITECTURE.md` — structure / components / stack change
+- `docs/DATA_MODEL.md` — schema / entities / access rules change
+- `docs/SECURITY.md` — auth / secrets / personal-data handling change
+- `docs/I18N.md` · `docs/DESIGN_SYSTEM.md` · `docs/ROADMAP.md` · `docs/GLOSSARY.md` — their domain changes
+- `CHANGELOG.md` — add an entry under `[Unreleased]` for any notable change
+- `PLAN.md` · `docs/LEARNINGS.md` · `docs/decisions/` — as described above
 
 ## Updating this file
 

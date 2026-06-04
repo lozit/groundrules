@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.9.0 -->
+<!-- generated-by: starter-kit v0.10.0 -->
 # {{PROJECT_NAME}}
 
 {{DESCRIPTION}}

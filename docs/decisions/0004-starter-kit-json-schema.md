@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.9.0 -->
+<!-- generated-by: starter-kit v0.10.0 -->
 # 0004 — `.starter-kit.json` schema with `bootstrappedWithVersion` and `migrations` array
 
 **Date**: 2026-05-11

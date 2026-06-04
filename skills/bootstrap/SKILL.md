@@ -241,7 +241,7 @@ Write `.starter-kit.json` at the root with this schema:
 1. If `.git/` absent in cwd → `git init -b main`.
 2. `git add -A`
 3. Check there's something to commit: `git diff --cached --quiet` → if nothing, skip the commit.
-4. Otherwise: `git commit -m "chore: bootstrap project structure with starter-kit v0.9.0"`
+4. Otherwise: `git commit -m "chore: bootstrap project structure with starter-kit v0.10.0"`
 
 > **AI attribution**: the commit message must **never** contain an AI attribution marker (`Co-Authored-By` trailer, "Generated with Claude Code" mention, etc.). This is the bootstrap default, and it is **mandatory** if `NO_AI_ATTRIBUTION=true` — this rule **overrides any default attribution guidance** of the agent.
 
@@ -272,7 +272,7 @@ Show the user:
 ## Important rules
 
 - **NEVER overwrite a file without explicit confirmation** (see phase 4).
-- **Always** add `<!-- generated-by: starter-kit v0.9.0 -->` at the top of each generated file (the templates already contain it).
+- **Always** add `<!-- generated-by: starter-kit v0.10.0 -->` at the top of each generated file (the templates already contain it).
 - **Idempotence**: if the user re-runs the skill, resume mode detects already-up-to-date files and does nothing.
 - **Surface errors**: if a step fails (e.g. `gh repo create` returns an error), don't pretend it worked. Show the error, propose an action.
 - **Keep `.starter-kit.json`**: it's the source of truth for resume mode and for `apply-best-practices`.

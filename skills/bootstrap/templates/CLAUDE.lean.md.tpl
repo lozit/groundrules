@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.9.0 -->
+<!-- generated-by: starter-kit v0.10.0 -->
 # CLAUDE.md — {{PROJECT_NAME}}
 
 > **Relationship with the global CLAUDE.md**: this file is loaded **in addition to** the global CLAUDE.md (`~/.claude/CLAUDE.md` + managed enterprise policy) — it does not replace it. It holds **project-specific** content only. Do not restate global rules (commits, workflow, tool/MCP choices, verification, output conventions…). **On conflict, the global/enterprise rule wins.**
@@ -39,6 +39,7 @@
 - **ADR** (`docs/decisions/`): any structural decision → copy `0000-template.md`.
 - **LEARNINGS** (`docs/LEARNINGS.md`): any non-trivial learning, dated entry at the top.
 - **PLAN.md**: check off done, add emergent tasks, note blockers.
+- **Living docs**: every generated doc (`docs/VISION.md`, `docs/ARCHITECTURE.md`, `docs/DATA_MODEL.md`, `README.md`, `CHANGELOG.md`…) must be kept in sync **in the same change** that makes it stale — updating it is part of the task, not a follow-up.
 
 ## Updating this file
 

@@ -79,12 +79,26 @@ find . -path ./node_modules -prune -o -path ./.git -prune -o \
 
 Reuse `bootstrap`'s intent logic (Phase 3) for the synthesis.
 
-### Call 3 — What to generate (multiSelect, only the **missing**)
+### Call 3a — Core docs to generate (multiSelect, missing only)
 Pre-check based on the scan. Only offer what **doesn't already exist**:
 - `CLAUDE.md` **only if absent** (if it already exists → see "CLAUDE.md project file already present", no generation). If absent and **`HAS_GLOBAL_CLAUDE=true`**: default to the **lean** variant (`CLAUDE.lean.md.tpl`) that complements the global without restating it; otherwise the full variant. Same logic as `bootstrap` Phase 5 "CLAUDE.md template selection" (placeholder `{{GLOBAL_CLAUDE_NOTE}}`).
 - `docs/decisions/` (ADR) + `docs/LEARNINGS.md`
 - `brief/` + `docs/media/` (explanatory READMEs)
-- Specialized docs (pre-suggested from the scan): `I18N` if i18n detected · `SECURITY` if `.env`/APIs · `DATA_MODEL` if ORM/SDK · `DESIGN_SYSTEM` if UI · `ARCHITECTURE`/`GLOSSARY`/`CHANGELOG` as desired.
+
+### Call 3b — Optional / specialized docs (multiSelect — ALWAYS ask)
+
+**This question is mandatory and must always be asked** (unless every option already exists on disk). Present a multiSelect listing **all** optional docs below — never silently skip it, and never gate the *list* on detection. Detection only decides what's **pre-checked**; every not-yet-existing option is still offered so the user can pick any of them.
+
+- `docs/ARCHITECTURE.md` — pre-check if a code project
+- `docs/GLOSSARY.md` — pre-check if domain jargon detected
+- `CHANGELOG.md` — pre-check if releases/versioning detected (or a standard requires it)
+- `docs/DATA_MODEL.md` — pre-check if an ORM/SDK/DB is detected
+- `docs/SECURITY.md` — pre-check if `.env`/secrets/external APIs detected
+- `docs/DESIGN_SYSTEM.md` — pre-check if a UI is detected
+- `docs/I18N.md` — pre-check if i18n/locales detected
+- `docs/ROADMAP.md` — offered (unchecked by default)
+
+Skip an individual option only if that exact file already exists (then list it under "adopted", not here). If **none** of these exist yet, the full list is shown with the detected ones pre-checked.
 
 ### Call 4 — Planning reconciliation (if equivalents detected)
 If **one or more** equivalents found:

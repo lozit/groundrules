@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.9.0 -->
+<!-- generated-by: starter-kit v0.10.0 -->
 # Changelog
 
 All notable changes to this project are documented in this file.
@@ -6,7 +6,18 @@ All notable changes to this project are documented in this file.
 Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versions follow [Semantic Versioning](https://semver.org/).
 
-## [Unreleased — 0.9.0]
+## [0.10.0]
+
+### Fixed
+- **`/starter-kit:adopt` now always offers the optional/specialized docs.** Call 3 was gated on scan detection, so when nothing was detected the question was skipped and docs like `DATA_MODEL`/`SECURITY`/`DESIGN_SYSTEM`/`ROADMAP`/`I18N`/`ARCHITECTURE`/`GLOSSARY`/`CHANGELOG` were never proposed. Split into Call 3a (core missing docs) + **Call 3b (mandatory multiSelect listing all optional docs)** — detection only pre-checks, it no longer hides the list.
+
+### Added
+- **"Living docs" rule in the generated `CLAUDE.md`** (full + lean templates): every generated doc (`VISION`, `ARCHITECTURE`, `DATA_MODEL`, `SECURITY`, `README`, `CHANGELOG`, …) must be kept in sync **in the same change** that makes it stale — maintaining it is part of the task, not a follow-up.
+
+### Changed
+- Plugin version bumped 0.9.0 → 0.10.0 across `plugin.json`, `marketplace.json`, all template/doc signatures, and `.starter-kit.json` (`starterKitVersion` + new migration entry).
+
+## [0.9.0]
 
 ### Changed
 - **`media/` moved to `docs/media/`** — the asset folder is now generated under `docs/` instead of at the project root, to avoid colliding with a project's own top-level `media/` or `public/`. Updated across `bootstrap` (scan + mapping), `adopt`, the `CLAUDE.md`/`README` templates, and the dogfood (`media/README.md` → `docs/media/README.md` via `git mv`). See ADR 0013.

@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.9.0 -->
+<!-- generated-by: starter-kit v0.10.0 -->
 # Vision — Starting-Claude
 
 > Synthesis of the project intent. Source: `brief/INTENT.md` (retroactive paste of the original prompt). Update when the intent evolves (rare; tactical decisions go in `docs/decisions/`).
