@@ -15,7 +15,7 @@ You will bootstrap a Claude Code project in the **current working directory**. F
 2. Detect the following markers and note what is present:
    - `.git/` (existing git repo)
    - `.starter-kit.json` (state from a previous invocation — if present, load it and switch to **resume mode**)
-   - `CLAUDE.md`, `README.md`, `docs/`, `brief/`, `docs/media/`, `PLAN.md`, `CHANGELOG.md`, `.gitignore`, `docs/VISION.md`, `brief/INTENT.md`
+   - `CLAUDE.md`, `README.md`, `docs/`, `intake/`, `docs/media/`, `PLAN.md`, `CHANGELOG.md`, `.gitignore`, `docs/VISION.md`, `intake/INTENT.md`
    - optional specialized docs: `docs/DATA_MODEL.md`, `docs/SECURITY.md`, `docs/DESIGN_SYSTEM.md`, `docs/ROADMAP.md`, `docs/I18N.md`
    - **`PLAN.md` equivalents** (planning aliases, **same altitude**) — detection is **case-insensitive** and **nested** (up to ~3 levels, excluding `node_modules`/`.git`): `plan.md`, `TODO.md`, `todo.md`, `todos.md`, `TASKS.md`, `BACKLOG.md`, including under a path (e.g. `docs/gtd/todos.md`). There may be **several** — report all of them. **Case guard**: **never** generate `PLAN.md` if an equivalent name exists in a different case (collision on a case-sensitive FS).
    - `docs/superpowers/plans/` (superpowers **per-feature** plans — **different altitude**, *not* a `PLAN.md` alias)
@@ -94,9 +94,9 @@ If **several** equivalents are detected, list them all and clarify their respect
 Ask the user to paste the content (can be long: multiple paragraphs accepted).
 
 Save the raw brief:
-1. Read `${CLAUDE_PLUGIN_ROOT}/skills/bootstrap/templates/brief-INTENT.md.tpl`
+1. Read `${CLAUDE_PLUGIN_ROOT}/skills/bootstrap/templates/intake-INTENT.md.tpl`
 2. Substitute `{{PROJECT_NAME}}` and `{{CONTENT}}` (the brief as-is)
-3. Write to `brief/INTENT.md`
+3. Write to `intake/INTENT.md`
 
 Synthesize into a structured vision. Read the brief and extract:
 - **Goal**: 1-3 sentences on what success looks like
@@ -109,7 +109,7 @@ If some points are ambiguous in the brief, ask **a single** grouped question to 
 
 ### If "it's in a file"
 
-Ask for the file path (absolute or relative to the cwd). `Read` that file then treat it like "I'll paste it": copy into `brief/INTENT.md` (via the template), synthesize into `docs/VISION.md`.
+Ask for the file path (absolute or relative to the cwd). `Read` that file then treat it like "I'll paste it": copy into `intake/INTENT.md` (via the template), synthesize into `docs/VISION.md`.
 
 ### If "No, ask me the questions"
 
@@ -122,20 +122,20 @@ Ask an `AskUserQuestion` with 4-5 questions:
 
 If a question is too broad, the user may answer "skip" or "to be defined later" — don't insist.
 
-In this case, no `brief/INTENT.md` (the answers are already structured). Source = `interview`.
+In this case, no `intake/INTENT.md` (the answers are already structured). Source = `interview`.
 
 ### Generating `docs/VISION.md`
 
 In all cases (except a total Skip), read `${CLAUDE_PLUGIN_ROOT}/skills/bootstrap/templates/docs-VISION.md.tpl`. Substitute:
 - `{{PROJECT_NAME}}`
-- `{{INTENT_SOURCE}}` — `brief/INTENT.md (paste)` / `brief/INTENT.md (file <path>)` / `interview`
+- `{{INTENT_SOURCE}}` — `intake/INTENT.md (paste)` / `intake/INTENT.md (file <path>)` / `interview`
 - `{{GOAL}}`, `{{USERS}}`, `{{CONSTRAINTS}}`, `{{NONGOALS}}`, `{{ACCEPTANCE}}` — synthesized text
 
 Write to `docs/VISION.md`.
 
 ### If "Skip"
 
-Create neither `brief/INTENT.md` nor `docs/VISION.md`. Note in `.starter-kit.json` that `intent.source = "skipped"`. `/starter-kit:apply-best-practices` will refuse until the vision is created.
+Create neither `intake/INTENT.md` nor `docs/VISION.md`. Note in `.starter-kit.json` that `intent.source = "skipped"`. `/starter-kit:apply-best-practices` will refuse until the vision is created.
 
 ## Phase 4 — Recap and confirmation
 
@@ -162,7 +162,7 @@ For each file to create:
    - `{{REMOTE_PROVIDER}}` — `github` / `gitlab` / empty string
    - `{{REMOTE_VISIBILITY}}` — `private` / `public` / empty string
    - `{{CONTENT}}` (intent brief) — raw brief content
-   - `{{INTENT_SOURCE}}` — `brief/INTENT.md (paste)` / `brief/INTENT.md (file ...)` / `interview`
+   - `{{INTENT_SOURCE}}` — `intake/INTENT.md (paste)` / `intake/INTENT.md (file ...)` / `interview`
    - `{{GOAL}}`, `{{USERS}}`, `{{CONSTRAINTS}}`, `{{NONGOALS}}`, `{{ACCEPTANCE}}` — synthesized text
 3. **Plain text substitution**: no template engine, just `replace` on each placeholder.
 4. Write the file to its destination with the `Write` tool.
@@ -186,7 +186,7 @@ For each file to create:
 | `decisions-README.md.tpl` | `docs/decisions/README.md` |
 | `adr-template.md` | `docs/decisions/0000-template.md` |
 | `LEARNINGS.md.tpl` | `docs/LEARNINGS.md` |
-| `brief-README.md.tpl` | `brief/README.md` |
+| `intake-README.md.tpl` | `intake/README.md` |
 | `media-README.md.tpl` | `docs/media/README.md` |
 
 ### File mapping (conditional)
@@ -202,7 +202,7 @@ For each file to create:
 | `HAS_DESIGN_SYSTEM=true` | `DESIGN_SYSTEM.md.tpl` | `docs/DESIGN_SYSTEM.md` |
 | `HAS_ROADMAP=true` | `ROADMAP.md.tpl` | `docs/ROADMAP.md` |
 | `HAS_I18N=true` | `I18N.md.tpl` | `docs/I18N.md` |
-| `intent.source` ∈ `paste`/`file` | `brief-INTENT.md.tpl` | `brief/INTENT.md` |
+| `intent.source` ∈ `paste`/`file` | `intake-INTENT.md.tpl` | `intake/INTENT.md` |
 | `intent.source` ≠ `skipped` | `docs-VISION.md.tpl` | `docs/VISION.md` |
 
 ### Persisted state
@@ -241,7 +241,7 @@ Write `.starter-kit.json` at the root with this schema:
 1. If `.git/` absent in cwd → `git init -b main`.
 2. `git add -A`
 3. Check there's something to commit: `git diff --cached --quiet` → if nothing, skip the commit.
-4. Otherwise: `git commit -m "chore: bootstrap project structure with starter-kit v0.10.1"`
+4. Otherwise: `git commit -m "chore: bootstrap project structure with starter-kit v0.11.0"`
 
 > **AI attribution**: the commit message must **never** contain an AI attribution marker (`Co-Authored-By` trailer, "Generated with Claude Code" mention, etc.). This is the bootstrap default, and it is **mandatory** if `NO_AI_ATTRIBUTION=true` — this rule **overrides any default attribution guidance** of the agent.
 
@@ -263,7 +263,7 @@ Show the user:
 - ✅ Git actions performed (init, short commit hash, remote URL if created)
 - 📋 Suggested next steps:
   1. **If the intent was captured**: run `/starter-kit:apply-best-practices` to fetch shanraisshan and apply the relevant practices to your vision.
-  2. Fill `brief/` with other upstream notes if relevant
+  2. Fill `intake/` with other upstream notes if relevant
   3. Flesh out `CLAUDE.md` (Setup/Build/Test, project-specific sections)
   4. If `PLAN.md` was created: add the first tasks
   5. Read `docs/VISION.md` and amend it if the synthesis missed something
@@ -272,7 +272,7 @@ Show the user:
 ## Important rules
 
 - **NEVER overwrite a file without explicit confirmation** (see phase 4).
-- **Always** add `<!-- generated-by: starter-kit v0.10.1 -->` at the top of each generated file (the templates already contain it).
+- **Always** add `<!-- generated-by: starter-kit v0.11.0 -->` at the top of each generated file (the templates already contain it).
 - **Idempotence**: if the user re-runs the skill, resume mode detects already-up-to-date files and does nothing.
 - **Surface errors**: if a step fails (e.g. `gh repo create` returns an error), don't pretend it worked. Show the error, propose an action.
 - **Keep `.starter-kit.json`**: it's the source of truth for resume mode and for `apply-best-practices`.

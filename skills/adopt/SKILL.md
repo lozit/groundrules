@@ -31,7 +31,7 @@ If `$ARGUMENTS` contains `--dry-run` (or `dry-run`): run all analysis phases but
 | `README.md` | README | adopt as-is; if **boilerplate** (GitHub/GitLab "Getting started…" template) → offer to regenerate |
 | `plan.md` / `TODO.md` / … | PLAN (active view) | reconciliation (Phase 2) — **never** create a `PLAN.md` that collides in case |
 | `docs/**/todos.md` | backlog | adopt; document the role in `CLAUDE.md` |
-| business doc (`*business-rules*`, `CR-*`, specs…) | intent source | offer as source for `brief/INTENT.md` / `docs/VISION.md` |
+| business doc (`*business-rules*`, `CR-*`, specs…) | intent source | offer as source for `intake/INTENT.md` / `docs/VISION.md` |
 | `docs/superpowers/**` | per-feature artifacts | don't touch; note the interop |
 | `docs/ARCHITECTURE.md`, `GLOSSARY.md`… already present | project doc | adopt as-is (don't regenerate) |
 | `CLAUDE.md` present? | instructions | **absent** → to generate (see Call 3); **present** → never overwrite, see "CLAUDE.md project file already present" |
@@ -52,7 +52,7 @@ If a `CLAUDE.md` already exists at the root (without a starter-kit signature):
 4. If **no** free zone is detected (fully managed file with no editable section) → **skip** (write nothing), and report it in the recap.
 5. Record in `.starter-kit.json` `adoptedFiles["CLAUDE.md"] = "instructions (managed by <tool if known>)"`.
 
-> In a heavily-managed context (the CLAUDE.md already covers commits, security, CHANGELOG, stack…), starter-kit's value concentrates on `docs/` (VISION, decisions, LEARNINGS, brief) and `PLAN.md` — not the CLAUDE.md. Don't reintroduce duplicates. **Surface any conflict** spotted between a managed-CLAUDE.md rule and a starter-kit convention (e.g. commit attribution), without resolving it yourself.
+> In a heavily-managed context (the CLAUDE.md already covers commits, security, CHANGELOG, stack…), starter-kit's value concentrates on `docs/` (VISION, decisions, LEARNINGS, intake) and `PLAN.md` — not the CLAUDE.md. Don't reintroduce duplicates. **Surface any conflict** spotted between a managed-CLAUDE.md rule and a starter-kit convention (e.g. commit attribution), without resolving it yourself.
 
 ### Planning detection (broadened)
 
@@ -74,7 +74,7 @@ find . -path ./node_modules -prune -o -path ./.git -prune -o \
 
 ### Call 2 — Intent
 *"Which source for the project vision?"* — offer the **detected business docs** first:
-- `Use <detected doc>` (e.g. `CR-business-rules.md`) → `Read` then synthesize into `docs/VISION.md` (and copy the source into `brief/INTENT.md`).
+- `Use <detected doc>` (e.g. `CR-business-rules.md`) → `Read` then synthesize into `docs/VISION.md` (and copy the source into `intake/INTENT.md`).
 - `I'll paste the content` / `Another file (path)` / `Ask me the questions` / `Skip`.
 
 Reuse `bootstrap`'s intent logic (Phase 3) for the synthesis.
@@ -83,7 +83,7 @@ Reuse `bootstrap`'s intent logic (Phase 3) for the synthesis.
 Pre-check based on the scan. Only offer what **doesn't already exist**:
 - `CLAUDE.md` **only if absent** (if it already exists → see "CLAUDE.md project file already present", no generation). If absent and **`HAS_GLOBAL_CLAUDE=true`**: default to the **lean** variant (`CLAUDE.lean.md.tpl`) that complements the global without restating it; otherwise the full variant. Same logic as `bootstrap` Phase 5 "CLAUDE.md template selection" (placeholder `{{GLOBAL_CLAUDE_NOTE}}`).
 - `docs/decisions/` (ADR) + `docs/LEARNINGS.md`
-- `brief/` + `docs/media/` (explanatory READMEs)
+- `intake/` + `docs/media/` (explanatory READMEs)
 
 ### Call 3b — Optional / specialized docs (multiSelect — ALWAYS ask)
 

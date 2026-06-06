@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.10.1 -->
+<!-- generated-by: starter-kit v0.11.0 -->
 # Security & Compliance — {{PROJECT_NAME}}
 
 **Living** document of security and compliance (GDPR / privacy) choices.

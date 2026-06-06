@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.10.1 -->
+<!-- generated-by: starter-kit v0.11.0 -->
 # docs/media/ — Visual assets
 
 Images, mockups, screenshots, videos, audio, diagrams — anything binary and visual.

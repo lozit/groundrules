@@ -41,7 +41,7 @@ Read the **first 10 lines** of the file (to accommodate a YAML frontmatter that 
 paths:
   - "..."
 ---
-<!-- generated-by: starter-kit v0.10.1 -->
+<!-- generated-by: starter-kit v0.11.0 -->
 ```
 
 ### 2.3 Version match
@@ -107,11 +107,11 @@ Bootstrapped with: <bootstrappedWithVersion>
 
 --- Files (X/Y tracked) ---
 ✅ docs/decisions/README.md
-   ✅ signature v0.10.1 · ✅ no placeholder
+   ✅ signature v0.11.0 · ✅ no placeholder
 ✅ docs/VISION.md
-   ✅ signature v0.10.1 · ✅ no placeholder
+   ✅ signature v0.11.0 · ✅ no placeholder
 ⚠️ docs/ARCHITECTURE.md
-   ⚠️ signature v0.10.0 (expected v0.10.1)
+   ⚠️ signature v0.10.0 (expected v0.11.0)
 ❌ docs/missing-file.md
    ❌ file absent
 

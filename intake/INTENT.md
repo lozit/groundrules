@@ -1,5 +1,5 @@
-<!-- generated-by: starter-kit v0.10.1 -->
-# Brief / Intent — Starting-Claude
+<!-- generated-by: starter-kit v0.11.0 -->
+# Intake / Intent — Starting-Claude
 
 Raw upstream content (paste, email copy, call transcript, PO doc, etc.) describing the project intent.
 

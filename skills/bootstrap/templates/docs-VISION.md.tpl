@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.10.1 -->
+<!-- generated-by: starter-kit v0.11.0 -->
 # Vision — {{PROJECT_NAME}}
 
 > Synthesis of the project intent. Source: {{INTENT_SOURCE}}. Update when intent evolves (rare; tactical decisions go in `docs/decisions/`).
@@ -26,7 +26,7 @@
 ---
 
 Further reading:
-- `brief/` — raw upstream notes (specs, emails, brainstorms)
+- `intake/` — raw upstream notes (specs, emails, brainstorms)
 - `docs/decisions/` — structural decisions made during the project
 - `docs/LEARNINGS.md` — non-trivial learnings
 - `docs/ARCHITECTURE.md` (if present) — architecture snapshot

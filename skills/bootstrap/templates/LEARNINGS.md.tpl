@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.10.1 -->
+<!-- generated-by: starter-kit v0.11.0 -->
 # Learnings — {{PROJECT_NAME}}
 
 Non-trivial learnings that emerged during the project. Reverse-chronological order (newest at the top).

@@ -1,5 +1,5 @@
-<!-- generated-by: starter-kit v0.10.1 -->
-# Brief / Intent — {{PROJECT_NAME}}
+<!-- generated-by: starter-kit v0.11.0 -->
+# Intake / Intent — {{PROJECT_NAME}}
 
 Raw upstream content (paste, email excerpt, call transcript, PO doc, etc.) describing the project intent.
 

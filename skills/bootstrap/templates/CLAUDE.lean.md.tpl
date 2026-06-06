@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.10.1 -->
+<!-- generated-by: starter-kit v0.11.0 -->
 # CLAUDE.md — {{PROJECT_NAME}}
 
 > **Relationship with the global CLAUDE.md**: this file is loaded **in addition to** the global CLAUDE.md (`~/.claude/CLAUDE.md` + managed enterprise policy) — it does not replace it. It holds **project-specific** content only. Do not restate global rules (commits, workflow, tool/MCP choices, verification, output conventions…). **On conflict, the global/enterprise rule wins.**
@@ -25,7 +25,7 @@
 - `CLAUDE.md` — this file (project-specific; the generic stuff lives in the global)
 - `PLAN.md` — active todo (if present)
 - `docs/` — project documentation (`docs/decisions/` ADRs, `docs/LEARNINGS.md`, etc.)
-- `brief/` — upstream notes (domain context)
+- `intake/` — upstream notes (domain context)
 - `docs/media/` — visual assets
 
 ## Project-specific conventions

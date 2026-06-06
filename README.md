@@ -9,7 +9,7 @@ All generated files are in **English**.
 ## Slash commands provided
 
 - `/starter-kit:bootstrap` — interview + intent capture (brief paste / file / interview) + from-scratch generation of a new project
-- `/starter-kit:adopt` — bring an **existing project** (brownfield) under starter-kit management: scans, maps existing files to roles (plan→PLAN, business doc→brief, todos→backlog, superpowers→interop), generates only what's missing, backfills `.starter-kit.json`. Never overwrites, supports `--dry-run`
+- `/starter-kit:adopt` — bring an **existing project** (brownfield) under starter-kit management: scans, maps existing files to roles (plan→PLAN, business doc→intake, todos→backlog, superpowers→interop), generates only what's missing, backfills `.starter-kit.json`. Never overwrites, supports `--dry-run`
 - `/starter-kit:apply-best-practices` — fetches the up-to-date `shanraisshan/claude-code-best-practice` and proposes recommendations tailored to the project's `docs/VISION.md`
 - `/starter-kit:add-adr` — create a new ADR with an auto number, index updated
 - `/starter-kit:learn` — add a dated entry to `docs/LEARNINGS.md`
@@ -22,7 +22,7 @@ All generated files are in **English**.
 
 - `README.md`, `CLAUDE.md`, `.gitignore` — always
 - `docs/decisions/` (Michael Nygard ADR), `docs/LEARNINGS.md` — always
-- `brief/`, `docs/media/` — always, with explanatory READMEs
+- `intake/`, `docs/media/` — always, with explanatory READMEs
 - `PLAN.md`, `docs/ARCHITECTURE.md`, `docs/GLOSSARY.md`, `CHANGELOG.md` — depending on your answers
 - optional specialized docs — `docs/DATA_MODEL.md`, `docs/SECURITY.md`, `docs/DESIGN_SYSTEM.md`, `docs/ROADMAP.md`, `docs/I18N.md`
 - `git init` + first commit
@@ -42,7 +42,7 @@ Every generated file carries a `<!-- generated-by: starter-kit -->` signature to
 | `docs/decisions/README.md` | Explains the ADR format (Architecture Decision Records, after Michael Nygard): naming convention `NNNN-kebab-title.md` and when to create an ADR. |
 | `docs/decisions/0000-template.md` | ADR template to copy: Context, Decision, Alternatives considered, Consequences (positive / tradeoffs), Status. |
 | `docs/LEARNINGS.md` | Journal of non-trivial learnings, reverse-chronological. One entry = dated title + Context + Lesson. Fed by `/starter-kit:learn`. |
-| `brief/README.md` | Explains the role of the `brief/` folder: upstream notes and raw specs (client specs, brainstorms, emails, scoping notes) before migrating to `docs/`. |
+| `intake/README.md` | Explains the role of the `intake/` folder: upstream notes and raw specs (client specs, brainstorms, emails, scoping notes) before migrating to `docs/`. |
 | `docs/media/README.md` | Explains the role of the `docs/media/` folder: visual and binary assets (images, mockups, screenshots, diagrams), with naming and format conventions. |
 | `.starter-kit.json` | Bootstrap manifest (not meant for manual editing): plugin version, chosen options, intent source, generated/ignored files. Used by resume mode and the `migrate`/`verify-bootstrap` skills. |
 
@@ -54,7 +54,7 @@ Every generated file carries a `<!-- generated-by: starter-kit -->` signature to
 | `docs/ARCHITECTURE.md` | Code project | **Living** snapshot of the architecture: overview, stack, components and responsibilities. The *why* goes in `docs/decisions/`. |
 | `docs/GLOSSARY.md` | Domain jargon | Domain vocabulary, one entry per term, alphabetical. Short definitions so a new dev (or Claude) understands the domain language. |
 | `CHANGELOG.md` | Versioned releases | Change tracking in [Keep a Changelog](https://keepachangelog.com/) + SemVer format: Added / Changed / Deprecated / Removed / Fixed / Security. |
-| `brief/INTENT.md` | Intent captured (paste/file) | **Raw source** of the project intent (paste, email, call transcript, PO doc…) before synthesis. |
+| `intake/INTENT.md` | Intent captured (paste/file) | **Raw source** of the project intent (paste, email, call transcript, PO doc…) before synthesis. |
 | `docs/VISION.md` | Intent not skipped | **Structured synthesis** of the intent: Goal, Users/personas, Constraints, V1 non-goals, Acceptance criteria. Required by `/starter-kit:apply-best-practices`. |
 
 ### Specialized docs (optional, checked during the interview)
@@ -136,6 +136,7 @@ If absent, the plugin shows the ready-to-paste commands for manual execution.
 - [x] V0.8 — English-only: dropped the bilingual FR/EN templates and the `{{LANG}}` logic (less maintenance, all projects in English)
 - [x] V0.9 — `media/` moved under `docs/media/` (avoid collision with project `media/`/`public/`)
 - [x] V0.10 — `adopt` always offers the optional docs; generated `CLAUDE.md` gets a "living docs" maintenance rule
+- [x] V0.11 — `brief/` renamed to `intake/` (clearer name for raw upstream material); `migrate` learns the rename
 - [x] Public marketplace published on GitHub: [lozit/claude-code-starter-kit](https://github.com/lozit/claude-code-starter-kit)
 
 ## License

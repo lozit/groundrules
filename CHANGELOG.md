@@ -1,10 +1,20 @@
-<!-- generated-by: starter-kit v0.10.1 -->
+<!-- generated-by: starter-kit v0.11.0 -->
 # Changelog
 
 All notable changes to this project are documented in this file.
 
 Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versions follow [Semantic Versioning](https://semver.org/).
+
+## [0.11.0]
+
+### Changed
+- **`brief/` renamed to `intake/`** — the upstream-notes folder is now generated as `intake/` ("intake" = material received before processing), a clearer name than "brief" which suggests a single document. Template renames (`brief-INTENT.md.tpl` → `intake-INTENT.md.tpl`, `brief-README.md.tpl` → `intake-README.md.tpl`), `{{INTENT_SOURCE}}` values, and all path references updated across `bootstrap`/`adopt`, the generated templates, the public README, and the dogfood (`git mv brief intake`). See ADR 0014.
+- `/starter-kit:migrate` learns the rename: for a pre-rename project it offers `git mv brief intake`, fixes `.starter-kit.json` paths, and flags stale `brief/` references in the project docs. Renames chain (a pre-0.7 `brief/00-INTENT.md` lands directly at `intake/INTENT.md`).
+- Plugin version bumped 0.10.1 → 0.11.0 across `plugin.json`, `marketplace.json`, all template/doc signatures, and `.starter-kit.json` (`starterKitVersion` + new migration entry).
+
+### Decisions
+- ADR `0014-rename-brief-to-intake.md` — rationale and alternatives considered (`intent/`, `inbox/`, `upstream/`, …).
 
 ## [0.10.1]
 

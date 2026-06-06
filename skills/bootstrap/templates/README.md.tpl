@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.10.1 -->
+<!-- generated-by: starter-kit v0.11.0 -->
 # {{PROJECT_NAME}}
 
 {{DESCRIPTION}}
@@ -18,7 +18,7 @@ To be completed.
 - `README.md` — this file
 - `CLAUDE.md` — instructions for Claude Code
 - `docs/` — project documentation (architecture, decisions, learnings)
-- `brief/` — upstream notes and raw specs
+- `intake/` — upstream notes and raw specs
 - `docs/media/` — visual assets
 
 ## Documentation

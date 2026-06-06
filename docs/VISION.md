@@ -1,11 +1,11 @@
-<!-- generated-by: starter-kit v0.10.1 -->
+<!-- generated-by: starter-kit v0.11.0 -->
 # Vision — Starting-Claude
 
-> Synthesis of the project intent. Source: `brief/INTENT.md` (retroactive paste of the original prompt). Update when the intent evolves (rare; tactical decisions go in `docs/decisions/`).
+> Synthesis of the project intent. Source: `intake/INTENT.md` (retroactive paste of the original prompt). Update when the intent evolves (rare; tactical decisions go in `docs/decisions/`).
 
 ## Goal
 
-Build a shareable Claude Code plugin that standardizes the bootstrapping of new projects via an interactive slash command. The plugin must generate a coherent documentation structure (CLAUDE.md aligned with best practices, docs/, ADR, learnings, brief, media, vision/intent), initialize git, and optionally create the GitHub/GitLab remote. Bonus: dynamically apply best practices fetched online, tailored to each project's vision.
+Build a shareable Claude Code plugin that standardizes the bootstrapping of new projects via an interactive slash command. The plugin must generate a coherent documentation structure (CLAUDE.md aligned with best practices, docs/, ADR, learnings, intake, media, vision/intent), initialize git, and optionally create the GitHub/GitLab remote. Bonus: dynamically apply best practices fetched online, tailored to each project's vision.
 
 ## Users / personas
 
@@ -33,7 +33,7 @@ Build a shareable Claude Code plugin that standardizes the bootstrapping of new 
 
 - A user can bootstrap a new project in < 5 minutes: `mkdir foo && cd foo && claude` → `/starter-kit:bootstrap` → interview answers → generated files + git initialized.
 - 7 operational skills: `bootstrap`, `adopt`, `add-adr`, `learn`, `migrate`, `apply-best-practices`, `verify-bootstrap`.
-- Generated structure: `README.md`, `CLAUDE.md` (with Setup/Build/Test, Verifying the work, Updating this file, Claude Code workflow sections, etc.), `docs/decisions/`, `docs/LEARNINGS.md`, `brief/`, `docs/media/`, optionally `PLAN.md` / `ARCHITECTURE.md` / `GLOSSARY.md` / `CHANGELOG.md` / `VISION.md` / specialized docs (`DATA_MODEL` / `SECURITY` / `DESIGN_SYSTEM` / `ROADMAP` / `I18N`).
+- Generated structure: `README.md`, `CLAUDE.md` (with Setup/Build/Test, Verifying the work, Updating this file, Claude Code workflow sections, etc.), `docs/decisions/`, `docs/LEARNINGS.md`, `intake/`, `docs/media/`, optionally `PLAN.md` / `ARCHITECTURE.md` / `GLOSSARY.md` / `CHANGELOG.md` / `VISION.md` / specialized docs (`DATA_MODEL` / `SECURITY` / `DESIGN_SYSTEM` / `ROADMAP` / `I18N`).
 - Intent capturable at bootstrap (brief paste / brief file / interview / skip).
 - `apply-best-practices` fetches shanraisshan, filters by the project vision, proposes a multi-select, applies the safe items automatically.
 - Plugin published on GitHub with a public marketplace: installable via `/plugin marketplace add https://github.com/lozit/claude-code-starter-kit`.
@@ -42,7 +42,7 @@ Build a shareable Claude Code plugin that standardizes the bootstrapping of new 
 ---
 
 To go further:
-- `brief/` — raw upstream notes (specs, emails, brainstorms) — see `brief/INTENT.md` for the original prompt
+- `intake/` — raw upstream notes (specs, emails, brainstorms) — see `intake/INTENT.md` for the original prompt
 - `docs/decisions/` — structural decisions (12 ADRs to date)
 - `docs/LEARNINGS.md` — non-trivial learnings
 - `docs/ARCHITECTURE.md` — architecture snapshot (two layers: plugin sources / dogfood project)

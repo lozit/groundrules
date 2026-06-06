@@ -1,5 +1,5 @@
-<!-- generated-by: starter-kit v0.10.1 -->
-# brief/ — Upstream notes
+<!-- generated-by: starter-kit v0.11.0 -->
+# intake/ — Upstream notes
 
 This folder contains anything written **before** starting the project that provides domain context:
 
@@ -14,7 +14,7 @@ This folder contains anything written **before** starting the project that provi
 - No imposed structure. Organize as you wish (subfolders, flat files, mix).
 - Prefer explicit names: `2026-05-11-client-call.md` rather than `notes.md`.
 - Anything **synthesized and stable** should migrate to `docs/` (vision, architecture, glossary...).
-- `brief/` stays draft; `docs/` is the final version.
+- `intake/` stays draft; `docs/` is the final version.
 
 ## For Claude
 

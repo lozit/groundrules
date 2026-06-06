@@ -1,5 +1,5 @@
 {
-  "starterKitVersion": "0.10.1",
+  "starterKitVersion": "0.11.0",
   "bootstrappedAt": "2026-05-11",
   "bootstrappedWithVersion": "0.1.0",
   "migrations": [
@@ -10,7 +10,8 @@
     {"from": "0.7.0", "to": "0.8.0", "at": "2026-06-04", "note": "V0.8 English-only: dropped bilingual FR/EN templates + {{LANG}} logic, translated skills/docs to English (ADR 0012)"},
     {"from": "0.8.0", "to": "0.9.0", "at": "2026-06-04", "note": "V0.9 moved media/ -> docs/media/ to avoid collision with project media/public folders (ADR 0013)"},
     {"from": "0.9.0", "to": "0.10.0", "at": "2026-06-04", "note": "V0.10 adopt always offers optional/specialized docs (Call 3b); living-docs maintenance rule in generated CLAUDE.md"},
-    {"from": "0.10.0", "to": "0.10.1", "at": "2026-06-04", "note": "V0.10.1 meta/docs only: documented the batch-small-changes release cadence (no user-facing change)"}
+    {"from": "0.10.0", "to": "0.10.1", "at": "2026-06-04", "note": "V0.10.1 meta/docs only: documented the batch-small-changes release cadence (no user-facing change)"},
+    {"from": "0.10.1", "to": "0.11.0", "at": "2026-06-06", "note": "V0.11 renamed brief/ -> intake/ (ADR 0014): dogfood git mv brief intake + reference sweep"}
   ],
   "answers": {
     "projectName": "Starting-Claude",
@@ -27,7 +28,7 @@
   "intent": {
     "source": "paste",
     "filePath": null,
-    "goal": "Construire un plugin Claude Code partageable qui standardise l'amorçage de nouveaux projets via un slash command interactif. Génère structure de doc (CLAUDE.md, docs/, ADR, learnings, brief, vision), git init, remote optionnel, application dynamique des bonnes pratiques fetchées en ligne.",
+    "goal": "Construire un plugin Claude Code partageable qui standardise l'amorçage de nouveaux projets via un slash command interactif. Génère structure de doc (CLAUDE.md, docs/, ADR, learnings, intake, vision), git init, remote optionnel, application dynamique des bonnes pratiques fetchées en ligne.",
     "users": "Guillaume Ferrari (solo) + communauté Claude Code installant via la marketplace publique sur GitHub (lozit/claude-code-starter-kit).",
     "constraints": [
       "Plugin Claude Code natif (.claude-plugin/, skills/), pas de runtime externe",
@@ -47,7 +48,7 @@
     "acceptanceCriteria": [
       "Bootstrap d'un nouveau projet en < 5 minutes",
       "7 skills opérationnels : bootstrap, adopt, add-adr, learn, migrate, apply-best-practices, verify-bootstrap",
-      "Structure générée complète (README, CLAUDE.md, docs/, brief/, docs/media/, conditionnels)",
+      "Structure générée complète (README, CLAUDE.md, docs/, intake/, docs/media/, conditionnels)",
       "Intent capturable au bootstrap (brief paste / fichier / interview / skip)",
       "apply-best-practices fetche shanraisshan, filtre par vision, propose multi-select",
       "Plugin publié sur GitHub marketplace publique",
@@ -85,12 +86,12 @@
     "docs/decisions/README.md",
     "docs/decisions/0000-template.md",
     "docs/LEARNINGS.md",
-    "brief/README.md",
+    "intake/README.md",
     "docs/media/README.md",
     "PLAN.md",
     "docs/ARCHITECTURE.md",
     "CHANGELOG.md",
-    "brief/INTENT.md",
+    "intake/INTENT.md",
     "docs/VISION.md",
     "docs/best-practices-pending.md",
     ".claude/rules/plugin-meta.md",
