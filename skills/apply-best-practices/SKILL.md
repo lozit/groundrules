@@ -5,14 +5,14 @@ disable-model-invocation: true
 allowed-tools: Read, Write, Edit, WebFetch, AskUserQuestion, Bash
 ---
 
-# /starter-kit:apply-best-practices
+# /groundrules:apply-best-practices
 
 You will fetch the up-to-date, community-maintained Claude Code best practices, filter them against the project **vision**, and apply the recommendations the user selects.
 
 ## Phase 1 — Prerequisites
 
-1. `.starter-kit.json` must exist in the cwd. Otherwise: *"This project was not bootstrapped with starter-kit. Run `/starter-kit:bootstrap` first."* Stop.
-2. `docs/VISION.md` must exist. Otherwise: *"No project vision found. This command needs the intent to propose tailored practices. Run `/starter-kit:bootstrap` (or add the vision manually before re-running)."* Stop.
+1. `.groundrules.json` must exist in the cwd (legacy: a pre-1.0 `.starter-kit.json` is accepted — read it instead and suggest `/groundrules:migrate`). Otherwise: *"This project was not bootstrapped with groundrules. Run `/groundrules:bootstrap` first."* Stop.
+2. `docs/VISION.md` must exist. Otherwise: *"No project vision found. This command needs the intent to propose tailored practices. Run `/groundrules:bootstrap` (or add the vision manually before re-running)."* Stop.
 3. Read `docs/VISION.md` → full content to pass to the fetch.
 
 ## Phase 2 — Fetch the best practices
@@ -69,13 +69,13 @@ For each selected recommendation:
 ### If "`.claude/rules/<topic>.md` file"
 
 - Create the file with its frontmatter (including `paths:` if suggested) and content
-- **Signature**: place `<!-- generated-by: starter-kit vX.Y.Z -->` on the line immediately after the closing `---` of the frontmatter (NOT on line 1, because the frontmatter must stay there). Format:
+- **Signature**: place `<!-- generated-by: groundrules vX.Y.Z -->` on the line immediately after the closing `---` of the frontmatter (NOT on line 1, because the frontmatter must stay there). Format:
   ```
   ---
   paths:
     - "..."
   ---
-  <!-- generated-by: starter-kit v0.12.0 -->
+  <!-- generated-by: groundrules v1.0.0 -->
 
   # Title
   ...
@@ -103,7 +103,7 @@ For each selected recommendation:
 
 Instead of applying, write everything to `docs/best-practices-pending.md` (structured Markdown, easy copy/paste). No direct application.
 
-## Phase 7 — Update `.starter-kit.json`
+## Phase 7 — Update `.groundrules.json`
 
 Add (or update) the `appliedPractices` field:
 
@@ -131,7 +131,7 @@ Show:
 - 📋 Next steps:
   - Review `docs/best-practices-pending.md` for the suggested hooks and skills
   - Review `CLAUDE.md` (if modified) before committing
-  - Run `/starter-kit:apply-best-practices` again later if shanraisshan evolves
+  - Run `/groundrules:apply-best-practices` again later if shanraisshan evolves
 
 **NEVER commit automatically.**
 

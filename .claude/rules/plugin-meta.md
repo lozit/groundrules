@@ -4,7 +4,7 @@ paths:
   - "skills/**"
   - "**/*.tpl"
 ---
-<!-- generated-by: starter-kit v0.12.0 -->
+<!-- generated-by: groundrules v1.0.0 -->
 
 # Plugin meta-development rules
 
@@ -32,7 +32,7 @@ Any `CLAUDE.md` produced by `bootstrap` is a **starter**, not a final truth. The
 
 ## Versioning and signatures
 
-Every generated file carries `<!-- generated-by: starter-kit vX.Y.Z -->`. Bump the version in `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json`, and the signature in **all** templates at each significant release. Cf. the root CLAUDE.md "Versioning" section.
+Every generated file carries `<!-- generated-by: groundrules vX.Y.Z -->` (pre-1.0 files carry the legacy `starter-kit` form). Bump the version in `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json`, and the signature in **all** templates at each significant release. Cf. the root CLAUDE.md "Versioning" section.
 
 ## Idempotence and resume mode
 

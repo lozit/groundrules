@@ -1,19 +1,19 @@
 {
-  "name": "claude-code-starter-kit",
+  "name": "claude-code-groundrules",
   "owner": {
     "name": "Guillaume Ferrari",
     "email": "guillaume.ferrari@protonmail.com"
   },
   "metadata": {
-    "description": "Mono-plugin marketplace for the starter-kit Claude Code plugin",
-    "version": "0.12.0"
+    "description": "Mono-plugin marketplace for the groundrules Claude Code plugin (formerly starter-kit)",
+    "version": "1.0.0"
   },
   "plugins": [
     {
-      "name": "starter-kit",
+      "name": "groundrules",
       "source": "./",
-      "description": "Bootstrap interactif de nouveaux projets Claude Code",
-      "version": "0.12.0",
+      "description": "Interactive bootstrap of Claude Code projects — docs structure + best practices of documentation and configuration",
+      "version": "1.0.0",
       "category": "scaffold"
     }
   ]

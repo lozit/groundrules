@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.12.0 -->
+<!-- generated-by: groundrules v1.0.0 -->
 # CLAUDE.md — {{PROJECT_NAME}}
 
 > This file is **mutable and iterative**. Update it after every Claude mistake or newly discovered convention. Target: < 200 lines.
@@ -138,4 +138,4 @@ This file is alive.
 
 ## Notes
 
-Project bootstrapped with [starter-kit](https://github.com/lozit/claude-code-starter-kit) on {{DATE}}.
+Project bootstrapped with [groundrules](https://github.com/lozit/groundrules) on {{DATE}}.

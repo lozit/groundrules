@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.12.0 -->
+<!-- generated-by: groundrules v1.0.0 -->
 # CLAUDE.md — {{PROJECT_NAME}}
 
 > **Relationship with the global CLAUDE.md**: this file is loaded **in addition to** the global CLAUDE.md (`~/.claude/CLAUDE.md` + managed enterprise policy) — it does not replace it. It holds **project-specific** content only. Do not restate global rules (commits, workflow, tool/MCP choices, verification, output conventions…). **On conflict, the global/enterprise rule wins.**
@@ -47,4 +47,4 @@ This file is living. When Claude gets something **project-specific** wrong, add 
 
 ## Notes
 
-Project bootstrapped with [starter-kit](https://github.com/lozit/claude-code-starter-kit) on {{DATE}}.
+Project bootstrapped with [groundrules](https://github.com/lozit/groundrules) on {{DATE}}.

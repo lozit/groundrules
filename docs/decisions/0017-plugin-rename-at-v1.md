@@ -1,8 +1,8 @@
-<!-- generated-by: starter-kit v0.12.0 -->
+<!-- generated-by: groundrules v1.0.0 -->
 # 0017 — Rename the plugin to groundrules at V1.0.0
 
 **Date**: 2026-06-06
-**Status**: Accepted (name decided: `groundrules`; implementation deferred to V1.0.0)
+**Status**: Accepted — implemented in V1.0.0 (name decided 2026-06-06, implemented 2026-06-06)
 
 ## Context
 
@@ -66,4 +66,4 @@ Name conflicts are a **trademark** matter, not copyright (a single word is not c
 ## Notes
 
 - Tracked in `PLAN.md` ("Up next"): V1.0.0 = implement the rename with full migration.
-- The marketplace (`claude-code-starter-kit`, ADR 0016) and the GitHub repo will need a matching rename at V1.0.0 (e.g. `claude-code-groundrules`); GitHub redirects old repo URLs, but marketplace adds should be re-verified.
+- At V1.0.0 the GitHub repo is renamed to **`lozit/groundrules`** (not `claude-code-groundrules`): the project is meant to extend beyond Claude Code to other harnesses in the future, so the repo name stays harness-neutral. The **marketplace** keeps the harness-scoped name **`claude-code-groundrules`** — it designates the Claude Code distribution channel of the groundrules project (and avoids the redundant `groundrules@groundrules` install spec). GitHub redirects old repo URLs, but marketplace adds should be re-verified.

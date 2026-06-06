@@ -1,21 +1,21 @@
 ---
 name: verify-bootstrap
-description: Verify that a starter-kit-bootstrapped project is coherent. Version signatures, leftover placeholders, CLAUDE.md size, valid JSON, git, files vs generatedFiles. Supports --fix for trivial corrections.
+description: Verify that a groundrules-bootstrapped project is coherent. Version signatures, leftover placeholders, CLAUDE.md size, valid JSON, git, files vs generatedFiles. Supports --fix for trivial corrections.
 disable-model-invocation: true
 allowed-tools: Read, Edit, Bash, AskUserQuestion
 ---
 
-# /starter-kit:verify-bootstrap
+# /groundrules:verify-bootstrap
 
-You will check the coherence of a starter-kit-bootstrapped project. You will produce a ✅ / ⚠️ / ❌ report and, on request, fix the safe items.
+You will check the coherence of a groundrules-bootstrapped project. You will produce a ✅ / ⚠️ / ❌ report and, on request, fix the safe items.
 
 If `$ARGUMENTS` contains `--fix` (or `fix`), switch to **fix mode** after the report. Otherwise, report only.
 
 ## Phase 1 — Prerequisites
 
-1. `.starter-kit.json` must exist in the cwd. Otherwise: *"This project was not bootstrapped with starter-kit, nothing to verify."* Stop.
-2. Read `.starter-kit.json` → extract:
-   - `starterKitVersion` → **EXPECTED_VERSION**
+1. `.groundrules.json` must exist in the cwd. **Legacy**: if only a pre-1.0 `.starter-kit.json` exists, read that instead (its version key is `starterKitVersion`) and add a ⚠️ to the report: *"pre-1.0 state file — run `/groundrules:migrate` to upgrade."* If neither exists: *"This project was not bootstrapped with groundrules, nothing to verify."* Stop.
+2. Read `.groundrules.json` → extract:
+   - `groundrulesVersion` → **EXPECTED_VERSION**
    - `generatedFiles` → list of files to validate
    - `bootstrappedWithVersion` (info; may be `null` for an adopted project)
 
@@ -29,11 +29,11 @@ For each file in `generatedFiles`, run these checks in order:
 
 ### 2.2 Signature present
 
-Read the **first 10 lines** of the file (to accommodate a YAML frontmatter that can run 8-9 lines: `---\nname: ...\npaths:\n  - "..."\n  - "..."\n---\n<!-- signature -->`). Search for the regex `<!-- generated-by: starter-kit v([0-9]+\.[0-9]+\.[0-9]+) -->`:
+Read the **first 10 lines** of the file (to accommodate a YAML frontmatter that can run 8-9 lines: `---\nname: ...\npaths:\n  - "..."\n  - "..."\n---\n<!-- signature -->`). Search for the regex `<!-- generated-by: (groundrules|starter-kit) v([0-9]+\.[0-9]+\.[0-9]+) -->` (the `starter-kit` form is the pre-1.0 legacy name — accepted, but reported as **⚠️ legacy signature**, fixable with `--fix`):
 - **Match** → extract the version (FOUND_VERSION), continue
 - **No match** → **❌ signature missing**, run the following checks anyway
 
-**Exceptions**: JSON files (`.starter-kit.json`, `.claude/settings.json`, etc.) have no signature (HTML comment invalid in JSON). For those files, skip this check.
+**Exceptions**: JSON files (`.groundrules.json`, `.claude/settings.json`, etc.) have no signature (HTML comment invalid in JSON). For those files, skip this check.
 
 **YAML frontmatter note**: for files starting with `---` (rules, skills), the signature **must** be on the line right after the closing `---`. E.g.:
 ```
@@ -41,7 +41,7 @@ Read the **first 10 lines** of the file (to accommodate a YAML frontmatter that 
 paths:
   - "..."
 ---
-<!-- generated-by: starter-kit v0.12.0 -->
+<!-- generated-by: groundrules v1.0.0 -->
 ```
 
 ### 2.3 Version match
@@ -81,7 +81,7 @@ If `CLAUDE.md` exists:
 ### 3.3 Valid JSON
 
 For each of the following files if it exists:
-- `.starter-kit.json`
+- `.groundrules.json`
 - `.claude/settings.json`
 - `.claude-plugin/plugin.json` (present only if the project is itself a plugin)
 
@@ -101,24 +101,24 @@ Clear text format, grouped by category:
 
 ```
 === Verify Bootstrap Report ===
-Project: <project name from .starter-kit.json>
+Project: <project name from .groundrules.json>
 Expected version: <EXPECTED_VERSION>
 Bootstrapped with: <bootstrappedWithVersion>
 
 --- Files (X/Y tracked) ---
 ✅ docs/decisions/README.md
-   ✅ signature v0.12.0 · ✅ no placeholder
+   ✅ signature v1.0.0 · ✅ no placeholder
 ✅ docs/VISION.md
-   ✅ signature v0.12.0 · ✅ no placeholder
+   ✅ signature v1.0.0 · ✅ no placeholder
 ⚠️ docs/ARCHITECTURE.md
-   ⚠️ signature v0.10.0 (expected v0.12.0)
+   ⚠️ signature v0.10.0 (expected v1.0.0)
 ❌ docs/missing-file.md
    ❌ file absent
 
 --- Structural ---
 ✅ .git/ initialized
 ✅ CLAUDE.md: 78/200 lines
-✅ .starter-kit.json valid JSON
+✅ .groundrules.json valid JSON
 ✅ .claude/settings.json valid JSON
 ✅ intent/vision coherence
 
@@ -130,11 +130,12 @@ Bootstrapped with: <bootstrappedWithVersion>
 
 ## Phase 5 — Fix mode (if `--fix`)
 
-> If `$ARGUMENTS` does not contain `--fix`, **skip this phase**. Show only: *"To apply trivial fixes, re-run with: `/starter-kit:verify-bootstrap --fix`"*
+> If `$ARGUMENTS` does not contain `--fix`, **skip this phase**. Show only: *"To apply trivial fixes, re-run with: `/groundrules:verify-bootstrap --fix`"*
 
 ### Auto-fixable items
 
-- **Version mismatch (⚠️)**: replace the signature line `<!-- generated-by: starter-kit vX.Y.Z -->` with the current version via `Edit`.
+- **Version mismatch (⚠️)**: replace the signature line `<!-- generated-by: groundrules vX.Y.Z -->` with the current version via `Edit`.
+- **Legacy signature (⚠️)**: rewrite `<!-- generated-by: starter-kit vX.Y.Z -->` as `<!-- generated-by: groundrules v<current> -->` via `Edit`.
 
 ### NON auto-fixable items (show, don't touch)
 
@@ -171,6 +172,6 @@ If remaining errors: per-category suggestion of manual action.
 
 - **Read-only by default**: without `--fix`, the skill modifies no file.
 - **Fix limited to signatures**: any other kind of correction requires human intervention.
-- **No effect on `.starter-kit.json`**: the skill does not modify state — it reports and fixes user files only.
+- **No effect on `.groundrules.json`**: the skill does not modify state — it reports and fixes user files only.
 - For the signature regex, accept `v0.0.0` (3 numbers separated by `.`) with no length constraint — future-proof.
 - If both `python3` and `node` are absent for the JSON check, use a fallback: `cat <file> | python -m json.tool > /dev/null 2>&1` or simply skip with a warning *"No JSON parser available"*.

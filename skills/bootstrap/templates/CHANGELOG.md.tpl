@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.12.0 -->
+<!-- generated-by: groundrules v1.0.0 -->
 # Changelog
 
 All notable changes to this project are documented in this file.
@@ -9,7 +9,7 @@ versions follow [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Added
-- Project bootstrapped with starter-kit on {{DATE}}
+- Project bootstrapped with groundrules on {{DATE}}
 
 ### Changed
 

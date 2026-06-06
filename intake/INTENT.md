@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.12.0 -->
+<!-- generated-by: groundrules v1.0.0 -->
 # Intake / Intent — Starting-Claude
 
 Raw upstream content (paste, email copy, call transcript, PO doc, etc.) describing the project intent.

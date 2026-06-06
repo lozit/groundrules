@@ -5,13 +5,13 @@ disable-model-invocation: true
 allowed-tools: Read, Write, Edit, Bash, AskUserQuestion
 ---
 
-# /starter-kit:add-adr
+# /groundrules:add-adr
 
 You will create a new **Architecture Decision Record** in the current project. All output is in **English**.
 
 ## Phase 1 — Project context
 
-1. Check that `docs/decisions/` exists in the cwd. Otherwise: warn the user the project doesn't have the starter-kit structure and suggest `/starter-kit:bootstrap` first. Stop.
+1. Check that `docs/decisions/` exists in the cwd. Otherwise: warn the user the project doesn't have the groundrules structure and suggest `/groundrules:bootstrap` first. Stop.
 2. Compute the **next ADR number**:
    - `ls docs/decisions/[0-9]*.md 2>/dev/null`
    - Extract the NNNN prefix of each filename (ignore `0000-template.md`)
@@ -53,7 +53,7 @@ Final name: `NNNN-{slug}.md`
    - `NNNN — Short decision title` → `NNNN — {provided title}`
    - `**Date**: YYYY-MM-DD` → today's date in ISO
    - `**Status**: Proposed | Accepted | ...` → `**Status**: {chosen status}`
-   - Update the signature `<!-- generated-by: starter-kit vX.Y.Z -->` to the current plugin version (read from `${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json`)
+   - Update the signature `<!-- generated-by: groundrules vX.Y.Z -->` to the current plugin version (read from `${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json`)
    - If `Pre-filled` mode: replace the Context and Decision sections with the provided sentences (leave Alternatives/Consequences/Notes with their placeholders)
 3. Write to `docs/decisions/NNNN-{slug}.md` via `Write`.
 

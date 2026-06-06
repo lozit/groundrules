@@ -1,22 +1,22 @@
 ---
 name: adopt
-description: Adopt an existing (brownfield) project into starter-kit — scan, map the existing files to starter-kit roles, capture intent from existing docs, generate only what's missing, backfill .starter-kit.json. Never overwrites.
+description: Adopt an existing (brownfield) project into groundrules — scan, map the existing files to groundrules roles, capture intent from existing docs, generate only what's missing, backfill .groundrules.json. Never overwrites.
 disable-model-invocation: true
 allowed-tools: Read, Write, Edit, Bash, AskUserQuestion
 ---
 
-# /starter-kit:adopt
+# /groundrules:adopt
 
-You will bring an **existing project** (already has code, docs, a git repo) under starter-kit management, **without breaking anything**. Different from `bootstrap` (from-scratch) and `migrate` (updating an already-starter-kit project). All generated files are in **English** (the plugin is English-only).
+You will bring an **existing project** (already has code, docs, a git repo) under groundrules management, **without breaking anything**. Different from `bootstrap` (from-scratch) and `migrate` (updating an already-managed project). All generated files are in **English** (the plugin is English-only).
 
 If `$ARGUMENTS` contains `--dry-run` (or `dry-run`): run all analysis phases but **write no file**; end with a "would have done" report.
 
 ## Phase 0 — Guardrails
 
-1. If `.starter-kit.json` exists in the cwd → *"This project is already managed by starter-kit. Use `/starter-kit:migrate` to update it."* Stop.
-2. If the folder is **empty** (excluding `.git`) → *"Empty folder: use `/starter-kit:bootstrap`."* Stop.
+1. If `.groundrules.json` (or a legacy pre-1.0 `.starter-kit.json`) exists in the cwd → *"This project is already managed by groundrules. Use `/groundrules:migrate` to update it."* Stop.
+2. If the folder is **empty** (excluding `.git`) → *"Empty folder: use `/groundrules:bootstrap`."* Stop.
 3. Otherwise → this is indeed a brownfield case, continue.
-4. **Plugin update check (best-effort, never blocking)**: read `version` from `${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json` → INSTALLED, then run via Bash with a **short timeout (~3s)** `git ls-remote --tags --refs --sort=-v:refname https://github.com/lozit/claude-code-starter-kit.git 'v*' | head -1`. If the latest tag is semver-greater than INSTALLED, show an informational note: *"📦 starter-kit vX.Y.Z is available (installed: vINSTALLED). To update: `/plugin marketplace update claude-code-starter-kit`, then `/plugin` + `/reload-plugins`."* **Fail silent** on timeout / no network / any error — this is the only network access in this skill and it is best-effort (cf. ADR 0015).
+4. **Plugin update check (best-effort, never blocking)**: read `version` from `${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json` → INSTALLED, then run via Bash with a **short timeout (~3s)** `git ls-remote --tags --refs --sort=-v:refname https://github.com/lozit/groundrules.git 'v*' | head -1`. If the latest tag is semver-greater than INSTALLED, show an informational note: *"📦 groundrules vX.Y.Z is available (installed: vINSTALLED). To update: `/plugin marketplace update claude-code-groundrules`, then `/plugin` + `/reload-plugins`."* **Fail silent** on timeout / no network / any error — this is the only network access in this skill and it is best-effort (cf. ADR 0015).
 
 ## Phase 1 — Scan & classification (role mapping)
 
@@ -25,7 +25,7 @@ If `$ARGUMENTS` contains `--dry-run` (or `dry-run`): run all analysis phases but
    - **AI attribution policy**: **read-only**, look in the detected CLAUDE.md files (project + global) for a rule forbidding AI attribution (`no AI attribution`, `Co-Authored-By`, `Generated with Claude`…). If found → `NO_AI_ATTRIBUTION=true`. Common in enterprise (some managed CLAUDE.md files forbid it explicitly).
 2. **Detect superpowers**: presence of `docs/superpowers/plans/` or `specs/`. If so → different altitude, **do not** treat as root planning (see interop in the `CLAUDE.md` template).
 3. **Detect `PLAN.md` equivalents** (see "Planning detection" below) — there may be **several**, possibly nested.
-4. **Classify each existing item** into a starter-kit role. Build a table:
+4. **Classify each existing item** into a groundrules role. Build a table:
 
 | Existing | Starter-kit role | Proposed action |
 |---|---|---|
@@ -39,21 +39,21 @@ If `$ARGUMENTS` contains `--dry-run` (or `dry-run`): run all analysis phases but
 
 ### CLAUDE.md project file already present (often tool-managed)
 
-If a `CLAUDE.md` already exists at the root (without a starter-kit signature):
+If a `CLAUDE.md` already exists at the root (without a groundrules/starter-kit signature):
 
 1. **Never generate or overwrite it.** There can't be two CLAUDE.md; theirs is authoritative.
 2. **Detect whether it's tool-managed**: look for markers like `Auto-managed`, `Do not edit`, an enterprise manager name (e.g. `claude-manager`), managed-section fences, or an explicit **free zone** (marker like `END MANAGED` / `below this line is yours` / a `## Project-Specific Notes` heading).
-3. **Discoverability pointer (opt-in)**: if a free zone is detected, offer (`AskUserQuestion`) to **append** (via `Edit`, append only) a short pointer to the starter-kit docs, so Claude finds them. **NEVER write into the managed sections.** Suggested content:
+3. **Discoverability pointer (opt-in)**: if a free zone is detected, offer (`AskUserQuestion`) to **append** (via `Edit`, append only) a short pointer to the groundrules docs, so Claude finds them. **NEVER write into the managed sections.** Suggested content:
 
    ```
-   ### Project docs (starter-kit)
+   ### Project docs (groundrules)
    - Vision: `docs/VISION.md` · Decisions: `docs/decisions/` · Learnings: `docs/LEARNINGS.md` · Active plan: `PLAN.md`
    ```
 
 4. If **no** free zone is detected (fully managed file with no editable section) → **skip** (write nothing), and report it in the recap.
-5. Record in `.starter-kit.json` `adoptedFiles["CLAUDE.md"] = "instructions (managed by <tool if known>)"`.
+5. Record in `.groundrules.json` `adoptedFiles["CLAUDE.md"] = "instructions (managed by <tool if known>)"`.
 
-> In a heavily-managed context (the CLAUDE.md already covers commits, security, CHANGELOG, stack…), starter-kit's value concentrates on `docs/` (VISION, decisions, LEARNINGS, intake) and `PLAN.md` — not the CLAUDE.md. Don't reintroduce duplicates. **Surface any conflict** spotted between a managed-CLAUDE.md rule and a starter-kit convention (e.g. commit attribution), without resolving it yourself.
+> In a heavily-managed context (the CLAUDE.md already covers commits, security, CHANGELOG, stack…), groundrules' value concentrates on `docs/` (VISION, decisions, LEARNINGS, intake) and `PLAN.md` — not the CLAUDE.md. Don't reintroduce duplicates. **Surface any conflict** spotted between a managed-CLAUDE.md rule and a groundrules convention (e.g. commit attribution), without resolving it yourself.
 
 ### Planning detection (broadened)
 
@@ -103,7 +103,7 @@ Skip an individual option only if that exact file already exists (then list it u
 
 ### Call 4 — Planning reconciliation (if equivalents detected)
 If **one or more** equivalents found:
-- **Adopt the existing one** → no `PLAN.md`; record the file(s) with the PLAN role in `.starter-kit.json`.
+- **Adopt the existing one** → no `PLAN.md`; record the file(s) with the PLAN role in `.groundrules.json`.
 - **Generate `PLAN.md` separately** → only if **no** case collision; the user accepts the coexistence.
 - **Consolidate** → carry the existing tasks into the file chosen as canonical; suggest (without doing it) deleting the duplicates.
 If several equivalents: clarify their roles (e.g. `plan.md` = active view, `docs/gtd/todos.md` = backlog) and document them in `CLAUDE.md`. If superpowers present: `PLAN.md`/`plan.md` should **point to** the active superpowers plan.
@@ -122,13 +122,13 @@ Then `AskUserQuestion`: `Confirm` / `Cancel`. (In `--dry-run`, stop here with th
 
 For each file to create: same mechanics as `bootstrap` Phase 5 (read the template `${CLAUDE_PLUGIN_ROOT}/skills/bootstrap/templates/<tpl>`, substitute `{{KEY}}`, `Write`). **Never overwrite** an existing file; **never delete**.
 
-## Phase 5 — Backfill `.starter-kit.json`
+## Phase 5 — Backfill `.groundrules.json`
 
-Write `.starter-kit.json` (bootstrap schema, see ADR 0004) with the adoption markers:
+Write `.groundrules.json` (bootstrap schema, see ADR 0004) with the adoption markers:
 
 ```json
 {
-  "starterKitVersion": "<current version>",
+  "groundrulesVersion": "<current version>",
   "adopted": true,
   "adoptedAt": "YYYY-MM-DD",
   "bootstrappedWithVersion": null,
@@ -150,7 +150,7 @@ Write `.starter-kit.json` (bootstrap schema, see ADR 0004) with the adoption mar
 - ✅ Created / 🔗 Adopted / ⏭️ Left as-is
 - 📋 Next steps:
   1. Flesh out `CLAUDE.md` (Setup/Build/Test from the project scripts, stack, gotchas)
-  2. If intent captured: `/starter-kit:apply-best-practices`
+  2. If intent captured: `/groundrules:apply-best-practices`
   3. Re-read `docs/VISION.md`; amend if the synthesis missed something
   4. Decide the fate of fragmented planning (consolidate if relevant)
   5. Commit when ready — **if `NO_AI_ATTRIBUTION=true`**, the commit message must contain **no** AI attribution marker (`Co-Authored-By`, "Generated with Claude Code"…), even if a default agent guideline would add it. adopt **does not commit** itself; it only provides a compliant suggested message.

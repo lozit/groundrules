@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.12.0 -->
+<!-- generated-by: groundrules v1.0.0 -->
 # 0005 — Intent capture in bootstrap + separate `apply-best-practices` skill
 
 **Date**: 2026-05-11

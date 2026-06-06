@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.12.0 -->
+<!-- generated-by: groundrules v1.0.0 -->
 # Learnings — {{PROJECT_NAME}}
 
 Non-trivial learnings that emerged during the project. Reverse-chronological order (newest at the top).

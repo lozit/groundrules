@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.12.0 -->
+<!-- generated-by: groundrules v1.0.0 -->
 # Vision — Starting-Claude
 
 > Synthesis of the project intent. Source: `intake/INTENT.md` (retroactive paste of the original prompt). Update when the intent evolves (rare; tactical decisions go in `docs/decisions/`).
@@ -10,7 +10,7 @@ Build a shareable Claude Code plugin that standardizes the bootstrapping of new 
 ## Users / personas
 
 - **Guillaume Ferrari** (solo) — uses the tool to start his own Claude Code projects quickly and with consistent documentation discipline.
-- **Claude Code community** (secondary) — anyone installing the plugin via the public marketplace on GitHub (`lozit/claude-code-starter-kit`).
+- **Claude Code community** (secondary) — anyone installing the plugin via the public marketplace on GitHub (`lozit/claude-code-groundrules`).
 
 ## Constraints
 
@@ -25,18 +25,18 @@ Build a shareable Claude Code plugin that standardizes the bootstrapping of new 
 
 - **Does not replace writing CLAUDE.md** — it's a starter, not a smart generator. The user edits and enriches the generated CLAUDE.md.
 - **No CI/CD management** — no GitHub Actions or GitLab CI templates by default. That's the project's responsibility, not the starter's.
-- **No support for non-Claude-Code tooling** — Cursor, Continue, other assistants are not targeted.
+- **No support for non-Claude-Code tooling in V1** — Cursor, Continue, other assistants are not targeted yet. Extending groundrules to other harnesses is an explicit **post-1.0 direction** (the repo is named `groundrules`, harness-neutral, for that reason).
 - **No application-code generation** — no React/Python/etc. skeleton. The plugin produces docs + structure, not code.
 - **No proprietary agentic AI for intent synthesis** — simply use Claude (the plugin runtime) to synthesize brief → vision.
 
 ## V1 acceptance criteria
 
-- A user can bootstrap a new project in < 5 minutes: `mkdir foo && cd foo && claude` → `/starter-kit:bootstrap` → interview answers → generated files + git initialized.
+- A user can bootstrap a new project in < 5 minutes: `mkdir foo && cd foo && claude` → `/groundrules:bootstrap` → interview answers → generated files + git initialized.
 - 7 operational skills: `bootstrap`, `adopt`, `add-adr`, `learn`, `migrate`, `apply-best-practices`, `verify-bootstrap`.
 - Generated structure: `README.md`, `CLAUDE.md` (with Setup/Build/Test, Verifying the work, Updating this file, Claude Code workflow sections, etc.), `docs/decisions/`, `docs/LEARNINGS.md`, `intake/`, `docs/media/`, optionally `PLAN.md` / `ARCHITECTURE.md` / `GLOSSARY.md` / `CHANGELOG.md` / `VISION.md` / specialized docs (`DATA_MODEL` / `SECURITY` / `DESIGN_SYSTEM` / `ROADMAP` / `I18N`).
 - Intent capturable at bootstrap (brief paste / brief file / interview / skip).
 - `apply-best-practices` fetches shanraisshan, filters by the project vision, proposes a multi-select, applies the safe items automatically.
-- Plugin published on GitHub with a public marketplace: installable via `/plugin marketplace add https://github.com/lozit/claude-code-starter-kit`.
+- Plugin published on GitHub with a public marketplace: installable via `/plugin marketplace add https://github.com/lozit/groundrules`.
 - Dogfood: the `Starting-Claude` repo itself uses its own structure and its own vision (this file).
 
 ---

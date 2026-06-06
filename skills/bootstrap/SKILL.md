@@ -5,16 +5,16 @@ disable-model-invocation: true
 allowed-tools: Read, Write, Bash, AskUserQuestion
 ---
 
-# /starter-kit:bootstrap
+# /groundrules:bootstrap
 
 You will bootstrap a Claude Code project in the **current working directory**. Follow these phases in order, without skipping any. All generated files are in **English** (the plugin is English-only).
 
 ## Phase 0 — Plugin update check (best-effort, never blocking)
 
 1. Read `version` from `${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json` → INSTALLED.
-2. Run via Bash with a **short timeout (~3s)**: `git ls-remote --tags --refs --sort=-v:refname https://github.com/lozit/claude-code-starter-kit.git 'v*' | head -1`
+2. Run via Bash with a **short timeout (~3s)**: `git ls-remote --tags --refs --sort=-v:refname https://github.com/lozit/groundrules.git 'v*' | head -1`
 3. Extract the tag (`refs/tags/vX.Y.Z`). If semver-greater than INSTALLED, show an informational note (don't ask, don't stop):
-   > 📦 starter-kit vX.Y.Z is available (installed: vINSTALLED). To update: `/plugin marketplace update claude-code-starter-kit`, then update the plugin via `/plugin` and `/reload-plugins`.
+   > 📦 groundrules vX.Y.Z is available (installed: vINSTALLED). To update: `/plugin marketplace update claude-code-groundrules`, then update the plugin via `/plugin` and `/reload-plugins`.
 4. **Fail silent**: on timeout, no network, or any error, continue without mentioning the check. This is the only network access in this skill and it is best-effort (cf. ADR 0015).
 
 ## Phase 1 — Scan the folder
@@ -22,7 +22,7 @@ You will bootstrap a Claude Code project in the **current working directory**. F
 1. Run `ls -la` on the cwd.
 2. Detect the following markers and note what is present:
    - `.git/` (existing git repo)
-   - `.starter-kit.json` (state from a previous invocation — if present, load it and switch to **resume mode**)
+   - `.groundrules.json` (state from a previous invocation — if present, load it and switch to **resume mode**); a legacy pre-1.0 `.starter-kit.json` also triggers resume mode — load it and recommend `/groundrules:migrate` (V1.0 renamed the plugin and the state file)
    - `CLAUDE.md`, `README.md`, `docs/`, `intake/`, `docs/media/`, `PLAN.md`, `CHANGELOG.md`, `.gitignore`, `docs/VISION.md`, `intake/INTENT.md`
    - optional specialized docs: `docs/DATA_MODEL.md`, `docs/SECURITY.md`, `docs/DESIGN_SYSTEM.md`, `docs/ROADMAP.md`, `docs/I18N.md`
    - **`PLAN.md` equivalents** (planning aliases, **same altitude**) — detection is **case-insensitive** and **nested** (up to ~3 levels, excluding `node_modules`/`.git`): `plan.md`, `TODO.md`, `todo.md`, `todos.md`, `TASKS.md`, `BACKLOG.md`, including under a path (e.g. `docs/gtd/todos.md`). There may be **several** — report all of them. **Case guard**: **never** generate `PLAN.md` if an equivalent name exists in a different case (collision on a case-sensitive FS).
@@ -32,7 +32,7 @@ You will bootstrap a Claude Code project in the **current working directory**. F
    - `package.json` (→ Node stack), `pyproject.toml`/`requirements.txt` (→ Python), `Cargo.toml` (→ Rust), `go.mod` (→ Go)
 3. For each file you might create, classify it:
    - **Absent** → to create
-   - **Present with a `<!-- generated-by: starter-kit -->` signature at the top** → recognized, offer "ignore / regenerate"
+   - **Present with a `<!-- generated-by: groundrules -->` signature at the top** → recognized, offer "ignore / regenerate"
    - **Present without a signature** → foreign file, default "ignore"
 
 If the folder is completely empty → classic bootstrap mode. Otherwise → resume mode (announce it clearly to the user at the start of the interview).
@@ -79,17 +79,17 @@ Only ask this call for a code project. For a non-code project, only `ROADMAP` ma
 
 If Phase 1 detected a **planning alias** (`TODO.md`, `TASKS.md`, `BACKLOG.md`…), **do not ask** the standard yes/no `PLAN.md` question. Ask a reconciliation question instead:
 
-- **Adopt the existing one** → do not create `PLAN.md`; `HAS_PLAN=false`. Record `skippedFiles["PLAN.md"] = "existing equivalent: <name>"` in `.starter-kit.json`.
+- **Adopt the existing one** → do not create `PLAN.md`; `HAS_PLAN=false`. Record `skippedFiles["PLAN.md"] = "existing equivalent: <name>"` in `.groundrules.json`.
 - **Create `PLAN.md` alongside** → `HAS_PLAN=true`, create normally (the user accepts both files).
 - **Port the content into `PLAN.md`** → `Read` the alias, create `PLAN.md` from the template carrying over the existing tasks (the "In progress" section), then suggest the user delete the alias. **Never** delete the alias automatically. **Case guard**: if the alias is a `plan.md` (same name, different case), do not create a second file — offer to adopt `plan.md` as-is instead.
 
-If **several** equivalents are detected, list them all and clarify their respective roles (e.g. `plan.md` = active view, `docs/gtd/todos.md` = backlog) in the question. For a more complex project (brownfield, many existing docs), point to `/starter-kit:adopt`.
+If **several** equivalents are detected, list them all and clarify their respective roles (e.g. `plan.md` = active view, `docs/gtd/todos.md` = backlog) in the question. For a more complex project (brownfield, many existing docs), point to `/groundrules:adopt`.
 
 > **superpowers**: if only `docs/superpowers/plans/` is present (no root alias), it is **not** a `PLAN.md` equivalent (different altitude — see the interop note in the `CLAUDE.md` template). Keep the standard `PLAN.md` question, and note in the recap (Phase 4) that `PLAN.md` should **point to** the active superpowers plan rather than duplicate tasks.
 
 ## Phase 3 — Project intent
 
-> Before generating project files, capture the intent (goal, users, constraints, non-goals, acceptance criteria). It is the basis for the `/starter-kit:apply-best-practices` skill which needs it.
+> Before generating project files, capture the intent (goal, users, constraints, non-goals, acceptance criteria). It is the basis for the `/groundrules:apply-best-practices` skill which needs it.
 
 `AskUserQuestion`: *"Do you already have a brief or a vision document for this project?"*
 - `Yes, I'll paste it now`
@@ -143,7 +143,7 @@ Write to `docs/VISION.md`.
 
 ### If "Skip"
 
-Create neither `intake/INTENT.md` nor `docs/VISION.md`. Note in `.starter-kit.json` that `intent.source = "skipped"`. `/starter-kit:apply-best-practices` will refuse until the vision is created.
+Create neither `intake/INTENT.md` nor `docs/VISION.md`. Note in `.groundrules.json` that `intent.source = "skipped"`. `/groundrules:apply-best-practices` will refuse until the vision is created.
 
 ## Phase 4 — Recap and confirmation
 
@@ -177,7 +177,7 @@ For each file to create:
 
 ### CLAUDE.md template selection (lean if a global is detected)
 
-- **Priority case — `CLAUDE.md` project file already present** (resume mode, foreign file without a signature, often tool-managed by an enterprise manager like `claude-manager`): **generate nothing**, never overwrite. Detect a **free zone** (marker `END MANAGED` / `Project-Specific Notes` / "below this line is yours") and offer (opt-in) to **append** a pointer to the starter-kit docs (`docs/VISION.md`, `docs/decisions/`, `docs/LEARNINGS.md`, `PLAN.md`) — free zone **only**, never the managed sections. No free zone → skip. (Detailed logic: see `/starter-kit:adopt` § "CLAUDE.md project file already present".)
+- **Priority case — `CLAUDE.md` project file already present** (resume mode, foreign file without a signature, often tool-managed by an enterprise manager like `claude-manager`): **generate nothing**, never overwrite. Detect a **free zone** (marker `END MANAGED` / `Project-Specific Notes` / "below this line is yours") and offer (opt-in) to **append** a pointer to the groundrules docs (`docs/VISION.md`, `docs/decisions/`, `docs/LEARNINGS.md`, `PLAN.md`) — free zone **only**, never the managed sections. No free zone → skip. (Detailed logic: see `/groundrules:adopt` § "CLAUDE.md project file already present".)
 - If `HAS_GLOBAL_CLAUDE=false` (and no existing project CLAUDE.md) → use `CLAUDE.md.tpl` and substitute `{{GLOBAL_CLAUDE_NOTE}}` with an **empty string** (removes the placeholder line).
 - If `HAS_GLOBAL_CLAUDE=true` → ask **1 question**: *"A global CLAUDE.md was detected. The project CLAUDE.md should **complement** it, not restate it."*
   - `Lean (recommended)` → use `CLAUDE.lean.md.tpl` (deference note already built in, generic sections removed).
@@ -215,11 +215,11 @@ For each file to create:
 
 ### Persisted state
 
-Write `.starter-kit.json` at the root with this schema:
+Write `.groundrules.json` at the root with this schema:
 
 ```json
 {
-  "starterKitVersion": "<current plugin version>",
+  "groundrulesVersion": "<current plugin version>",
   "bootstrappedAt": "YYYY-MM-DD",
   "bootstrappedWithVersion": "<current plugin version>",
   "migrations": [],
@@ -242,14 +242,14 @@ Write `.starter-kit.json` at the root with this schema:
 
 `policies.noAiAttribution` reflects the `NO_AI_ATTRIBUTION` detected in phase 1 — it lets other skills (`migrate`, etc.) know the policy without re-scanning.
 
-`starterKitVersion` can evolve (via `/starter-kit:migrate`), `bootstrappedWithVersion` stays frozen. `migrations` accumulates `{from, to, at}` entries. `appliedPractices` is filled by `/starter-kit:apply-best-practices`. If the intent is skipped, `intent.source = "skipped"` and the other fields are `null`.
+`groundrulesVersion` can evolve (via `/groundrules:migrate`), `bootstrappedWithVersion` stays frozen. `migrations` accumulates `{from, to, at}` entries. `appliedPractices` is filled by `/groundrules:apply-best-practices`. If the intent is skipped, `intent.source = "skipped"` and the other fields are `null`.
 
 ## Phase 6 — Git
 
 1. If `.git/` absent in cwd → `git init -b main`.
 2. `git add -A`
 3. Check there's something to commit: `git diff --cached --quiet` → if nothing, skip the commit.
-4. Otherwise: `git commit -m "chore: bootstrap project structure with starter-kit v0.12.0"`
+4. Otherwise: `git commit -m "chore: bootstrap project structure with groundrules v1.0.0"`
 
 > **AI attribution**: the commit message must **never** contain an AI attribution marker (`Co-Authored-By` trailer, "Generated with Claude Code" mention, etc.). This is the bootstrap default, and it is **mandatory** if `NO_AI_ATTRIBUTION=true` — this rule **overrides any default attribution guidance** of the agent.
 
@@ -270,7 +270,7 @@ Show the user:
 - ✅ List of created files (relative paths)
 - ✅ Git actions performed (init, short commit hash, remote URL if created)
 - 📋 Suggested next steps:
-  1. **If the intent was captured**: run `/starter-kit:apply-best-practices` to fetch shanraisshan and apply the relevant practices to your vision.
+  1. **If the intent was captured**: run `/groundrules:apply-best-practices` to fetch shanraisshan and apply the relevant practices to your vision.
   2. Fill `intake/` with other upstream notes if relevant
   3. Flesh out `CLAUDE.md` (Setup/Build/Test, project-specific sections)
   4. If `PLAN.md` was created: add the first tasks
@@ -280,8 +280,8 @@ Show the user:
 ## Important rules
 
 - **NEVER overwrite a file without explicit confirmation** (see phase 4).
-- **Always** add `<!-- generated-by: starter-kit v0.12.0 -->` at the top of each generated file (the templates already contain it).
+- **Always** add `<!-- generated-by: groundrules v1.0.0 -->` at the top of each generated file (the templates already contain it).
 - **Idempotence**: if the user re-runs the skill, resume mode detects already-up-to-date files and does nothing.
 - **Surface errors**: if a step fails (e.g. `gh repo create` returns an error), don't pretend it worked. Show the error, propose an action.
-- **Keep `.starter-kit.json`**: it's the source of truth for resume mode and for `apply-best-practices`.
+- **Keep `.groundrules.json`**: it's the source of truth for resume mode and for `apply-best-practices`.
 - For intent synthesis: be faithful to the source text, don't invent. If the source is thin, the `docs/VISION.md` sections may contain "To be defined" rather than fabricated content.

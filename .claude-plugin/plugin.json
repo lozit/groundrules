@@ -1,11 +1,11 @@
 {
-  "name": "starter-kit",
-  "version": "0.12.0",
-  "description": "Bootstrap interactif de nouveaux projets Claude Code : interview, structure docs/, git init, remote optionnel.",
+  "name": "groundrules",
+  "version": "1.0.0",
+  "description": "Interactive bootstrap of Claude Code projects: interview, docs/ structure, best practices of documentation and configuration, git init, optional remote. Formerly starter-kit.",
   "author": {
     "name": "Guillaume Ferrari",
     "email": "guillaume.ferrari@protonmail.com"
   },
-  "homepage": "https://github.com/lozit/claude-code-starter-kit",
-  "keywords": ["bootstrap", "scaffold", "starter", "project-init"]
+  "homepage": "https://github.com/lozit/groundrules",
+  "keywords": ["bootstrap", "scaffold", "starter", "project-init", "best-practices", "groundrules"]
 }

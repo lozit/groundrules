@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.12.0 -->
+<!-- generated-by: groundrules v1.0.0 -->
 # 0010 — Defer to an existing tool-managed project CLAUDE.md
 
 **Date**: 2026-06-03

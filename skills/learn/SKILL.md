@@ -5,13 +5,13 @@ disable-model-invocation: true
 allowed-tools: Read, Edit, AskUserQuestion, Bash
 ---
 
-# /starter-kit:learn
+# /groundrules:learn
 
 You will add a learning entry at the top of `docs/LEARNINGS.md` of the current project. All output is in **English**.
 
 ## Phase 1 — Checks
 
-1. `docs/LEARNINGS.md` must exist in the cwd. Otherwise: warn and suggest `/starter-kit:bootstrap`. Stop.
+1. `docs/LEARNINGS.md` must exist in the cwd. Otherwise: warn and suggest `/groundrules:bootstrap`. Stop.
 
 ## Phase 2 — Collect the entry
 

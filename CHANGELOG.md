@@ -1,10 +1,26 @@
-<!-- generated-by: starter-kit v0.12.0 -->
+<!-- generated-by: groundrules v1.0.0 -->
 # Changelog
 
 All notable changes to this project are documented in this file.
 
 Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versions follow [Semantic Versioning](https://semver.org/).
+
+## [1.0.0]
+
+### BREAKING — plugin renamed `starter-kit` → `groundrules` (V1.0.0, ADR 0017)
+
+*Ground rules: the rules a team agrees on at the start and lives by afterwards — applying best practices of documentation and configuration is what this plugin is about.*
+
+- **Slash commands**: `/starter-kit:<skill>` → **`/groundrules:<skill>`** (all 7 skills; skill names unchanged).
+- **State file**: `.starter-kit.json` → **`.groundrules.json`**, key `starterKitVersion` → `groundrulesVersion`. `migrate` renames it (`git mv`) and rewrites the key; all skills read the legacy file as fallback and point to `migrate`.
+- **Signatures**: new files carry `<!-- generated-by: groundrules vX.Y.Z -->`. The legacy `starter-kit` form is still recognized everywhere (resume mode, `verify-bootstrap` — reported as ⚠️ legacy, fixable with `--fix`; `migrate` offers a grouped rewrite).
+- **Marketplace & repo**: marketplace `claude-code-starter-kit` → **`claude-code-groundrules`** (the Claude Code distribution channel); repo `lozit/claude-code-starter-kit` → **`lozit/groundrules`** — harness-neutral on purpose: extending groundrules to other harnesses is a post-1.0 direction (GitHub redirects old URLs). Install spec: `/plugin install groundrules@claude-code-groundrules`. Users must re-add the marketplace / reinstall the plugin.
+- **Migration path**: in each project, run `/groundrules:migrate` — it chains all historical renames and the V1.0 rename pass (state file, signatures, stale name references, command-prefix mentions) with per-step confirmation.
+- Manifests: English descriptions, "formerly starter-kit" noted, keywords extended.
+
+### Decisions
+- ADR 0017 implemented (was accepted in 0.12.0). ADR index, README, meta docs and dogfood fully rebranded (the repo migrated itself: `.groundrules.json`, signatures, prefix).
 
 ## [0.12.0]
 
