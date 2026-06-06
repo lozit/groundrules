@@ -22,7 +22,11 @@ Renaming the plugin is however a **near-total rebrand**, far heavier than a fold
 
 **Why `groundrules`** — *ground rules* are the rules a team agrees on at the start and lives by afterwards: the exact semantic of the plugin's strongest identity face, chosen by the user — applying **best practices of documentation and configuration** (CLAUDE.md conventions, config, living-docs discipline, `apply-best-practices`, `verify-bootstrap`). It keeps the echo of the rejected `groundwork` without its collisions, and declines well: `/groundrules:bootstrap`, `.groundrules.json`, `generated-by: groundrules`.
 
-**Namespace verification (2026-06-06)** — remarkably free: npm `groundrules` AND `ground-rules` unregistered (registry 404), PyPI free, GitHub shows only four 0-star repos, no trademark surfaced in searches.
+**Namespace verification (2026-06-06)** — remarkably free: npm `groundrules` AND `ground-rules` unregistered (registry 404), PyPI free, GitHub shows only four 0-star repos, no trademark surfaced in web searches.
+
+**Formal trademark check (TMview, 2026-06-06, post-release)** — full sweep across USPTO/EUIPO/WIPO + ~80 offices:
+- **Class 42 (software services): clear in every office.** **EU: clear in both classes.**
+- **Class 9 (downloadable software), US only**: one live conflict — word mark **GROUNDRULES** (US app. 99523675, Noel Innovations LLC, filed 2025-12-01, published for opposition 2026-05-05) for *downloadable social-networking mobile app software*, plus a companion "GROUNDRULES CHALLENGE ACCEPTED". Assessment: low risk for this project — we **use** the name for a free OSS developer tool (no trademark filing), the goods/channels/audiences are disjoint (consumer social app vs dev tooling), "ground rules" is a common phrase (narrow protection), and the EU register is empty. Consequences: do not file a US class 9 mark without IP counsel; re-assess if Noel Innovations' products ever approach developer tooling. The 29 "ground rules" two-word hits are all in unrelated classes (flooring, wine, textiles) or dead.
 
 ### Runner-up (kept for the record)
 
