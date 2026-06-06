@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.11.0 -->
+<!-- generated-by: starter-kit v0.12.0 -->
 # 0014 — Rename the brief/ folder to intake/
 
 **Date**: 2026-06-06

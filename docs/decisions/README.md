@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.11.0 -->
+<!-- generated-by: starter-kit v0.12.0 -->
 # Architecture Decisions (ADR)
 
 This folder contains the project's **Architecture Decision Records**: each structural decision made during the project is recorded in a file.
@@ -44,3 +44,6 @@ No ADR needed for trivial choices or implementation details.
 | [0012](0012-english-only.md) | English-only (drop bilingual FR/EN templates) | Accepted | 2026-06-04 |
 | [0013](0013-media-under-docs.md) | Move media under docs/ (docs/media/) | Accepted | 2026-06-04 |
 | [0014](0014-rename-brief-to-intake.md) | Rename the brief/ folder to intake/ | Accepted | 2026-06-06 |
+| [0015](0015-best-effort-update-check.md) | Best-effort plugin update check in skills (Phase 0) | Accepted | 2026-06-06 |
+| [0016](0016-rename-marketplace.md) | Rename the marketplace starter-kit-local → claude-code-starter-kit | Accepted | 2026-06-06 |
+| [0017](0017-plugin-rename-at-v1.md) | Rename the plugin to groundrules at V1.0.0 | Accepted | 2026-06-06 |

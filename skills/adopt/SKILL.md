@@ -16,6 +16,7 @@ If `$ARGUMENTS` contains `--dry-run` (or `dry-run`): run all analysis phases but
 1. If `.starter-kit.json` exists in the cwd → *"This project is already managed by starter-kit. Use `/starter-kit:migrate` to update it."* Stop.
 2. If the folder is **empty** (excluding `.git`) → *"Empty folder: use `/starter-kit:bootstrap`."* Stop.
 3. Otherwise → this is indeed a brownfield case, continue.
+4. **Plugin update check (best-effort, never blocking)**: read `version` from `${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json` → INSTALLED, then run via Bash with a **short timeout (~3s)** `git ls-remote --tags --refs --sort=-v:refname https://github.com/lozit/claude-code-starter-kit.git 'v*' | head -1`. If the latest tag is semver-greater than INSTALLED, show an informational note: *"📦 starter-kit vX.Y.Z is available (installed: vINSTALLED). To update: `/plugin marketplace update claude-code-starter-kit`, then `/plugin` + `/reload-plugins`."* **Fail silent** on timeout / no network / any error — this is the only network access in this skill and it is best-effort (cf. ADR 0015).
 
 ## Phase 1 — Scan & classification (role mapping)
 

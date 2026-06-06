@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.11.0 -->
+<!-- generated-by: starter-kit v0.12.0 -->
 # Vision — Starting-Claude
 
 > Synthesis of the project intent. Source: `intake/INTENT.md` (retroactive paste of the original prompt). Update when the intent evolves (rare; tactical decisions go in `docs/decisions/`).
@@ -18,7 +18,7 @@ Build a shareable Claude Code plugin that standardizes the bootstrapping of new 
 - **No template engine** (Jinja, Handlebars) — plain text substitution on `{{KEY}}` (cf. ADR 0002).
 - **English-only** for all user templates (cf. ADR 0012) — the bilingual FR/EN support was dropped in V0.8 (maintenance for no benefit; all projects are done in English).
 - **Stack-agnostic**: no strong opinion on Node, Python, etc. — minimal `.gitignore` by default.
-- Must work **mostly offline**: `apply-best-practices` is the only skill that requires the internet (WebFetch).
+- Must work **mostly offline**: `apply-best-practices` is the only skill that requires the internet (WebFetch); `bootstrap`/`adopt`/`migrate` only attempt a best-effort update check that fails silent offline (ADR 0015).
 - **Generated CLAUDE.md under 200 lines** (shanraisshan target) to stay usable.
 
 ## V1 non-goals

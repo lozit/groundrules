@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.11.0 -->
+<!-- generated-by: starter-kit v0.12.0 -->
 # Glossary — {{PROJECT_NAME}}
 
 Domain vocabulary for the project. One entry per term, alphabetical order.

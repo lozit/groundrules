@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.11.0 -->
+<!-- generated-by: starter-kit v0.12.0 -->
 # PLAN — Starting-Claude
 
 **Active** plan/todo for the project. Maintained by Claude during work.
@@ -12,6 +12,7 @@ This file differs from the long-term roadmap: it describes what is happening **n
 
 ## Up next
 
+- [ ] V1.0.0 — implement the plugin rename `starter-kit` → `groundrules` (ADR 0017, Accepted): full migration (state-file `.starter-kit.json` → `.groundrules.json`, dual-form signature detection, repo/marketplace rename); re-check namespaces + formal USPTO/EUIPO before shipping; consider preventive npm squat of `groundrules` sooner
 - [ ] V0.7 — Decide whether to implement the PreToolUse hook for `{{KEY}}` validation (cf. `docs/best-practices-pending.md`). verify-bootstrap now catches this post-hoc, so the hook is lower priority — but pre-write catch is still cleaner.
 - [ ] V0.7 — Decide on `/watch-bootstrap` command (low priority, niche)
 - [ ] Extend `/starter-kit:migrate` to rename `00-VISION.md`/`00-INTENT.md` → `VISION.md`/`INTENT.md` on upgrade of pre-0.7 projects (cf. ADR 0007)
@@ -23,6 +24,7 @@ This file differs from the long-term roadmap: it describes what is happening **n
 
 ## Recently done
 
+- [x] V0.12 — best-effort update check (Phase 0, ADR 0015) + marketplace renamed `claude-code-starter-kit` (ADR 0016) + public email + groundrules decision (ADR 0017) (2026-06-06)
 - [x] V0.11 — renamed `brief/` → `intake/` (templates, skills, dogfood `git mv`) + migrate rename logic + ADR 0014 (2026-06-06)
 - [x] V0.10 — fix: `adopt` always offers optional/specialized docs (Call 3b); add "living docs" maintenance rule to generated CLAUDE.md (2026-06-04)
 - [x] V0.9 — moved `media/` → `docs/media/` (avoid collision with project media/public) + migrate move logic + ADR 0013 (2026-06-04)

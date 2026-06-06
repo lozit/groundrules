@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.11.0 -->
+<!-- generated-by: starter-kit v0.12.0 -->
 # Design System — {{PROJECT_NAME}}
 
 **Living** reference of the visual identity and UI components.

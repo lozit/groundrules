@@ -1,4 +1,4 @@
-<!-- generated-by: starter-kit v0.11.0 -->
+<!-- generated-by: starter-kit v0.12.0 -->
 # Data Model — {{PROJECT_NAME}}
 
 **Living** description of the data model. Update it whenever the schema changes.

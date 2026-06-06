@@ -11,6 +11,14 @@ You will update a starter-kit-bootstrapped project to the current plugin version
 
 If `$ARGUMENTS` contains `--dry-run` (or `dry-run`), run all analysis phases but **write no file**: end with a report only.
 
+## Phase 0 — Plugin update check (best-effort, never blocking)
+
+1. Read `version` from `${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json` → INSTALLED.
+2. Run via Bash with a **short timeout (~3s)**: `git ls-remote --tags --refs --sort=-v:refname https://github.com/lozit/claude-code-starter-kit.git 'v*' | head -1`
+3. Extract the tag (`refs/tags/vX.Y.Z`). If semver-greater than INSTALLED, warn (informational, don't stop):
+   > 📦 starter-kit vX.Y.Z is available but vINSTALLED is installed — migrating now will only bring the project up to vINSTALLED. Recommended: update the plugin first (`/plugin marketplace update claude-code-starter-kit`, then `/plugin` + `/reload-plugins`) and re-run `/starter-kit:migrate`. Continuing with vINSTALLED is fine too.
+4. **Fail silent**: on timeout, no network, or any error, continue without mentioning the check. This is the only network access in this skill and it is best-effort (cf. ADR 0015).
+
 ## Phase 1 — Version detection
 
 1. `.starter-kit.json` must exist in the cwd. Otherwise: *"This project was not bootstrapped with starter-kit, nothing to migrate."* Stop.

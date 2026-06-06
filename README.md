@@ -74,7 +74,7 @@ Every generated file carries a `<!-- generated-by: starter-kit -->` signature to
 ```bash
 # In Claude Code:
 /plugin marketplace add /path/to/starter-kit
-/plugin install starter-kit@starter-kit-local
+/plugin install starter-kit@claude-code-starter-kit
 ```
 
 ### From GitHub
@@ -89,6 +89,20 @@ Every generated file carries a `<!-- generated-by: starter-kit -->` signature to
 ```bash
 claude --plugin-dir /path/to/starter-kit
 ```
+
+## Updating the plugin
+
+Marketplaces added from GitHub or a local path do **not** auto-update by default. To update manually:
+
+```
+/plugin marketplace update claude-code-starter-kit
+```
+
+then install the new version via `/plugin` (Discover tab) and run `/reload-plugins` (or restart Claude Code). To make it automatic: `/plugin` → **Marketplaces** tab → select the marketplace → **Enable auto-update**.
+
+> **Note**: before v0.12 the marketplace was named `starter-kit-local`. If you added it under that name, use that name in the command above (check `/plugin` → Marketplaces), or remove and re-add the marketplace to pick up the new name.
+
+`bootstrap`, `adopt` and `migrate` also perform a **best-effort update check** when invoked (single `git ls-remote` on this repo, ~3s timeout, silent when offline) and print a notice if a newer version is published. To update an already-bootstrapped **project** after updating the plugin, run `/starter-kit:migrate` in that project.
 
 ## Usage
 
@@ -137,6 +151,7 @@ If absent, the plugin shows the ready-to-paste commands for manual execution.
 - [x] V0.9 — `media/` moved under `docs/media/` (avoid collision with project `media/`/`public/`)
 - [x] V0.10 — `adopt` always offers the optional docs; generated `CLAUDE.md` gets a "living docs" maintenance rule
 - [x] V0.11 — `brief/` renamed to `intake/` (clearer name for raw upstream material); `migrate` learns the rename
+- [x] V0.12 — best-effort update check in `bootstrap`/`adopt`/`migrate`; marketplace renamed `claude-code-starter-kit`; groundrules rename decided for V1.0.0 (ADR 0017)
 - [x] Public marketplace published on GitHub: [lozit/claude-code-starter-kit](https://github.com/lozit/claude-code-starter-kit)
 
 ## License

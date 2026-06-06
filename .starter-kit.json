@@ -1,5 +1,5 @@
 {
-  "starterKitVersion": "0.11.0",
+  "starterKitVersion": "0.12.0",
   "bootstrappedAt": "2026-05-11",
   "bootstrappedWithVersion": "0.1.0",
   "migrations": [
@@ -11,7 +11,8 @@
     {"from": "0.8.0", "to": "0.9.0", "at": "2026-06-04", "note": "V0.9 moved media/ -> docs/media/ to avoid collision with project media/public folders (ADR 0013)"},
     {"from": "0.9.0", "to": "0.10.0", "at": "2026-06-04", "note": "V0.10 adopt always offers optional/specialized docs (Call 3b); living-docs maintenance rule in generated CLAUDE.md"},
     {"from": "0.10.0", "to": "0.10.1", "at": "2026-06-04", "note": "V0.10.1 meta/docs only: documented the batch-small-changes release cadence (no user-facing change)"},
-    {"from": "0.10.1", "to": "0.11.0", "at": "2026-06-06", "note": "V0.11 renamed brief/ -> intake/ (ADR 0014): dogfood git mv brief intake + reference sweep"}
+    {"from": "0.10.1", "to": "0.11.0", "at": "2026-06-06", "note": "V0.11 renamed brief/ -> intake/ (ADR 0014): dogfood git mv brief intake + reference sweep"},
+    {"from": "0.11.0", "to": "0.12.0", "at": "2026-06-06", "note": "V0.12 best-effort update check in bootstrap/adopt/migrate (ADR 0015); marketplace renamed starter-kit-local -> claude-code-starter-kit (ADR 0016); public contact email; ADR 0017 accepted (rename to groundrules at V1.0.0)"}
   ],
   "answers": {
     "projectName": "Starting-Claude",

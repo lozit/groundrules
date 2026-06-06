@@ -1,10 +1,26 @@
-<!-- generated-by: starter-kit v0.11.0 -->
+<!-- generated-by: starter-kit v0.12.0 -->
 # Changelog
 
 All notable changes to this project are documented in this file.
 
 Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versions follow [Semantic Versioning](https://semver.org/).
+
+## [0.12.0]
+
+### Added
+- **Best-effort plugin update check (Phase 0)** in `bootstrap`, `adopt` and `migrate`: compares the installed version against the latest published tag (`git ls-remote`, ~3s timeout, fail-silent offline) and prints a notice with the update commands when a newer version exists. `migrate` additionally warns that migrating with a stale plugin only brings the project up to the installed version. See ADR 0015.
+- README: new "Updating the plugin" section (manual marketplace update, auto-update toggle, project update via `migrate`).
+
+### Changed
+- Contact email in `plugin.json` (`author`) and `marketplace.json` (`owner`) switched to the public address `guillaume.ferrari@protonmail.com`.
+- **Marketplace renamed `starter-kit-local` → `claude-code-starter-kit`** (matches the GitHub repo; the old name was a leftover from the first local test). Install spec is now `starter-kit@claude-code-starter-kit`. Users who added the marketplace under the old name keep it locally (their `update` command still uses `starter-kit-local`) or can remove/re-add to pick up the new name. See ADR 0016.
+- Plugin version bumped 0.11.0 → 0.12.0 across `plugin.json`, `marketplace.json`, all template/doc signatures, and `.starter-kit.json` (`starterKitVersion` + new migration entry).
+
+### Decisions
+- ADR `0015-best-effort-update-check.md` — why an in-skill check rather than a SessionStart hook or auto-update alone.
+- ADR `0016-rename-marketplace.md` — marketplace rename rationale.
+- ADR `0017-plugin-rename-at-v1.md` (**Accepted**) — the plugin will be renamed `starter-kit` → **`groundrules`** as the defining breaking change of V1.0.0 (namespace verified free: npm, PyPI, GitHub). `starter-kit` stays for the whole 0.x series; ~20 candidate names evaluated and recorded with verdicts (runner-up: `charter`).
 
 ## [0.11.0]
 

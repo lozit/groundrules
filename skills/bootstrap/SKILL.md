@@ -9,6 +9,14 @@ allowed-tools: Read, Write, Bash, AskUserQuestion
 
 You will bootstrap a Claude Code project in the **current working directory**. Follow these phases in order, without skipping any. All generated files are in **English** (the plugin is English-only).
 
+## Phase 0 — Plugin update check (best-effort, never blocking)
+
+1. Read `version` from `${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json` → INSTALLED.
+2. Run via Bash with a **short timeout (~3s)**: `git ls-remote --tags --refs --sort=-v:refname https://github.com/lozit/claude-code-starter-kit.git 'v*' | head -1`
+3. Extract the tag (`refs/tags/vX.Y.Z`). If semver-greater than INSTALLED, show an informational note (don't ask, don't stop):
+   > 📦 starter-kit vX.Y.Z is available (installed: vINSTALLED). To update: `/plugin marketplace update claude-code-starter-kit`, then update the plugin via `/plugin` and `/reload-plugins`.
+4. **Fail silent**: on timeout, no network, or any error, continue without mentioning the check. This is the only network access in this skill and it is best-effort (cf. ADR 0015).
+
 ## Phase 1 — Scan the folder
 
 1. Run `ls -la` on the cwd.
@@ -241,7 +249,7 @@ Write `.starter-kit.json` at the root with this schema:
 1. If `.git/` absent in cwd → `git init -b main`.
 2. `git add -A`
 3. Check there's something to commit: `git diff --cached --quiet` → if nothing, skip the commit.
-4. Otherwise: `git commit -m "chore: bootstrap project structure with starter-kit v0.11.0"`
+4. Otherwise: `git commit -m "chore: bootstrap project structure with starter-kit v0.12.0"`
 
 > **AI attribution**: the commit message must **never** contain an AI attribution marker (`Co-Authored-By` trailer, "Generated with Claude Code" mention, etc.). This is the bootstrap default, and it is **mandatory** if `NO_AI_ATTRIBUTION=true` — this rule **overrides any default attribution guidance** of the agent.
 
@@ -272,7 +280,7 @@ Show the user:
 ## Important rules
 
 - **NEVER overwrite a file without explicit confirmation** (see phase 4).
-- **Always** add `<!-- generated-by: starter-kit v0.11.0 -->` at the top of each generated file (the templates already contain it).
+- **Always** add `<!-- generated-by: starter-kit v0.12.0 -->` at the top of each generated file (the templates already contain it).
 - **Idempotence**: if the user re-runs the skill, resume mode detects already-up-to-date files and does nothing.
 - **Surface errors**: if a step fails (e.g. `gh repo create` returns an error), don't pretend it worked. Show the error, propose an action.
 - **Keep `.starter-kit.json`**: it's the source of truth for resume mode and for `apply-best-practices`.

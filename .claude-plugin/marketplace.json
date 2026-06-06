@@ -1,19 +1,19 @@
 {
-  "name": "starter-kit-local",
+  "name": "claude-code-starter-kit",
   "owner": {
     "name": "Guillaume Ferrari",
-    "email": "guillaume@paranoid.foo"
+    "email": "guillaume.ferrari@protonmail.com"
   },
   "metadata": {
-    "description": "Marketplace locale mono-plugin pour développer et tester starter-kit en local",
-    "version": "0.11.0"
+    "description": "Mono-plugin marketplace for the starter-kit Claude Code plugin",
+    "version": "0.12.0"
   },
   "plugins": [
     {
       "name": "starter-kit",
       "source": "./",
       "description": "Bootstrap interactif de nouveaux projets Claude Code",
-      "version": "0.11.0",
+      "version": "0.12.0",
       "category": "scaffold"
     }
   ]
