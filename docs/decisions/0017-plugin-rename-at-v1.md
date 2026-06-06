@@ -55,7 +55,7 @@ Name conflicts are a **trademark** matter, not copyright (a single word is not c
 - **`doctrine` — rejected.** Doctrine ORM (PHP) is major.
 - Earlier rejects: `blueprint` (overemphasizes the initial plan, docs are living), `kickstart`/`launchpad`/`scaffold` (start-only bias, or implies app-code generation which is a non-goal), `bedrock`/`primer`/`cornerstone`/`foundry` (major existing software brands: AWS, GitHub, etc.).
 - Wildcards if `groundrules` falls through before V1.0.0: `charter` (runner-up, see above), `goldenpath` (vetted), and unvetted sparks `mainstay`, `plumbline`, `slipway`, `outfitter`, `tenet`, `precept`.
-- At V1.0.0 implementation time: run a formal USPTO (tmsearch) + EUIPO (eSearch) check on Nice classes 9/42 for `groundrules`, re-check the npm/GitHub namespace at that date, and consider squatting the npm name preventively.
+- At V1.0.0 implementation time: run a formal USPTO (tmsearch) + EUIPO (eSearch) check on Nice classes 9/42 for `groundrules`, re-check the npm/GitHub namespace at that date, and consider squatting the npm name preventively. **Done 2026-06-06**: `groundrules@0.0.1` published on npm — an honest placeholder (executable pointer stub + README to the repo), securing the developer-channel name; a real npm CLI remains a post-1.0 option.
 
 ## Consequences
 
