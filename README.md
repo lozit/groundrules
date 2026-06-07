@@ -68,6 +68,8 @@ Every generated file carries a `<!-- generated-by: groundrules -->` signature to
 | `docs/DESIGN_SYSTEM.md` | Project with a UI | Principles, colors (tokens), typography, spacing/grid, components, accessibility, where tokens live in the code. |
 | `docs/ROADMAP.md` | Long-term trajectory | Milestone breakdown (goal, scope, exit criteria, status). Distinct from `PLAN.md` (active todo). |
 | `docs/I18N.md` | Multilingual project | Supported languages and fallback, translation organization, localized formats, language detection, translation process. |
+| `docs/PROCESS.md` | Phased way of working | The working-method contract: phases, validation gates, interview style, where artifacts live. Claude follows it and never skips a phase. |
+| `RELEASE.md` | Project deploys somewhere | Operational release runbook: TL;DR commands, environments table, pre-release checklist, secrets, rollback, known fragilities. |
 
 ## Installation
 
@@ -155,6 +157,7 @@ If absent, the plugin shows the ready-to-paste commands for manual execution.
 - [x] V0.11 — `brief/` renamed to `intake/` (clearer name for raw upstream material); `migrate` learns the rename
 - [x] V0.12 — best-effort update check in `bootstrap`/`adopt`/`migrate`; marketplace renamed `claude-code-starter-kit`; groundrules rename decided for V1.0.0 (ADR 0017)
 - [x] V1.0 — plugin renamed `starter-kit` → **`groundrules`** (ADR 0017): new command prefix `/groundrules:`, state file `.groundrules.json`, `migrate` handles the full legacy transition
+- [x] V1.1 — `adopt` consolidate mode (migrate a brownfield layout onto the canonical paths); `PROCESS.md` + `RELEASE.md` optional docs; LEARNINGS rule format + Session Start protocol (harvested from a real project); "repo is the only memory" convention
 - [ ] Post-1.0 — extend groundrules beyond Claude Code to other harnesses (repo name is harness-neutral by design)
 - [x] Public marketplace published on GitHub: [lozit/claude-code-groundrules](https://github.com/lozit/groundrules)
 

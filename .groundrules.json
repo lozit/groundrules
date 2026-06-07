@@ -1,5 +1,5 @@
 {
-  "groundrulesVersion": "1.0.0",
+  "groundrulesVersion": "1.1.0",
   "bootstrappedAt": "2026-05-11",
   "bootstrappedWithVersion": "0.1.0",
   "migrations": [
@@ -13,7 +13,8 @@
     {"from": "0.10.0", "to": "0.10.1", "at": "2026-06-04", "note": "V0.10.1 meta/docs only: documented the batch-small-changes release cadence (no user-facing change)"},
     {"from": "0.10.1", "to": "0.11.0", "at": "2026-06-06", "note": "V0.11 renamed brief/ -> intake/ (ADR 0014): dogfood git mv brief intake + reference sweep"},
     {"from": "0.11.0", "to": "0.12.0", "at": "2026-06-06", "note": "V0.12 best-effort update check in bootstrap/adopt/migrate (ADR 0015); marketplace renamed starter-kit-local -> claude-code-starter-kit (ADR 0016); public contact email; ADR 0017 accepted (rename to groundrules at V1.0.0)"},
-    {"from": "0.12.0", "to": "1.0.0", "at": "2026-06-06", "note": "V1.0 plugin renamed starter-kit -> groundrules (ADR 0017): state file .starter-kit.json -> .groundrules.json, key starterKitVersion -> groundrulesVersion, signatures and command prefix swept"}
+    {"from": "0.12.0", "to": "1.0.0", "at": "2026-06-06", "note": "V1.0 plugin renamed starter-kit -> groundrules (ADR 0017): state file .starter-kit.json -> .groundrules.json, key starterKitVersion -> groundrulesVersion, signatures and command prefix swept"},
+    {"from": "1.0.0", "to": "1.1.0", "at": "2026-06-07", "note": "V1.1 adopt consolidate mode (ADR 0018); PROCESS/RELEASE optional docs + LEARNINGS rule format + Session Start (ADR 0019, harvested from crm-heyjoe); repo-is-the-only-memory convention (ADR 0020)"}
   ],
   "answers": {
     "projectName": "Starting-Claude",

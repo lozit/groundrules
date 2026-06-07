@@ -1,0 +1,64 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e6]:
+      - img "image" [ref=e77] [cursor=pointer]
+      - generic [ref=e8]:
+        - generic [ref=e10]:
+          - button "" [ref=e11] [cursor=pointer]:
+            - generic: 
+          - button "" [ref=e12] [cursor=pointer]:
+            - generic: 
+          - button "" [ref=e13] [cursor=pointer]:
+            - generic: 
+        - link "Aide" [ref=e15] [cursor=pointer]:
+          - /url: "#/tmview/help"
+        - button "Français (fr) " [ref=e18] [cursor=pointer]:
+          - generic: Français (fr)
+          - generic: 
+        - generic [ref=e20]:
+          - button "Identification" [ref=e21] [cursor=pointer]
+          - button "S'enregistrer" [ref=e22] [cursor=pointer]
+  - contentinfo [ref=e25]:
+    - generic [ref=e26]:
+      - navigation [ref=e28]:
+        - link "Chercher" [ref=e29] [cursor=pointer]:
+          - /url: "#/tmview"
+        - link "Offices participants" [ref=e30] [cursor=pointer]:
+          - /url: "#/tmview/participating"
+        - link "Aide" [ref=e31] [cursor=pointer]:
+          - /url: "#/tmview/help"
+        - generic [ref=e32] [cursor=pointer]: Vos réactions
+      - generic [ref=e33]:
+        - link "EUIPN Réseau européen de la propriété intellectuelle" [ref=e35] [cursor=pointer]:
+          - /url: https://euipn.org
+          - text: EUIPN Réseau européen de la propriété intellectuelle
+          - generic [ref=e36]:
+            - generic [ref=e37]: 
+            - generic: 
+        - generic [ref=e39]: Avenida de Europa, 4 E-03008 Alicante (ESPAGNE)
+        - generic [ref=e41]: "Centre d'information: +34 96 513 9100"
+      - navigation [ref=e43]:
+        - generic [ref=e44]: Copyright 2007-2026 EUIPO
+        - generic [ref=e45]:
+          - text: "Ce site web est coordonné et maintenu par:"
+          - strong [ref=e46]: Office de l'Union européenne pour la propriété intellectuelle
+      - generic [ref=e47]:
+        - generic [ref=e48]: Les outils de recherche TMview et DesignView ne constituent pas des registres officiels et les informations qu’ils contiennent n’ont aucun effet juridique.
+        - navigation [ref=e49]:
+          - link "Voir les conditions générales" [ref=e50] [cursor=pointer]:
+            - /url: "#/tmview/disclaimer"
+      - generic [ref=e51]:
+        - generic [ref=e52]: TMDSVIEW-3.25.2-RC1.1
+        - navigation [ref=e53]:
+          - link "Compatibilité" [ref=e54] [cursor=pointer]:
+            - /url: https://tmdn.org/network/compatibility
+            - strong [ref=e55]: Compatibilité
+          - link "Protection des données" [ref=e56] [cursor=pointer]:
+            - /url: "#/tmview/data-protection"
+            - strong [ref=e57]: Protection des données
+          - link "Mention légale" [ref=e58] [cursor=pointer]:
+            - /url: https://tmdn.org/network/legal-notices
+            - strong [ref=e59]: Mention légale
+          - link "A propos de" [ref=e60] [cursor=pointer]:
+            - /url: "#/tmview/about"
+  - text: 

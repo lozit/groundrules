@@ -41,7 +41,7 @@ Read the **first 10 lines** of the file (to accommodate a YAML frontmatter that 
 paths:
   - "..."
 ---
-<!-- generated-by: groundrules v1.0.0 -->
+<!-- generated-by: groundrules v1.1.0 -->
 ```
 
 ### 2.3 Version match
@@ -55,7 +55,7 @@ If a signature is found:
 Search the whole file content for the **known placeholders** from bootstrap phase 5 (exact whitelist):
 
 ```
-\{\{(PROJECT_NAME|DESCRIPTION|STACK|DATE|HAS_PLAN|HAS_ARCHITECTURE|HAS_GLOSSARY|HAS_CHANGELOG|HAS_DATA_MODEL|HAS_SECURITY|HAS_DESIGN_SYSTEM|HAS_ROADMAP|HAS_I18N|GLOBAL_CLAUDE_NOTE|REMOTE_PROVIDER|REMOTE_VISIBILITY|CONTENT|INTENT_SOURCE|GOAL|USERS|CONSTRAINTS|NONGOALS|ACCEPTANCE)\}\}
+\{\{(PROJECT_NAME|DESCRIPTION|STACK|DATE|HAS_PLAN|HAS_ARCHITECTURE|HAS_GLOSSARY|HAS_CHANGELOG|HAS_DATA_MODEL|HAS_SECURITY|HAS_DESIGN_SYSTEM|HAS_ROADMAP|HAS_I18N|HAS_PROCESS|HAS_RELEASE|GLOBAL_CLAUDE_NOTE|REMOTE_PROVIDER|REMOTE_VISIBILITY|CONTENT|INTENT_SOURCE|GOAL|USERS|CONSTRAINTS|NONGOALS|ACCEPTANCE)\}\}
 ```
 
 - **No match** → **✅ no placeholder**
@@ -107,11 +107,11 @@ Bootstrapped with: <bootstrappedWithVersion>
 
 --- Files (X/Y tracked) ---
 ✅ docs/decisions/README.md
-   ✅ signature v1.0.0 · ✅ no placeholder
+   ✅ signature v1.1.0 · ✅ no placeholder
 ✅ docs/VISION.md
-   ✅ signature v1.0.0 · ✅ no placeholder
+   ✅ signature v1.1.0 · ✅ no placeholder
 ⚠️ docs/ARCHITECTURE.md
-   ⚠️ signature v0.10.0 (expected v1.0.0)
+   ⚠️ signature v0.10.0 (expected v1.1.0)
 ❌ docs/missing-file.md
    ❌ file absent
 

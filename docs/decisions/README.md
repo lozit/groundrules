@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.0.0 -->
+<!-- generated-by: groundrules v1.1.0 -->
 # Architecture Decisions (ADR)
 
 This folder contains the project's **Architecture Decision Records**: each structural decision made during the project is recorded in a file.
@@ -47,3 +47,6 @@ No ADR needed for trivial choices or implementation details.
 | [0015](0015-best-effort-update-check.md) | Best-effort plugin update check in skills (Phase 0) | Accepted | 2026-06-06 |
 | [0016](0016-rename-marketplace.md) | Rename the marketplace starter-kit-local → claude-code-starter-kit | Accepted | 2026-06-06 |
 | [0017](0017-plugin-rename-at-v1.md) | Rename the plugin to groundrules at V1.0.0 | Accepted | 2026-06-06 |
+| [0018](0018-adopt-consolidation-mode.md) | adopt: map-in-place vs consolidate strategies | Accepted | 2026-06-06 |
+| [0019](0019-heyjoe-inspired-doc-improvements.md) | Doc improvements harvested from a real project (crm-heyjoe) | Accepted | 2026-06-06 |
+| [0020](0020-repo-is-the-only-memory.md) | The repo is the only memory (no project knowledge in agent-local state) | Accepted | 2026-06-07 |

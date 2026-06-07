@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.0.0 -->
+<!-- generated-by: groundrules v1.1.0 -->
 # intake/ — Upstream notes
 
 This folder contains anything written **before** starting the project that provides domain context:
@@ -11,6 +11,8 @@ This folder contains anything written **before** starting the project that provi
 
 ## Conventions
 
+- **Read-only**: files here are *inputs*, captured as received — don't edit them to "fix" them; synthesize into `docs/` instead.
+- **Binaries welcome**: spreadsheets, PDFs, logos, screenshots belong here too — not just Markdown.
 - No imposed structure. Organize as you wish (subfolders, flat files, mix).
 - Prefer explicit names: `2026-05-11-client-call.md` rather than `notes.md`.
 - Anything **synthesized and stable** should migrate to `docs/` (vision, architecture, glossary...).

@@ -24,7 +24,7 @@ You will bootstrap a Claude Code project in the **current working directory**. F
    - `.git/` (existing git repo)
    - `.groundrules.json` (state from a previous invocation — if present, load it and switch to **resume mode**); a legacy pre-1.0 `.starter-kit.json` also triggers resume mode — load it and recommend `/groundrules:migrate` (V1.0 renamed the plugin and the state file)
    - `CLAUDE.md`, `README.md`, `docs/`, `intake/`, `docs/media/`, `PLAN.md`, `CHANGELOG.md`, `.gitignore`, `docs/VISION.md`, `intake/INTENT.md`
-   - optional specialized docs: `docs/DATA_MODEL.md`, `docs/SECURITY.md`, `docs/DESIGN_SYSTEM.md`, `docs/ROADMAP.md`, `docs/I18N.md`
+   - optional specialized docs: `docs/DATA_MODEL.md`, `docs/SECURITY.md`, `docs/DESIGN_SYSTEM.md`, `docs/ROADMAP.md`, `docs/I18N.md`, `docs/PROCESS.md`, `RELEASE.md`
    - **`PLAN.md` equivalents** (planning aliases, **same altitude**) — detection is **case-insensitive** and **nested** (up to ~3 levels, excluding `node_modules`/`.git`): `plan.md`, `TODO.md`, `todo.md`, `todos.md`, `TASKS.md`, `BACKLOG.md`, including under a path (e.g. `docs/gtd/todos.md`). There may be **several** — report all of them. **Case guard**: **never** generate `PLAN.md` if an equivalent name exists in a different case (collision on a case-sensitive FS).
    - `docs/superpowers/plans/` (superpowers **per-feature** plans — **different altitude**, *not* a `PLAN.md` alias)
    - **Global / enterprise CLAUDE.md** (loaded **in addition to** the project CLAUDE.md — NEVER overwrite it): `~/.claude/CLAUDE.md`, and the managed policy if present (`/Library/Application Support/ClaudeCode/CLAUDE.md` on macOS, `/etc/claude-code/CLAUDE.md` on Linux). If at least one exists → `HAS_GLOBAL_CLAUDE=true`.
@@ -64,6 +64,8 @@ A single **multiSelect** `AskUserQuestion`: *"Which specialized docs do you want
 - **`docs/DESIGN_SYSTEM.md`** — colors, typography, components. Check if the project has a UI.
 - **`docs/I18N.md`** — multilingual strategy. Check if the project is multilingual.
 - **`docs/ROADMAP.md`** — long-term milestone breakdown (distinct from `PLAN.md`).
+- **`docs/PROCESS.md`** — the working-method contract: phases, validation gates, interview style. Check if the user wants a phased, gated way of working (spec → prototype → build).
+- **`RELEASE.md`** — operational release runbook: environments, commands, checklists, rollback, known fragilities. Check **only if the project deploys somewhere** (detected CI config, hosting, or the user says so).
 
 Adapt suggestions to context: if the stack/intent suggests a UI, pre-suggest `DESIGN_SYSTEM`; a DB → `DATA_MODEL`; etc. Impose nothing: no check = no file.
 
@@ -165,7 +167,7 @@ For each file to create:
    - `{{STACK}}` — stack or empty string
    - `{{DATE}}` — today's date in ISO (YYYY-MM-DD)
    - `{{HAS_PLAN}}`, `{{HAS_ARCHITECTURE}}`, `{{HAS_GLOSSARY}}`, `{{HAS_CHANGELOG}}` — `true`/`false`
-   - `{{HAS_DATA_MODEL}}`, `{{HAS_SECURITY}}`, `{{HAS_DESIGN_SYSTEM}}`, `{{HAS_ROADMAP}}`, `{{HAS_I18N}}` — `true`/`false` (specialized docs)
+   - `{{HAS_DATA_MODEL}}`, `{{HAS_SECURITY}}`, `{{HAS_DESIGN_SYSTEM}}`, `{{HAS_ROADMAP}}`, `{{HAS_I18N}}`, `{{HAS_PROCESS}}`, `{{HAS_RELEASE}}` — `true`/`false` (specialized docs)
    - `{{GLOBAL_CLAUDE_NOTE}}` — deference note to the global CLAUDE.md (see "CLAUDE.md template selection"), or **empty string** if no global detected
    - `{{REMOTE_PROVIDER}}` — `github` / `gitlab` / empty string
    - `{{REMOTE_VISIBILITY}}` — `private` / `public` / empty string
@@ -210,6 +212,8 @@ For each file to create:
 | `HAS_DESIGN_SYSTEM=true` | `DESIGN_SYSTEM.md.tpl` | `docs/DESIGN_SYSTEM.md` |
 | `HAS_ROADMAP=true` | `ROADMAP.md.tpl` | `docs/ROADMAP.md` |
 | `HAS_I18N=true` | `I18N.md.tpl` | `docs/I18N.md` |
+| `HAS_PROCESS=true` | `PROCESS.md.tpl` | `docs/PROCESS.md` |
+| `HAS_RELEASE=true` | `RELEASE.md.tpl` | `RELEASE.md` |
 | `intent.source` ∈ `paste`/`file` | `intake-INTENT.md.tpl` | `intake/INTENT.md` |
 | `intent.source` ≠ `skipped` | `docs-VISION.md.tpl` | `docs/VISION.md` |
 
@@ -249,7 +253,7 @@ Write `.groundrules.json` at the root with this schema:
 1. If `.git/` absent in cwd → `git init -b main`.
 2. `git add -A`
 3. Check there's something to commit: `git diff --cached --quiet` → if nothing, skip the commit.
-4. Otherwise: `git commit -m "chore: bootstrap project structure with groundrules v1.0.0"`
+4. Otherwise: `git commit -m "chore: bootstrap project structure with groundrules v1.1.0"`
 
 > **AI attribution**: the commit message must **never** contain an AI attribution marker (`Co-Authored-By` trailer, "Generated with Claude Code" mention, etc.). This is the bootstrap default, and it is **mandatory** if `NO_AI_ATTRIBUTION=true` — this rule **overrides any default attribution guidance** of the agent.
 
@@ -280,7 +284,7 @@ Show the user:
 ## Important rules
 
 - **NEVER overwrite a file without explicit confirmation** (see phase 4).
-- **Always** add `<!-- generated-by: groundrules v1.0.0 -->` at the top of each generated file (the templates already contain it).
+- **Always** add `<!-- generated-by: groundrules v1.1.0 -->` at the top of each generated file (the templates already contain it).
 - **Idempotence**: if the user re-runs the skill, resume mode detects already-up-to-date files and does nothing.
 - **Surface errors**: if a step fails (e.g. `gh repo create` returns an error), don't pretend it worked. Show the error, propose an action.
 - **Keep `.groundrules.json`**: it's the source of truth for resume mode and for `apply-best-practices`.

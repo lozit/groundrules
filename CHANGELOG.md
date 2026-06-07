@@ -1,10 +1,33 @@
-<!-- generated-by: groundrules v1.0.0 -->
+<!-- generated-by: groundrules v1.1.0 -->
 # Changelog
 
 All notable changes to this project are documented in this file.
 
 Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versions follow [Semantic Versioning](https://semver.org/).
+
+## [1.1.0]
+
+### Added
+- **`adopt` adoption strategy**: new Call-1 question — `Map in place` (default, previous behavior: duplicates tolerated and documented) or **`Consolidate`** (new Phase 4b: migrate role-mapped files to the canonical paths via `git mv`/merge, per-file confirmation, optional reformat to template structure, internal-reference sweep). `.groundrules.json` gains `adoptionMode` + `migratedFiles`. See ADR 0018.
+- **Two new optional docs** (bootstrap Call 2b + adopt Call 3b, placeholders `{{HAS_PROCESS}}`/`{{HAS_RELEASE}}`): `docs/PROCESS.md` (working-method contract: phases, validation gates, interview style) and `RELEASE.md` (operational runbook: environments, commands, checklist, rollback, fragilities — offered only when the project deploys). See ADR 0019.
+
+### Changed
+- **`LEARNINGS.md` template reworked**: entries are now actionable **rules** with *Why* (story + cost) and *When to apply* (triggers), instead of journal notes (Context/Lesson). Harvested from a real project. See ADR 0019.
+- **`CLAUDE.md` templates** (full + lean): new **"Session start — read first, in order"** section (PLAN → LEARNINGS → VISION → in-progress artifacts).
+- `PLAN.md` template: status vocabulary (`[~]` delivered/in review; annotate reverts and key commits).
+- `intake/` README: explicit **read-only** convention + binaries welcome.
+
+### Added
+- **"The repo is the only memory" convention** in the generated `CLAUDE.md` (full + lean): all project knowledge lives in the repo docs — never in machine-local agent memory/plans; no `~/.claude/*` references in repo docs; plan files worth keeping get copied in. Born from repatriating crm-heyjoe's external memories. See ADR 0020.
+
+### Decisions
+- ADR `0018-adopt-consolidation-mode.md` — adoption strategies rationale.
+- ADR `0020-repo-is-the-only-memory.md` — why agent-local project knowledge is forbidden.
+
+### Changed (release)
+- Plugin version bumped 1.0.0 → 1.1.0 across `plugin.json`, `marketplace.json`, all template/doc signatures, and `.groundrules.json` (`groundrulesVersion` + new migration entry).
+- ADR `0019-heyjoe-inspired-doc-improvements.md` — what was harvested from crm-heyjoe and what was deliberately not.
 
 ## [1.0.0]
 

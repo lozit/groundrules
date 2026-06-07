@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.0.0 -->
+<!-- generated-by: groundrules v1.1.0 -->
 # Learnings — Starting-Claude
 
 Non-trivial learnings that emerged during the project. Reverse-chronological order (newest at the top).
@@ -6,6 +6,13 @@ Non-trivial learnings that emerged during the project. Reverse-chronological ord
 One entry per learning. Keep the format simple: title, context, lesson.
 
 ---
+
+## Reference sweeps must exclude historical records
+
+**Why**: during the crm-heyjoe `tasks/` → `docs/specs/` rename (2026-06-07), a blind `tasks/ → docs/specs/` sweep across all Markdown rewrote a **past CHANGELOG entry** — it then claimed the consolidation had moved `docs/specs/todo.md` → `PLAN.md`, a path that never existed at that time. History was falsified silently; caught only by re-reading the diff.
+
+**When to apply**: any bulk path-rename sweep (adopt consolidate, migrate renames, manual refactors). Exclude or hand-review: past CHANGELOG entries, `migrations`/`migratedFiles` records, dated ADRs and logs — they describe old paths *truthfully*. Sweep only living references (current docs, code, configs). The adopt SKILL Phase 4b now carries this guard.
+
 
 ## 2026-06-03 — Ecosystem interop: compare by altitude, not by name
 

@@ -72,6 +72,9 @@ find . -path ./node_modules -prune -o -path ./.git -prune -o \
 
 ### Call 1 — Base
 - **Confirm the project name** (suggest the `name` from `package.json` or the folder).
+- **Adoption strategy** (1 question — this drives the whole run):
+  - `Map in place (default)` — existing files keep their current paths; groundrules only records their roles (`adoptedFiles`) and generates what's missing. Zero file moves. Duplicates with the canonical layout are tolerated and documented.
+  - `Consolidate into the groundrules layout` — existing equivalents are **migrated** to the canonical paths (e.g. `tasks/todo.md` → `PLAN.md`, `tasks/lessons.md` → `docs/LEARNINGS.md`, business specs → `intake/`), with per-file confirmation. See Phase 4b.
 
 ### Call 2 — Intent
 *"Which source for the project vision?"* — offer the **detected business docs** first:
@@ -98,10 +101,14 @@ Pre-check based on the scan. Only offer what **doesn't already exist**:
 - `docs/DESIGN_SYSTEM.md` — pre-check if a UI is detected
 - `docs/I18N.md` — pre-check if i18n/locales detected
 - `docs/ROADMAP.md` — offered (unchecked by default)
+- `docs/PROCESS.md` — pre-check if a process/method doc is detected (phased workflow, validation gates)
+- `RELEASE.md` — pre-check if CI/CD or hosting config is detected (`.gitlab-ci.yml`, `.github/workflows/`, `netlify.toml`, `vercel.json`…)
 
 Skip an individual option only if that exact file already exists (then list it under "adopted", not here). If **none** of these exist yet, the full list is shown with the detected ones pre-checked.
 
 ### Call 4 — Planning reconciliation (if equivalents detected)
+> If the strategy is **Consolidate**, default to the `Consolidate` option below (the user already opted into migration) — still confirm the canonical target.
+
 If **one or more** equivalents found:
 - **Adopt the existing one** → no `PLAN.md`; record the file(s) with the PLAN role in `.groundrules.json`.
 - **Generate `PLAN.md` separately** → only if **no** case collision; the user accepts the coexistence.
@@ -112,7 +119,8 @@ If several equivalents: clarify their roles (e.g. `plan.md` = active view, `docs
 
 Show, in clear text:
 - 🆕 Files that will be **created** (missing)
-- 🔗 Files **adopted** (existing, mapped to a role, unmodified)
+- 🔗 Files **adopted** (existing, mapped to a role, unmodified) — map-in-place strategy
+- 🚚 Files that will be **migrated** to a canonical path (consolidate strategy): `old path → new path`, with the migration mode (`git mv` / merge)
 - ⏭️ Files **left as-is** (foreign, unmapped)
 - ❗ Warnings (case collision avoided, README boilerplate, fragmented planning)
 
@@ -121,6 +129,19 @@ Then `AskUserQuestion`: `Confirm` / `Cancel`. (In `--dry-run`, stop here with th
 ## Phase 4 — Generation (missing only)
 
 For each file to create: same mechanics as `bootstrap` Phase 5 (read the template `${CLAUDE_PLUGIN_ROOT}/skills/bootstrap/templates/<tpl>`, substitute `{{KEY}}`, `Write`). **Never overwrite** an existing file; **never delete**.
+
+## Phase 4b — Consolidation (only if strategy = Consolidate)
+
+For each adopted file whose role has a **canonical groundrules path** (PLAN → `PLAN.md`, learnings → `docs/LEARNINGS.md`, design system → `docs/DESIGN_SYSTEM.md`, data model → `docs/DATA_MODEL.md`, release runbook → `RELEASE.md`, upstream specs/raw inputs → `intake/`, glossary → `docs/GLOSSARY.md`…), migrate it — **each file individually confirmed** (group the questions 3-4 at a time):
+
+1. **1:1 move** (the source IS the artifact, target doesn't exist): `git mv <old> <new>` — preserves history. Binary inputs (Excel, images…) going to `intake/` are plain `git mv` too.
+2. **Merge** (target already exists or was just generated, or several sources feed one target): `Read` the source(s), integrate the content into the target's structure (e.g. existing lessons become LEARNINGS entries; existing tasks land in the PLAN sections), `Write` the target. Then ask for the source file: `Remove it (git rm)` / `Keep it with a pointer line` ("→ migrated to <new path>") / `Keep as-is`.
+3. **Reformat opportunity** (offer, don't impose): when the source format differs from the groundrules template (e.g. raw lessons → rule format with Why / When to apply), offer `Migrate as-is` / `Migrate and reformat`.
+4. After all moves: **sweep internal references** — update paths that pointed to the old locations in `CLAUDE.md`, `README.md` and the migrated docs themselves (show what changed). **Exclude historical records**: past CHANGELOG entries, migration notes and dated logs describe the old paths *truthfully* — rewriting them falsifies history.
+
+Never migrate: code, configs, CI files, anything not mapped to a groundrules doc role. When in doubt, leave it and report.
+
+In `--dry-run`: list every planned move/merge without touching anything.
 
 ## Phase 5 — Backfill `.groundrules.json`
 
@@ -139,9 +160,13 @@ Write `.groundrules.json` (bootstrap schema, see ADR 0004) with the adoption mar
   "policies": { "noAiAttribution": true | false },
   "generatedFiles": [ ... files CREATED by adopt ... ],
   "adoptedFiles": { "<path>": "<role: README|PLAN|backlog|intent-source|...>" },
+  "adoptionMode": "map" | "consolidate",
+  "migratedFiles": { "<old path>": "<new path>" },
   "skippedFiles": { "<path>": "<reason>" }
 }
 ```
+
+`adoptionMode` records the strategy. `migratedFiles` (consolidate only) maps old → new paths so `migrate`/`verify-bootstrap` know the provenance; migrated targets also join `generatedFiles` (they are now canonical, template-diffable files).
 
 `adopted: true` + `bootstrappedWithVersion: null` distinguish an adopted project from a bootstrapped one. `adoptedFiles` maps the existing files to roles (info for `migrate`/`verify-bootstrap`).
 
@@ -159,7 +184,7 @@ Write `.groundrules.json` (bootstrap schema, see ADR 0004) with the adoption mar
 
 ## Important rules
 
-- **Never overwrite or delete** without explicit action (and even then, adopt does not delete — it suggests).
+- **Never overwrite or delete** without explicit action. In map-in-place mode adopt never deletes — it suggests. In consolidate mode, removals of migrated sources happen only via the per-file `git rm` confirmation of Phase 4b (default remains keep-with-pointer).
 - **Case guard**: never create a file that collides in case with an existing one.
 - **superpowers**: `docs/superpowers/**` is not root planning — different altitude, don't touch it.
 - **Faithfulness to the source** for intent synthesis: don't invent; "To be defined" if the source is thin.

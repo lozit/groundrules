@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.0.0 -->
+<!-- generated-by: groundrules v1.1.0 -->
 # Architecture — Starting-Claude
 
 **Living** snapshot of the current architecture. Updated as the structure evolves.

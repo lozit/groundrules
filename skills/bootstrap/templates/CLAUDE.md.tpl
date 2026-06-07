@@ -1,8 +1,17 @@
-<!-- generated-by: groundrules v1.0.0 -->
+<!-- generated-by: groundrules v1.1.0 -->
 # CLAUDE.md — {{PROJECT_NAME}}
 
 > This file is **mutable and iterative**. Update it after every Claude mistake or newly discovered convention. Target: < 200 lines.
 {{GLOBAL_CLAUDE_NOTE}}
+## Session start — read first, in order
+
+1. `PLAN.md` — where the project stands **now** (if present)
+2. `docs/LEARNINGS.md` — rules learned from past corrections (apply them!)
+3. `docs/VISION.md` — goal, scope, non-goals (if present)
+4. The artifacts of whatever is in progress per `PLAN.md`
+
+<!-- Adjust this list to your project: keep it short, ordered, and current. -->
+
 ## Description
 
 {{DESCRIPTION}}
@@ -85,6 +94,10 @@ When a **non-trivial learning** emerges (pitfall avoided, subtle bug, discovered
 
 Keep current: check off done, add emerging tasks, note blockers.
 
+### The repo is the only memory
+
+All project knowledge lives **in this repo** (`docs/LEARNINGS.md`, `docs/decisions/`, `PLAN.md`, this file) — never in machine-local agent state (`~/.claude/` memories or plans). Something learned in a session gets written into the repo docs, not into agent memory; agent memory is for cross-project/personal facts only. **Never reference `~/.claude/*` paths from repo docs** — they don't survive a clone or a machine change. A plan-mode file worth keeping gets copied into the repo before the session ends.
+
 ### Keep generated docs current (living docs)
 
 Every file created at bootstrap/adopt is **living** — keep it in sync **in the same change** that makes it stale; don't let it drift. Updating an affected doc is **part of the task**, not a follow-up. Whenever your work touches one of these areas, update the matching file (if present):
@@ -94,7 +107,8 @@ Every file created at bootstrap/adopt is **living** — keep it in sync **in the
 - `docs/ARCHITECTURE.md` — structure / components / stack change
 - `docs/DATA_MODEL.md` — schema / entities / access rules change
 - `docs/SECURITY.md` — auth / secrets / personal-data handling change
-- `docs/I18N.md` · `docs/DESIGN_SYSTEM.md` · `docs/ROADMAP.md` · `docs/GLOSSARY.md` — their domain changes
+- `docs/I18N.md` · `docs/DESIGN_SYSTEM.md` · `docs/ROADMAP.md` · `docs/GLOSSARY.md` · `docs/PROCESS.md` — their domain changes
+- `RELEASE.md` — the release procedure or an observed fragility changes
 - `CHANGELOG.md` — add an entry under `[Unreleased]` for any notable change
 - `PLAN.md` · `docs/LEARNINGS.md` · `docs/decisions/` — as described above
 
@@ -131,6 +145,7 @@ This file is alive.
 - Don't create new doc files without need (prefer enriching existing)
 - Don't do opportunistic refactoring mid-feature
 - Don't ignore a rule in this file — if it doesn't fit, **modify it**, don't bypass it
+- Don't park project knowledge in agent memory or reference `~/.claude/*` from the docs — the repo is the only memory
 
 ## Tech stack
 
