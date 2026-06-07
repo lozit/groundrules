@@ -17,3 +17,4 @@ Thumbs.db
 
 # Claude Code
 .claude/local/
+.playwright-mcp/
