@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.3.1 -->
+<!-- generated-by: groundrules v1.3.2 -->
 # CLAUDE.md — {{PROJECT_NAME}}
 
 > This file is **mutable and iterative**. Update it after every Claude mistake or newly discovered convention. Target: < 200 lines.

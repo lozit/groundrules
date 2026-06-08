@@ -1,5 +1,5 @@
 {
-  "groundrulesVersion": "1.3.1",
+  "groundrulesVersion": "1.3.2",
   "bootstrappedAt": "2026-05-11",
   "bootstrappedWithVersion": "0.1.0",
   "migrations": [
@@ -92,6 +92,12 @@
       "to": "1.3.1",
       "at": "2026-06-08",
       "note": "V1.3.1 doc patch: hardened 'two-step plugin update' guidance (README + Phase 0 notices); adopt header fix; LEARNINGS+AGENT-EVALS capture of the marketplace-update-≠-plugin-update trap"
+    },
+    {
+      "from": "1.3.1",
+      "to": "1.3.2",
+      "at": "2026-06-08",
+      "note": "V1.3.2 README polish: 'What it buys you' benefits summary under Why"
     }
   ],
   "answers": {

@@ -1,10 +1,16 @@
-<!-- generated-by: groundrules v1.3.1 -->
+<!-- generated-by: groundrules v1.3.2 -->
 # Changelog
 
 All notable changes to this project are documented in this file.
 
 Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versions follow [Semantic Versioning](https://semver.org/).
+
+## [1.3.2]
+
+### Changed
+- README: added a **"What it buys you"** benefits summary under the *Why* section (sharper agents, knowledge that survives, lower token cost, no lock-in, docs that don't rot).
+- Plugin version bumped 1.3.1 → 1.3.2 across manifests, signatures, and `.groundrules.json` (+ migration entry).
 
 ## [1.3.1]
 

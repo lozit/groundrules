@@ -36,5 +36,8 @@
       "WebFetch(domain:resources.leadgenman.com)",
       "WebFetch(domain:howborisusesclaudecode.com)"
     ]
+  },
+  "enabledPlugins": {
+    "groundrules@claude-code-groundrules": true
   }
 }

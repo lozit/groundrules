@@ -13,6 +13,14 @@ Coding agents rarely fail for lack of information — they fail for lack of the 
 
 groundrules' answer is a *method*, not just a folder of templates: **write everything down on disk, load almost none of it.** It generates a small always-loaded index (`CLAUDE.md`) that points to exhaustive docs read **on demand**, an ADR trail for the *why*, a rule-format learnings journal, and the discipline that **the repo is the only memory**. Exhaustive storage, minimal loading — the agent gets precisely what each task needs and nothing it doesn't.
 
+**What it buys you:**
+
+- **Sharper agents** — a small, current index plus on-demand reads keeps attention undiluted and adherence high, instead of a bloated always-on file.
+- **Knowledge that survives** — decisions, conventions and lessons live in the repo, available to the next session, the next contributor, and any agent — not trapped in one chat.
+- **Lower token cost** — exhaustive on disk, minimal in context: you don't pay to carry the whole project every turn.
+- **No lock-in** — it's plain markdown; the structure stays readable and useful even without the plugin.
+- **Docs that don't rot** — living-docs discipline, checkpoint capture, and `/groundrules:slim` keep the backbone current and under budget over time.
+
 The full reasoning and token economics: [`docs/CONTEXT-ECONOMY.md`](docs/CONTEXT-ECONOMY.md) ([ADR 0021](docs/decisions/0021-context-economy-index-over-doc-search.md)).
 
 ## How it works

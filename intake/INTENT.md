@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.3.1 -->
+<!-- generated-by: groundrules v1.3.2 -->
 # Intake / Intent — groundrules
 
 Raw upstream content (paste, email copy, call transcript, PO doc, etc.) describing the project intent.

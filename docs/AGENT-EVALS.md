@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.3.1 -->
+<!-- generated-by: groundrules v1.3.2 -->
 # Agent evals — groundrules
 
 > A log of the **agent's own** observed failure modes while developing this plugin —

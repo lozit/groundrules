@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.3.1 -->
+<!-- generated-by: groundrules v1.3.2 -->
 # 0010 — Defer to an existing tool-managed project CLAUDE.md
 
 **Date**: 2026-06-03

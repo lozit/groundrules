@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.3.1 -->
+<!-- generated-by: groundrules v1.3.2 -->
 # intake/ — Upstream notes
 
 This folder contains anything written **before** starting the project that provides domain context:
