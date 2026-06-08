@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.3.2 -->
+<!-- generated-by: groundrules v1.3.3 -->
 # Architecture Decisions (ADR)
 
 This folder contains the project's **Architecture Decision Records**: each structural decision made during the project is recorded in a file.
@@ -54,3 +54,4 @@ No ADR needed for trivial choices or implementation details.
 | [0022](0022-agent-evals-and-session-close.md) | Session-close ritual + optional agent-evals log | Accepted | 2026-06-08 |
 | [0023](0023-project-scope-for-team-portability.md) | Recommend project-scope install for team portability | Accepted | 2026-06-08 |
 | [0024](0024-slim-skill-claude-md-budget.md) | `/groundrules:slim` — operationalize the CLAUDE.md budget | Accepted | 2026-06-08 |
+| [0025](0025-no-runtime-hook-no-watch.md) | Won't-do: PreToolUse `{{KEY}}` hook and `/watch-bootstrap` | Accepted | 2026-06-08 |

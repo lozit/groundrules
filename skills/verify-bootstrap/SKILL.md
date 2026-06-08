@@ -33,7 +33,7 @@ Read the **first 10 lines** of the file (to accommodate a YAML frontmatter that 
 - **Match** → extract the version (FOUND_VERSION), continue
 - **No match** → **❌ signature missing**, run the following checks anyway
 
-**Exceptions**: JSON files (`.groundrules.json`, `.claude/settings.json`, etc.) have no signature (HTML comment invalid in JSON). For those files, skip this check.
+**Exceptions** (no HTML-comment signature possible — skip this check): **JSON files** (`.groundrules.json`, `.claude/settings.json`, etc. — HTML comment invalid in JSON) and **`.gitignore`** (generated from the plain `gitignore.minimal`, which carries no signature). Generally, any generated file that is **not** in the Markdown family (a `#`-comment or syntax-restricted plain file) is exempt — only Markdown/`.tpl`/rules files are expected to carry the `<!-- generated-by -->` signature.
 
 **YAML frontmatter note**: for files starting with `---` (rules, skills), the signature **must** be on the line right after the closing `---`. E.g.:
 ```
@@ -41,7 +41,7 @@ Read the **first 10 lines** of the file (to accommodate a YAML frontmatter that 
 paths:
   - "..."
 ---
-<!-- generated-by: groundrules v1.3.2 -->
+<!-- generated-by: groundrules v1.3.3 -->
 ```
 
 ### 2.3 Version match
@@ -58,10 +58,12 @@ Search the whole file content for the **known placeholders** from bootstrap phas
 \{\{(PROJECT_NAME|DESCRIPTION|STACK|DATE|HAS_PLAN|HAS_ARCHITECTURE|HAS_GLOSSARY|HAS_CHANGELOG|HAS_DATA_MODEL|HAS_SECURITY|HAS_DESIGN_SYSTEM|HAS_ROADMAP|HAS_I18N|HAS_PROCESS|HAS_RELEASE|HAS_AGENT_EVALS|GLOBAL_CLAUDE_NOTE|REMOTE_PROVIDER|REMOTE_VISIBILITY|CONTENT|INTENT_SOURCE|GOAL|USERS|CONSTRAINTS|NONGOALS|ACCEPTANCE)\}\}
 ```
 
-- **No match** → **✅ no placeholder**
-- **Match** → **❌ unsubstituted placeholders: {{PROJECT_NAME}}, {{DESCRIPTION}}, ...**
+For every match, apply the **backtick rule** before flagging: a placeholder **wrapped in backticks** (`` `{{KEY}}` ``) is a *documentation reference* (a doc/CHANGELOG/PLAN line that mentions the placeholder by name), **not** an unsubstituted placeholder — **ignore it**. Only a **bare** occurrence (not inside backticks) is a real leftover. This matters on self-referential projects: a project's own `CHANGELOG.md`/`PLAN.md` legitimately contains backticked `{{HAS_PROCESS}}`, `{{INTENT_SOURCE}}`, etc.
 
-**Important: do NOT match** `{{KEY}}`, `{{X}}`, `{{Y}}`, `{{NNNN}}`, etc. — those are documentation references (in backticks in the text) talking about the placeholder concept. Only the real bootstrap keys trigger the error.
+- **No bare match** → **✅ no placeholder**
+- **Bare match** → **❌ unsubstituted placeholders: {{PROJECT_NAME}}, {{DESCRIPTION}}, ...**
+
+Also ignore generic illustrative tokens like `{{KEY}}`, `{{X}}`, `{{NNNN}}` — they aren't in the whitelist anyway, but they're always documentation about the concept.
 
 **Exception**: if the file is in `skills/bootstrap/templates/` or is itself a `*.tpl`, skip this check (templates contain these placeholders by design — only relevant in the dogfood, not a normal user project).
 
@@ -107,11 +109,11 @@ Bootstrapped with: <bootstrappedWithVersion>
 
 --- Files (X/Y tracked) ---
 ✅ docs/decisions/README.md
-   ✅ signature v1.3.2 · ✅ no placeholder
+   ✅ signature v1.3.3 · ✅ no placeholder
 ✅ docs/VISION.md
-   ✅ signature v1.3.2 · ✅ no placeholder
+   ✅ signature v1.3.3 · ✅ no placeholder
 ⚠️ docs/ARCHITECTURE.md
-   ⚠️ signature v0.10.0 (expected v1.3.2)
+   ⚠️ signature v0.10.0 (expected v1.3.3)
 ❌ docs/missing-file.md
    ❌ file absent
 

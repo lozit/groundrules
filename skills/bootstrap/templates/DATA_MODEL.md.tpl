@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.3.2 -->
+<!-- generated-by: groundrules v1.3.3 -->
 # Data Model — {{PROJECT_NAME}}
 
 **Living** description of the data model. Update it whenever the schema changes.

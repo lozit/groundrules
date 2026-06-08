@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.3.2 -->
+<!-- generated-by: groundrules v1.3.3 -->
 # PLAN — groundrules
 
 **Active** plan/todo for the project. Maintained by Claude during work.
@@ -7,21 +7,24 @@ This file differs from the long-term roadmap: it describes what is happening **n
 
 ## In progress
 
-- [ ] End-to-end test of V0.6 `/groundrules:verify-bootstrap` on the dogfood itself (this run will be the validation)
-- [ ] End-to-end real-world test on a **fresh project** (not the dogfood) for the full V0.5+V0.6 flow
 
 ## Up next
 
-- [ ] V0.7 — Decide whether to implement the PreToolUse hook for `{{KEY}}` validation (cf. `docs/best-practices-pending.md`). verify-bootstrap now catches this post-hoc, so the hook is lower priority — but pre-write catch is still cleaner.
-- [ ] V0.7 — Decide on `/watch-bootstrap` command (low priority, niche)
-- [ ] Extend `/groundrules:migrate` to rename `00-VISION.md`/`00-INTENT.md` → `VISION.md`/`INTENT.md` on upgrade of pre-0.7 projects (cf. ADR 0007)
-- [ ] Teach `/groundrules:verify-bootstrap` about adopted projects: tolerate `bootstrappedWithVersion: null`, validate `adoptedFiles` paths exist (cf. ADR 0008)
+- [ ] **Post-1.0 — support harnesses beyond Claude Code** (the strategic direction the repo name was chosen for, cf. README roadmap). Scope to define in its own ADR when tackled: which harnesses first (Cursor, Codex/OpenAI, Gemini CLI, OpenCode…), how the markdown SKILL instructions port vs. need per-harness adapters, and the per-harness distribution model (each harness ships/installs skills differently — there's no universal "plugin"). Keep the generated **output** (docs/, CLAUDE.md, ADRs) harness-agnostic; only the *delivery* of the skills changes.
+
+<!-- Triaged 2026-06-08: stale items removed (already implemented): migrate 00-VISION rename; verify-bootstrap adopted projects.
+     Closed as won't-do (ADR 0025): PreToolUse {{KEY}} hook; /watch-bootstrap. -->
+
 
 ## Waiting / blocked
 
 - [ ] ...
 
 ## Recently done
+
+- [x] **E2E on a fresh project** (kitchen-sink bootstrap in /tmp, all docs) → bootstrap→verify **23/23 PASS**; caught & fixed a real `verify-bootstrap` false-positive on `.gitignore` the dogfood couldn't reveal + a LEARNINGS rule (validate on a fresh bootstrap) (2026-06-08)
+
+- [x] E2E `verify-bootstrap` on the dogfood: **15/15 coherent** after sharpening the placeholder check with an explicit **backtick rule** (backticked `{{KEY}}` = doc reference, ignore; only bare = real leftover) — surfaced 2 false positives in own CHANGELOG/PLAN (2026-06-08)
 
 - [x] Hardened plugin-update docs (two-step: marketplace ≠ plugin) in README + Phase 0 notices; LEARNINGS + AGENT-EVALS capture of the trap — under `[Unreleased]` (2026-06-08)
 - [x] New skill `/groundrules:slim` — propose CLAUDE.md optimizations to stay <200 lines (ADR 0024); verify-bootstrap points to it; no CLAUDE.md bloat — under `[Unreleased]` (2026-06-08)

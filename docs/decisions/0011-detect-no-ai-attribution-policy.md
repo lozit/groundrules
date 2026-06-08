@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.3.2 -->
+<!-- generated-by: groundrules v1.3.3 -->
 # 0011 — Detect a "no AI attribution" policy and adapt suggested commits
 
 **Date**: 2026-06-03

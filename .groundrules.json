@@ -1,5 +1,5 @@
 {
-  "groundrulesVersion": "1.3.2",
+  "groundrulesVersion": "1.3.3",
   "bootstrappedAt": "2026-05-11",
   "bootstrappedWithVersion": "0.1.0",
   "migrations": [
@@ -98,6 +98,12 @@
       "to": "1.3.2",
       "at": "2026-06-08",
       "note": "V1.3.2 README polish: 'What it buys you' benefits summary under Why"
+    },
+    {
+      "from": "1.3.2",
+      "to": "1.3.3",
+      "at": "2026-06-08",
+      "note": "V1.3.3 verify-bootstrap robustness: exempt .gitignore from signature check (fresh-project E2E found false positive) + explicit backtick rule for placeholders; ADR 0025 closes PreToolUse hook + /watch-bootstrap as won't-do"
     }
   ],
   "answers": {

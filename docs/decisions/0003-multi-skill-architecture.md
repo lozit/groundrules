@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.3.2 -->
+<!-- generated-by: groundrules v1.3.3 -->
 # 0003 — Multi-skill architecture with `disable-model-invocation: true`
 
 **Date**: 2026-05-11

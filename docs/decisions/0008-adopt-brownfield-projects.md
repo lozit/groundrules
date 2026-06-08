@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.3.2 -->
+<!-- generated-by: groundrules v1.3.3 -->
 # 0008 — Adopt existing (brownfield) projects via a dedicated skill
 
 **Date**: 2026-06-03

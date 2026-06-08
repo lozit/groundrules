@@ -1,10 +1,22 @@
-<!-- generated-by: groundrules v1.3.2 -->
+<!-- generated-by: groundrules v1.3.3 -->
 # Changelog
 
 All notable changes to this project are documented in this file.
 
 Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versions follow [Semantic Versioning](https://semver.org/).
+
+## [1.3.3]
+
+### Decisions
+- ADR `0025-no-runtime-hook-no-watch.md` — closed two long-standing backlog ideas as **won't-do**: the PreToolUse `{{KEY}}` hook (runtime machinery against "template over code"; verify-bootstrap covers it) and `/watch-bootstrap` (niche). `docs/best-practices-pending.md` queue is now empty.
+- Plugin version bumped 1.3.2 → 1.3.3 across manifests, signatures, and `.groundrules.json` (+ migration entry).
+
+### Fixed
+- **`verify-bootstrap` false-positive on `.gitignore`** — the signature check exempted only JSON, but `.gitignore` (generated from the plain `gitignore.minimal`, no HTML-comment signature) IS in a real project's `generatedFiles`, so every freshly-bootstrapped project got a spurious "signature missing". Now exempted, with the rule generalized to non-Markdown plain files. Caught by the **first fresh-project E2E** (the dogfood couldn't reveal it — its `.gitignore` is a foreign/skipped file).
+
+### Changed
+- **`verify-bootstrap` placeholder check sharpened** — the "leftover placeholder" rule is now explicit: a placeholder **in backticks** (`` `{{KEY}}` ``) is a documentation reference and is ignored; only a **bare** occurrence is a real unsubstituted placeholder. Avoids false positives on self-referential projects whose own `CHANGELOG.md`/`PLAN.md` mention groundrules placeholders by name. Surfaced by running the E2E on the dogfood (15/15 coherent).
 
 ## [1.3.2]
 

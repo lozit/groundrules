@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.3.2 -->
+<!-- generated-by: groundrules v1.3.3 -->
 # Learnings — groundrules
 
 Non-trivial learnings that emerged during the project. Reverse-chronological order (newest at the top).
@@ -6,6 +6,12 @@ Non-trivial learnings that emerged during the project. Reverse-chronological ord
 One entry per learning. Keep the format simple: title, context, lesson.
 
 ---
+
+## Validate on a fresh bootstrap, not only the dogfood
+
+**Why**: 2026-06-08, the first fresh-project E2E (a kitchen-sink bootstrap in `/tmp`, all docs enabled) immediately caught a `verify-bootstrap` **false positive on `.gitignore`** ("signature missing") that the dogfood **structurally could not reveal**: the dogfood's `.gitignore`, `CLAUDE.md` and `README.md` are *foreign* files (in `skippedFiles`), so verify never checks them — yet a real bootstrap puts `.gitignore` in `generatedFiles`. Every real user would have hit the spurious warning; the dogfood was blind to it.
+
+**When to apply**: before shipping changes to `bootstrap` / `verify-bootstrap` / the templates, run a **fresh-folder bootstrap→verify** (enable all docs to exercise every template), not just `verify` on the dogfood. The dogfood only validates the layer-B docs it *owns*; it cannot catch bugs in the generation or verification of files it adopted as foreign.
 
 ## Updating a Claude Code plugin is two steps — marketplace update ≠ plugin update
 
