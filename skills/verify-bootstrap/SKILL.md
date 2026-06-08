@@ -41,7 +41,7 @@ Read the **first 10 lines** of the file (to accommodate a YAML frontmatter that 
 paths:
   - "..."
 ---
-<!-- generated-by: groundrules v1.2.0 -->
+<!-- generated-by: groundrules v1.3.0 -->
 ```
 
 ### 2.3 Version match
@@ -76,7 +76,7 @@ Search the whole file content for the **known placeholders** from bootstrap phas
 If `CLAUDE.md` exists:
 - `wc -l CLAUDE.md` → number of lines
 - **≤ 200** → **✅ CLAUDE.md X/200 lines**
-- **> 200** → **⚠️ CLAUDE.md X lines (target: < 200, consider extracting to `.claude/rules/`)**
+- **> 200** → **⚠️ CLAUDE.md X lines (target: < 200 — run `/groundrules:slim` for concrete extraction proposals)**
 
 ### 3.3 Valid JSON
 
@@ -107,11 +107,11 @@ Bootstrapped with: <bootstrappedWithVersion>
 
 --- Files (X/Y tracked) ---
 ✅ docs/decisions/README.md
-   ✅ signature v1.2.0 · ✅ no placeholder
+   ✅ signature v1.3.0 · ✅ no placeholder
 ✅ docs/VISION.md
-   ✅ signature v1.2.0 · ✅ no placeholder
+   ✅ signature v1.3.0 · ✅ no placeholder
 ⚠️ docs/ARCHITECTURE.md
-   ⚠️ signature v0.10.0 (expected v1.2.0)
+   ⚠️ signature v0.10.0 (expected v1.3.0)
 ❌ docs/missing-file.md
    ❌ file absent
 

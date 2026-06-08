@@ -75,7 +75,7 @@ For each selected recommendation:
   paths:
     - "..."
   ---
-  <!-- generated-by: groundrules v1.2.0 -->
+  <!-- generated-by: groundrules v1.3.0 -->
 
   # Title
   ...

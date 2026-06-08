@@ -255,7 +255,7 @@ Write `.groundrules.json` at the root with this schema:
 1. If `.git/` absent in cwd → `git init -b main`.
 2. `git add -A`
 3. Check there's something to commit: `git diff --cached --quiet` → if nothing, skip the commit.
-4. Otherwise: `git commit -m "chore: bootstrap project structure with groundrules v1.2.0"`
+4. Otherwise: `git commit -m "chore: bootstrap project structure with groundrules v1.3.0"`
 
 > **AI attribution**: the commit message must **never** contain an AI attribution marker (`Co-Authored-By` trailer, "Generated with Claude Code" mention, etc.). This is the bootstrap default, and it is **mandatory** if `NO_AI_ATTRIBUTION=true` — this rule **overrides any default attribution guidance** of the agent.
 
@@ -283,10 +283,18 @@ Show the user:
   5. Read `docs/VISION.md` and amend it if the synthesis missed something
   6. If the intent was skipped and you still want tailored practices: fill `docs/VISION.md` by hand then run `apply-best-practices`
 
+### Team-sharing tip (project-scope install)
+
+The generated `CLAUDE.md` references `/groundrules:*` commands — but the **plugin doesn't travel with `git clone`**: a collaborator who only clones the repo won't have those commands (the model sees the instruction, the command fails). If this repo will be **shared / cloned by others**, suggest installing groundrules at **Project scope** so it's committed to `.claude/settings.json` and collaborators are prompted to install it on clone:
+
+> Run `/plugin install groundrules@claude-code-groundrules` and choose **Project** scope (not User). This commits the plugin reference to `.claude/settings.json` — anyone who clones and trusts the repo is then prompted to install it, so the `/groundrules:*` commands work for the whole team. (Cf. ADR 0023.)
+
+Only surface this if `.claude/settings.json` doesn't already carry a project-scope groundrules entry, and don't block on it — the project's docs are plain markdown and remain readable without the plugin; only the slash-command ergonomics need it.
+
 ## Important rules
 
 - **NEVER overwrite a file without explicit confirmation** (see phase 4).
-- **Always** add `<!-- generated-by: groundrules v1.2.0 -->` at the top of each generated file (the templates already contain it).
+- **Always** add `<!-- generated-by: groundrules v1.3.0 -->` at the top of each generated file (the templates already contain it).
 - **Idempotence**: if the user re-runs the skill, resume mode detects already-up-to-date files and does nothing.
 - **Surface errors**: if a step fails (e.g. `gh repo create` returns an error), don't pretend it worked. Show the error, propose an action.
 - **Keep `.groundrules.json`**: it's the source of truth for resume mode and for `apply-best-practices`.

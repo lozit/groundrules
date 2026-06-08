@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.2.0 -->
+<!-- generated-by: groundrules v1.3.0 -->
 # 0017 — Rename the plugin to groundrules at V1.0.0
 
 **Date**: 2026-06-06

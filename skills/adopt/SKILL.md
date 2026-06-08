@@ -182,6 +182,7 @@ Write `.groundrules.json` (bootstrap schema, see ADR 0004) with the adoption mar
   3. Re-read `docs/VISION.md`; amend if the synthesis missed something
   4. Decide the fate of fragmented planning (consolidate if relevant)
   5. Commit when ready — **if `NO_AI_ATTRIBUTION=true`**, the commit message must contain **no** AI attribution marker (`Co-Authored-By`, "Generated with Claude Code"…), even if a default agent guideline would add it. adopt **does not commit** itself; it only provides a compliant suggested message.
+  6. **Team-sharing**: an adopted repo is, by definition, already shared. The generated docs reference `/groundrules:*` commands, but the **plugin doesn't travel with `git clone`** — collaborators who only clone won't have them. Suggest installing groundrules at **Project scope** so it's committed to `.claude/settings.json` and collaborators are prompted to install on clone: *"Run `/plugin install groundrules@claude-code-groundrules` and choose **Project** scope."* Only surface this if `.claude/settings.json` doesn't already carry a project-scope groundrules entry; don't block on it (the docs are plain markdown, readable without the plugin — only the slash-command ergonomics need it). Cf. ADR 0023.
 
 **No `git init`** (the project already has git) nor remote creation. If `.git/` is absent: report it and suggest `git init`, without imposing it.
 

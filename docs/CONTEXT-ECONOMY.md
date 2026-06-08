@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.2.0 -->
+<!-- generated-by: groundrules v1.3.0 -->
 # Context economy — how groundrules keeps docs exhaustive *and* cheap
 
 > Why groundrules generates an **index + on-demand docs** instead of dumping everything

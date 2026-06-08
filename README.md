@@ -43,11 +43,13 @@ From a local clone, or for fast iteration without installing:
 claude --plugin-dir /path/to/groundrules
 ```
 
+> **Working in a team / shared repo?** Install at **Project scope** (choose *Project*, not *User*, during `/plugin install`). This commits the plugin reference to `.claude/settings.json`, so anyone who clones and trusts the repo is prompted to install it — the `/groundrules:*` commands then work for everyone. The plugin does **not** travel with a `git clone` otherwise; a user-scope install is per-machine. (The generated docs are plain markdown and remain readable without the plugin — only the slash-command ergonomics need it. See [ADR 0023](docs/decisions/0023-project-scope-for-team-portability.md).)
+
 > groundrules is a Claude Code plugin today. Support for other harnesses is on the [roadmap](#roadmap) — the repo is named `groundrules` (harness-neutral) for that reason.
 
 ## The workflow
 
-Seven skills ordered by a project's lifecycle, plus one cross-cutting capture ritual:
+Seven skills ordered by a project's lifecycle, plus two cross-cutting maintenance skills:
 
 1. **`bootstrap`** — *new, empty folder.* Interview + intent capture (paste / file / interview) + from-scratch generation of the whole structure, `git init`, optional remote.
 2. **`adopt`** — *existing (brownfield) project.* Scans, maps existing files to roles, generates only what's missing, backfills `.groundrules.json`. Never overwrites; supports `--dry-run` and a **consolidate** mode that migrates an existing layout onto the canonical paths.
@@ -57,6 +59,7 @@ Seven skills ordered by a project's lifecycle, plus one cross-cutting capture ri
 6. **`verify-bootstrap`** — *sanity check.* Validates signatures, leftover `{{KEY}}` placeholders, CLAUDE.md size, valid JSON, git. `--fix` for trivial corrections.
 7. **`migrate`** — *the plugin has a new version.* Per-file diff, never overwrites without confirmation, chains historical renames, `--dry-run`.
 8. **`checkpoint`** — *any time, especially before a push.* Runs the capture ritual (see below).
+9. **`slim`** — *when `CLAUDE.md` approaches 200 lines.* Proposes concrete optimizations to stay under budget — extract a bulky section to `docs/`, move file-type rules to `.claude/rules/` (loaded on demand), compress, de-duplicate. Moves content, never deletes it. (`verify-bootstrap` points here when it flags the size.)
 
 ## Capturing knowledge as you go
 
@@ -174,6 +177,7 @@ Issues and pull requests are welcome. A few conventions:
 - [x] V1.0 — plugin renamed to **`groundrules`** (ADR 0017): command prefix `/groundrules:`, state file `.groundrules.json`, `migrate` handles the full legacy transition
 - [x] V1.1 — `adopt` consolidate mode (migrate a brownfield layout onto the canonical paths); `PROCESS.md` + `RELEASE.md` optional docs; LEARNINGS rule format + Session Start protocol (harvested from a real project); "repo is the only memory" convention
 - [x] V1.2 — context economy guide (ADR 0021); agent-evals + checkpoint-capture ritual + `/groundrules:checkpoint` (ADR 0022); graphify interop; MIT license; README pitch-before-install + "Why"
+- [x] V1.3 — `/groundrules:slim` (CLAUDE.md 200-line optimizer, ADR 0024); team-portability project-scope guidance in `bootstrap`/`adopt` (ADR 0023)
 - [ ] Post-1.0 — extend groundrules beyond Claude Code to other harnesses (repo name is harness-neutral by design)
 - [x] Public marketplace published on GitHub: [lozit/groundrules](https://github.com/lozit/groundrules)
 

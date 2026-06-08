@@ -1,10 +1,23 @@
-<!-- generated-by: groundrules v1.2.0 -->
+<!-- generated-by: groundrules v1.3.0 -->
 # Changelog
 
 All notable changes to this project are documented in this file.
 
 Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versions follow [Semantic Versioning](https://semver.org/).
+
+## [1.3.0]
+
+### Added
+- **New skill `/groundrules:slim`** — analyzes `CLAUDE.md` and proposes concrete optimizations to stay under the ~200-line budget (extract a bulky section to `docs/`, move file-type rules to `.claude/rules/` with `paths:`, de-duplicate, compress), **moving** content never deleting it. `verify-bootstrap`'s size warning now points to it. The generated `CLAUDE.md` is left untouched (no bloat). See ADR 0024.
+- **Team-portability guidance** — `bootstrap` (Phase 8) and `adopt` (Phase 6) now suggest installing groundrules at **Project scope** (committed to `.claude/settings.json`, so collaborators are prompted to install on clone), only when not already done and never blocking. README Installation documents it. The generated `CLAUDE.md` is left untouched (no bloat — the advice lives in the skills' one-time output). See ADR 0023.
+
+### Decisions
+- ADR `0023-project-scope-for-team-portability.md` — why project-scope install (not CLAUDE.md manual-fallback prose, not vendoring skills into the repo).
+- ADR `0024-slim-skill-claude-md-budget.md` — a dedicated skill (not extending verify, not a CLAUDE.md pointer) to operationalize the 200-line budget.
+
+### Changed
+- Plugin version bumped 1.2.0 → 1.3.0 across `plugin.json`, `marketplace.json`, all template/doc signatures, and `.groundrules.json` (`groundrulesVersion` + new migration entry).
 
 ## [1.2.0]
 

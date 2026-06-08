@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.2.0 -->
+<!-- generated-by: groundrules v1.3.0 -->
 # Architecture Decisions (ADR)
 
 This folder contains the project's **Architecture Decision Records**: each structural decision made during the project is recorded in a file.
@@ -52,3 +52,5 @@ No ADR needed for trivial choices or implementation details.
 | [0020](0020-repo-is-the-only-memory.md) | The repo is the only memory (no project knowledge in agent-local state) | Accepted | 2026-06-07 |
 | [0021](0021-context-economy-index-over-doc-search.md) | Context economy: index over doc-search for a project's own docs | Accepted | 2026-06-08 |
 | [0022](0022-agent-evals-and-session-close.md) | Session-close ritual + optional agent-evals log | Accepted | 2026-06-08 |
+| [0023](0023-project-scope-for-team-portability.md) | Recommend project-scope install for team portability | Accepted | 2026-06-08 |
+| [0024](0024-slim-skill-claude-md-budget.md) | `/groundrules:slim` — operationalize the CLAUDE.md budget | Accepted | 2026-06-08 |
