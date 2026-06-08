@@ -16,7 +16,7 @@ If `$ARGUMENTS` contains `--dry-run` (or `dry-run`): run all analysis phases but
 1. If `.groundrules.json` (or a legacy pre-1.0 `.starter-kit.json`) exists in the cwd → *"This project is already managed by groundrules. Use `/groundrules:migrate` to update it."* Stop.
 2. If the folder is **empty** (excluding `.git`) → *"Empty folder: use `/groundrules:bootstrap`."* Stop.
 3. Otherwise → this is indeed a brownfield case, continue.
-4. **Plugin update check (best-effort, never blocking)**: read `version` from `${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json` → INSTALLED, then run via Bash with a **short timeout (~3s)** `git ls-remote --tags --refs --sort=-v:refname https://github.com/lozit/groundrules.git 'v*' | head -1`. If the latest tag is semver-greater than INSTALLED, show an informational note: *"📦 groundrules vX.Y.Z is available (installed: vINSTALLED). To update: `/plugin marketplace update claude-code-groundrules`, then `/plugin` + `/reload-plugins`."* **Fail silent** on timeout / no network / any error — this is the only network access in this skill and it is best-effort (cf. ADR 0015).
+4. **Plugin update check (best-effort, never blocking)**: read `version` from `${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json` → INSTALLED, then run via Bash with a **short timeout (~3s)** `git ls-remote --tags --refs --sort=-v:refname https://github.com/lozit/groundrules.git 'v*' | head -1`. If the latest tag is semver-greater than INSTALLED, show an informational note: *"📦 groundrules vX.Y.Z is available (installed: vINSTALLED). Two steps: `/plugin marketplace update claude-code-groundrules` (catalog only — does **not** update the installed plugin), then **reinstall** (`/plugin install groundrules@claude-code-groundrules`) and **restart Claude Code**."* **Fail silent** on timeout / no network / any error — this is the only network access in this skill and it is best-effort (cf. ADR 0015).
 
 ## Phase 1 — Scan & classification (role mapping)
 
@@ -27,7 +27,7 @@ If `$ARGUMENTS` contains `--dry-run` (or `dry-run`): run all analysis phases but
 3. **Detect `PLAN.md` equivalents** (see "Planning detection" below) — there may be **several**, possibly nested.
 4. **Classify each existing item** into a groundrules role. Build a table:
 
-| Existing | Starter-kit role | Proposed action |
+| Existing | groundrules role | Proposed action |
 |---|---|---|
 | `README.md` | README | adopt as-is; if **boilerplate** (GitHub/GitLab "Getting started…" template) → offer to regenerate |
 | `plan.md` / `TODO.md` / … | PLAN (active view) | reconciliation (Phase 2) — **never** create a `PLAN.md` that collides in case |

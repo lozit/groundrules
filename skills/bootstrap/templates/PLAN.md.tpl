@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.3.0 -->
+<!-- generated-by: groundrules v1.3.1 -->
 # PLAN — {{PROJECT_NAME}}
 
 **Active** plan/todo for the project. Maintained by Claude during work.

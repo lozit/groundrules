@@ -41,7 +41,7 @@ Read the **first 10 lines** of the file (to accommodate a YAML frontmatter that 
 paths:
   - "..."
 ---
-<!-- generated-by: groundrules v1.3.0 -->
+<!-- generated-by: groundrules v1.3.1 -->
 ```
 
 ### 2.3 Version match
@@ -107,11 +107,11 @@ Bootstrapped with: <bootstrappedWithVersion>
 
 --- Files (X/Y tracked) ---
 ✅ docs/decisions/README.md
-   ✅ signature v1.3.0 · ✅ no placeholder
+   ✅ signature v1.3.1 · ✅ no placeholder
 ✅ docs/VISION.md
-   ✅ signature v1.3.0 · ✅ no placeholder
+   ✅ signature v1.3.1 · ✅ no placeholder
 ⚠️ docs/ARCHITECTURE.md
-   ⚠️ signature v0.10.0 (expected v1.3.0)
+   ⚠️ signature v0.10.0 (expected v1.3.1)
 ❌ docs/missing-file.md
    ❌ file absent
 

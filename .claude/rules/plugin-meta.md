@@ -4,7 +4,7 @@ paths:
   - "skills/**"
   - "**/*.tpl"
 ---
-<!-- generated-by: groundrules v1.3.0 -->
+<!-- generated-by: groundrules v1.3.1 -->
 
 # Plugin meta-development rules
 

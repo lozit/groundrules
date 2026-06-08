@@ -16,7 +16,7 @@ If `$ARGUMENTS` contains `--dry-run` (or `dry-run`), run all analysis phases but
 1. Read `version` from `${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json` → INSTALLED.
 2. Run via Bash with a **short timeout (~3s)**: `git ls-remote --tags --refs --sort=-v:refname https://github.com/lozit/groundrules.git 'v*' | head -1`
 3. Extract the tag (`refs/tags/vX.Y.Z`). If semver-greater than INSTALLED, warn (informational, don't stop):
-   > 📦 groundrules vX.Y.Z is available but vINSTALLED is installed — migrating now will only bring the project up to vINSTALLED. Recommended: update the plugin first (`/plugin marketplace update claude-code-groundrules`, then `/plugin` + `/reload-plugins`) and re-run `/groundrules:migrate`. Continuing with vINSTALLED is fine too.
+   > 📦 groundrules vX.Y.Z is available but vINSTALLED is installed — migrating now will only bring the project up to vINSTALLED. Recommended: update the plugin first — `/plugin marketplace update claude-code-groundrules` (catalog only), then **reinstall** (`/plugin install groundrules@claude-code-groundrules`) and **restart Claude Code** — then re-run `/groundrules:migrate`. (Marketplace update alone doesn't update the installed plugin.) Continuing with vINSTALLED is fine too.
 4. **Fail silent**: on timeout, no network, or any error, continue without mentioning the check. This is the only network access in this skill and it is best-effort (cf. ADR 0015).
 
 ## Phase 1 — Version detection

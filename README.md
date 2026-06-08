@@ -125,15 +125,24 @@ The full reasoning behind every structural choice lives in [`docs/decisions/`](d
 
 ## Updating the plugin
 
-Marketplaces added from GitHub or a local path do **not** auto-update by default. To update manually:
+Updating is **two steps** — and skipping the second is the most common trap.
 
 ```
+# 1. Refresh the marketplace catalog — this does NOT update your installed plugin
 /plugin marketplace update claude-code-groundrules
+
+# 2. Update the installed plugin itself — the step people miss
+/plugin install groundrules@claude-code-groundrules     # re-installing pulls the new version
+# (or: /plugin → select groundrules → Update)
 ```
 
-then install the new version via `/plugin` (Discover tab) and run `/reload-plugins` (or restart Claude Code). To make it automatic: `/plugin` → **Marketplaces** tab → select the marketplace → **Enable auto-update**.
+Then **restart Claude Code**. A *new* skill ships in its own directory and only registers on a **full restart** — `/reload-plugins` alone surfaces edits to existing skills, not a brand-new command.
 
-`bootstrap`, `adopt` and `migrate` also perform a **best-effort update check** when invoked (single `git ls-remote` on this repo, ~3s timeout, silent when offline) and print a notice if a newer version is published. To update an already-bootstrapped **project** after updating the plugin, run `/groundrules:migrate` in that project.
+> **Why two steps?** `/plugin marketplace update` only refreshes the *catalog*; your *installed* plugin stays on its old version until you explicitly reinstall/update it. If a new command (e.g. `/groundrules:slim`) doesn't appear even after a restart, you almost certainly did step 1 but not step 2. Check the version you actually have: `ls ~/.claude/plugins/cache/claude-code-groundrules/groundrules/`.
+
+To avoid the trap entirely, turn on auto-update: `/plugin` → **Marketplaces** tab → select `claude-code-groundrules` → **Enable auto-update**.
+
+`bootstrap`, `adopt` and `migrate` also run a **best-effort update check** when invoked (single `git ls-remote`, ~3s timeout, silent when offline) and print a notice if a newer version is published. To update an already-bootstrapped **project** after updating the plugin, run `/groundrules:migrate` in that project.
 
 ## Requirements for the remote
 

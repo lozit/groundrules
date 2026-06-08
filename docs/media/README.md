@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.3.0 -->
+<!-- generated-by: groundrules v1.3.1 -->
 # docs/media/ — Visual assets
 
 Images, mockups, screenshots, videos, audio, diagrams — anything binary and visual.

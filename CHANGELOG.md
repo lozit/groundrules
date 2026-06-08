@@ -1,10 +1,22 @@
-<!-- generated-by: groundrules v1.3.0 -->
+<!-- generated-by: groundrules v1.3.1 -->
 # Changelog
 
 All notable changes to this project are documented in this file.
 
 Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versions follow [Semantic Versioning](https://semver.org/).
+
+## [1.3.1]
+
+### Changed
+- **README "Updating the plugin" hardened** — the two-step update is now explicit (refresh the marketplace catalog **then reinstall the plugin**; `marketplace update` alone does **not** update the installed plugin), with a "check your installed version" tip (`ls ~/.claude/plugins/cache/…`) and the new-skill-needs-a-full-restart note. The Phase 0 update notices in `bootstrap`/`adopt`/`migrate` got the same clarification.
+
+### Fixed
+- `adopt`: stale `Starter-kit role` table header → `groundrules role` (rename leftover).
+
+### Dogfood
+- Captured the "marketplace update ≠ plugin update" trap that kept the maintainer on plugin 1.1.0 across two releases: a `docs/LEARNINGS.md` rule + a `docs/AGENT-EVALS.md` recurrence entry ("just restart" advised without verifying the installed version).
+- Plugin version bumped 1.3.0 → 1.3.1 across manifests, signatures, and `.groundrules.json` (+ migration entry).
 
 ## [1.3.0]
 

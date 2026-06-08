@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.3.0 -->
+<!-- generated-by: groundrules v1.3.1 -->
 # 0006 — Optional specialized docs in bootstrap
 
 **Date**: 2026-06-03

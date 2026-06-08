@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.3.0 -->
+<!-- generated-by: groundrules v1.3.1 -->
 # Learnings — groundrules
 
 Non-trivial learnings that emerged during the project. Reverse-chronological order (newest at the top).
@@ -6,6 +6,12 @@ Non-trivial learnings that emerged during the project. Reverse-chronological ord
 One entry per learning. Keep the format simple: title, context, lesson.
 
 ---
+
+## Updating a Claude Code plugin is two steps — marketplace update ≠ plugin update
+
+**Why**: 2026-06-08, the maintainer ran `/plugin marketplace update claude-code-groundrules` after each release and restarted — but stayed stuck on plugin **1.1.0 across two releases** (1.2.0, 1.3.0). `marketplace update` refreshes only the *catalog* (`~/.claude/plugins/marketplaces/…`); the *installed* plugin (`~/.claude/plugins/cache/…/<version>/`) is unchanged until you explicitly reinstall/update it. So `/groundrules:checkpoint` and `/groundrules:slim` never appeared, and a restart just reloaded the old version.
+
+**When to apply**: shipping or advising any plugin update — it's **two steps**: (1) `/plugin marketplace update <marketplace>`, then (2) `/plugin install <plugin>@<marketplace>` (or `/plugin` → Update). And a **new skill** (new directory) needs a **full restart**, not just `/reload-plugins`. To diagnose "command missing", check the *installed* version on disk: `ls ~/.claude/plugins/cache/<marketplace>/<plugin>/`. Enabling marketplace auto-update avoids the trap. Captured in the README "Updating the plugin" section + the skills' Phase 0 notices.
 
 ## When a template/format changes, sweep the skills that read or write it
 

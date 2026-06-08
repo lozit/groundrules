@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.3.0 -->
+<!-- generated-by: groundrules v1.3.1 -->
 # Agent evals — groundrules
 
 > A log of the **agent's own** observed failure modes while developing this plugin —
@@ -10,6 +10,16 @@ Fed by the checkpoint-capture ritual (cf. `CLAUDE.md` → "Capture at checkpoint
 before a push/release).
 
 ---
+
+## 2026-06-08 — "Just restart" advised without verifying the installed plugin version (recurrence)
+
+**Observed**: when the user reported `/groundrules:checkpoint` then `/groundrules:slim` not appearing, the agent repeatedly advised "restart Claude Code" — without checking which plugin version was actually *installed*. On disk the installed plugin was still **1.1.0** (cache capped there); the user had only run `/plugin marketplace update` (catalog), never updated the plugin. A restart just reloaded 1.1.0. Only after inspecting `~/.claude/plugins/cache/…` did the real cause surface.
+
+**Pattern**: **recurrence** of "asserts/trusts without verifying" (see entry below) — diagnosing a symptom from a mental model ("new skill ⇒ restart") instead of checking ground truth first.
+
+**Guard**: when a command/skill "doesn't appear", **verify the installed version on disk before advising** (`ls ~/.claude/plugins/cache/<marketplace>/<plugin>/`) — distinguish *marketplace catalog* (updated) from *installed plugin* (often not). The README "Updating the plugin" section and the skills' Phase 0 notices now spell out the two-step update explicitly.
+
+**Status**: watching — the prior guard ("verify before assert") didn't fire here; this strengthens it toward *environment/installation* claims specifically.
 
 ## 2026-06-08 — Asserts / trusts without verifying first
 

@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.3.0 -->
+<!-- generated-by: groundrules v1.3.1 -->
 # 0001 — `marketplace.json` lives in `.claude-plugin/`, not at the repo root
 
 **Date**: 2026-05-11
