@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.1.0 -->
+<!-- generated-by: groundrules v1.2.0 -->
 # 0016 — Rename the marketplace starter-kit-local → claude-code-starter-kit
 
 **Date**: 2026-06-06

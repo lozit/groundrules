@@ -1,98 +1,124 @@
 # groundrules
 
-> **Formerly `starter-kit`** (renamed at V1.0.0 — see ADR 0017). Existing projects: run `/groundrules:migrate`.
-
-A Claude Code plugin that **bootstraps** a new project via an interactive slash command, applying best practices of documentation and configuration.
+**groundrules lays the documentation backbone of a software project — and keeps it alive.** A Claude Code plugin that interviews you, captures the project's intent, and generates a tailored, opinionated doc structure (vision, decisions, learnings, architecture…), then gives you the skills to maintain it as the project evolves.
 
 > Interview → tailored project structure → `git init` → first commit → optional remote.
 
-All generated files are in **English**.
+## Why
 
-## Slash commands provided
+Coding agents rarely fail for lack of information — they fail for lack of the *right* information, structured and at hand. Two forces make that hard, and groundrules is built to answer both:
 
-- `/groundrules:bootstrap` — interview + intent capture (brief paste / file / interview) + from-scratch generation of a new project
-- `/groundrules:adopt` — bring an **existing project** (brownfield) under groundrules management: scans, maps existing files to roles (plan→PLAN, business doc→intake, todos→backlog, superpowers→interop), generates only what's missing, backfills `.groundrules.json`. Never overwrites, supports `--dry-run`
-- `/groundrules:apply-best-practices` — fetches the up-to-date `shanraisshan/claude-code-best-practice` and proposes recommendations tailored to the project's `docs/VISION.md`
-- `/groundrules:add-adr` — create a new ADR with an auto number, index updated
-- `/groundrules:learn` — add a dated entry to `docs/LEARNINGS.md`
-- `/groundrules:migrate` — update an existing project to the current plugin version (per-file diff, never overwrites without confirmation, supports `--dry-run`)
-- `/groundrules:verify-bootstrap` — validate the coherence of a groundrules project (version signatures, leftover `{{KEY}}` placeholders, CLAUDE.md size, valid JSON, git). Supports `--fix` for trivial corrections (signature bumps).
+- **More context isn't better — it's measured.** Research on [*context rot*](https://www.understandingai.org/p/context-rot-the-emerging-challenge) (Chroma, 2025) found every frontier model tested — Claude included — degrades as the input grows; the classic *lost in the middle* effect drops accuracy **30%+** for anything buried mid-window. [Anthropic's own guidance](https://code.claude.com/docs/en/memory) agrees: keep `CLAUDE.md` **under 200 lines**, because "larger files produce lower adherence." Stuffing everything into context actively hurts.
+- **Knowledge evaporates.** Decisions, conventions, and hard-won lessons end up in chat logs and an agent's volatile memory — gone by the next session, invisible to the next contributor.
 
-## What `/groundrules:bootstrap` does
+groundrules' answer is a *method*, not just a folder of templates: **write everything down on disk, load almost none of it.** It generates a small always-loaded index (`CLAUDE.md`) that points to exhaustive docs read **on demand**, an ADR trail for the *why*, a rule-format learnings journal, and the discipline that **the repo is the only memory**. Exhaustive storage, minimal loading — the agent gets precisely what each task needs and nothing it doesn't.
 
-`/groundrules:bootstrap` runs a short interview (4-8 grouped questions) then generates:
+The full reasoning and token economics: [`docs/CONTEXT-ECONOMY.md`](docs/CONTEXT-ECONOMY.md) ([ADR 0021](docs/decisions/0021-context-economy-index-over-doc-search.md)).
 
-- `README.md`, `CLAUDE.md`, `.gitignore` — always
-- `docs/decisions/` (Michael Nygard ADR), `docs/LEARNINGS.md` — always
-- `intake/`, `docs/media/` — always, with explanatory READMEs
-- `PLAN.md`, `docs/ARCHITECTURE.md`, `docs/GLOSSARY.md`, `CHANGELOG.md` — depending on your answers
-- optional specialized docs — `docs/DATA_MODEL.md`, `docs/SECURITY.md`, `docs/DESIGN_SYSTEM.md`, `docs/ROADMAP.md`, `docs/I18N.md`
-- `git init` + first commit
-- Remote repo creation via `gh` (GitHub) or `glab` (GitLab) if you pick a provider
+## How it works
 
-Every generated file carries a `<!-- generated-by: groundrules -->` signature to enable **resume mode**: you can re-run the command on a non-empty folder without overwrite risk.
+It starts the moment you run `/groundrules:bootstrap` in a fresh folder.
 
-## Generated files (detail)
+groundrules **interviews you** — a handful of grouped questions about the project's name, type, stack, and intent. It captures that intent (you paste a brief, point to a file, or answer an interview), synthesizes it into a `docs/VISION.md`, and generates a documentation backbone *tailored to your answers*: a `CLAUDE.md` that fits the project, an ADR folder for decisions, a learnings journal, a plan, and only the specialized docs you actually need (data model, security, design system, release runbook…). Then it `git init`s, makes the first commit, and — if you asked — creates the remote.
 
-### Always created
+From there, **the project is alive**. As you work, `learn` and `add-adr` capture knowledge where it belongs; `apply-best-practices` pulls fresh practices from the community and tailors them to your vision; `verify-bootstrap` checks coherence; and when the plugin itself improves, `migrate` brings your project up to date without ever overwriting your work. Already have a project? `adopt` brings it under management — and can consolidate an existing layout onto the canonical one.
 
-| File | Content |
-|---|---|
-| `README.md` | Public project presentation: title, description, install, usage, structure, doc links. Skeleton to flesh out per the stack. |
-| `CLAUDE.md` | Instructions for Claude Code. Mutable and iterative (target < 200 lines): description, Setup/Build/Test commands, key files and folders, project conventions. |
-| `.gitignore` | Minimal, stack-agnostic list: OS (`.DS_Store`…), editors (`.vscode/`, `.idea/`…), logs, `.env`, and common build folders to adapt. |
-| `docs/decisions/README.md` | Explains the ADR format (Architecture Decision Records, after Michael Nygard): naming convention `NNNN-kebab-title.md` and when to create an ADR. |
-| `docs/decisions/0000-template.md` | ADR template to copy: Context, Decision, Alternatives considered, Consequences (positive / tradeoffs), Status. |
-| `docs/LEARNINGS.md` | Journal of non-trivial learnings, reverse-chronological. One entry = dated title + Context + Lesson. Fed by `/groundrules:learn`. |
-| `intake/README.md` | Explains the role of the `intake/` folder: upstream notes and raw specs (client specs, brainstorms, emails, scoping notes) before migrating to `docs/`. |
-| `docs/media/README.md` | Explains the role of the `docs/media/` folder: visual and binary assets (images, mockups, screenshots, diagrams), with naming and format conventions. |
-| `.groundrules.json` | Bootstrap manifest (not meant for manual editing): plugin version, chosen options, intent source, generated/ignored files. Used by resume mode and the `migrate`/`verify-bootstrap` skills. |
-
-### Created based on your answers
-
-| File | Condition | Content |
-|---|---|---|
-| `PLAN.md` | On by default | **Active** todo maintained by Claude during work: In progress / Up next / Waiting / Recently done. Distinct from the long-term roadmap. |
-| `docs/ARCHITECTURE.md` | Code project | **Living** snapshot of the architecture: overview, stack, components and responsibilities. The *why* goes in `docs/decisions/`. |
-| `docs/GLOSSARY.md` | Domain jargon | Domain vocabulary, one entry per term, alphabetical. Short definitions so a new dev (or Claude) understands the domain language. |
-| `CHANGELOG.md` | Versioned releases | Change tracking in [Keep a Changelog](https://keepachangelog.com/) + SemVer format: Added / Changed / Deprecated / Removed / Fixed / Security. |
-| `intake/INTENT.md` | Intent captured (paste/file) | **Raw source** of the project intent (paste, email, call transcript, PO doc…) before synthesis. |
-| `docs/VISION.md` | Intent not skipped | **Structured synthesis** of the intent: Goal, Users/personas, Constraints, V1 non-goals, Acceptance criteria. Required by `/groundrules:apply-best-practices`. |
-
-### Specialized docs (optional, checked during the interview)
-
-| File | When to check it | Content |
-|---|---|---|
-| `docs/DATA_MODEL.md` | The project has a database | Entities/tables and their fields, relationships, row-level access rules (RLS), indexes, migrations. |
-| `docs/SECURITY.md` | Sensitive / personal data | Authentication, authorization, personal data & GDPR compliance, secrets, attack surface, incident procedure. |
-| `docs/DESIGN_SYSTEM.md` | Project with a UI | Principles, colors (tokens), typography, spacing/grid, components, accessibility, where tokens live in the code. |
-| `docs/ROADMAP.md` | Long-term trajectory | Milestone breakdown (goal, scope, exit criteria, status). Distinct from `PLAN.md` (active todo). |
-| `docs/I18N.md` | Multilingual project | Supported languages and fallback, translation organization, localized formats, language detection, translation process. |
-| `docs/PROCESS.md` | Phased way of working | The working-method contract: phases, validation gates, interview style, where artifacts live. Claude follows it and never skips a phase. |
-| `RELEASE.md` | Project deploys somewhere | Operational release runbook: TL;DR commands, environments table, pre-release checklist, secrets, rollback, known fragilities. |
+The throughline: **knowledge lives in the repo, structured and current** — not in scattered notes or an agent's volatile memory.
 
 ## Installation
 
-### From this repo (local)
-
-```bash
-# In Claude Code:
-/plugin marketplace add /path/to/groundrules
-/plugin install groundrules@claude-code-groundrules
-```
-
-### From GitHub
+In Claude Code:
 
 ```bash
 /plugin marketplace add https://github.com/lozit/groundrules
 /plugin install groundrules
 ```
 
-### Dev mode (fast iteration without install)
+From a local clone, or for fast iteration without installing:
 
 ```bash
+/plugin marketplace add /path/to/groundrules
+/plugin install groundrules@claude-code-groundrules
+# or, dev mode:
 claude --plugin-dir /path/to/groundrules
 ```
+
+> groundrules is a Claude Code plugin today. Support for other harnesses is on the [roadmap](#roadmap) — the repo is named `groundrules` (harness-neutral) for that reason.
+
+## The workflow
+
+Seven skills ordered by a project's lifecycle, plus one cross-cutting capture ritual:
+
+1. **`bootstrap`** — *new, empty folder.* Interview + intent capture (paste / file / interview) + from-scratch generation of the whole structure, `git init`, optional remote.
+2. **`adopt`** — *existing (brownfield) project.* Scans, maps existing files to roles, generates only what's missing, backfills `.groundrules.json`. Never overwrites; supports `--dry-run` and a **consolidate** mode that migrates an existing layout onto the canonical paths.
+3. **`learn`** — *after a correction or a discovery.* Adds an actionable rule to `docs/LEARNINGS.md` (*Why* + *When to apply*).
+4. **`add-adr`** — *a structural decision is made.* Creates a numbered ADR and updates the index.
+5. **`apply-best-practices`** — *want outside input.* Fetches the up-to-date `shanraisshan/claude-code-best-practice` and proposes recommendations tailored to your `docs/VISION.md`. (The only skill that needs the network.)
+6. **`verify-bootstrap`** — *sanity check.* Validates signatures, leftover `{{KEY}}` placeholders, CLAUDE.md size, valid JSON, git. `--fix` for trivial corrections.
+7. **`migrate`** — *the plugin has a new version.* Per-file diff, never overwrites without confirmation, chains historical renames, `--dry-run`.
+8. **`checkpoint`** — *any time, especially before a push.* Runs the capture ritual (see below).
+
+## Capturing knowledge as you go
+
+Knowledge is worthless if it evaporates. groundrules captures it at the moments that matter, routed to where it belongs:
+
+- **Decided** something structural → an **ADR** (`docs/decisions/`)
+- **Learned** something, or **blocked 30+ min** → a rule in `docs/LEARNINGS.md` (*Why* + *When to apply*)
+- **Caught the agent** repeating a mistake, hallucinating, or drifting → `docs/AGENT-EVALS.md` (optional doc) + a guard in `CLAUDE.md`
+
+This **checkpoint-capture ritual** fires two ways. The agent **proposes it proactively** at the boundaries it can perceive — **before a `git push`, tag, or release** (the most reliable moment, also wired into the `RELEASE.md` pre-release checklist) or at a completed `PLAN.md` milestone. And **you can trigger it yourself any time** with **`/groundrules:checkpoint`**. (There's no "end of session" trigger: an agent can't perceive a session ending — so capture is anchored to events it *can* see. See [ADR 0022](docs/decisions/0022-agent-evals-and-session-close.md).)
+
+## What's generated
+
+groundrules gives a project a clear geography.
+
+| Folder | Role |
+|---|---|
+| **`intake/`** | **Raw upstream inputs**, captured as received: client specs, emails, scoping notes, spreadsheets, brand assets. **Read-only** (don't "fix" inputs — synthesize them into `docs/`), binaries welcome. The draft side. |
+| **`docs/`** | The **living, synthesized documentation**: vision, architecture, learnings, specialized docs. Where stable knowledge lives and is kept in sync. |
+| **`docs/decisions/`** | The **ADRs**: one file per structural decision — context, decision, alternatives, tradeoffs. The *why*, frozen at decision time. |
+| **`docs/media/`** | **Visual assets** supporting the docs: mockups, screenshots, diagrams (with their editable sources). |
+
+The flow: `intake/` (raw, untouched) → `docs/` (synthesized, living) → `docs/decisions/` (the why, frozen). Root files (`README.md`, `CLAUDE.md`, `PLAN.md`, `CHANGELOG.md`, `RELEASE.md`) are the operational surface.
+
+| File | When created | Content |
+|---|---|---|
+| `README.md` | Always | Public project presentation: title, description, install, usage, structure, doc links. Skeleton to flesh out per the stack. |
+| `CLAUDE.md` | Always | Instructions for Claude Code. Mutable and iterative (target < 200 lines): session-start reading order, Setup/Build/Test commands, conventions, "repo is the only memory". |
+| `.gitignore` | Always | Minimal, stack-agnostic list: OS (`.DS_Store`…), editors (`.vscode/`, `.idea/`…), logs, `.env`, and common build folders to adapt. |
+| `docs/decisions/README.md` | Always | Explains the ADR format (after Michael Nygard): naming convention `NNNN-kebab-title.md` and when to create an ADR. |
+| `docs/decisions/0000-template.md` | Always | ADR template to copy: Context, Decision, Alternatives considered, Consequences, Status. |
+| `docs/LEARNINGS.md` | Always | Rules learned from corrections: one entry = an actionable rule with *Why* (the story + cost) and *When to apply* (triggers). Fed by `/groundrules:learn`, re-read at session start. |
+| `intake/README.md` | Always | Explains the role of `intake/` and its conventions (read-only, binaries welcome, explicit names). |
+| `docs/media/README.md` | Always | Explains the role of `docs/media/` with naming and format conventions. |
+| `.groundrules.json` | Always | Plugin manifest (not meant for manual editing): version, chosen options, intent, generated/adopted/migrated files. Used by resume mode and `migrate`/`verify-bootstrap`. |
+| `PLAN.md` | On by default | **Active** todo maintained by Claude during work: In progress / Up next / Waiting / Recently done, with the `[~]` in-review status vocabulary. Distinct from the long-term roadmap. |
+| `docs/VISION.md` | Intent not skipped | **Structured synthesis** of the intent: Goal, Users/personas, Constraints, V1 non-goals, Acceptance criteria. Required by `/groundrules:apply-best-practices`. |
+| `intake/INTENT.md` | Intent captured (paste/file) | **Raw source** of the project intent (paste, email, call transcript, PO doc…) before synthesis. |
+| `docs/ARCHITECTURE.md` | Code project | **Living** snapshot of the architecture: overview, stack, components and responsibilities. The *why* goes in `docs/decisions/`. |
+| `docs/GLOSSARY.md` | Domain jargon | Domain vocabulary, one entry per term, alphabetical — so a new dev (or Claude) understands the domain language. |
+| `CHANGELOG.md` | Versioned releases | Change tracking in [Keep a Changelog](https://keepachangelog.com/) + SemVer format. |
+| `docs/DATA_MODEL.md` | The project has a database | Entities/tables and their fields, relationships, row-level access rules (RLS), indexes, migrations. |
+| `docs/SECURITY.md` | Sensitive / personal data | Authentication, authorization, personal data & GDPR compliance, secrets, attack surface, incident procedure. |
+| `docs/DESIGN_SYSTEM.md` | Project with a UI | Principles, colors (tokens), typography, spacing/grid, components, accessibility, where tokens live in the code. |
+| `docs/ROADMAP.md` | Long-term trajectory | Milestone breakdown (goal, scope, exit criteria, status). Distinct from `PLAN.md` (active todo). |
+| `docs/I18N.md` | Multilingual project | Supported languages and fallback, translation organization, localized formats, translation process. |
+| `docs/PROCESS.md` | Phased way of working | The working-method contract: phases, validation gates, interview style, where artifacts live. Claude follows it and never skips a phase. |
+| `RELEASE.md` | Project deploys somewhere | Operational release runbook: TL;DR commands, environments table, pre-release checklist, secrets, rollback, known fragilities. |
+| `docs/AGENT-EVALS.md` | Long agent-driven project | A log of the **agent's own** failure modes here (recurring mistakes, hallucinations, drifts) + the guard added for each. Distinct from `LEARNINGS.md` (project/domain). Fed by the checkpoint-capture ritual (before a push/release). |
+
+Every generated file carries a `<!-- generated-by: groundrules -->` signature, which enables **resume mode**: re-run a skill on a non-empty folder with no overwrite risk.
+
+## Philosophy
+
+- **Template over code** — plain `{{KEY}}` text substitution, never a template engine or application logic ([ADR 0002](docs/decisions/0002-plain-text-placeholder-substitution.md)).
+- **The repo is the only memory** — project knowledge lives in the repo docs, never in an agent's machine-local memory or scattered notes ([ADR 0020](docs/decisions/0020-repo-is-the-only-memory.md)).
+- **Living docs** — every generated doc is kept in sync *in the same change* that makes it stale; maintenance is part of the task, not a follow-up.
+- **Never overwrite without confirmation** — resume mode detects what exists and offers skip / overwrite / save-as-`.new`; your edits are safe.
+- **Offline-first** — only `apply-best-practices` needs the network; the rest works offline (the update check fails silent).
+- **A handoff, not gospel** — a generated `CLAUDE.md` is a starting point you edit and enrich, not absolute truth.
+
+The full reasoning behind every structural choice lives in [`docs/decisions/`](docs/decisions/).
 
 ## Updating the plugin
 
@@ -104,36 +130,7 @@ Marketplaces added from GitHub or a local path do **not** auto-update by default
 
 then install the new version via `/plugin` (Discover tab) and run `/reload-plugins` (or restart Claude Code). To make it automatic: `/plugin` → **Marketplaces** tab → select the marketplace → **Enable auto-update**.
 
-> **Note**: the marketplace was named `starter-kit-local` before v0.12 and `claude-code-starter-kit` before v1.0 (when the plugin itself was renamed from `starter-kit` to `groundrules`). If you added it under an old name, use that name in the command above (check `/plugin` → Marketplaces) — or simply remove and re-add the marketplace from GitHub to pick up the current name and plugin.
-
 `bootstrap`, `adopt` and `migrate` also perform a **best-effort update check** when invoked (single `git ls-remote` on this repo, ~3s timeout, silent when offline) and print a notice if a newer version is published. To update an already-bootstrapped **project** after updating the plugin, run `/groundrules:migrate` in that project.
-
-## Usage
-
-In the empty folder of a new project:
-
-```bash
-cd ~/Projects/my-new-project
-claude
-```
-
-Then in Claude Code:
-
-```
-/groundrules:bootstrap
-```
-
-Answer the questions. The structure is generated, git is initialized, and (if requested) the remote repo is created.
-
-## Plugin structure
-
-```
-groundrules/
-├── .claude-plugin/plugin.json    # manifest
-├── .claude-plugin/marketplace.json  # mono-plugin marketplace
-└── skills/<name>/SKILL.md        # one slash command per skill
-    bootstrap also has templates/  # Markdown templates
-```
 
 ## Requirements for the remote
 
@@ -141,6 +138,24 @@ groundrules/
 - `glab` CLI for GitLab: https://gitlab.com/gitlab-org/cli
 
 If absent, the plugin shows the ready-to-paste commands for manual execution.
+
+## Plugin structure
+
+```
+groundrules/
+├── .claude-plugin/plugin.json       # manifest
+├── .claude-plugin/marketplace.json  # mono-plugin marketplace
+└── skills/<name>/SKILL.md           # one slash command per skill
+    bootstrap also has templates/    # Markdown templates
+```
+
+## Contributing
+
+Issues and pull requests are welcome. A few conventions:
+
+- **Structural changes go through an ADR** — propose one with `/groundrules:add-adr` (or describe the decision in the PR so it can become one).
+- **The plugin dogfoods itself** — this repo uses its own generated structure (`docs/`, `intake/`, ADRs, `PLAN.md`), so changes should keep the dogfood coherent.
+- **Templates are plain text** — `{{KEY}}` substitution only, no engine.
 
 ## Roadmap
 
@@ -155,12 +170,13 @@ If absent, the plugin shows the ready-to-paste commands for manual execution.
 - [x] V0.9 — `media/` moved under `docs/media/` (avoid collision with project `media/`/`public/`)
 - [x] V0.10 — `adopt` always offers the optional docs; generated `CLAUDE.md` gets a "living docs" maintenance rule
 - [x] V0.11 — `brief/` renamed to `intake/` (clearer name for raw upstream material); `migrate` learns the rename
-- [x] V0.12 — best-effort update check in `bootstrap`/`adopt`/`migrate`; marketplace renamed `claude-code-starter-kit`; groundrules rename decided for V1.0.0 (ADR 0017)
-- [x] V1.0 — plugin renamed `starter-kit` → **`groundrules`** (ADR 0017): new command prefix `/groundrules:`, state file `.groundrules.json`, `migrate` handles the full legacy transition
+- [x] V0.12 — best-effort update check in `bootstrap`/`adopt`/`migrate`; plugin rename decided for V1.0.0 (ADR 0017)
+- [x] V1.0 — plugin renamed to **`groundrules`** (ADR 0017): command prefix `/groundrules:`, state file `.groundrules.json`, `migrate` handles the full legacy transition
 - [x] V1.1 — `adopt` consolidate mode (migrate a brownfield layout onto the canonical paths); `PROCESS.md` + `RELEASE.md` optional docs; LEARNINGS rule format + Session Start protocol (harvested from a real project); "repo is the only memory" convention
+- [x] V1.2 — context economy guide (ADR 0021); agent-evals + checkpoint-capture ritual + `/groundrules:checkpoint` (ADR 0022); graphify interop; MIT license; README pitch-before-install + "Why"
 - [ ] Post-1.0 — extend groundrules beyond Claude Code to other harnesses (repo name is harness-neutral by design)
-- [x] Public marketplace published on GitHub: [lozit/claude-code-groundrules](https://github.com/lozit/groundrules)
+- [x] Public marketplace published on GitHub: [lozit/groundrules](https://github.com/lozit/groundrules)
 
 ## License
 
-To be defined.
+[MIT](LICENSE) © 2026 Guillaume Ferrari.

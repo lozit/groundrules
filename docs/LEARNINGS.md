@@ -1,11 +1,33 @@
-<!-- generated-by: groundrules v1.1.0 -->
-# Learnings — Starting-Claude
+<!-- generated-by: groundrules v1.2.0 -->
+# Learnings — groundrules
 
 Non-trivial learnings that emerged during the project. Reverse-chronological order (newest at the top).
 
 One entry per learning. Keep the format simple: title, context, lesson.
 
 ---
+
+## When a template/format changes, sweep the skills that read or write it
+
+**Why**: 2026-06-08, the `LEARNINGS.md` template moved to the rule format (*Why* + *When to apply*) in ADR 0019, but `skills/learn/SKILL.md` kept emitting the old `Context/Lesson` shape — the coupling was missed for two releases, so `/groundrules:learn` silently produced stale-format entries until caught while building `/groundrules:checkpoint`.
+
+**When to apply**: whenever you change a template, a file format, a placeholder, or a `.groundrules.json` field — immediately `grep` for every skill and doc that *produces or consumes* it (here: any skill that writes `docs/LEARNINGS.md`). A format lives in more than one place: the template **and** the skills that fill it. Bump them together.
+
+## Anchor agent rituals to observable events, never to "session end"
+
+**Why**: 2026-06-08, the agent-evals work shipped a "session close" ritual as a passive
+`CLAUDE.md` instruction ("before ending a session, capture…") and called it a *forcing
+function*. The user pointed out it would never fire: an agent **cannot perceive that a
+session is ending** (no model-visible signal; `CLAUDE.md` loads at *start* only; `SessionEnd`
+hooks fire too late and can't drive an agent turn). A "forcing function" with no perceivable
+trigger forces nothing — it just reads well in the file.
+
+**When to apply**: when designing any agent convention/ritual, anchor it to a **boundary the
+agent actually flows through and can act on** — a tool call it's about to make (`git push`,
+tag, release), a completed `PLAN.md` milestone — not to an unobservable lifecycle moment.
+The fix here: re-anchored capture to "before a push/release", wired concretely into the
+`RELEASE.md` pre-release checklist (cf. ADR 0022). Rule of thumb: if the trigger isn't a
+thing the agent *does* or *reads*, it won't happen.
 
 ## Reference sweeps must exclude historical records
 

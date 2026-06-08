@@ -1,5 +1,5 @@
-<!-- generated-by: groundrules v1.1.0 -->
-# Vision — Starting-Claude
+<!-- generated-by: groundrules v1.2.0 -->
+# Vision — groundrules
 
 > Synthesis of the project intent. Source: `intake/INTENT.md` (retroactive paste of the original prompt). Update when the intent evolves (rare; tactical decisions go in `docs/decisions/`).
 
@@ -37,7 +37,7 @@ Build a shareable Claude Code plugin that standardizes the bootstrapping of new 
 - Intent capturable at bootstrap (brief paste / brief file / interview / skip).
 - `apply-best-practices` fetches shanraisshan, filters by the project vision, proposes a multi-select, applies the safe items automatically.
 - Plugin published on GitHub with a public marketplace: installable via `/plugin marketplace add https://github.com/lozit/groundrules`.
-- Dogfood: the `Starting-Claude` repo itself uses its own structure and its own vision (this file).
+- Dogfood: the `groundrules` repo itself uses its own structure and its own vision (this file).
 
 ---
 

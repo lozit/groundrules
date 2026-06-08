@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.1.0 -->
+<!-- generated-by: groundrules v1.2.0 -->
 # CLAUDE.md — {{PROJECT_NAME}}
 
 > This file is **mutable and iterative**. Update it after every Claude mistake or newly discovered convention. Target: < 200 lines.
@@ -11,6 +11,23 @@
 4. The artifacts of whatever is in progress per `PLAN.md`
 
 <!-- Adjust this list to your project: keep it short, ordered, and current. -->
+
+## Capture at checkpoints (don't wait to be asked)
+
+The agent can't perceive "end of session" — so capture at the **work boundaries it *can* see**, and **propose it proactively** there without waiting for the user:
+
+- **Before a `git push`, a tag, or a release** — the highest-value, most reliable moment: pause and capture *before* shipping.
+- **When a `PLAN.md` milestone is completed**, or after a substantial chunk of work.
+
+You can also trigger it yourself any time with **`/groundrules:checkpoint`**.
+
+At that moment, three questions, each routed to where it belongs:
+
+1. **Decided** anything structural? → `/groundrules:add-adr` (`docs/decisions/`)
+2. **Learned** something that changes how to work here (incl. a blocker that cost 30+ min, with its fix)? → `/groundrules:learn` (`docs/LEARNINGS.md`)
+3. **Caught the agent** repeating a mistake, hallucinating, or drifting? → note it in `docs/AGENT-EVALS.md` (if present) and add the guard here or in `.claude/rules/`
+
+Capture beats memory: if it's not written to the repo, it's gone next session.
 
 ## Description
 
@@ -109,12 +126,13 @@ Every file created at bootstrap/adopt is **living** — keep it in sync **in the
 - `docs/SECURITY.md` — auth / secrets / personal-data handling change
 - `docs/I18N.md` · `docs/DESIGN_SYSTEM.md` · `docs/ROADMAP.md` · `docs/GLOSSARY.md` · `docs/PROCESS.md` — their domain changes
 - `RELEASE.md` — the release procedure or an observed fragility changes
+- `docs/AGENT-EVALS.md` (if present) — when the agent repeats a mistake, hallucinates, or drifts
 - `CHANGELOG.md` — add an entry under `[Unreleased]` for any notable change
 - `PLAN.md` · `docs/LEARNINGS.md` · `docs/decisions/` — as described above
 
 ## Updating this file
 
-This file is alive.
+This file is alive — but keep it a **map, not the territory**. It is loaded into context at *every* session start, so link to docs and let them be read on demand; don't paste doc content here "to be safe". Oversized always-on context dilutes attention (models degrade as input grows) and busts the prompt cache on every edit. A documentation-search / RAG tool is only worth it for large *external* corpora you can't fit — your own repo is read natively (`Read`/`grep`), no plugin needed.
 
 - When Claude makes a mistake: add a rule so it doesn't recur
 - When you spot an unwritten convention: codify it here

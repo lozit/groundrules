@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.1.0 -->
+<!-- generated-by: groundrules v1.2.0 -->
 # 0004 — `.starter-kit.json` schema with `bootstrappedWithVersion` and `migrations` array
 
 **Date**: 2026-05-11

@@ -1,5 +1,5 @@
-<!-- generated-by: groundrules v1.1.0 -->
-# Intake / Intent — Starting-Claude
+<!-- generated-by: groundrules v1.2.0 -->
+# Intake / Intent — groundrules
 
 Raw upstream content (paste, email copy, call transcript, PO doc, etc.) describing the project intent.
 

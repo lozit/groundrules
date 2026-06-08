@@ -1,5 +1,5 @@
-<!-- generated-by: groundrules v1.1.0 -->
-# Architecture — Starting-Claude
+<!-- generated-by: groundrules v1.2.0 -->
+# Architecture — groundrules
 
 **Living** snapshot of the current architecture. Updated as the structure evolves.
 

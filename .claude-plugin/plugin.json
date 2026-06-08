@@ -1,11 +1,12 @@
 {
   "name": "groundrules",
-  "version": "1.1.0",
-  "description": "Interactive bootstrap of Claude Code projects: interview, docs/ structure, best practices of documentation and configuration, git init, optional remote. Formerly starter-kit.",
+  "version": "1.2.0",
+  "description": "Interactive bootstrap of Claude Code projects: interview, docs/ structure, best practices of documentation and configuration, git init, optional remote.",
   "author": {
     "name": "Guillaume Ferrari",
     "email": "guillaume.ferrari@protonmail.com"
   },
   "homepage": "https://github.com/lozit/groundrules",
+  "license": "MIT",
   "keywords": ["bootstrap", "scaffold", "starter", "project-init", "best-practices", "groundrules"]
 }

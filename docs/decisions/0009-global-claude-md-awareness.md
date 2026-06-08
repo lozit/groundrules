@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.1.0 -->
+<!-- generated-by: groundrules v1.2.0 -->
 # 0009 — Global / enterprise CLAUDE.md awareness + lean project CLAUDE.md
 
 **Date**: 2026-06-03

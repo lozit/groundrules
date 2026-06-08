@@ -1,23 +1,89 @@
 {
-  "groundrulesVersion": "1.1.0",
+  "groundrulesVersion": "1.2.0",
   "bootstrappedAt": "2026-05-11",
   "bootstrappedWithVersion": "0.1.0",
   "migrations": [
-    {"from": "0.1.0", "to": "0.4.0", "at": "2026-05-11", "note": "dev-bumped during plugin authorship (informal, not via /starter-kit:migrate)"},
-    {"from": "0.4.0", "to": "0.5.0", "at": "2026-05-11", "note": "V0.5 intent capture: backfilled brief/00-INTENT.md and docs/00-VISION.md retroactively from the original prompt"},
-    {"from": "0.5.0", "to": "0.6.0", "at": "2026-05-11", "note": "V0.6 add /starter-kit:verify-bootstrap skill"},
-    {"from": "0.6.0", "to": "0.7.0", "at": "2026-06-03", "note": "V0.7 add optional specialized docs (DATA_MODEL, SECURITY, DESIGN_SYSTEM, ROADMAP, I18N); de-number entry docs: brief/00-INTENT.md -> brief/INTENT.md, docs/00-VISION.md -> docs/VISION.md (ADR 0007)"},
-    {"from": "0.7.0", "to": "0.8.0", "at": "2026-06-04", "note": "V0.8 English-only: dropped bilingual FR/EN templates + {{LANG}} logic, translated skills/docs to English (ADR 0012)"},
-    {"from": "0.8.0", "to": "0.9.0", "at": "2026-06-04", "note": "V0.9 moved media/ -> docs/media/ to avoid collision with project media/public folders (ADR 0013)"},
-    {"from": "0.9.0", "to": "0.10.0", "at": "2026-06-04", "note": "V0.10 adopt always offers optional/specialized docs (Call 3b); living-docs maintenance rule in generated CLAUDE.md"},
-    {"from": "0.10.0", "to": "0.10.1", "at": "2026-06-04", "note": "V0.10.1 meta/docs only: documented the batch-small-changes release cadence (no user-facing change)"},
-    {"from": "0.10.1", "to": "0.11.0", "at": "2026-06-06", "note": "V0.11 renamed brief/ -> intake/ (ADR 0014): dogfood git mv brief intake + reference sweep"},
-    {"from": "0.11.0", "to": "0.12.0", "at": "2026-06-06", "note": "V0.12 best-effort update check in bootstrap/adopt/migrate (ADR 0015); marketplace renamed starter-kit-local -> claude-code-starter-kit (ADR 0016); public contact email; ADR 0017 accepted (rename to groundrules at V1.0.0)"},
-    {"from": "0.12.0", "to": "1.0.0", "at": "2026-06-06", "note": "V1.0 plugin renamed starter-kit -> groundrules (ADR 0017): state file .starter-kit.json -> .groundrules.json, key starterKitVersion -> groundrulesVersion, signatures and command prefix swept"},
-    {"from": "1.0.0", "to": "1.1.0", "at": "2026-06-07", "note": "V1.1 adopt consolidate mode (ADR 0018); PROCESS/RELEASE optional docs + LEARNINGS rule format + Session Start (ADR 0019, harvested from crm-heyjoe); repo-is-the-only-memory convention (ADR 0020)"}
+    {
+      "from": "0.1.0",
+      "to": "0.4.0",
+      "at": "2026-05-11",
+      "note": "dev-bumped during plugin authorship (informal, not via /starter-kit:migrate)"
+    },
+    {
+      "from": "0.4.0",
+      "to": "0.5.0",
+      "at": "2026-05-11",
+      "note": "V0.5 intent capture: backfilled brief/00-INTENT.md and docs/00-VISION.md retroactively from the original prompt"
+    },
+    {
+      "from": "0.5.0",
+      "to": "0.6.0",
+      "at": "2026-05-11",
+      "note": "V0.6 add /starter-kit:verify-bootstrap skill"
+    },
+    {
+      "from": "0.6.0",
+      "to": "0.7.0",
+      "at": "2026-06-03",
+      "note": "V0.7 add optional specialized docs (DATA_MODEL, SECURITY, DESIGN_SYSTEM, ROADMAP, I18N); de-number entry docs: brief/00-INTENT.md -> brief/INTENT.md, docs/00-VISION.md -> docs/VISION.md (ADR 0007)"
+    },
+    {
+      "from": "0.7.0",
+      "to": "0.8.0",
+      "at": "2026-06-04",
+      "note": "V0.8 English-only: dropped bilingual FR/EN templates + {{LANG}} logic, translated skills/docs to English (ADR 0012)"
+    },
+    {
+      "from": "0.8.0",
+      "to": "0.9.0",
+      "at": "2026-06-04",
+      "note": "V0.9 moved media/ -> docs/media/ to avoid collision with project media/public folders (ADR 0013)"
+    },
+    {
+      "from": "0.9.0",
+      "to": "0.10.0",
+      "at": "2026-06-04",
+      "note": "V0.10 adopt always offers optional/specialized docs (Call 3b); living-docs maintenance rule in generated CLAUDE.md"
+    },
+    {
+      "from": "0.10.0",
+      "to": "0.10.1",
+      "at": "2026-06-04",
+      "note": "V0.10.1 meta/docs only: documented the batch-small-changes release cadence (no user-facing change)"
+    },
+    {
+      "from": "0.10.1",
+      "to": "0.11.0",
+      "at": "2026-06-06",
+      "note": "V0.11 renamed brief/ -> intake/ (ADR 0014): dogfood git mv brief intake + reference sweep"
+    },
+    {
+      "from": "0.11.0",
+      "to": "0.12.0",
+      "at": "2026-06-06",
+      "note": "V0.12 best-effort update check in bootstrap/adopt/migrate (ADR 0015); marketplace renamed starter-kit-local -> claude-code-starter-kit (ADR 0016); public contact email; ADR 0017 accepted (rename to groundrules at V1.0.0)"
+    },
+    {
+      "from": "0.12.0",
+      "to": "1.0.0",
+      "at": "2026-06-06",
+      "note": "V1.0 plugin renamed starter-kit -> groundrules (ADR 0017): state file .starter-kit.json -> .groundrules.json, key starterKitVersion -> groundrulesVersion, signatures and command prefix swept"
+    },
+    {
+      "from": "1.0.0",
+      "to": "1.1.0",
+      "at": "2026-06-07",
+      "note": "V1.1 adopt consolidate mode (ADR 0018); PROCESS/RELEASE optional docs + LEARNINGS rule format + Session Start (ADR 0019, harvested from crm-heyjoe); repo-is-the-only-memory convention (ADR 0020)"
+    },
+    {
+      "from": "1.1.0",
+      "to": "1.2.0",
+      "at": "2026-06-08",
+      "note": "V1.2 context-economy guide + ADR 0021; agent-evals optional doc + checkpoint-capture ritual + /groundrules:checkpoint skill + ADR 0022; graphify interop pointer; learn skill aligned to rule format; README Why+MIT+restructure"
+    }
   ],
   "answers": {
-    "projectName": "Starting-Claude",
+    "projectName": "groundrules",
     "description": "Plugin Claude Code qui bootstrappe de nouveaux projets via un slash command interactif.",
     "projectType": "code",
     "stack": "Markdown + JSON (plugin Claude Code)",
@@ -26,7 +92,8 @@
     "hasGlossary": false,
     "hasChangelog": true,
     "remoteProvider": "github",
-    "remoteVisibility": "public"
+    "remoteVisibility": "public",
+    "hasAgentEvals": true
   },
   "intent": {
     "source": "paste",
@@ -55,7 +122,7 @@
       "Intent capturable au bootstrap (brief paste / fichier / interview / skip)",
       "apply-best-practices fetche shanraisshan, filtre par vision, propose multi-select",
       "Plugin publié sur GitHub marketplace publique",
-      "Dogfood : le repo Starting-Claude utilise sa propre structure et vision"
+      "Dogfood : le repo groundrules utilise sa propre structure et vision"
     ]
   },
   "appliedPractices": [
@@ -64,11 +131,31 @@
       "source": "shanraisshan/claude-code-best-practice + howborisusesclaudecode.com (manual integration during V0.2 authorship)",
       "note": "Manually integrated in CLAUDE.md.{fr,en}.tpl during V0.2 dev — not via /starter-kit:apply-best-practices since that skill didn't exist yet. Future runs of apply-best-practices on this repo would diff against these and propose new items.",
       "items": [
-        {"category": "claudemd-section", "name": "Setup / Build / Test (commandes en tête)", "status": "applied"},
-        {"category": "claudemd-section", "name": "Mettre à jour ce fichier (philosophie Boris)", "status": "applied"},
-        {"category": "claudemd-section", "name": "Vérifier le travail (Prove it works)", "status": "applied"},
-        {"category": "claudemd-section", "name": "Workflow Claude Code (plan mode, /compact, worktrees)", "status": "applied"},
-        {"category": "claudemd-reference", "name": ".claude/settings.json, .claude/rules/*.md, <important if=...> tags", "status": "applied (mentioned, not yet exercised in dogfood)"}
+        {
+          "category": "claudemd-section",
+          "name": "Setup / Build / Test (commandes en tête)",
+          "status": "applied"
+        },
+        {
+          "category": "claudemd-section",
+          "name": "Mettre à jour ce fichier (philosophie Boris)",
+          "status": "applied"
+        },
+        {
+          "category": "claudemd-section",
+          "name": "Vérifier le travail (Prove it works)",
+          "status": "applied"
+        },
+        {
+          "category": "claudemd-section",
+          "name": "Workflow Claude Code (plan mode, /compact, worktrees)",
+          "status": "applied"
+        },
+        {
+          "category": "claudemd-reference",
+          "name": ".claude/settings.json, .claude/rules/*.md, <important if=...> tags",
+          "status": "applied (mentioned, not yet exercised in dogfood)"
+        }
       ]
     },
     {
@@ -76,12 +163,42 @@
       "source": "shanraisshan/claude-code-best-practice (via /starter-kit:apply-best-practices V0.5)",
       "note": "First real run of apply-best-practices on the dogfood repo. 12 recommendations returned; 4 were already-existing skills (filtered out as redundant), 2 redundant with V0.2 manual integration, 6 truly new and user-selected (4 applied, 2 deferred to V0.6).",
       "items": [
-        {"category": "claudemd-section", "name": "Plugin workflow (modèle mental)", "target": "CLAUDE.md (meta)", "status": "applied"},
-        {"category": "claude-rule", "name": "plugin-meta.md (paths: .claude-plugin/, skills/, *.tpl)", "target": ".claude/rules/plugin-meta.md", "status": "applied"},
-        {"category": "settings", "name": "Permissions preset (git, gh, glab, common bash, WebFetch domains)", "target": ".claude/settings.json", "status": "applied"},
-        {"category": "hook", "name": "PreToolUse validation {{KEY}} non substitué", "target": "docs/best-practices-pending.md", "status": "pending (saved for manual review)"},
-        {"category": "skill", "name": "/starter-kit:verify-bootstrap", "target": "skills/verify-bootstrap/SKILL.md", "status": "applied (V0.6)"},
-        {"category": "command", "name": "/watch-bootstrap (low priority)", "target": "docs/best-practices-pending.md", "status": "deferred"}
+        {
+          "category": "claudemd-section",
+          "name": "Plugin workflow (modèle mental)",
+          "target": "CLAUDE.md (meta)",
+          "status": "applied"
+        },
+        {
+          "category": "claude-rule",
+          "name": "plugin-meta.md (paths: .claude-plugin/, skills/, *.tpl)",
+          "target": ".claude/rules/plugin-meta.md",
+          "status": "applied"
+        },
+        {
+          "category": "settings",
+          "name": "Permissions preset (git, gh, glab, common bash, WebFetch domains)",
+          "target": ".claude/settings.json",
+          "status": "applied"
+        },
+        {
+          "category": "hook",
+          "name": "PreToolUse validation {{KEY}} non substitué",
+          "target": "docs/best-practices-pending.md",
+          "status": "pending (saved for manual review)"
+        },
+        {
+          "category": "skill",
+          "name": "/starter-kit:verify-bootstrap",
+          "target": "skills/verify-bootstrap/SKILL.md",
+          "status": "applied (V0.6)"
+        },
+        {
+          "category": "command",
+          "name": "/watch-bootstrap (low priority)",
+          "target": "docs/best-practices-pending.md",
+          "status": "deferred"
+        }
       ]
     }
   ],
@@ -96,6 +213,7 @@
     "CHANGELOG.md",
     "intake/INTENT.md",
     "docs/VISION.md",
+    "docs/AGENT-EVALS.md",
     "docs/best-practices-pending.md",
     ".claude/rules/plugin-meta.md",
     ".claude/settings.json",

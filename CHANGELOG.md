@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.1.0 -->
+<!-- generated-by: groundrules v1.2.0 -->
 # Changelog
 
 All notable changes to this project are documented in this file.
@@ -6,28 +6,55 @@ All notable changes to this project are documented in this file.
 Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versions follow [Semantic Versioning](https://semver.org/).
 
+## [1.2.0]
+
+### Added
+- **New skill `/groundrules:checkpoint`** — runs the capture ritual on demand (the manual complement to the agent's proactive trigger): gathers what changed since the last tag, then routes *decided* → ADR, *learned*/*blocked* → `LEARNINGS`, *agent drift* → `AGENT-EVALS` (offers to create it if absent). Described in the README ("Capturing knowledge as you go"). See ADR 0022.
+- **Checkpoint-capture ritual** in the generated `CLAUDE.md` (full + lean): the agent proactively proposes a 3-question capture (*decided* → `add-adr`, *learned* / 30+ min blocker → `learn`, *agent mistake/hallucination/drift* → `AGENT-EVALS.md`) at boundaries it can perceive — **before a `git push`/tag/release** (also wired into the `RELEASE.md` pre-release checklist) or a completed `PLAN.md` milestone. Anchored to those events because an agent can't perceive "session end". See ADR 0022.
+- **`docs/AGENT-EVALS.md`** — a new optional doc (placeholder `{{HAS_AGENT_EVALS}}`, wired into bootstrap Call 2b + adopt Call 3b + verify whitelist): a log of the agent's **own** failure modes on the project (mistakes, hallucinations, drifts) + the guard added. Distinct from `LEARNINGS.md`. Harvested (with the ritual) from an agent-memory article — its `journal.md`, `.claude/memory/` location and `@import` auto-load were deliberately *not* adopted (ADRs 0020, 0021). See ADR 0022.
+- **`docs/CONTEXT-ECONOMY.md`** — a guide settling the "index vs documentation-search plugin" debate and "is too much context counterproductive?": separate *storage* (exhaustive, on disk) from *loading* (minimal, on-demand); an index + native `Read` wins for a project's own docs, doc-search/RAG is for large external corpora only; backed by the 2025 context-rot / lost-in-the-middle findings + Anthropic's < 200-line guidance. See ADR 0021.
+- **"Map, not the territory" note** in the generated `CLAUDE.md` templates (full + lean): keep the always-loaded file an index, read docs on demand, don't paste content "to be safe"; doc-search tools are for external corpora.
+
+### Changed
+- **Interop pointer for graph/RAG tools** — `docs/CONTEXT-ECONOMY.md` now names the external-corpus tool class (doc-search MCP, GraphRAG/knowledge-graph tools such as [graphify](https://github.com/safishamsi/graphify)) for the case it covers, and `adopt` gains an **optional, dependency-free hint** to suggest such a tool when scanning a large unfamiliar codebase (upstream comprehension only — no graphify dependency, no generated artifact).
+- README: new **"Why"** section after the hook — the method's justification grounded in the context-rot / lost-in-the-middle research and Anthropic's own < 200-line guidance, linking to `docs/CONTEXT-ECONOMY.md`.
+- **README restructured** (pitch-before-install, inspired by obra/superpowers): new narrative **"How it works"** before installation, a numbered lifecycle **"The workflow"**, a **"Philosophy"** section surfacing the principles from the ADRs, and a short **"Contributing"** section.
+- **License: MIT** — added `LICENSE` file + `license` field in `plugin.json` (was "To be defined").
+- `plugin.json`: dropped the "Formerly starter-kit" tail from the description (no external users to transition).
+- README: "Generated files" section restructured — a "folders" table explaining `intake/` → `docs/` → `docs/decisions/` + `docs/media/` and the flow between them, then a single unified file table (the three tables merged; "Condition" and "When to check it" merged into one "When created" column).
+- README: removed all legacy `starter-kit` transition messaging ("formerly" banner, old marketplace names note, roadmap phrasing) — the plugin had no external users before the rename, so there is no one to transition.
+- Dogfood: local folder and project name aligned on **groundrules** (was `Starting-Claude`) — doc titles, `.groundrules.json` `projectName`, meta CLAUDE.md paths. Historical ADRs untouched.
+- Memory hygiene (ADR 0020 applied to ourselves): machine-local project memories reduced to a single cross-project pointer — everything else was already recorded in the repo.
+- Plugin version bumped 1.1.0 → 1.2.0 across `plugin.json`, `marketplace.json`, all template/doc signatures, and `.groundrules.json` (`groundrulesVersion` + new migration entry).
+
+### Fixed
+- **`/groundrules:learn` produced the old `Context/Lesson` format** while the `LEARNINGS.md` template moved to the rule format (*Why* + *When to apply*) back in ADR 0019 — the skill was never updated. Now aligned: it collects Title / Why / When to apply and inserts a rule-format entry (date inside *Why*, not the title).
+
+### Dogfood
+- groundrules now runs its own checkpoint-capture ritual: added `docs/AGENT-EVALS.md` (first entry: "asserts/trusts without verifying") and a `docs/LEARNINGS.md` rule ("anchor agent rituals to observable events, never to session end") — captured before this push, as the ritual prescribes.
+
+### Decisions
+- ADR `0021-context-economy-index-over-doc-search.md` — why groundrules generates an index + on-demand reads rather than a doc-search/RAG layer for a project's own docs.
+- ADR `0022-agent-evals-and-session-close.md` — the two ideas adopted from an agent-memory article (session-close ritual, agent-evals log) and the three mechanics rejected (`journal.md`, `.claude/memory/` location, `@import` auto-load).
+
 ## [1.1.0]
 
 ### Added
 - **`adopt` adoption strategy**: new Call-1 question — `Map in place` (default, previous behavior: duplicates tolerated and documented) or **`Consolidate`** (new Phase 4b: migrate role-mapped files to the canonical paths via `git mv`/merge, per-file confirmation, optional reformat to template structure, internal-reference sweep). `.groundrules.json` gains `adoptionMode` + `migratedFiles`. See ADR 0018.
 - **Two new optional docs** (bootstrap Call 2b + adopt Call 3b, placeholders `{{HAS_PROCESS}}`/`{{HAS_RELEASE}}`): `docs/PROCESS.md` (working-method contract: phases, validation gates, interview style) and `RELEASE.md` (operational runbook: environments, commands, checklist, rollback, fragilities — offered only when the project deploys). See ADR 0019.
+- **"The repo is the only memory" convention** in the generated `CLAUDE.md` (full + lean): all project knowledge lives in the repo docs — never in machine-local agent memory/plans; no `~/.claude/*` references in repo docs; plan files worth keeping get copied in. Born from repatriating crm-heyjoe's external memories. See ADR 0020.
 
 ### Changed
 - **`LEARNINGS.md` template reworked**: entries are now actionable **rules** with *Why* (story + cost) and *When to apply* (triggers), instead of journal notes (Context/Lesson). Harvested from a real project. See ADR 0019.
 - **`CLAUDE.md` templates** (full + lean): new **"Session start — read first, in order"** section (PLAN → LEARNINGS → VISION → in-progress artifacts).
 - `PLAN.md` template: status vocabulary (`[~]` delivered/in review; annotate reverts and key commits).
 - `intake/` README: explicit **read-only** convention + binaries welcome.
-
-### Added
-- **"The repo is the only memory" convention** in the generated `CLAUDE.md` (full + lean): all project knowledge lives in the repo docs — never in machine-local agent memory/plans; no `~/.claude/*` references in repo docs; plan files worth keeping get copied in. Born from repatriating crm-heyjoe's external memories. See ADR 0020.
+- Plugin version bumped 1.0.0 → 1.1.0 across `plugin.json`, `marketplace.json`, all template/doc signatures, and `.groundrules.json` (`groundrulesVersion` + new migration entry).
 
 ### Decisions
 - ADR `0018-adopt-consolidation-mode.md` — adoption strategies rationale.
-- ADR `0020-repo-is-the-only-memory.md` — why agent-local project knowledge is forbidden.
-
-### Changed (release)
-- Plugin version bumped 1.0.0 → 1.1.0 across `plugin.json`, `marketplace.json`, all template/doc signatures, and `.groundrules.json` (`groundrulesVersion` + new migration entry).
 - ADR `0019-heyjoe-inspired-doc-improvements.md` — what was harvested from crm-heyjoe and what was deliberately not.
+- ADR `0020-repo-is-the-only-memory.md` — why agent-local project knowledge is forbidden.
 
 ## [1.0.0]
 

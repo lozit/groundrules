@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.1.0 -->
+<!-- generated-by: groundrules v1.2.0 -->
 # 0020 — The repo is the only memory
 
 **Date**: 2026-06-07

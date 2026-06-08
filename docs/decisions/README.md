@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.1.0 -->
+<!-- generated-by: groundrules v1.2.0 -->
 # Architecture Decisions (ADR)
 
 This folder contains the project's **Architecture Decision Records**: each structural decision made during the project is recorded in a file.
@@ -50,3 +50,5 @@ No ADR needed for trivial choices or implementation details.
 | [0018](0018-adopt-consolidation-mode.md) | adopt: map-in-place vs consolidate strategies | Accepted | 2026-06-06 |
 | [0019](0019-heyjoe-inspired-doc-improvements.md) | Doc improvements harvested from a real project (crm-heyjoe) | Accepted | 2026-06-06 |
 | [0020](0020-repo-is-the-only-memory.md) | The repo is the only memory (no project knowledge in agent-local state) | Accepted | 2026-06-07 |
+| [0021](0021-context-economy-index-over-doc-search.md) | Context economy: index over doc-search for a project's own docs | Accepted | 2026-06-08 |
+| [0022](0022-agent-evals-and-session-close.md) | Session-close ritual + optional agent-evals log | Accepted | 2026-06-08 |

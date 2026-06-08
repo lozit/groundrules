@@ -37,6 +37,8 @@ If `$ARGUMENTS` contains `--dry-run` (or `dry-run`): run all analysis phases but
 | `docs/ARCHITECTURE.md`, `GLOSSARY.md`… already present | project doc | adopt as-is (don't regenerate) |
 | `CLAUDE.md` present? | instructions | **absent** → to generate (see Call 3); **present** → never overwrite, see "CLAUDE.md project file already present" |
 
+> **Large unfamiliar codebase (optional, no dependency)**: if the project is too big to read comfortably (hundreds of files / large LOC) and you'll need to synthesize `docs/ARCHITECTURE.md`, you may suggest the user run an external **knowledge-graph / GraphRAG** tool (e.g. [graphify](https://github.com/safishamsi/graphify)) first to *comprehend* the code. This is **upstream comprehension only** — its derived/inferred graph is not a groundrules artifact and creates no dependency; the curated docs you write stay the source of truth. Purely a pointer (like the superpowers interop note); never install or require anything.
+
 ### CLAUDE.md project file already present (often tool-managed)
 
 If a `CLAUDE.md` already exists at the root (without a groundrules/starter-kit signature):
@@ -103,6 +105,7 @@ Pre-check based on the scan. Only offer what **doesn't already exist**:
 - `docs/ROADMAP.md` — offered (unchecked by default)
 - `docs/PROCESS.md` — pre-check if a process/method doc is detected (phased workflow, validation gates)
 - `RELEASE.md` — pre-check if CI/CD or hosting config is detected (`.gitlab-ci.yml`, `.github/workflows/`, `netlify.toml`, `vercel.json`…)
+- `docs/AGENT-EVALS.md` — offered (unchecked by default): a log of the agent's observed failure modes (mistakes, hallucinations, drifts) + the guard added. Distinct from `LEARNINGS.md`.
 
 Skip an individual option only if that exact file already exists (then list it under "adopted", not here). If **none** of these exist yet, the full list is shown with the detected ones pre-checked.
 
