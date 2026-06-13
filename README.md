@@ -53,11 +53,11 @@ claude --plugin-dir /path/to/groundrules
 
 > **Working in a team / shared repo?** Install at **Project scope** (choose *Project*, not *User*, during `/plugin install`). This commits the plugin reference to `.claude/settings.json`, so anyone who clones and trusts the repo is prompted to install it — the `/groundrules:*` commands then work for everyone. The plugin does **not** travel with a `git clone` otherwise; a user-scope install is per-machine. (The generated docs are plain markdown and remain readable without the plugin — only the slash-command ergonomics need it. See [ADR 0023](docs/decisions/0023-project-scope-for-team-portability.md).)
 
-> groundrules is a Claude Code plugin today. Support for other harnesses is on the [roadmap](#roadmap) — the repo is named `groundrules` (harness-neutral) for that reason.
+> groundrules is a Claude Code plugin today. Extending it to other harnesses is a planned direction — the repo is named `groundrules` (harness-neutral) for that reason.
 
 ## The workflow
 
-Seven skills ordered by a project's lifecycle, plus two cross-cutting maintenance skills:
+Seven skills ordered by a project's lifecycle, plus four cross-cutting skills:
 
 1. **`bootstrap`** — *new, empty folder.* Interview + intent capture (paste / file / interview) + from-scratch generation of the whole structure, `git init`, optional remote.
 2. **`adopt`** — *existing (brownfield) project.* Scans, maps existing files to roles, generates only what's missing, backfills `.groundrules.json`. Never overwrites; supports `--dry-run` and a **consolidate** mode that migrates an existing layout onto the canonical paths.
@@ -68,6 +68,8 @@ Seven skills ordered by a project's lifecycle, plus two cross-cutting maintenanc
 7. **`migrate`** — *the plugin has a new version.* Per-file diff, never overwrites without confirmation, chains historical renames, `--dry-run`.
 8. **`checkpoint`** — *any time, especially before a push.* Runs the capture ritual (see below).
 9. **`slim`** — *when `CLAUDE.md` approaches 200 lines.* Proposes concrete optimizations to stay under budget — extract a bulky section to `docs/`, move file-type rules to `.claude/rules/` (loaded on demand), compress, de-duplicate. Moves content, never deletes it. (`verify-bootstrap` points here when it flags the size.)
+10. **`prd`** — *before a non-trivial feature.* Writes a per-feature PRD (problem, success criteria, scope, constraints, build plan, risks) to `docs/prd/<feature>.md`, so the agent builds the right thing. **Defers to superpowers** if that plugin is in use (its per-feature spec altitude).
+11. **`idea`** — *a thought you don't want to lose.* Parks a one-line idea in `PLAN.md`'s "Ideas — to triage" inbox, fast. Prospective capture (forward ideas), the complement to `checkpoint`. Triage later → ADR / PRD / ROADMAP / drop.
 
 ## Capturing knowledge as you go
 
@@ -88,6 +90,7 @@ groundrules gives a project a clear geography.
 | **`intake/`** | **Raw upstream inputs**, captured as received: client specs, emails, scoping notes, spreadsheets, brand assets. **Read-only** (don't "fix" inputs — synthesize them into `docs/`), binaries welcome. The draft side. |
 | **`docs/`** | The **living, synthesized documentation**: vision, architecture, learnings, specialized docs. Where stable knowledge lives and is kept in sync. |
 | **`docs/decisions/`** | The **ADRs**: one file per structural decision — context, decision, alternatives, tradeoffs. The *why*, frozen at decision time. |
+| **`docs/prd/`** | Per-feature **PRDs** (problem, success criteria, scope, constraints, build plan, risks): one file per feature, written *before* building. Created on demand by `/groundrules:prd`. |
 | **`docs/media/`** | **Visual assets** supporting the docs: mockups, screenshots, diagrams (with their editable sources). |
 
 The flow: `intake/` (raw, untouched) → `docs/` (synthesized, living) → `docs/decisions/` (the why, frozen). Root files (`README.md`, `CLAUDE.md`, `PLAN.md`, `CHANGELOG.md`, `RELEASE.md`) are the operational surface.
@@ -120,6 +123,18 @@ The flow: `intake/` (raw, untouched) → `docs/` (synthesized, living) → `docs
 
 Every generated file carries a `<!-- generated-by: groundrules -->` signature, which enables **resume mode**: re-run a skill on a non-empty folder with no overwrite risk.
 
+## Already using superpowers?
+
+[superpowers](https://github.com/obra/superpowers) and groundrules work at **different altitudes — they don't overlap.** superpowers owns the *realization* of a feature: it turns a conversation into a technical **spec**, a TDD **implementation plan**, and runs a maker/verifier loop to build it. It's excellent at *how to build* — and groundrules **detects it and defers** that whole pipeline to it.
+
+What superpowers deliberately leaves out is exactly what groundrules adds, **without duplicating a line of its design**:
+
+- **The durable *why*** — ADRs, `LEARNINGS`, `VISION`. superpowers' specs and plans are per-feature and volatile; groundrules keeps the stable, hand-curated memory that survives across features and sessions. It's the antidote to the *comprehension debt* a fast build pipeline creates: **superpowers builds the loop, groundrules keeps you the engineer.**
+- **The PRD altitude *above* the spec** — problem framing, measurable success criteria, and **risks**. A superpowers spec covers context, design, and scope, but not these; a short `docs/prd/<feature>.md` sits above its spec (`/groundrules:prd` offers just that thin layer when superpowers is present).
+- **The cross-cutting "now"** — `PLAN.md` as the single backlog/in-progress view, pointing to the active superpowers plan instead of restating its tasks.
+
+You keep the build pipeline superpowers is great at; you gain the memory and the high-altitude framing it doesn't provide.
+
 ## Philosophy
 
 - **Template over code** — plain `{{KEY}}` text substitution, never a template engine or application logic ([ADR 0002](docs/decisions/0002-plain-text-placeholder-substitution.md)).
@@ -127,9 +142,39 @@ Every generated file carries a `<!-- generated-by: groundrules -->` signature, w
 - **Living docs** — every generated doc is kept in sync *in the same change* that makes it stale; maintenance is part of the task, not a follow-up.
 - **Never overwrite without confirmation** — resume mode detects what exists and offers skip / overwrite / save-as-`.new`; your edits are safe.
 - **Offline-first** — only `apply-best-practices` needs the network; the rest works offline (the update check fails silent).
+- **Posture, not just process** — the generated `CLAUDE.md` tells the agent to *push back* (challenge off-strategy/wrong plans, don't be sycophantic) and *stay reversible* (confirm before hard-to-undo actions).
 - **A handoff, not gospel** — a generated `CLAUDE.md` is a starting point you edit and enrich, not absolute truth.
 
 The full reasoning behind every structural choice lives in [`docs/decisions/`](docs/decisions/).
+
+## What the research says
+
+groundrules' core choices aren't aesthetic — they follow published findings from three fields: how **language models** behave under load, **software-engineering economics**, and **usability** research. The receipts:
+
+| Choice | What the research shows | Recorded in |
+|---|---|---|
+| Keep `CLAUDE.md` small; store exhaustively on disk, **load on demand** | Model accuracy **degrades as input grows** — measured across 18 frontier models, Claude included ([*context rot*](https://www.understandingai.org/p/context-rot-the-emerging-challenge), Chroma 2025) — and the *lost-in-the-middle* effect drops accuracy **~30%** for information buried mid-context ([Liu et al., 2023](https://arxiv.org/abs/2307.03172)). Anthropic's own guidance caps `CLAUDE.md` at **< 200 lines** ("larger files produce lower adherence"). | [ADR 0021](docs/decisions/0021-context-economy-index-over-doc-search.md), [`docs/CONTEXT-ECONOMY.md`](docs/CONTEXT-ECONOMY.md) |
+| **Index + native read** over a doc-search/RAG layer (for your own docs) | The cost is in *always-loaded* tokens; reading a file natively is cheaper and lossless. A RAG/graph layer earns its keep only for large *external* corpora you can't fit. | [ADR 0021](docs/decisions/0021-context-economy-index-over-doc-search.md) |
+| Make the agent **push back** (don't be sycophantic) | Sycophancy is a **general, measured behavior** of state-of-the-art assistants, driven by preference training that rewards agreement ([Sharma et al., Anthropic, 2023](https://arxiv.org/abs/2310.13548)). A default posture demanding pushback counteracts a *documented* bias. | [ADR 0026](docs/decisions/0026-posture-and-per-feature-prd.md) |
+| **Spec a non-trivial feature before building it** (`/groundrules:prd`) | Software-engineering economics has shown for decades that the cost of fixing a defect rises sharply the later it's caught: a misunderstanding corrected **in the spec** is a sentence; caught after the build it costs far more ([Boehm, *Software Engineering Economics*, 1981](https://www.techwell.com/techwell-insights/2013/10/what-does-it-really-cost-fix-software-defect) — the exact multiplier varies with project size). A PRD surfaces the ambiguity early. | [ADR 0026](docs/decisions/0026-posture-and-per-feature-prd.md) |
+| **Stay reversible** — confirm before hard-to-undo actions, keep an escape hatch | "User control and freedom" is one of Nielsen's foundational usability heuristics: people *will* act by mistake and need a clearly-marked exit and undo ([NN/g](https://www.nngroup.com/articles/ten-usability-heuristics/)). For an agent acting on your repo, that exit is git + `/rewind` + confirm-before-destructive. | [ADR 0026](docs/decisions/0026-posture-and-per-feature-prd.md) |
+
+One honest caveat — so this stays evidence, not marketing: the rest of the design — *the repo is the only memory*, living docs, never-overwrite — follows from a plain fact (agents are **stateless** across sessions, and their window degrades *within* one) plus engineering prudence, not a single paper. And some choices aren't lab findings at all but recognized *standards* — those have [their own section below](#established-practices-we-adopt), kept separate on purpose.
+
+The reasoning for every choice is recorded in [`docs/decisions/`](docs/decisions/).
+
+## Established practices we adopt
+
+Not everything here is a research result — and we won't pretend it is. Some choices are recognized engineering **standards**: proven in practice, widely understood, no lab paper needed. We adopt them *because* they're established, and label them as such.
+
+| Practice | Why we adopt it | Reference |
+|---|---|---|
+| **ADRs** — one short file per structural decision | Captures the *why* of a decision in a durable, greppable form, so the reasoning outlives the people who made it. Michael Nygard's format is the de-facto standard. | [Nygard](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions) · [`docs/decisions/`](docs/decisions/) |
+| **Keep a Changelog** — a curated, human-readable history | `git log` is a transcript, not a summary; a hand-curated changelog tells a *person* what actually changed between versions. The `[Unreleased]` accumulator keeps it current without per-commit churn. | [keepachangelog.com](https://keepachangelog.com/en/1.1.0/) · [`CHANGELOG.md`](CHANGELOG.md) |
+| **Conventional Commits** — `feat:` / `fix:` / `docs:` … | A predictable commit grammar makes history scannable for humans and parseable for tooling (automated changelog, version bumps). | [conventionalcommits.org](https://www.conventionalcommits.org/) |
+| **Semantic Versioning** — `MAJOR.MINOR.PATCH` | A version number that *means something*: consumers can tell at a glance whether an update is a fix, a feature, or a breaking change. | [semver.org](https://semver.org/) |
+
+These aren't dressed up as science — they're conventions we chose deliberately, and the choice itself is recorded where every other one is: [`docs/decisions/`](docs/decisions/).
 
 ## Updating the plugin
 
@@ -177,26 +222,23 @@ Issues and pull requests are welcome. A few conventions:
 - **The plugin dogfoods itself** — this repo uses its own generated structure (`docs/`, `intake/`, ADRs, `PLAN.md`), so changes should keep the dogfood coherent.
 - **Templates are plain text** — `{{KEY}}` substitution only, no engine.
 
-## Roadmap
+## References
 
-- [x] V0.1 — from-scratch bootstrap + resume mode
-- [x] V0.2 — `CLAUDE.md` template restructured with best practices (Boris Cherny, shanraisshan)
-- [x] V0.3 — skills `/groundrules:add-adr` (auto-incremented ADR) and `/groundrules:learn` (dated LEARNINGS entry)
-- [x] V0.4 — skill `/groundrules:migrate` (per-file diff, `.new` fallback, `--dry-run`)
-- [x] V0.5 — intent capture in `bootstrap` + skill `/groundrules:apply-best-practices` (fetch shanraisshan, tailored to the vision)
-- [x] V0.6 — skill `/groundrules:verify-bootstrap` (report + `--fix`)
-- [x] V0.7 — optional specialized docs in `bootstrap` (`DATA_MODEL`, `SECURITY`, `DESIGN_SYSTEM`, `ROADMAP`, `I18N`); VISION/INTENT de-numbering; superpowers interop; broadened planning detection; skill `/groundrules:adopt` (brownfield); global/enterprise CLAUDE.md awareness
-- [x] V0.8 — English-only: dropped the bilingual FR/EN templates and the `{{LANG}}` logic (less maintenance, all projects in English)
-- [x] V0.9 — `media/` moved under `docs/media/` (avoid collision with project `media/`/`public/`)
-- [x] V0.10 — `adopt` always offers the optional docs; generated `CLAUDE.md` gets a "living docs" maintenance rule
-- [x] V0.11 — `brief/` renamed to `intake/` (clearer name for raw upstream material); `migrate` learns the rename
-- [x] V0.12 — best-effort update check in `bootstrap`/`adopt`/`migrate`; plugin rename decided for V1.0.0 (ADR 0017)
-- [x] V1.0 — plugin renamed to **`groundrules`** (ADR 0017): command prefix `/groundrules:`, state file `.groundrules.json`, `migrate` handles the full legacy transition
-- [x] V1.1 — `adopt` consolidate mode (migrate a brownfield layout onto the canonical paths); `PROCESS.md` + `RELEASE.md` optional docs; LEARNINGS rule format + Session Start protocol (harvested from a real project); "repo is the only memory" convention
-- [x] V1.2 — context economy guide (ADR 0021); agent-evals + checkpoint-capture ritual + `/groundrules:checkpoint` (ADR 0022); graphify interop; MIT license; README pitch-before-install + "Why"
-- [x] V1.3 — `/groundrules:slim` (CLAUDE.md 200-line optimizer, ADR 0024); team-portability project-scope guidance in `bootstrap`/`adopt` (ADR 0023)
-- [ ] Post-1.0 — extend groundrules beyond Claude Code to other harnesses (repo name is harness-neutral by design)
-- [x] Public marketplace published on GitHub: [lozit/groundrules](https://github.com/lozit/groundrules)
+The findings behind the design choices above:
+
+- **Context rot** — *Context Rot: How Increasing Input Tokens Impacts LLM Performance*, Chroma (2025). [Summary](https://www.understandingai.org/p/context-rot-the-emerging-challenge)
+- **Lost in the middle** — Nelson Liu et al., *Lost in the Middle: How Language Models Use Long Contexts*, TACL 2024. [arXiv:2307.03172](https://arxiv.org/abs/2307.03172)
+- **Sycophancy** — Mrinank Sharma et al., *Towards Understanding Sycophancy in Language Models*, Anthropic (2023). [arXiv:2310.13548](https://arxiv.org/abs/2310.13548) · [Anthropic research](https://www.anthropic.com/research/towards-understanding-sycophancy-in-language-models)
+- **Cost of a defect rises with time** — Barry Boehm, *Software Engineering Economics* (Prentice Hall, 1981) — the foundation for "spec before you build." [Overview](https://www.techwell.com/techwell-insights/2013/10/what-does-it-really-cost-fix-software-defect)
+- **User control and freedom** — Jakob Nielsen, *10 Usability Heuristics for User Interface Design* (NN/g, heuristic #3). [Article](https://www.nngroup.com/articles/ten-usability-heuristics/)
+- **CLAUDE.md guidance** (< 200 lines; larger files lower adherence) — Claude Code [memory docs](https://code.claude.com/docs/en/memory)
+- **CLAUDE.md best practices** — [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice), [howborisusesclaudecode.com](https://howborisusesclaudecode.com/)
+- **ADR format** — Michael Nygard, [*Documenting Architecture Decisions*](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions)
+- **Keep a Changelog** — [keepachangelog.com](https://keepachangelog.com/en/1.1.0/)
+- **Conventional Commits** — [conventionalcommits.org](https://www.conventionalcommits.org/)
+- **Semantic Versioning** — [semver.org](https://semver.org/)
+
+The complete per-decision history lives in [`docs/decisions/`](docs/decisions/) and [`CHANGELOG.md`](CHANGELOG.md).
 
 ## License
 
