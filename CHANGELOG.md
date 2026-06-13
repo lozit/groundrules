@@ -9,6 +9,7 @@ versions follow [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Added
+- **`adopt` → opt-in `docs/ADOPTION-LOG.md`** — at the end of an adopt run, offer to write a dated, frozen **record of the run**: what was here, what groundrules did (and *why* — skips/deferrals included), plus a **Remarks** section to annotate. Purpose: a **field → plugin feedback channel** — share the annotated log back to improve groundrules. Built from the scan + `.groundrules.json` (no new data, no network). New template `ADOPTION-LOG.md.tpl`. Distinct from `AGENT-EVALS` (agent behaviour) and `apply-best-practices` (external recs). Spec'd in `docs/prd/adoption-log.md`.
 - **New skill `/groundrules:vision`** — builds or refreshes `docs/VISION.md` through a **guided interview** (goal · users · constraints · V1 non-goals · acceptance criteria), reusing `docs-VISION.md.tpl`. **Create-if-absent / refine-if-present** (section-by-section, never silent overwrite). On-demand: for adopt/brownfield projects with no vision, or to deepen a thin one — **complements `bootstrap`** (no refactor of it). Borrows superpowers' interview discipline (2-3 framings + a recommendation, decompose over-scope, a pre-write self-review) while keeping groundrules' propose-don't-impose register. Spec'd in `docs/prd/vision-skill.md`. See ADR 0027 (method) + `docs/LEARNINGS.md` (borrowed patterns).
 
 ### Changed

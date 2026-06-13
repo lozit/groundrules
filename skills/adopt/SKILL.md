@@ -173,9 +173,24 @@ Write `.groundrules.json` (bootstrap schema, see ADR 0004) with the adoption mar
 
 `adopted: true` + `bootstrappedWithVersion: null` distinguish an adopted project from a bootstrapped one. `adoptedFiles` maps the existing files to roles (info for `migrate`/`verify-bootstrap`).
 
+## Phase 5b — Adoption log (opt-in)
+
+After the backfill, **offer** (one `AskUserQuestion`) to write a human-readable **`docs/ADOPTION-LOG.md`** — a dated, frozen record of this run, designed so the maintainer can annotate it and **share it back to improve groundrules** (a field → plugin feedback channel; distinct from `docs/AGENT-EVALS.md` and `apply-best-practices`). Skip if declined.
+
+If accepted:
+1. Read `${CLAUDE_PLUGIN_ROOT}/skills/bootstrap/templates/ADOPTION-LOG.md.tpl`.
+2. Substitute `{{PROJECT_NAME}}`, `{{DATE}}` (`date +%F`), and:
+   - `{{DETECTED}}` — from the **Phase 1 scan**: structure, docs present/absent, detected stack, planning files, existing project CLAUDE.md (managed?), global CLAUDE.md presence + what it covers.
+   - `{{ACTIONS}}` — from the run + `.groundrules.json`: files **generated** / **adopted (mapped)** / **skipped** / **migrated**, the `adoptionMode`, and the **key decisions, each with a one-line *why*** (e.g. content-aware CLAUDE.md omissions, consolidate vs map-in-place, deferral to a managed CLAUDE.md, planning reconciliation). **Be honest** — record skips/deferrals and their reasons, not a success-only story (Posture).
+3. Write `docs/ADOPTION-LOG.md`. **Resume-safe**: if it already exists, never overwrite silently — skip / overwrite / write `docs/ADOPTION-LOG.md.new` instead. Leave the **Remarks** section as the template's prompts (the user fills it).
+4. **Only if you wrote the canonical `docs/ADOPTION-LOG.md`** (not on a skip or a `.new`): append `"docs/ADOPTION-LOG.md"` to `generatedFiles` in `.groundrules.json`.
+
+(Source of truth: `{{DETECTED}}` comes from the **Phase 1 scan**; `{{ACTIONS}}` from `.groundrules.json` + the run — if the two ever disagree, the recorded `.groundrules.json` wins for the actions.)
+
 ## Phase 6 — Final recap
 
 - ✅ Created / 🔗 Adopted / ⏭️ Left as-is
+- 📝 If opted in: `docs/ADOPTION-LOG.md` — **annotate it and share it back** to improve groundrules.
 - 📋 Next steps:
   1. Flesh out `CLAUDE.md` (Setup/Build/Test from the project scripts, stack, gotchas)
   2. If intent captured: `/groundrules:apply-best-practices`

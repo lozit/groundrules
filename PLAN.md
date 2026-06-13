@@ -11,7 +11,6 @@ This file differs from the long-term roadmap: it describes what is happening **n
 
 ## Up next
 
-- [ ] **`adopt` → analysis log** (idea #3, triaged 2026-06-13). When adopting, propose an analysis of what the project has + structural gaps/improvements. *(enhancement to `adopt`; needs a PRD; distinguish from `apply-best-practices` — internal structural audit vs. external best-practice recommendations.)*
 
 > **Long-term milestones moved to [`docs/ROADMAP.md`](docs/ROADMAP.md)** — M1 *Loop-readiness* (loop scaffolding opt-in, `/groundrules:realize`, triage convention; ADR 0027) and M2 *Multi-harness support*. They enter "In progress" here, and get a PRD/ADR, only when actively tackled.
 
@@ -33,6 +32,8 @@ Raw ideas, captured before they're lost. Not yet vetted. Each gets triaged later
 - [ ] ...
 
 ## Recently done
+
+- [x] **`adopt` → opt-in `docs/ADOPTION-LOG.md`** (idea #3 — reframed during PRD: a **feedback log**, not a structural audit). Records what was here + what groundrules did (with *why*) + a Remarks section to annotate and share back to improve the plugin. New `ADOPTION-LOG.md.tpl`, Phase 5b in `adopt`, README row. PRD `docs/prd/adoption-log.md`. **Fresh-subagent E2E** (fresh + resume): self-contained + honest log, resume-safe (`.new`, original intact); caught 2 instruction gaps (generatedFiles destination, `.new`-branch recording), fixed — under `[Unreleased]` (2026-06-14)
 
 - [x] **Content-aware CLAUDE.md tailoring — lean template retired** ([ADR 0029](docs/decisions/0029-content-aware-claude-md-tailoring.md), supersedes 0009). Rewrote `bootstrap` Phase 5 (read global content → omit only covered sections, bias-to-keep, omission list + veto) + `adopt` (content-aware + gap-driven free-zone additions); deleted `CLAUDE.lean.md.tpl`; 0009 superseded-header + index; meta `CLAUDE.md` fixed. **Fresh-subagent E2E** on no/thin/rich globals: all correct (thin → no holes; rich → 5 sections omitted, signature kept, `## Don't` kept) + caught 4 instruction frictions (dead generic-Don'ts clause, coverage threshold, orphan parent heading, leading-newline), all fixed — under `[Unreleased]` (2026-06-14)
 

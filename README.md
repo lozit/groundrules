@@ -121,6 +121,7 @@ The flow: `intake/` (raw, untouched) → `docs/` (synthesized, living) → `docs
 | `docs/PROCESS.md` | Phased way of working | The working-method contract: phases, validation gates, interview style, where artifacts live. Claude follows it and never skips a phase. |
 | `RELEASE.md` | Project deploys somewhere | Operational release runbook: TL;DR commands, environments table, pre-release checklist, secrets, rollback, known fragilities. |
 | `docs/AGENT-EVALS.md` | Long agent-driven project | A log of the **agent's own** failure modes here (recurring mistakes, hallucinations, drifts) + the guard added for each. Distinct from `LEARNINGS.md` (project/domain). Fed by the checkpoint-capture ritual (before a push/release). |
+| `docs/ADOPTION-LOG.md` | `adopt`, opt-in | A dated, frozen record of the adopt run — what was here, what groundrules did (and why) — with a **Remarks** section to annotate and **share back to improve groundrules**. A field → plugin feedback channel. |
 
 Every generated file carries a `<!-- generated-by: groundrules -->` signature, which enables **resume mode**: re-run a skill on a non-empty folder with no overwrite risk.
 
