@@ -38,7 +38,7 @@ No ADR needed for trivial choices or implementation details.
 | [0006](0006-optional-specialized-docs.md) | Optional specialized docs in bootstrap (DATA_MODEL, SECURITY, DESIGN_SYSTEM, ROADMAP, I18N) | Accepted | 2026-06-03 |
 | [0007](0007-denumber-entry-docs.md) | Drop the numeric prefix on entry docs (VISION / INTENT) | Accepted | 2026-06-03 |
 | [0008](0008-adopt-brownfield-projects.md) | Adopt existing (brownfield) projects via a dedicated `/starter-kit:adopt` skill | Accepted | 2026-06-03 |
-| [0009](0009-global-claude-md-awareness.md) | Global/enterprise CLAUDE.md awareness + lean project CLAUDE.md | Accepted | 2026-06-03 |
+| [0009](0009-global-claude-md-awareness.md) | Global/enterprise CLAUDE.md awareness + lean project CLAUDE.md | Superseded by 0029 | 2026-06-03 |
 | [0010](0010-managed-project-claude-md-deference.md) | Defer to an existing tool-managed project CLAUDE.md (no generation, opt-in docs pointer) | Accepted | 2026-06-03 |
 | [0011](0011-detect-no-ai-attribution-policy.md) | Detect a "no AI attribution" policy and adapt suggested commits | Accepted | 2026-06-03 |
 | [0012](0012-english-only.md) | English-only (drop bilingual FR/EN templates) | Accepted | 2026-06-04 |
@@ -58,3 +58,4 @@ No ADR needed for trivial choices or implementation details.
 | [0026](0026-posture-and-per-feature-prd.md) | Posture section + per-feature PRD (superpowers-aware) | Accepted | 2026-06-13 |
 | [0027](0027-reflection-realization-interactive-loop.md) | Reflection/realization phases; interactive/loop regimes; loop-readiness direction | Accepted | 2026-06-13 |
 | [0028](0028-git-workflow-conventions.md) | Git workflow: neutral branching, boundary commits, AI attribution-unless-forbidden | Accepted | 2026-06-13 |
+| [0029](0029-content-aware-claude-md-tailoring.md) | Content-aware CLAUDE.md tailoring; retire the lean template (supersedes 0009) | Accepted | 2026-06-14 |

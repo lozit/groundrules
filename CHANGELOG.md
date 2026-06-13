@@ -12,7 +12,14 @@ versions follow [Semantic Versioning](https://semver.org/).
 - **New skill `/groundrules:vision`** — builds or refreshes `docs/VISION.md` through a **guided interview** (goal · users · constraints · V1 non-goals · acceptance criteria), reusing `docs-VISION.md.tpl`. **Create-if-absent / refine-if-present** (section-by-section, never silent overwrite). On-demand: for adopt/brownfield projects with no vision, or to deepen a thin one — **complements `bootstrap`** (no refactor of it). Borrows superpowers' interview discipline (2-3 framings + a recommendation, decompose over-scope, a pre-write self-review) while keeping groundrules' propose-don't-impose register. Spec'd in `docs/prd/vision-skill.md`. See ADR 0027 (method) + `docs/LEARNINGS.md` (borrowed patterns).
 
 ### Changed
+- **Content-aware CLAUDE.md tailoring — `CLAUDE.lean.md.tpl` retired** (ADR 0029, supersedes 0009). The project CLAUDE.md no longer defers to a global by a *boolean of presence* (which left **holes** when the global was thin). Now there's **one** template (`CLAUDE.md.tpl`): `bootstrap`/`adopt` **read the global's content** and omit **only the sections it actually covers** (conservative set: Commits · Permissions · Verifying · Claude Code workflow · Git workflow; `## Don't` always kept), always keeping groundrules' signature conventions (Posture, capture ritual, when-to-document, repo-is-memory, living docs) — bias-to-keep, with a **user-facing omission list + veto**. `adopt`'s additions to an existing managed CLAUDE.md are now **gap-driven** (only what's missing). A thin global → output ≈ full; a rich global → ≈ the old lean; no holes.
 - **Superpowers research captured** (`docs/LEARNINGS.md`) — borrowable patterns (two-stage ordered verifier, distrust-the-report, evidence-before-claim gate, no-placeholder acceptance bar, maker four-status protocol; CSO authoring rule; interview principles) and explicitly-rejected ones (mandatory TDD, coercive gates, always-on bootstrap — conflict with handoff-not-gospel / no-runtime). `docs/ROADMAP.md` M1 gains a "verifier/maker contract" design note; M3 (cross-project dashboard, companion-tool) added.
+
+### Removed
+- **`skills/bootstrap/templates/CLAUDE.lean.md.tpl`** — replaced by content-aware tailoring of the single `CLAUDE.md.tpl` (see Changed / ADR 0029).
+
+### Decisions
+- ADR `0029-content-aware-claude-md-tailoring.md` — retire the lean template; tailor one template against the global's *content* (omit only what it covers, bias-to-keep, omission list + veto). **Supersedes ADR 0009** (presence-based lean), the disciplined way (header on 0009, index updated). Template-over-code (ADR 0002) preserved — the tailoring lives in SKILL instructions, not a template engine.
 
 ## [1.4.0]
 

@@ -27,7 +27,7 @@ You will bootstrap a Claude Code project in the **current working directory**. F
    - optional specialized docs: `docs/DATA_MODEL.md`, `docs/SECURITY.md`, `docs/DESIGN_SYSTEM.md`, `docs/ROADMAP.md`, `docs/I18N.md`, `docs/PROCESS.md`, `RELEASE.md`, `docs/AGENT-EVALS.md`
    - **`PLAN.md` equivalents** (planning aliases, **same altitude**) — detection is **case-insensitive** and **nested** (up to ~3 levels, excluding `node_modules`/`.git`): `plan.md`, `TODO.md`, `todo.md`, `todos.md`, `TASKS.md`, `BACKLOG.md`, including under a path (e.g. `docs/gtd/todos.md`). There may be **several** — report all of them. **Case guard**: **never** generate `PLAN.md` if an equivalent name exists in a different case (collision on a case-sensitive FS).
    - `docs/superpowers/plans/` (superpowers **per-feature** plans — **different altitude**, *not* a `PLAN.md` alias)
-   - **Global / enterprise CLAUDE.md** (loaded **in addition to** the project CLAUDE.md — NEVER overwrite it): `~/.claude/CLAUDE.md`, and the managed policy if present (`/Library/Application Support/ClaudeCode/CLAUDE.md` on macOS, `/etc/claude-code/CLAUDE.md` on Linux). If at least one exists → `HAS_GLOBAL_CLAUDE=true`.
+   - **Global / enterprise CLAUDE.md** (loaded **in addition to** the project CLAUDE.md — NEVER overwrite it): `~/.claude/CLAUDE.md`, and the managed policy if present (`/Library/Application Support/ClaudeCode/CLAUDE.md` on macOS, `/etc/claude-code/CLAUDE.md` on Linux). If at least one exists → `HAS_GLOBAL_CLAUDE=true`, **and read its content** (it's short — our own <200-line doctrine) into `GLOBAL_CLAUDE_CONTENT` for the **content-aware tailoring** in Phase 5 (which sections it already covers).
    - **AI attribution policy**: read (**read-only**) the detected CLAUDE.md files (project + global) for a rule **forbidding** AI attribution — patterns (case-insensitive): `no AI attribution`, `Co-Authored-By`, `Generated with Claude`, `do not add ... attribution`. If found → `NO_AI_ATTRIBUTION=true`. (Read-only: never modify these files.)
    - `package.json` (→ Node stack), `pyproject.toml`/`requirements.txt` (→ Python), `Cargo.toml` (→ Rust), `go.mod` (→ Go)
 3. For each file you might create, classify it:
@@ -169,7 +169,7 @@ For each file to create:
    - `{{DATE}}` — today's date in ISO (YYYY-MM-DD)
    - `{{HAS_PLAN}}`, `{{HAS_ARCHITECTURE}}`, `{{HAS_GLOSSARY}}`, `{{HAS_CHANGELOG}}` — `true`/`false`
    - `{{HAS_DATA_MODEL}}`, `{{HAS_SECURITY}}`, `{{HAS_DESIGN_SYSTEM}}`, `{{HAS_ROADMAP}}`, `{{HAS_I18N}}`, `{{HAS_PROCESS}}`, `{{HAS_RELEASE}}`, `{{HAS_AGENT_EVALS}}` — `true`/`false` (specialized docs)
-   - `{{GLOBAL_CLAUDE_NOTE}}` — deference note to the global CLAUDE.md (see "CLAUDE.md template selection"), or **empty string** if no global detected
+   - `{{GLOBAL_CLAUDE_NOTE}}` — deference note to the global CLAUDE.md **+ the list of omitted sections** (see "CLAUDE.md generation"), or **empty string** if no global detected
    - `{{REMOTE_PROVIDER}}` — `github` / `gitlab` / empty string
    - `{{REMOTE_VISIBILITY}}` — `private` / `public` / empty string
    - `{{CONTENT}}` (intent brief) — raw brief content
@@ -178,14 +178,20 @@ For each file to create:
 3. **Plain text substitution**: no template engine, just `replace` on each placeholder.
 4. Write the file to its destination with the `Write` tool.
 
-### CLAUDE.md template selection (lean if a global is detected)
+### CLAUDE.md generation (content-aware tailoring against the global)
+
+There is **one** template (`CLAUDE.md.tpl`). When a global CLAUDE.md exists, a "lean" result **emerges** from omitting only the sections the global *actually* covers — not from a separate template (cf. ADR superseding 0009).
 
 - **Priority case — `CLAUDE.md` project file already present** (resume mode, foreign file without a signature, often tool-managed by an enterprise manager like `claude-manager`): **generate nothing**, never overwrite. Detect a **free zone** (marker `END MANAGED` / `Project-Specific Notes` / "below this line is yours") and offer (opt-in) to **append** a pointer to the groundrules docs (`docs/VISION.md`, `docs/decisions/`, `docs/LEARNINGS.md`, `PLAN.md`) — free zone **only**, never the managed sections. No free zone → skip. (Detailed logic: see `/groundrules:adopt` § "CLAUDE.md project file already present".)
-- If `HAS_GLOBAL_CLAUDE=false` (and no existing project CLAUDE.md) → use `CLAUDE.md.tpl` and substitute `{{GLOBAL_CLAUDE_NOTE}}` with an **empty string** (removes the placeholder line).
-- If `HAS_GLOBAL_CLAUDE=true` → ask **1 question**: *"A global CLAUDE.md was detected. The project CLAUDE.md should **complement** it, not restate it."*
-  - `Lean (recommended)` → use `CLAUDE.lean.md.tpl` (deference note already built in, generic sections removed).
-  - `Full (with deference note)` → use `CLAUDE.md.tpl` and substitute `{{GLOBAL_CLAUDE_NOTE}}` with:
-    > `\n> **Relationship with the global CLAUDE.md**: this file is loaded **in addition to** the global CLAUDE.md (\`~/.claude/CLAUDE.md\` + enterprise policy) — it does not replace it. Do not restate its rules; **on conflict, the global/enterprise rule wins.**`
+- **No global** (`HAS_GLOBAL_CLAUDE=false`, no existing project CLAUDE.md) → use `CLAUDE.md.tpl` **as-is, all sections**, and substitute `{{GLOBAL_CLAUDE_NOTE}}` with an **empty string**.
+- **Global detected** (`HAS_GLOBAL_CLAUDE=true`) → **tailor `CLAUDE.md.tpl` against `GLOBAL_CLAUDE_CONTENT`** (the global's actual content you read during detection — judge *coverage*, not mere presence):
+  1. **Collapsible sections** — omit a section **only if the global covers that topic's *primary* directive** (not necessarily every line; partial coverage → **bias to keep**): `### Commits` · `### Permissions and settings` · `## Verifying the work` · `## Claude Code workflow` · `## Git workflow`. `## Don't` is **always kept** (it carries the signature "the repo is the only memory" line).
+  2. **Never omit groundrules' signature conventions** even if the global mentions them — Session-start order · Capture-at-checkpoints · When-to-document routing · the-repo-is-the-only-memory · living docs · Posture; nor the project-specific — Description · Setup/Build/Test · Key files · Code/`{{STACK}}` · Updating-this-file · Tech stack · Notes. **Bias to keep on any doubt.**
+  3. **Drop** each covered collapsible section entirely (no per-section pointer). If dropping a child `###` empties its parent `##` heading, drop the parent too; if a kept child remains (e.g. `### Code` under `## Conventions`), keep the parent.
+  4. Substitute `{{GLOBAL_CLAUDE_NOTE}}` with the deference note + the omission list (label each omitted topic by its **section title**, no `#`):
+     > `> **Relationship with the global CLAUDE.md**: this file is loaded **in addition to** the global (\`~/.claude/CLAUDE.md\` + enterprise policy) — on conflict the global/enterprise rule wins. **Omitted here (your global already covers them):** <comma-separated section titles, or "none">.`
+  5. **Recap to the user**: list what you omitted and why; they can **veto** (keep any section).
+- Net effect: a **thin** global → output ≈ the full template (minus only what it truly covers); a **rich** global → output approaches the old lean. The result **scales with the global's real content**, with no holes.
 
 ### File mapping (always created)
 

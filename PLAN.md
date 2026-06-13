@@ -11,8 +11,6 @@ This file differs from the long-term roadmap: it describes what is happening **n
 
 ## Up next
 
-- [ ] **Content-aware CLAUDE.md tailoring (retire the lean template)** — spec'd in [`docs/prd/content-aware-claude-md-tailoring.md`](docs/prd/content-aware-claude-md-tailoring.md). Reverses ADR 0009 (a new ADR will supersede it). **Blocked on**: confirm the collapsible-section list (PRD open question) before building. *(non-trivial build → has a PRD)*
-
 - [ ] **`adopt` → analysis log** (idea #3, triaged 2026-06-13). When adopting, propose an analysis of what the project has + structural gaps/improvements. *(enhancement to `adopt`; needs a PRD; distinguish from `apply-best-practices` — internal structural audit vs. external best-practice recommendations.)*
 
 > **Long-term milestones moved to [`docs/ROADMAP.md`](docs/ROADMAP.md)** — M1 *Loop-readiness* (loop scaffolding opt-in, `/groundrules:realize`, triage convention; ADR 0027) and M2 *Multi-harness support*. They enter "In progress" here, and get a PRD/ADR, only when actively tackled.
@@ -35,6 +33,8 @@ Raw ideas, captured before they're lost. Not yet vetted. Each gets triaged later
 - [ ] ...
 
 ## Recently done
+
+- [x] **Content-aware CLAUDE.md tailoring — lean template retired** ([ADR 0029](docs/decisions/0029-content-aware-claude-md-tailoring.md), supersedes 0009). Rewrote `bootstrap` Phase 5 (read global content → omit only covered sections, bias-to-keep, omission list + veto) + `adopt` (content-aware + gap-driven free-zone additions); deleted `CLAUDE.lean.md.tpl`; 0009 superseded-header + index; meta `CLAUDE.md` fixed. **Fresh-subagent E2E** on no/thin/rich globals: all correct (thin → no holes; rich → 5 sections omitted, signature kept, `## Don't` kept) + caught 4 instruction frictions (dead generic-Don'ts clause, coverage threshold, orphan parent heading, leading-newline), all fixed — under `[Unreleased]` (2026-06-14)
 
 - [x] **New skill `/groundrules:vision`** (idea #2) — guided VISION interview, create-if-absent / refine-if-present; PRD `docs/prd/vision-skill.md`; README workflow (skill↔README drift 12/12) + CHANGELOG. **Fresh-subagent E2E** (superpowers #10) on no-vision + thin-vision fixtures: both flows correct (create → clean VISION, name from README H1; refine → no overwrite, `.new`) and it **caught a real bug** (Phase 3 rebuild contradicted Phase 1 edit-in-place on refine) + 3 frictions, all fixed. Captured the authoring lesson in LEARNINGS — under `[Unreleased]` (2026-06-13)
 

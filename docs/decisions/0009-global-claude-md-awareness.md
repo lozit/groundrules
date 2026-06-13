@@ -2,7 +2,7 @@
 # 0009 — Global / enterprise CLAUDE.md awareness + lean project CLAUDE.md
 
 **Date**: 2026-06-03
-**Status**: Accepted
+**Status**: **Superseded by [ADR 0029](0029-content-aware-claude-md-tailoring.md)** (2026-06-14) — the lean template and existence-only detection are replaced by content-aware tailoring of a single template. The global-awareness *intent* of this ADR stands; its *mechanism* (a separate lean template, presence-based) does not.
 
 ## Context
 

@@ -1,6 +1,6 @@
 # CLAUDE.md — groundrules (meta)
 
-**Important**: this file guides Claude when it **develops the groundrules plugin** (formerly starter-kit, renamed at V1.0.0 — ADR 0017). It is **not copied** into user projects — `skills/bootstrap/templates/CLAUDE.md.tpl` (and `CLAUDE.lean.md.tpl`) serve that purpose.
+**Important**: this file guides Claude when it **develops the groundrules plugin** (formerly starter-kit, renamed at V1.0.0 — ADR 0017). It is **not copied** into user projects — `skills/bootstrap/templates/CLAUDE.md.tpl` (content-aware tailored against a global, cf. ADR 0029) serves that purpose.
 
 ## Nature of the repo: two disjoint layers
 

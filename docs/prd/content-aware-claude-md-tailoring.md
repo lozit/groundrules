@@ -97,12 +97,16 @@ What could go wrong, and the mitigation.
 
 ## Open questions
 
-<!-- Anything still ambiguous — resolve before building. Delete when empty. -->
-- **Exact collapsible-section list.** Candidate (cross-cutting, safe to defer to a covering
-  global): Commits · Git workflow · Verifying the work · generic Don'ts · Claude Code workflow
-  (tooling). **Always keep** (project-specific): Session start · Capture at checkpoints ·
-  Setup/Build/Test · Key files · Code/{{STACK}} · Posture · When-to-document · repo-is-only-memory ·
-  living docs · Updating this file · Tech stack · Notes. → confirm before step 2.
-- Omission style: **drop the section entirely + list it in the deference note** (most economical)
-  vs. **collapse each to a one-line pointer under its heading** (more discoverable). Leaning to the
-  former.
+<!-- Resolved 2026-06-14 before building. -->
+- **Collapsible-section list** → **Resolved: conservative** (refined after E2E). Collapse-if-the-global-covers-its-*primary*-directive:
+  `### Commits` · `## Git workflow` · `## Verifying the work` · `## Claude Code workflow` ·
+  `### Permissions and settings`. **`## Don't` is always kept** (it carries the signature "repo is
+  the only memory" line — the E2E showed a generic-Don'ts omission could never fire, so it was
+  dropped from the collapsible set). **Always keep** (even if the global mentions them):
+  groundrules' signature conventions — Session-start order · Capture-at-checkpoints ·
+  When-to-document routing · repo-is-only-memory · living docs · Posture — plus the project-specific
+  (Description · Setup/Build/Test · Key files · Code/`{{STACK}}` · Updating-this-file · Tech stack ·
+  Notes). Bias-to-keep on any doubt; orphaned parent headings dropped, parents with kept children kept.
+- **Omission style** → **Resolved: drop the section + list omitted topics in the deference note**
+  (`{{GLOBAL_CLAUDE_NOTE}}` carries "Omitted — your global covers them: …"). Most economical and
+  auditable; recap to the user, who can veto.

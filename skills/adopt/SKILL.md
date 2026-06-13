@@ -45,7 +45,7 @@ If a `CLAUDE.md` already exists at the root (without a groundrules/starter-kit s
 
 1. **Never generate or overwrite it.** There can't be two CLAUDE.md; theirs is authoritative.
 2. **Detect whether it's tool-managed**: look for markers like `Auto-managed`, `Do not edit`, an enterprise manager name (e.g. `claude-manager`), managed-section fences, or an explicit **free zone** (marker like `END MANAGED` / `below this line is yours` / a `## Project-Specific Notes` heading).
-3. **Discoverability pointer (opt-in)**: if a free zone is detected, offer (`AskUserQuestion`) to **append** (via `Edit`, append only) a short pointer to the groundrules docs, so Claude finds them. **NEVER write into the managed sections.** Suggested content:
+3. **Gap-driven additions (opt-in, free zone only)**: if a free zone is detected, **read the existing file** and identify which groundrules **signature conventions are missing** from it — then offer (`AskUserQuestion`, multiSelect) to **append only the missing ones** (via `Edit`, append-only). Candidates: the **docs pointer** (below); the **capture-at-checkpoints** ritual; the **when-to-document** routing (ADR / LEARNINGS / PLAN); **the repo is the only memory**; **Posture** (push back / stay reversible). **Never restate what's already there; NEVER write into the managed sections.** The docs pointer:
 
    ```
    ### Project docs (groundrules)
@@ -87,7 +87,7 @@ Reuse `bootstrap`'s intent logic (Phase 3) for the synthesis.
 
 ### Call 3a — Core docs to generate (multiSelect, missing only)
 Pre-check based on the scan. Only offer what **doesn't already exist**:
-- `CLAUDE.md` **only if absent** (if it already exists → see "CLAUDE.md project file already present", no generation). If absent and **`HAS_GLOBAL_CLAUDE=true`**: default to the **lean** variant (`CLAUDE.lean.md.tpl`) that complements the global without restating it; otherwise the full variant. Same logic as `bootstrap` Phase 5 "CLAUDE.md template selection" (placeholder `{{GLOBAL_CLAUDE_NOTE}}`).
+- `CLAUDE.md` **only if absent** (if it already exists → see "CLAUDE.md project file already present", no generation). If absent and **`HAS_GLOBAL_CLAUDE=true`**: generate `CLAUDE.md.tpl` with **content-aware tailoring** — read the global's content and omit only the sections it actually covers, keeping groundrules' signature conventions (deference note + omission list via `{{GLOBAL_CLAUDE_NOTE}}`). Same logic as `bootstrap` Phase 5 "CLAUDE.md generation".
 - `docs/decisions/` (ADR) + `docs/LEARNINGS.md`
 - `intake/` + `docs/media/` (explanatory READMEs)
 
