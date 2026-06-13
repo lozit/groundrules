@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.4.0 -->
+<!-- generated-by: groundrules v1.5.0 -->
 # 0027 — Reflection vs realization phases; interactive vs loop regimes
 
 **Date**: 2026-06-13

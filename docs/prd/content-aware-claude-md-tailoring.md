@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.4.0 -->
+<!-- generated-by: groundrules v1.5.0 -->
 # PRD — Content-aware CLAUDE.md tailoring (retire the lean template)
 
 > Product Requirements Document for a single feature. Written **before** building, so the agent

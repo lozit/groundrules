@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.4.0 -->
+<!-- generated-by: groundrules v1.5.0 -->
 # 0022 — Session-close ritual + optional agent-evals log
 
 **Date**: 2026-06-08

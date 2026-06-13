@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.4.0 -->
+<!-- generated-by: groundrules v1.5.0 -->
 # Glossary — {{PROJECT_NAME}}
 
 Domain vocabulary for the project. One entry per term, alphabetical order.

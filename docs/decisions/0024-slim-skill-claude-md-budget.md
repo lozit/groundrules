@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.4.0 -->
+<!-- generated-by: groundrules v1.5.0 -->
 # 0024 — `/groundrules:slim` — operationalize the CLAUDE.md budget
 
 **Date**: 2026-06-08

@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.4.0 -->
+<!-- generated-by: groundrules v1.5.0 -->
 # Changelog
 
 All notable changes to this project are documented in this file.
@@ -7,6 +7,8 @@ Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
+
+## [1.5.0]
 
 ### Added
 - **`adopt` → opt-in `docs/ADOPTION-LOG.md`** — at the end of an adopt run, offer to write a dated, frozen **record of the run**: what was here, what groundrules did (and *why* — skips/deferrals included), plus a **Remarks** section to annotate. Purpose: a **field → plugin feedback channel** — share the annotated log back to improve groundrules. Built from the scan + `.groundrules.json` (no new data, no network). New template `ADOPTION-LOG.md.tpl`. Distinct from `AGENT-EVALS` (agent behaviour) and `apply-best-practices` (external recs). Spec'd in `docs/prd/adoption-log.md`.
@@ -21,6 +23,7 @@ versions follow [Semantic Versioning](https://semver.org/).
 
 ### Decisions
 - ADR `0029-content-aware-claude-md-tailoring.md` — retire the lean template; tailor one template against the global's *content* (omit only what it covers, bias-to-keep, omission list + veto). **Supersedes ADR 0009** (presence-based lean), the disciplined way (header on 0009, index updated). Template-over-code (ADR 0002) preserved — the tailoring lives in SKILL instructions, not a template engine.
+- Plugin version bumped 1.4.0 → 1.5.0 across manifests, signatures (74 files), and `.groundrules.json` (+ migration entry). Shipped as boundary commits (ADR 0028) with consistent `Co-Authored-By` attribution.
 
 ## [1.4.0]
 

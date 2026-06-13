@@ -1,5 +1,5 @@
 {
-  "groundrulesVersion": "1.4.0",
+  "groundrulesVersion": "1.5.0",
   "bootstrappedAt": "2026-05-11",
   "bootstrappedWithVersion": "0.1.0",
   "migrations": [
@@ -110,6 +110,12 @@
       "to": "1.4.0",
       "at": "2026-06-13",
       "note": "V1.4 per-feature PRD + Posture (ADR 0026); reflection/realization method + interactive/loop regimes + loop-readiness roadmap (ADR 0027); git workflow conventions: neutral branching, boundary commits, AI attribution-unless-forbidden (ADR 0028); new /groundrules:idea skill; checkpoint surface-drift bucket; superpowers interop sharpened (verified facts in LEARNINGS); README research/established-practices/superpowers sections; docs/ROADMAP.md created"
+    },
+    {
+      "from": "1.4.0",
+      "to": "1.5.0",
+      "at": "2026-06-14",
+      "note": "V1.5 new /groundrules:vision skill (guided VISION interview, create-if-absent/refine-in-place); content-aware CLAUDE.md tailoring retires CLAUDE.lean.md.tpl (ADR 0029 supersedes 0009 — omit only global-covered sections, bias-to-keep, omission list + veto; adopt additions gap-driven); adopt opt-in docs/ADOPTION-LOG.md (field->plugin feedback channel); superpowers research captured in LEARNINGS + ROADMAP M1 verifier/maker contract + M3 dashboard. Features validated by fresh-subagent E2Es."
     }
   ],
   "answers": {
