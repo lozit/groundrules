@@ -42,11 +42,17 @@ The agent can't perceive "session end" — so capture at boundaries it *can* see
 
 > Put here **only** what differs from or refines the global: code conventions specific to this repo, in-house patterns, known pitfalls. Cross-cutting rules (git, commits, tools, verification) live in the global CLAUDE.md.
 
+## Posture
+
+- **Push back**, don't be sycophantic: challenge off-strategy / wrong / inconsistent-with-past-decisions plans, flag tradeoffs I missed, ask before guessing.
+- **Stay reversible**: confirm before any hard-to-undo action (deletion, migration, mass rewrite, destructive command); commit often + `/rewind` are the nets.
+
 ## When to document
 
 - **ADR** (`docs/decisions/`): any structural decision → copy `0000-template.md`.
 - **LEARNINGS** (`docs/LEARNINGS.md`): any non-trivial learning, dated entry at the top.
 - **PLAN.md**: check off done, add emergent tasks, note blockers.
+- **PRD before a non-trivial feature** (`/groundrules:prd`, or your superpowers spec if used) → `docs/prd/<feature>.md`, then build in plan mode.
 - **The repo is the only memory**: project knowledge goes into the repo docs (`LEARNINGS`, `decisions/`, `PLAN.md`), never into machine-local agent memory/plans; no `~/.claude/*` references in repo docs.
 - **Living docs**: every generated doc (`docs/VISION.md`, `docs/ARCHITECTURE.md`, `docs/DATA_MODEL.md`, `README.md`, `CHANGELOG.md`…) must be kept in sync **in the same change** that makes it stale — updating it is part of the task, not a follow-up.
 - **Map, not territory**: this file is always-loaded — link to docs and read them on demand; don't paste doc content here (oversized context degrades the model and busts the cache). Doc-search/RAG tools are for large *external* corpora only; your own repo is read natively.

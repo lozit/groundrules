@@ -7,6 +7,12 @@ One entry per learning. Keep the format simple: title, context, lesson.
 
 ---
 
+## superpowers creates specs+plans (not "PRDs"); defer realization, add the PRD-altitude above
+
+**Why**: 2026-06-13, verified against the `obra/superpowers` source (not a summary). It never uses the term "PRD". It produces two artifacts: a **spec / design doc** at `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md` (technical: data model, server/frontend changes, an `## Out of Scope` section) and an **implementation plan** at `docs/superpowers/plans/YYYY-MM-DD-<feature>.md` (bite-sized TDD tasks with real code). It **imposes TDD hard** ("The Iron Law: NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST", RED→GREEN→REFACTOR) and a two-stage **verifier** (spec-compliance + code-quality reviewer subagents). Confirmed the same layout on a real project. The specs cover context+decisions+design+scope but have **no risks, no measurable success criteria, no acceptance criteria** — that altitude is genuinely empty.
+
+**When to apply**: whenever reasoning about the superpowers interop (the `/groundrules:prd` deferral, the CLAUDE.md interop note, ROADMAP M1). Defer **the whole realization pipeline** (spec→plan→TDD→verify) to superpowers when present — not just the PRD; groundrules' own loop scaffolding (M1) is for the *non-superpowers* case. groundrules adds value **above** (a PRD: problem framing, success metrics, **risks**) and **around** (durable memory: ADR/LEARNINGS/VISION — the comprehension-debt antidote superpowers lacks), with zero overlap on the design/plan superpowers owns. Detection caveat: superpowers lets the user **override the spec/plan location**, which defeats path-based detection (`docs/superpowers/plans|specs/`) — so on doubt, `/groundrules:prd` should **ask** rather than presume.
+
 ## Validate on a fresh bootstrap, not only the dogfood
 
 **Why**: 2026-06-08, the first fresh-project E2E (a kitchen-sink bootstrap in `/tmp`, all docs enabled) immediately caught a `verify-bootstrap` **false positive on `.gitignore`** ("signature missing") that the dogfood **structurally could not reveal**: the dogfood's `.gitignore`, `CLAUDE.md` and `README.md` are *foreign* files (in `skippedFiles`), so verify never checks them — yet a real bootstrap puts `.gitignore` in `generatedFiles`. Every real user would have hit the spurious warning; the dogfood was blind to it.
