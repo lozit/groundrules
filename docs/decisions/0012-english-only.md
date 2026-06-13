@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.3.3 -->
+<!-- generated-by: groundrules v1.4.0 -->
 # 0012 — English-only (drop bilingual FR/EN templates)
 
 **Date**: 2026-06-04

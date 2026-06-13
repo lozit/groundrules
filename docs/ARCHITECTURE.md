@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.3.3 -->
+<!-- generated-by: groundrules v1.4.0 -->
 # Architecture — groundrules
 
 **Living** snapshot of the current architecture. Updated as the structure evolves.

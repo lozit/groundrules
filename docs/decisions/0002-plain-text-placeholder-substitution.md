@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.3.3 -->
+<!-- generated-by: groundrules v1.4.0 -->
 # 0002 — Plain text placeholder substitution, no templating engine
 
 **Date**: 2026-05-11

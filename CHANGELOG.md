@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.3.3 -->
+<!-- generated-by: groundrules v1.4.0 -->
 # Changelog
 
 All notable changes to this project are documented in this file.
@@ -7,6 +7,8 @@ Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
+
+## [1.4.0]
 
 ### Added
 - **`## Posture` in the generated `CLAUDE.md`** (full + lean) — tells the agent to **push back** (challenge off-strategy/wrong/inconsistent plans, surface tradeoffs, ask before guessing, no sycophancy) and **stay reversible** (confirm before hard-to-undo actions; lean on git + `/rewind`). Harvested from `intake/principles-claude-code.md`. See ADR 0026.
@@ -27,6 +29,7 @@ versions follow [Semantic Versioning](https://semver.org/).
 - ADR `0026-posture-and-per-feature-prd.md` — the two additions, the superpowers-aware deferral, and why the reversibility *tooling* (deny-list / PreToolUse hook) is a pointer, not generated (ADR 0025 consistency).
 - ADR `0028-git-workflow-conventions.md` — git practices for the repo: **neutral branching** (trunk-based dogfood), **boundary commits** (completed chunks + Conventional Commits + tag at release, not a mega-commit per release nor per-trivial-change; message references the CHANGELOG), and **AI attribution by default deferring to any forbidding rule** (global CLAUDE.md / `policies.noAiAttribution`, à la ADR 0011). No history rewrite. Consolidates the 3 git-workflow points incl. point 1 (branching), previously only in templates/CHANGELOG.
 - ADR `0027-reflection-realization-interactive-loop.md` — the working-method + product model: **reflection vs realization** phases; the reflection doc as a **method-agnostic contract** consumed by an **interactive _or_ loop** realization regime; the **bidirectional frontier** crossed on purpose (plan mode = native enforcement on the interactive side; a loop hitting a decision re-enters reflection); **PRD (build) vs ADR (decision)** both as reflection outputs; the **"could-act ≠ cleared-to-act" guard** as the back pressure of reflection (and inside a loop's verifier). Sets **loop-readiness** as a product direction (ADR 0025-consistent: no runtime hook; convention + on-demand skill), implementation deferred to PRDs. Validates the 2026-06-13 AGENT-EVALS guard entry.
+- Plugin version bumped 1.3.3 → 1.4.0 across manifests, signatures (71 files), and `.groundrules.json` (+ migration entry). First release under the **boundary-commit** convention (ADR 0028): the work shipped as 9 thematic commits with consistent `Co-Authored-By` attribution.
 
 ## [1.3.3]
 

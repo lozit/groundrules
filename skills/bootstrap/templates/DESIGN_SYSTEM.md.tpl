@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.3.3 -->
+<!-- generated-by: groundrules v1.4.0 -->
 # Design System — {{PROJECT_NAME}}
 
 **Living** reference of the visual identity and UI components.
