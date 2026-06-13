@@ -13,6 +13,12 @@ This file differs from the long-term roadmap: it describes what is happening **n
 
 - [ ] ...
 
+## Ideas — to triage
+
+Raw ideas, captured before they're lost (e.g. via `/groundrules:idea`). Not yet vetted. Each gets triaged later → a **decision** (ADR), a **build** (PRD), a **milestone** (ROADMAP), or dropped.
+
+- [ ] ...
+
 ## Waiting / blocked
 
 - [ ] ...
