@@ -29,6 +29,7 @@ One grouped `AskUserQuestion` (multiSelect for "what happened"), then drill into
 1. **Decided** anything structural (tech, pattern, tradeoff, naming…)? → an **ADR**
 2. **Learned** something that changes how to work here — including a **blocker that cost 30+ min** and its fix? → `docs/LEARNINGS.md`
 3. **Caught the agent** repeating a mistake, fabricating a fact/API, or drifting from an instruction? → `docs/AGENT-EVALS.md`
+4. **Shipped a user-facing surface** — a new command, a public output (file/folder), or a config option — that `README.md` or the relevant doc doesn't yet describe? → **sync the doc now** (this is the one bucket that *fixes a doc* rather than capturing a note).
 
 If the user says "nothing for this one", skip that bucket. Capturing nothing is a valid outcome — don't manufacture entries.
 
@@ -62,12 +63,16 @@ If the file exists, prepend a dated entry:
 
 If `docs/AGENT-EVALS.md` is **absent** (it's an optional doc): offer to create it from `${CLAUDE_PLUGIN_ROOT}/skills/bootstrap/templates/AGENT-EVALS.md.tpl` (substitute `{{PROJECT_NAME}}`), then add the entry. If the user declines, fold the observation into `docs/LEARNINGS.md` instead.
 
+### Shipped a surface → sync the doc in place
+Not a capture but a **sync**: if the work added or changed a user-facing surface (a command, a generated output, a config option) that `README.md` or the relevant doc no longer matches, **edit that doc in this same checkpoint** — keeping docs in sync is part of the work (living docs), not a follow-up. Add the missing item in the doc's **existing voice/section**; never regenerate or flatten the prose.
+
 ## Phase 4 — Recap & next step
 
 Show what was captured:
 - 🧭 ADR `NNNN` created (if any)
 - 📓 LEARNINGS entry added (if any)
 - 🔍 AGENT-EVALS entry added (if any)
+- 📘 README/doc synced (if a surface drift was fixed)
 - ⏭️ nothing captured for the skipped buckets
 
 Then: remind to add a `CHANGELOG.md` `[Unreleased]` line for any notable change, and — if a push/release is next — note that the capture is now done (this is the reliable moment for it).
