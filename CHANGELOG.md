@@ -8,6 +8,9 @@ versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- **New skill `/groundrules:vision`** — builds or refreshes `docs/VISION.md` through a **guided interview** (goal · users · constraints · V1 non-goals · acceptance criteria), reusing `docs-VISION.md.tpl`. **Create-if-absent / refine-if-present** (section-by-section, never silent overwrite). On-demand: for adopt/brownfield projects with no vision, or to deepen a thin one — **complements `bootstrap`** (no refactor of it). Borrows superpowers' interview discipline (2-3 framings + a recommendation, decompose over-scope, a pre-write self-review) while keeping groundrules' propose-don't-impose register. Spec'd in `docs/prd/vision-skill.md`. See ADR 0027 (method) + `docs/LEARNINGS.md` (borrowed patterns).
+
 ### Changed
 - **Superpowers research captured** (`docs/LEARNINGS.md`) — borrowable patterns (two-stage ordered verifier, distrust-the-report, evidence-before-claim gate, no-placeholder acceptance bar, maker four-status protocol; CSO authoring rule; interview principles) and explicitly-rejected ones (mandatory TDD, coercive gates, always-on bootstrap — conflict with handoff-not-gospel / no-runtime). `docs/ROADMAP.md` M1 gains a "verifier/maker contract" design note; M3 (cross-project dashboard, companion-tool) added.
 

@@ -13,7 +13,6 @@ This file differs from the long-term roadmap: it describes what is happening **n
 
 - [ ] **Content-aware CLAUDE.md tailoring (retire the lean template)** — spec'd in [`docs/prd/content-aware-claude-md-tailoring.md`](docs/prd/content-aware-claude-md-tailoring.md). Reverses ADR 0009 (a new ADR will supersede it). **Blocked on**: confirm the collapsible-section list (PRD open question) before building. *(non-trivial build → has a PRD)*
 
-- [ ] **`/groundrules:vision` — interactive VISION builder** (idea #2, triaged 2026-06-13). A slash command (sibling to `/groundrules:prd`) that interviews → assembles a strong `docs/VISION.md`. *(needs a PRD; scope vs. `bootstrap`'s intent capture — likely for post-bootstrap / `adopt` projects without a vision.)* When PRD'ing it, **borrow superpowers' interview principles** (propose 2-3 approaches + a recommendation, decompose over-scope, spec self-review) — see `docs/LEARNINGS.md`.
 - [ ] **`adopt` → analysis log** (idea #3, triaged 2026-06-13). When adopting, propose an analysis of what the project has + structural gaps/improvements. *(enhancement to `adopt`; needs a PRD; distinguish from `apply-best-practices` — internal structural audit vs. external best-practice recommendations.)*
 
 > **Long-term milestones moved to [`docs/ROADMAP.md`](docs/ROADMAP.md)** — M1 *Loop-readiness* (loop scaffolding opt-in, `/groundrules:realize`, triage convention; ADR 0027) and M2 *Multi-harness support*. They enter "In progress" here, and get a PRD/ADR, only when actively tackled.
@@ -36,6 +35,8 @@ Raw ideas, captured before they're lost. Not yet vetted. Each gets triaged later
 - [ ] ...
 
 ## Recently done
+
+- [x] **New skill `/groundrules:vision`** (idea #2) — guided VISION interview, create-if-absent / refine-if-present; PRD `docs/prd/vision-skill.md`; README workflow (skill↔README drift 12/12) + CHANGELOG. **Fresh-subagent E2E** (superpowers #10) on no-vision + thin-vision fixtures: both flows correct (create → clean VISION, name from README H1; refine → no overwrite, `.new`) and it **caught a real bug** (Phase 3 rebuild contradicted Phase 1 edit-in-place on refine) + 3 frictions, all fixed. Captured the authoring lesson in LEARNINGS — under `[Unreleased]` (2026-06-13)
 
 - [x] **Superpowers research (idea #4)** — reviewed its 13 skills + reviewer prompts; borrowable patterns + rejected ones captured in `docs/LEARNINGS.md`; verifier/maker contract design note added to ROADMAP M1; 2 authoring-win ideas spawned (CSO description audit, rationalization-table guards) — under `[Unreleased]` (2026-06-13)
 

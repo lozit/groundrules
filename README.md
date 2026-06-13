@@ -57,7 +57,7 @@ claude --plugin-dir /path/to/groundrules
 
 ## The workflow
 
-Seven skills ordered by a project's lifecycle, plus four cross-cutting skills:
+Seven skills ordered by a project's lifecycle, plus five cross-cutting skills:
 
 1. **`bootstrap`** — *new, empty folder.* Interview + intent capture (paste / file / interview) + from-scratch generation of the whole structure, `git init`, optional remote.
 2. **`adopt`** — *existing (brownfield) project.* Scans, maps existing files to roles, generates only what's missing, backfills `.groundrules.json`. Never overwrites; supports `--dry-run` and a **consolidate** mode that migrates an existing layout onto the canonical paths.
@@ -69,7 +69,8 @@ Seven skills ordered by a project's lifecycle, plus four cross-cutting skills:
 8. **`checkpoint`** — *any time, especially before a push.* Runs the capture ritual (see below).
 9. **`slim`** — *when `CLAUDE.md` approaches 200 lines.* Proposes concrete optimizations to stay under budget — extract a bulky section to `docs/`, move file-type rules to `.claude/rules/` (loaded on demand), compress, de-duplicate. Moves content, never deletes it. (`verify-bootstrap` points here when it flags the size.)
 10. **`prd`** — *before a non-trivial feature.* Writes a per-feature PRD (problem, success criteria, scope, constraints, build plan, risks) to `docs/prd/<feature>.md`, so the agent builds the right thing. **Defers to superpowers** if that plugin is in use (its per-feature spec altitude).
-11. **`idea`** — *a thought you don't want to lose.* Parks a one-line idea in `PLAN.md`'s "Ideas — to triage" inbox, fast. Prospective capture (forward ideas), the complement to `checkpoint`. Triage later → ADR / PRD / ROADMAP / drop.
+11. **`vision`** — *the project needs a strong vision.* Builds or refreshes `docs/VISION.md` through a guided interview (goal, users, constraints, non-goals, acceptance criteria) — for an adopted project with no vision, or to deepen a thin one. Create-if-absent / refine-if-present, never overwrites. Complements `bootstrap`'s intent capture.
+12. **`idea`** — *a thought you don't want to lose.* Parks a one-line idea in `PLAN.md`'s "Ideas — to triage" inbox, fast. Prospective capture (forward ideas), the complement to `checkpoint`. Triage later → ADR / PRD / ROADMAP / drop.
 
 ## Capturing knowledge as you go
 
