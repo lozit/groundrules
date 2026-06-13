@@ -8,6 +8,9 @@ versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+- **Superpowers research captured** (`docs/LEARNINGS.md`) — borrowable patterns (two-stage ordered verifier, distrust-the-report, evidence-before-claim gate, no-placeholder acceptance bar, maker four-status protocol; CSO authoring rule; interview principles) and explicitly-rejected ones (mandatory TDD, coercive gates, always-on bootstrap — conflict with handoff-not-gospel / no-runtime). `docs/ROADMAP.md` M1 gains a "verifier/maker contract" design note; M3 (cross-project dashboard, companion-tool) added.
+
 ## [1.4.0]
 
 ### Added

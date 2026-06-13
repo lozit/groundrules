@@ -43,6 +43,13 @@ implementation deferred to per-feature PRDs.
       - *Open questions*: who authors the acceptance test when there is **no PRD** (a mini-spec at
         `realize` time?); can the `verifier` **reject a too-weak test** (a test that passes trivially
         is no back pressure)?
+- [ ] **Verifier/maker contract** (borrowed from superpowers — see `docs/LEARNINGS.md`). The loop's
+      review uses a **two-stage ordered verifier** (spec-compliance THEN code-quality), framed to
+      **distrust the maker's self-report and re-derive from the diff**, gated by **evidence-before-claim**
+      (no "done" without a fresh verification run this turn). The maker reports a **four-status protocol**
+      (DONE / DONE_WITH_CONCERNS / BLOCKED / NEEDS_CONTEXT) — `BLOCKED` is the backward-crossing trigger.
+      The atomic todo must pass a **"no placeholders"** bar. All as Markdown prompt templates (no runtime);
+      reject superpowers' coercive register and mandatory-TDD (handoff-not-gospel).
 - [ ] **Backward crossing** — triage `blocked.md` (re-decompose / decide→ADR / interactive-fix) as a
       **convention** in the generated `CLAUDE.md` first; promote to a skill only if it earns it.
 - [ ] **Template refinement** — sharpen "plan mode before any non-trivial task" into
@@ -55,6 +62,18 @@ The strategic reason the repo is named `groundrules` (harness-neutral). Keep the
 (Cursor, Codex/OpenAI, Gemini CLI, OpenCode…). Scope to be defined in its own ADR when tackled:
 which harnesses first, how the Markdown SKILL instructions port vs. need per-harness adapters, and
 the per-harness distribution model (there is no universal "plugin").
+
+### M3 — Cross-project dashboard (companion tool)
+
+A tool that scans a folder of projects, detects the groundrules ones (normalized structure +
+`.groundrules.json`), and surfaces: a **project list**, a **documentation view**, and **loop status**
+(which loops run / wait — perhaps a kanban). The loop-status part **depends on M1**.
+
+> **Architecture caveat — this is a different kind of thing.** A dashboard with a UI/kanban is a
+> **runtime app**, which breaks groundrules' nature (pure Markdown + JSON, no runtime — ADR 0002/0025).
+> So M3 is a **separate companion tool/repo**, not a plugin skill. Its own ADR must first settle
+> whether groundrules builds runtime companion tools at all, then the stack and distribution.
+> (Triaged from idea #1, 2026-06-13.)
 
 ---
 

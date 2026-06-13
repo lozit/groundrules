@@ -7,11 +7,14 @@ This file differs from the long-term roadmap: it describes what is happening **n
 
 ## In progress
 
-- [ ] *(nothing active — pick the next item from Up next / Ideas, or release V1.4.0)*
+- [ ] *(nothing active — pick from Up next / Ideas)*
 
 ## Up next
 
 - [ ] **Content-aware CLAUDE.md tailoring (retire the lean template)** — spec'd in [`docs/prd/content-aware-claude-md-tailoring.md`](docs/prd/content-aware-claude-md-tailoring.md). Reverses ADR 0009 (a new ADR will supersede it). **Blocked on**: confirm the collapsible-section list (PRD open question) before building. *(non-trivial build → has a PRD)*
+
+- [ ] **`/groundrules:vision` — interactive VISION builder** (idea #2, triaged 2026-06-13). A slash command (sibling to `/groundrules:prd`) that interviews → assembles a strong `docs/VISION.md`. *(needs a PRD; scope vs. `bootstrap`'s intent capture — likely for post-bootstrap / `adopt` projects without a vision.)* When PRD'ing it, **borrow superpowers' interview principles** (propose 2-3 approaches + a recommendation, decompose over-scope, spec self-review) — see `docs/LEARNINGS.md`.
+- [ ] **`adopt` → analysis log** (idea #3, triaged 2026-06-13). When adopting, propose an analysis of what the project has + structural gaps/improvements. *(enhancement to `adopt`; needs a PRD; distinguish from `apply-best-practices` — internal structural audit vs. external best-practice recommendations.)*
 
 > **Long-term milestones moved to [`docs/ROADMAP.md`](docs/ROADMAP.md)** — M1 *Loop-readiness* (loop scaffolding opt-in, `/groundrules:realize`, triage convention; ADR 0027) and M2 *Multi-harness support*. They enter "In progress" here, and get a PRD/ADR, only when actively tackled.
 
@@ -20,18 +23,23 @@ This file differs from the long-term roadmap: it describes what is happening **n
 
 ## Ideas — to triage
 
-Raw ideas, captured before they're lost. Not yet vetted. Each gets triaged later → a **decision** (ADR), a **build** (PRD), a **milestone** (ROADMAP), or dropped. (Added 2026-06-13.)
+Raw ideas, captured before they're lost. Not yet vetted. Each gets triaged later → a **decision** (ADR), a **build** (PRD), a **milestone** (ROADMAP), or dropped.
 
-- [ ] **Cross-project dashboard** — a tool that scans a folder of projects, detects the groundrules ones (normalized structure), and surfaces: project list, documentation view, and **loop status** (which loops are running / waiting — maybe a kanban). *(build; loop-status piece is adjacent to ROADMAP M1.)*
-- [ ] **`/groundrules:vision` — interactive VISION builder** — a slash command that asks questions and assembles a strong `docs/VISION.md` (vs. the current fillable template). *(build → likely a new skill + PRD.)*
-- [ ] **`adopt` → offer an analysis log** — when adopting a project, propose creating a log that analyzes what's there and what could be improved. *(enhancement to the `adopt` skill.)*
-- [ ] **Mine superpowers for ideas worth copying** — superpowers is widely used in dev; review its skills/methodology for good patterns to borrow into groundrules. *(research/reflection; builds on the verified superpowers facts in `docs/LEARNINGS.md`.)*
+- [ ] **Audit SKILL.md `description:` fields against CSO** — each should state *WHEN* to use the skill, never *WHAT* it does (superpowers' evidence: a workflow-summarizing description makes Claude follow the summary and skip the body). *(Layer-A authoring win; small; from the superpowers research.)*
+- [ ] **Adopt rationalization-table + red-flags format for AGENT-EVALS guards** — for each guard, list the excuses-under-pressure + their rebuttal + a red-flag stop-line. *(formalizes the eval→guard loop, ADR 0022; from the superpowers research.)*
+
+<!-- 2026-06-13 first batch triaged: #1 dashboard -> ROADMAP M3; #2 vision & #3 adopt-analysis -> Up next; #4 superpowers research -> done (LEARNINGS + ROADMAP M1). -->
+
 
 ## Waiting / blocked
 
 - [ ] ...
 
 ## Recently done
+
+- [x] **Superpowers research (idea #4)** — reviewed its 13 skills + reviewer prompts; borrowable patterns + rejected ones captured in `docs/LEARNINGS.md`; verifier/maker contract design note added to ROADMAP M1; 2 authoring-win ideas spawned (CSO description audit, rationalization-table guards) — under `[Unreleased]` (2026-06-13)
+
+- [x] **Triaged the 2026-06-13 idea batch** — #1 dashboard → ROADMAP M3 (companion-tool, archi caveat); #2 vision skill & #3 adopt-analysis → Up next (PRD); #4 superpowers research → done — (2026-06-13)
 
 - [x] **Git workflow review closed — [ADR 0028](docs/decisions/0028-git-workflow-conventions.md)**: (1) branching neutral in template + trunk-based dogfood; (2) **boundary commits** (completed chunks, Conventional Commits, tag at release — not a mega-commit per release); (3) **AI attribution by default, deferring to any forbidding rule** (global CLAUDE.md / `policies.noAiAttribution`). No history rewrite. Meta `CLAUDE.md` Git workflow section updated — under `[Unreleased]` (2026-06-13)
 
