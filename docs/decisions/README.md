@@ -55,3 +55,6 @@ No ADR needed for trivial choices or implementation details.
 | [0023](0023-project-scope-for-team-portability.md) | Recommend project-scope install for team portability | Accepted | 2026-06-08 |
 | [0024](0024-slim-skill-claude-md-budget.md) | `/groundrules:slim` — operationalize the CLAUDE.md budget | Accepted | 2026-06-08 |
 | [0025](0025-no-runtime-hook-no-watch.md) | Won't-do: PreToolUse `{{KEY}}` hook and `/watch-bootstrap` | Accepted | 2026-06-08 |
+| [0026](0026-posture-and-per-feature-prd.md) | Posture section + per-feature PRD (superpowers-aware) | Accepted | 2026-06-13 |
+| [0027](0027-reflection-realization-interactive-loop.md) | Reflection/realization phases; interactive/loop regimes; loop-readiness direction | Accepted | 2026-06-13 |
+| [0028](0028-git-workflow-conventions.md) | Git workflow: neutral branching, boundary commits, AI attribution-unless-forbidden | Accepted | 2026-06-13 |

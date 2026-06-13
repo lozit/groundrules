@@ -7,20 +7,45 @@ This file differs from the long-term roadmap: it describes what is happening **n
 
 ## In progress
 
+- [ ] *(nothing active — pick the next item from Up next / Ideas, or release V1.4.0)*
 
 ## Up next
 
-- [ ] **Post-1.0 — support harnesses beyond Claude Code** (the strategic direction the repo name was chosen for, cf. README roadmap). Scope to define in its own ADR when tackled: which harnesses first (Cursor, Codex/OpenAI, Gemini CLI, OpenCode…), how the markdown SKILL instructions port vs. need per-harness adapters, and the per-harness distribution model (each harness ships/installs skills differently — there's no universal "plugin"). Keep the generated **output** (docs/, CLAUDE.md, ADRs) harness-agnostic; only the *delivery* of the skills changes.
+- [ ] **Content-aware CLAUDE.md tailoring (retire the lean template)** — spec'd in [`docs/prd/content-aware-claude-md-tailoring.md`](docs/prd/content-aware-claude-md-tailoring.md). Reverses ADR 0009 (a new ADR will supersede it). **Blocked on**: confirm the collapsible-section list (PRD open question) before building. *(non-trivial build → has a PRD)*
+
+> **Long-term milestones moved to [`docs/ROADMAP.md`](docs/ROADMAP.md)** — M1 *Loop-readiness* (loop scaffolding opt-in, `/groundrules:realize`, triage convention; ADR 0027) and M2 *Multi-harness support*. They enter "In progress" here, and get a PRD/ADR, only when actively tackled.
 
 <!-- Triaged 2026-06-08: stale items removed (already implemented): migrate 00-VISION rename; verify-bootstrap adopted projects.
      Closed as won't-do (ADR 0025): PreToolUse {{KEY}} hook; /watch-bootstrap. -->
 
+## Ideas — to triage
+
+Raw ideas, captured before they're lost. Not yet vetted. Each gets triaged later → a **decision** (ADR), a **build** (PRD), a **milestone** (ROADMAP), or dropped. (Added 2026-06-13.)
+
+- [ ] **Cross-project dashboard** — a tool that scans a folder of projects, detects the groundrules ones (normalized structure), and surfaces: project list, documentation view, and **loop status** (which loops are running / waiting — maybe a kanban). *(build; loop-status piece is adjacent to ROADMAP M1.)*
+- [ ] **`/groundrules:vision` — interactive VISION builder** — a slash command that asks questions and assembles a strong `docs/VISION.md` (vs. the current fillable template). *(build → likely a new skill + PRD.)*
+- [ ] **`adopt` → offer an analysis log** — when adopting a project, propose creating a log that analyzes what's there and what could be improved. *(enhancement to the `adopt` skill.)*
+- [ ] **Mine superpowers for ideas worth copying** — superpowers is widely used in dev; review its skills/methodology for good patterns to borrow into groundrules. *(research/reflection; builds on the verified superpowers facts in `docs/LEARNINGS.md`.)*
 
 ## Waiting / blocked
 
 - [ ] ...
 
 ## Recently done
+
+- [x] **Git workflow review closed — [ADR 0028](docs/decisions/0028-git-workflow-conventions.md)**: (1) branching neutral in template + trunk-based dogfood; (2) **boundary commits** (completed chunks, Conventional Commits, tag at release — not a mega-commit per release); (3) **AI attribution by default, deferring to any forbidding rule** (global CLAUDE.md / `policies.noAiAttribution`). No history rewrite. Meta `CLAUDE.md` Git workflow section updated — under `[Unreleased]` (2026-06-13)
+
+- [x] **New skill `/groundrules:idea`** — parks a one-line idea in `PLAN.md`'s "Ideas — to triage" inbox (append-only, creates section if absent); `PLAN.md.tpl` + README workflow updated; dogfooded the skill↔README drift check (11/11) — under `[Unreleased]` (2026-06-13)
+
+- [x] **superpowers interop sharpened + README section** for superpowers users; LEARNINGS (verified facts), ROADMAP M1 deferral, `/groundrules:prd` thin-PRD-above + ask-on-doubt — under `[Unreleased]` (2026-06-13)
+
+- [x] **Method captured — [ADR 0027](docs/decisions/0027-reflection-realization-interactive-loop.md)**: reflection vs realization phases; interactive vs loop regimes; the doc as method-agnostic contract; bidirectional frontier crossed on purpose; PRD (build) vs ADR (decision) as reflection outputs; the "could-act ≠ cleared-to-act" guard (back pressure of reflection, reappears in the loop verifier); plan mode as native enforcement. Spun from the *Write Loops, Not Prompts* + variolab intake docs. Created `docs/ROADMAP.md` (M1 loop-readiness, M2 multi-harness); validated the 2026-06-13 AGENT-EVALS guard entry — under `[Unreleased]` (2026-06-13)
+
+- [x] Git workflow point 1 — `CLAUDE.md.tpl` branching note made neutral/fillable + meta `CLAUDE.md` states trunk-based; release-time README-review rule added to meta Versioning — under `[Unreleased]` (2026-06-13)
+
+- [x] README: dropped the Roadmap; added "What the research says" + "References" to show choices are science-driven. Enriched to 5 rows across 3 fields — LLM behavior (context rot, lost-in-middle, sycophancy, <200-line), software-engineering economics (Boehm 1981 → PRD), usability (Nielsen #3 → reversibility) — with two honest caveats labelling established standards (ADRs/Changelog/Conventional Commits) as such, not science — under `[Unreleased]` (2026-06-13)
+
+- [x] Harvested the four-principles doc (intake): `## Posture` (pushback + reversibility) in CLAUDE.md templates + new `/groundrules:prd` skill (superpowers-aware), ADR 0026 — under `[Unreleased]` (2026-06-13)
 
 - [x] **E2E on a fresh project** (kitchen-sink bootstrap in /tmp, all docs) → bootstrap→verify **23/23 PASS**; caught & fixed a real `verify-bootstrap` false-positive on `.gitignore` the dogfood couldn't reveal + a LEARNINGS rule (validate on a fresh bootstrap) (2026-06-08)
 
