@@ -1,6 +1,6 @@
 ---
 name: adopt
-description: Adopt an existing (brownfield) project into groundrules — scan, map the existing files to groundrules roles, capture intent from existing docs, generate only what's missing, backfill .groundrules.json. Never overwrites.
+description: Use when bringing an existing (brownfield) project under groundrules: it scans, maps existing files to groundrules roles, captures intent from existing docs, and generates only what's missing. Never overwrites.
 disable-model-invocation: true
 allowed-tools: Read, Write, Edit, Bash, AskUserQuestion
 ---

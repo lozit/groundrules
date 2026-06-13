@@ -1,6 +1,6 @@
 ---
 name: checkpoint
-description: Run the capture ritual on demand — decided / learned / agent-drift → routed to ADR, LEARNINGS, AGENT-EVALS. The manual complement to the agent's proactive capture before a push/release.
+description: Use to run the capture ritual on demand — when something was decided, learned, or the agent drifted — routed to ADR / LEARNINGS / AGENT-EVALS. The manual complement to the agent's proactive capture before a push or release.
 disable-model-invocation: true
 allowed-tools: Read, Write, Edit, Bash, AskUserQuestion
 ---
@@ -60,6 +60,8 @@ If the file exists, prepend a dated entry:
 **Guard**: {the rule/guard added, and where — CLAUDE.md or .claude/rules/}.
 **Status**: watching.
 ```
+
+For a **stubborn** guard (the drift recurs despite the rule), harden it: add a **rationalization table** (the excuse the agent makes under pressure → the rebuttal) + a **red-flag stop-line** (see the `AGENT-EVALS.md.tpl` example). Borrowed from superpowers — `docs/LEARNINGS.md`.
 
 If `docs/AGENT-EVALS.md` is **absent** (it's an optional doc): offer to create it from `${CLAUDE_PLUGIN_ROOT}/skills/bootstrap/templates/AGENT-EVALS.md.tpl` (substitute `{{PROJECT_NAME}}`), then add the entry. If the user declines, fold the observation into `docs/LEARNINGS.md` instead.
 

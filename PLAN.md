@@ -21,8 +21,7 @@ This file differs from the long-term roadmap: it describes what is happening **n
 
 Raw ideas, captured before they're lost. Not yet vetted. Each gets triaged later → a **decision** (ADR), a **build** (PRD), a **milestone** (ROADMAP), or dropped.
 
-- [ ] **Audit SKILL.md `description:` fields against CSO** — each should state *WHEN* to use the skill, never *WHAT* it does (superpowers' evidence: a workflow-summarizing description makes Claude follow the summary and skip the body). *(Layer-A authoring win; small; from the superpowers research.)*
-- [ ] **Adopt rationalization-table + red-flags format for AGENT-EVALS guards** — for each guard, list the excuses-under-pressure + their rebuttal + a red-flag stop-line. *(formalizes the eval→guard loop, ADR 0022; from the superpowers research.)*
+- [ ] *(empty — both 2026-06-14 authoring wins done: CSO description audit + AGENT-EVALS guard hardening format → Recently done)*
 
 <!-- 2026-06-13 first batch triaged: #1 dashboard -> ROADMAP M3; #2 vision & #3 adopt-analysis -> Up next; #4 superpowers research -> done (LEARNINGS + ROADMAP M1). -->
 
@@ -32,6 +31,10 @@ Raw ideas, captured before they're lost. Not yet vetted. Each gets triaged later
 - [ ] ...
 
 ## Recently done
+
+- [x] **2 authoring wins (from superpowers research)** — (1) **CSO audit**: all 12 skill `description:` rewritten WHEN-first (not workflow summaries) + durable rule in `.claude/rules/plugin-meta.md`; (2) **AGENT-EVALS guard hardening**: optional rationalization-table + red-flag format in `AGENT-EVALS.md.tpl` + `checkpoint`. Both Ideas-batch items cleared — under `[Unreleased]` (2026-06-14)
+
+- [x] **Released V1.5.0** — vision skill, content-aware tailoring (retire lean), adoption-log, superpowers research. 74 signatures swept, pushed + tagged + GitHub release. (2026-06-14)
 
 - [x] **`adopt` → opt-in `docs/ADOPTION-LOG.md`** (idea #3 — reframed during PRD: a **feedback log**, not a structural audit). Records what was here + what groundrules did (with *why*) + a Remarks section to annotate and share back to improve the plugin. New `ADOPTION-LOG.md.tpl`, Phase 5b in `adopt`, README row. PRD `docs/prd/adoption-log.md`. **Fresh-subagent E2E** (fresh + resume): self-contained + honest log, resume-safe (`.new`, original intact); caught 2 instruction gaps (generatedFiles destination, `.new`-branch recording), fixed — under `[Unreleased]` (2026-06-14)
 

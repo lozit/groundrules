@@ -37,3 +37,7 @@ Every generated file carries `<!-- generated-by: groundrules vX.Y.Z -->` (pre-1.
 ## Idempotence and resume mode
 
 All side-effecting skills (`bootstrap`, `adopt`, `migrate`, `apply-best-practices`) must support **re-running** without damage: detect what already exists, offer "skip / overwrite / save as .new", never silently overwrite.
+
+## Skill `description:` states WHEN, not WHAT (CSO)
+
+A skill's frontmatter `description:` must state **when to use it** (the triggering conditions), **never a summary of its workflow**. A workflow-summarizing description makes Claude follow the *description* and skip the SKILL body (evidence: superpowers' `writing-skills`; captured in `docs/LEARNINGS.md`). Write it third-person, lead with "Use when/to/before…", keep discovery keywords, drop the step-by-step. `vision`'s description is the reference shape.

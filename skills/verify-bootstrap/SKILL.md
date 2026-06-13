@@ -1,6 +1,6 @@
 ---
 name: verify-bootstrap
-description: Verify that a groundrules-bootstrapped project is coherent. Version signatures, leftover placeholders, CLAUDE.md size, valid JSON, git, files vs generatedFiles. Supports --fix for trivial corrections.
+description: Use to check that a groundrules-bootstrapped project is coherent — version signatures, leftover placeholders, CLAUDE.md size, valid JSON, git, files vs generatedFiles — e.g. before a release or after edits. Supports --fix for trivial corrections.
 disable-model-invocation: true
 allowed-tools: Read, Edit, Bash, AskUserQuestion
 ---

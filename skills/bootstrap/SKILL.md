@@ -1,6 +1,6 @@
 ---
 name: bootstrap
-description: Interactive bootstrap of a new Claude Code project — interview, project intent, docs/ structure, git init, optional remote.
+description: Use when starting a new, empty project and you want the full groundrules structure generated interactively (CLAUDE.md, docs/, intent capture, git init, optional remote).
 disable-model-invocation: true
 allowed-tools: Read, Write, Bash, AskUserQuestion
 ---

@@ -1,6 +1,6 @@
 ---
 name: migrate
-description: Update a groundrules project (or a legacy starter-kit one) to the current plugin version. Per-file diff, never overwrites without explicit confirmation.
+description: Use when the plugin has a new version and a project (groundrules, or a legacy starter-kit one) needs to catch up — per-file diff, never overwrites without explicit confirmation.
 disable-model-invocation: true
 allowed-tools: Read, Write, Edit, Bash, AskUserQuestion
 ---

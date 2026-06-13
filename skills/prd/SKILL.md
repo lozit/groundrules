@@ -1,6 +1,6 @@
 ---
 name: prd
-description: Write a per-feature PRD (problem, success criteria, scope, constraints, build plan, risks) before building a non-trivial feature. Defers to superpowers if that plugin is in use.
+description: Use before building a non-trivial feature, to spec it first (problem, success criteria, scope, constraints, build plan, risks). Defers to superpowers if that plugin is in use.
 disable-model-invocation: true
 allowed-tools: Read, Write, Bash, AskUserQuestion
 ---

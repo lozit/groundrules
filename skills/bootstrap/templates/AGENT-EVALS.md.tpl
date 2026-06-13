@@ -29,3 +29,16 @@ schema — twice in one session.
 **Status**: watching — re-evaluate after a few sessions.
 
 -->
+
+<!-- Hardening a *stubborn* guard (one that keeps getting rationalized away): add a
+**rationalization table** (the excuse the agent makes under pressure → the rebuttal) and a
+**red-flag stop-line**. Example:
+
+| Rationalization | Reality |
+|---|---|
+| "the schema probably has that key" | you haven't read it — read it |
+| "it's obviously a standard key" | obvious-but-unverified = invented |
+
+**Red flag — STOP**: proposing any config key without having read the schema *this turn*.
+
+-->

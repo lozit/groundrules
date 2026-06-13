@@ -1,6 +1,6 @@
 ---
 name: add-adr
-description: Create a new ADR in docs/decisions/ — auto-incremented number, updated index.
+description: Use when a structural decision has been made (tech, pattern, tradeoff, naming) and you want to record it as a numbered ADR in docs/decisions/, with the index updated.
 disable-model-invocation: true
 allowed-tools: Read, Write, Edit, Bash, AskUserQuestion
 ---

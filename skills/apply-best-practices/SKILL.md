@@ -1,6 +1,6 @@
 ---
 name: apply-best-practices
-description: Fetch shanraisshan/claude-code-best-practice, propose recommendations tailored to the project vision, apply the ones the user selects.
+description: Use when you want external, up-to-date best-practice recommendations for the project (fetched from shanraisshan/claude-code-best-practice and tailored to its vision). The only skill that needs the network.
 disable-model-invocation: true
 allowed-tools: Read, Write, Edit, WebFetch, AskUserQuestion, Bash
 ---
