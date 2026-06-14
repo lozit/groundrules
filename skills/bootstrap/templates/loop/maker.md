@@ -33,8 +33,10 @@ The repo is your memory — you start fresh each iteration, so read state before
   pick one and move on. Guessing a decision is the single most expensive failure mode of a loop.
 - **Run the test yourself.** Before reporting, run the acceptance test and read its real output. You
   may not claim it passes from inspection.
-- **Tests are evidence, not decoration.** Add unit tests for behaviour the acceptance test doesn't
-  pin down, but never edit the acceptance test to make it pass.
+- **The acceptance test is authoritative and immutable.** It was written *before* you, by someone else
+  (writer ≠ maker), and is the spec's executable form — your job is to make it pass, **never** to edit
+  it. Your own unit tests are *assistive* (cover branches it doesn't pin down); they never override or
+  substitute for the acceptance test.
 
 ## Report (the 4-status protocol)
 

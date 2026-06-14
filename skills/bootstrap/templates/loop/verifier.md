@@ -23,10 +23,13 @@ Re-derive everything from the artifacts:
 ## Two-stage ordered review (do Stage 1 first; a Stage-1 failure is a REJECT regardless of Stage 2)
 
 ### Stage 1 — Spec compliance (does it do the right thing?)
-1. **Acceptance test green?** Run it. Paste the real result. Red → REJECT.
+1. **Acceptance test green?** The **pre-written acceptance test** (writer ≠ maker) is your authority —
+   replay *it*, not the maker's own unit tests (those are assistive; a maker passing only its own tests
+   proves nothing). Run it. Paste the real result. Red → REJECT.
 2. **Is the test strong enough?** A test that passes trivially (asserts nothing meaningful, covers no
    real case, or the diff hard-codes its inputs) is **no back pressure** → REJECT and say the test must
-   be strengthened. A green-but-gamed diff must not pass.
+   be strengthened. A green-but-gamed diff must not pass. (The maker editing the acceptance test is
+   caught by check 7 below — it is immutable.)
 3. **Task actually done?** Map each requirement of the task line to a line in the diff. A requirement
    with no corresponding code → REJECT.
 4. **No placeholders / no gaming.** `pass`, stubs, `TODO`, or values hard-coded to satisfy the test

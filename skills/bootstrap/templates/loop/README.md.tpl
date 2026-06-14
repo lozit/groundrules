@@ -47,3 +47,7 @@ interactively.
 - **State your `## Invariants`** in `CLAUDE.md` — the verifier enforces them every iteration.
 - Loops fit **atomic, testable, isolatable** work. Exploratory / cross-cutting / decision work stays
   interactive (`[supervised]`).
+- **A `[loop]` task needs a pre-written acceptance test that is currently red**, authored separately
+  from the maker (writer ≠ maker) — `/groundrules:realize` enforces this. It is the loop's back
+  pressure, **not** a global TDD rule: interactive work needs no pre-written test (the human is the
+  back pressure).

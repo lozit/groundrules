@@ -13,6 +13,9 @@
 
 ## Success criteria
 
+<!-- Where you can, phrase a criterion so it's expressible as an acceptance test — its executable form.
+     If this feature will be handed to an autonomous loop (see /groundrules:realize), that pre-written,
+     currently-red acceptance test is the loop's back pressure. -->
 {{SUCCESS}}
 
 ## Scope

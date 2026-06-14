@@ -7,6 +7,24 @@ One entry per learning. Keep the format simple: title, context, lesson.
 
 ---
 
+## A red acceptance test must fail on a behavioural assertion, not just a missing import
+
+**Why**: 2026-06-14, the brick-4 TDD-gate E2E surfaced that "the test is currently red (exit ≠ 0)" is
+necessary but not sufficient evidence that a test is real back pressure. Both looped fixtures were red
+**only** by `ModuleNotFoundError` (the symbol didn't exist yet) — the test never reached a single
+assertion. A gate that accepts any non-zero exit as "red" can't tell *red-because-unbuilt* from
+*red-because-the-behaviour-is-wrong*: a test that imports a missing function and a test whose assertions
+genuinely constrain behaviour pass the gate identically. The same E2E noted the gate guarantees writer ≠
+maker (the maker can't grade itself) but **not** that the spec/test is *correct* — a wrong spec yields a
+wrong-but-green test, and no gate can catch that (it's reflection's job, upstream).
+
+**When to apply**: anywhere "red-first" is used as a stop-condition gate (`/groundrules:realize`'s
+`[loop]` bar; any TDD-before-loop discipline). Require the acceptance test to contain **real behavioural
+assertions that would fail if the behaviour were wrong, not merely if it's absent** — a
+`ModuleNotFoundError`-only red is acceptable as the *first* greenfield red but is weak evidence on its
+own. And be honest about the gate's reach: it stops self-grading and proves the test constrains; it does
+**not** validate the spec is right. Both are now documented in `realize`'s author-the-test step.
+
 ## A skill's `allowed-tools` must match its write pattern — append/edit needs `Edit`, fresh files need only `Write`
 
 **Why**: 2026-06-14, the brick-3 `/groundrules:realize` E2E (whose subagent audited the frontmatter)

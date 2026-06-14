@@ -56,21 +56,34 @@ Read `CLAUDE.md` → `## Invariants` first (so you can judge invariant-awareness
 1. **Atomic** — one unit of work; no "and also". A compound task → propose splitting it (below).
 2. **Isolatable** — a bounded blast radius (a file/module), not a cross-cutting change rippling through
    the codebase.
-3. **Verifiable** — there is a **re-runnable stop condition**: a command/check the verifier can run to
-   decide "done" (a test, a build, a script exit code). *(Brick 3 checks such a check **exists**; it
-   does not author or strengthen it — that TDD gate is a later brick.)*
+3. **Verifiable by a behavioural acceptance test** — there is a **pre-written acceptance test** that
+   (a) **exercises the task's specified behaviour** (a build/lint/typecheck is necessary but **not
+   sufficient** — it doesn't prove the behaviour); (b) was **authored separately from the loop's maker**
+   (by the human or this reflection session — writer ≠ maker, so the maker can't grade its own work);
+   and (c) is **currently red** (fails before any implementation — red-first proves the test actually
+   constrains). No such test yet → see *author-the-test* (Phase 3); a green or maker-authored test does
+   **not** qualify.
 4. **Invariant-aware** — implementing it won't require breaking a `## Invariants` rule.
 5. **No embedded decision** — it doesn't hide a choice the plan/spec leaves open (how to handle an
    un-specified input, an API shape, a product behaviour).
 
 **Classification rules:**
-- Fails any of 1–5 → **`[supervised]`**, with the specific reason.
-- Atomic/isolatable but **no stop condition** → **refuse `[loop]`**, keep `[supervised]`, reason: *"no
-  re-runnable stop condition — a loop can't verify it's done."* (This refusal is the gate, not a
-  suggestion.)
+- Fails 1, 2, 4, or 5 → **`[supervised]`**, with the specific reason.
+- Meets 1/2/4/5 but **has no red behavioural acceptance test** → it is a **`[loop]` candidate pending a
+  test**: offer *author-the-test* (Phase 3). If the user declines to author one (or only a build/lint
+  exists) → **`[supervised]`**, reason: *"no behavioural acceptance test — a loop can't verify the
+  behaviour."* (Non-negotiable gate.)
+- A test that is **already green** → not back pressure. Distinguish the two reasons: if the behaviour
+  **already exists** (the task is effectively done) → **drop it** from the backlog (it's neither `[loop]`
+  nor `[supervised]` — it's done); if the test is merely **too weak** (asserts nothing real, trivially
+  green) → offer *author-the-test* to **strengthen it to red** (Phase 3); declined → `[supervised]`.
 - Loop-worthy but **too big** → **propose a decomposition** into atomic sub-tasks (interactively). If the
   user declines to decompose → it stays `[supervised]`.
 - **Any doubt → `[supervised]`.** Conservative by default.
+
+> **TDD here is the loop-regime precondition only**, not a global rule (handoff-not-gospel, ADR
+> 0010/0023). The interactive/`[supervised]` path needs no pre-written test — the human is its back
+> pressure.
 
 ## Phase 3 — Propose the partition (the confirmation gate)
 
@@ -79,9 +92,34 @@ any `[supervised]`-because-unverifiable). Then `AskUserQuestion` to confirm.
 
 - The user may **veto / downgrade** any `[loop]` → `[supervised]` freely.
 - The user may ask to **promote** a `[supervised]` → `[loop]`, but it must meet the bar: if it lacks a
-  stop condition, **you still refuse** and explain (the gate holds; offer that authoring a real
-  acceptance test would unblock it — a later step).
+  red behavioural acceptance test, **you still refuse** unless author-the-test (below) produces one.
 - **Never write a `[loop]` task the user has not explicitly confirmed.**
+
+### Author-the-test (for a `[loop]` candidate pending a test)
+
+For each candidate that meets the structural bar (1/2/4/5) but lacks a red behavioural acceptance test —
+whether it has **no test** or only a **weak/green** one — offer to author or strengthen one **now**.
+This is the reflection-side, writer-≠-maker step that gives the loop its back pressure:
+
+1. **Draft from the spec**: restate the task's behaviour as concrete cases (input → expected), then
+   draft (or strengthen) the acceptance test in the project's existing test location/framework (read a
+   sibling test to match the convention). When the stack is unobvious, propose the cases and let the
+   **user write/paste** the test — authorship may be theirs; the gate is *a red test exists*, not who
+   typed it.
+2. **Confirm red — and red for the right reason**: run the test command; it **must fail**. Prefer a test
+   that fails on a **behavioural assertion** (a wrong/absent value), not merely a missing import: a red
+   that is only `ModuleNotFoundError`/`ImportError` proves the symbol is *absent*, not that the cases
+   *constrain* behaviour — acceptable as a first red in greenfield, but the test must contain real
+   assertions that would fail if the behaviour were wrong, not just if it's missing. If the test **can't
+   be run here** (env not ready), accept the user's explicit "confirmed red" as their assertion.
+3. Only a **red-confirmed** test promotes the candidate to `[loop]`; the backlog task names its command.
+   No red test → stays `[supervised]`. Never edit the test afterwards to fit the implementation (that is
+   the maker's forbidden move, and yours too).
+
+> **What this gate does and doesn't guarantee.** It ensures the maker can't grade its own work
+> (writer ≠ maker) and that the test actually constrains (red-first). It does **not** validate that the
+> spec/test is *correct* — a wrong spec yields a wrong-but-green test. Catching a wrong spec is
+> reflection's job (the human, upstream), not something realize can enforce.
 
 ## Phase 4 — Write the backlog
 
