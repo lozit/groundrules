@@ -31,7 +31,7 @@ That is groundrules' thesis, arrived at independently — and the **same [contex
 
 And it answers the paradigm's sharpest risk. Loops ship code fast, but they accrue **comprehension debt** — code that exists and works, yet no human ever read. groundrules' ADR trail, learnings journal, and the *why* it preserves are the antidote: **loops write the code fast; groundrules keeps the understanding of the code.**
 
-> Today groundrules is the **memory + reflection layer** a loop runs on. Generating the loop *scaffolding* itself (a maker/verifier split, a `realize` bridge from plan to backlog) is the next direction — see [ADR 0027](docs/decisions/0027-reflection-realization-interactive-loop.md) and the [roadmap](docs/ROADMAP.md).
+> Today groundrules is the **memory + reflection layer** a loop runs on — and now ships **opt-in loop scaffolding** (`loop/`: a maker/verifier split with an independent, report-distrusting verifier, a capped runner, and a loop-safe backlog; off by default, offered by `bootstrap`/`adopt`). The `realize` bridge that auto-fills the backlog from an approved plan is the next direction — see [ADR 0027](docs/decisions/0027-reflection-realization-interactive-loop.md), [ADR 0030](docs/decisions/0030-loop-namespace-and-backlog.md), and the [roadmap](docs/ROADMAP.md).
 
 ## How it works
 
@@ -103,6 +103,7 @@ groundrules gives a project a clear geography.
 | **`docs/decisions/`** | The **ADRs**: one file per structural decision — context, decision, alternatives, tradeoffs. The *why*, frozen at decision time. |
 | **`docs/prd/`** | Per-feature **PRDs** (problem, success criteria, scope, constraints, build plan, risks): one file per feature, written *before* building. Created on demand by `/groundrules:prd`. |
 | **`docs/media/`** | **Visual assets** supporting the docs: mockups, screenshots, diagrams (with their editable sources). |
+| **`loop/`** *(opt-in)* | **Autonomous loop scaffolding** — a maker/verifier split, a capped runner, and the loop's own backlog. The loop owns this dir; you own `PLAN.md`. Off by default; offered by `bootstrap`/`adopt`. |
 
 The flow: `intake/` (raw, untouched) → `docs/` (synthesized, living) → `docs/decisions/` (the why, frozen). Root files (`README.md`, `CLAUDE.md`, `PLAN.md`, `CHANGELOG.md`, `RELEASE.md`) are the operational surface.
 
@@ -132,6 +133,7 @@ The flow: `intake/` (raw, untouched) → `docs/` (synthesized, living) → `docs
 | `RELEASE.md` | Project deploys somewhere | Operational release runbook: TL;DR commands, environments table, pre-release checklist, secrets, rollback, known fragilities. |
 | `docs/AGENT-EVALS.md` | Long agent-driven project | A log of the **agent's own** failure modes here (recurring mistakes, hallucinations, drifts) + the guard added for each. Distinct from `LEARNINGS.md` (project/domain). Fed by the checkpoint-capture ritual (before a push/release). |
 | `docs/ADOPTION-LOG.md` | `adopt`, opt-in | A dated, frozen record of the adopt run — what was here, what groundrules did (and why) — with a **Remarks** section to annotate and **share back to improve groundrules**. A field → plugin feedback channel. |
+| `loop/` + `## Invariants` in `CLAUDE.md` | Opt-in (off by default) | **Loop scaffolding**: `maker.md`/`verifier.md` (an independent verifier that distrusts the maker's report), `LOOP.md`, a capped `run-loop.sh` (hard iteration ceiling), and `backlog.md` (loop-safe tasks only). Adds an `## Invariants` section the verifier enforces each iteration. **Not offered when superpowers is detected** (it defers the realization). |
 
 Every generated file carries a `<!-- generated-by: groundrules -->` signature, which enables **resume mode**: re-run a skill on a non-empty folder with no overwrite risk.
 

@@ -109,7 +109,14 @@ Pre-check based on the scan. Only offer what **doesn't already exist**:
 
 Skip an individual option only if that exact file already exists (then list it under "adopted", not here). If **none** of these exist yet, the full list is shown with the detected ones pre-checked.
 
-### Call 4 — Planning reconciliation (if equivalents detected)
+### Call 3c — Loop scaffolding (opt-in, off by default)
+
+A **dedicated** single `AskUserQuestion`, same as `bootstrap` Call 2c: *"Generate optional **loop scaffolding** (`loop/`) — a maker/verifier autonomous loop for loop-safe tasks? Off by default; changes nothing until you run it."* Options: `No (recommended — add later)` / `Yes, generate loop/`. Default **No**.
+
+- **Skip entirely** when superpowers is detected (`docs/superpowers/plans/`) — defer the whole realization to it; note in the recap.
+- **Skip** if `loop/` already exists on disk (resume-safety) — list it under "adopted/left as-is", don't regenerate.
+- Code projects only. If `Yes` → `HAS_LOOP=true`.
+- **`## Invariants`**: if adopt is **generating** `CLAUDE.md` (absent case, Call 3a) → insert the section like `bootstrap` (after `## Conventions`). If `CLAUDE.md` **already exists** → do **not** edit it beyond the free zone; instead offer to add a `## Invariants` section to the **free zone** (gap-driven, opt-in), else note in the recap that the user should add one (the verifier reads it).
 > If the strategy is **Consolidate**, default to the `Consolidate` option below (the user already opted into migration) — still confirm the canonical target.
 
 If **one or more** equivalents found:
@@ -132,6 +139,8 @@ Then `AskUserQuestion`: `Confirm` / `Cancel`. (In `--dry-run`, stop here with th
 ## Phase 4 — Generation (missing only)
 
 For each file to create: same mechanics as `bootstrap` Phase 5 (read the template `${CLAUDE_PLUGIN_ROOT}/skills/bootstrap/templates/<tpl>`, substitute `{{KEY}}`, `Write`). **Never overwrite** an existing file; **never delete**.
+
+If `HAS_LOOP=true`: generate the `loop/` namespace exactly as `bootstrap` (same file-mapping rows — `README.md.tpl` substituted, the rest verbatim, `run-loop.sh` made executable, `gitignore` → `loop/.gitignore`; do not create `blocked.md`/`lessons.md`). Skip any `loop/*` file that already exists (missing-only). Record the created files in `generatedFiles`.
 
 ## Phase 4b — Consolidation (only if strategy = Consolidate)
 
@@ -160,6 +169,7 @@ Write `.groundrules.json` (bootstrap schema, see ADR 0004) with the adoption mar
   "answers": { ... interview ... },
   "intent": { "source": "file|paste|interview|skipped", ... },
   "appliedPractices": [],
+  "loop": { "scaffolded": true | false, "at": "YYYY-MM-DD" | null },
   "policies": { "noAiAttribution": true | false },
   "generatedFiles": [ ... files CREATED by adopt ... ],
   "adoptedFiles": { "<path>": "<role: README|PLAN|backlog|intent-source|...>" },

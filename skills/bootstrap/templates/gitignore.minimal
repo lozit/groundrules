@@ -17,7 +17,7 @@ logs/
 .env.local
 .env.*.local
 
-# Build / dist (à adapter selon la stack)
+# Build / dist (adapt to your stack)
 dist/
 build/
 node_modules/

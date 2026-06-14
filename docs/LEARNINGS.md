@@ -7,6 +7,24 @@ One entry per learning. Keep the format simple: title, context, lesson.
 
 ---
 
+## A hardcoded version string in a generated artifact drifts — the release sweep only bumps signatures
+
+**Why**: 2026-06-14, the brick-2 fresh-subagent E2E caught `bootstrap` Phase 6 emitting
+`git commit -m "...with groundrules v1.3.3"` while the plugin was at v1.5.0 — the version was missed at
+two releases. The release ritual bumps the `<!-- generated-by: vX.Y.Z -->` **signatures** in
+templates/docs, but a version string living *anywhere else* (a commit message, prose, an example) is not
+a signature and is not swept, so it silently rots. The same run also surfaced a French comment in
+`gitignore.minimal` (an English-only/ADR-0012 violation a verbatim-copied template carried into every
+user project).
+
+**When to apply**: when a generated artifact needs to reference the plugin version, make it
+**version-agnostic** (drop it — the version lives in `.groundrules.json` + the file signatures) or derive
+it, never hardcode a literal `vX.Y.Z` outside the swept signature. More broadly: anything the release
+sweep doesn't touch (commit messages, non-signature version mentions, example output, non-English strings
+in verbatim templates) needs its own check — a fresh-subagent E2E that *executes* the skill surfaces
+these where a static signature/placeholder scan cannot. Fixed both inline; the commit message is now
+version-free.
+
 ## The maker/verifier loop contract works — but only because the verifier distrusts the test, not just the report
 
 **Why**: 2026-06-14, brick 1 of M1 (PRD `docs/prd/loop-minimal-runnable.md`) built a minimal loop

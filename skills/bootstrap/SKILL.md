@@ -32,7 +32,7 @@ You will bootstrap a Claude Code project in the **current working directory**. F
    - `package.json` (→ Node stack), `pyproject.toml`/`requirements.txt` (→ Python), `Cargo.toml` (→ Rust), `go.mod` (→ Go)
 3. For each file you might create, classify it:
    - **Absent** → to create
-   - **Present with a `<!-- generated-by: groundrules -->` signature at the top** → recognized, offer "ignore / regenerate"
+   - **Present with a `generated-by: groundrules` signature near the top** → recognized, offer "ignore / regenerate". The signature may be an HTML comment (`<!-- ... -->`, Markdown) or a shell comment (`# generated-by: groundrules`, for `*.sh`/`.gitignore`), and need not be line 1 (e.g. after a shebang or YAML frontmatter — scan the first ~10 lines).
    - **Present without a signature** → foreign file, default "ignore"
 
 If the folder is completely empty → classic bootstrap mode. Otherwise → resume mode (announce it clearly to the user at the start of the interview).
@@ -71,6 +71,16 @@ A single **multiSelect** `AskUserQuestion`: *"Which specialized docs do you want
 Adapt suggestions to context: if the stack/intent suggests a UI, pre-suggest `DESIGN_SYSTEM`; a DB → `DATA_MODEL`; etc. Impose nothing: no check = no file.
 
 Only ask this call for a code project. For a non-code project, only `ROADMAP` may make sense — offer it on its own if relevant.
+
+### Call 2c — Loop scaffolding (opt-in, off by default)
+
+A **dedicated** single `AskUserQuestion` (one question), because the scaffolding is heavier than a doc and deserves its own framing: *"Generate optional **loop scaffolding** — a maker/verifier autonomous loop (`loop/`) that executes loop-safe tasks with built-in back pressure? You can run it later or never; it changes nothing until you do."* Options: `No (recommended — add later if needed)` / `Yes, generate loop/`. Default **No**.
+
+- **Skip this call entirely on resume** when `.groundrules.json` already has `loop.scaffolded: true` — the namespace exists; don't re-ask or regenerate (idempotence).
+- **Skip this call entirely** when **superpowers is detected** (`docs/superpowers/plans/` present): superpowers already *is* a maker/verifier realization pipeline — groundrules defers the whole realization to it and contributes the memory layer instead. Note this in the Phase 4 recap (do not generate `loop/`).
+- **Code projects only** — for a non-code project, don't ask.
+- If `Yes` → `HAS_LOOP=true`. This generates the `loop/` namespace (see file mapping) **and** inserts a `## Invariants` section into the generated `CLAUDE.md`. If `No` → `HAS_LOOP=false`, nothing loop-related is generated.
+- Brief honesty in the option/recap: the loop is **most useful once `/groundrules:realize` lands** (it will fill `loop/backlog.md`); for now the backlog is hand-filled. See [ADR 0027](../../docs/decisions/0027-reflection-realization-interactive-loop.md) / [ADR 0030](../../docs/decisions/0030-loop-namespace-and-backlog.md).
 
 ### Call 3 — Steering and git
 - **`PLAN.md` at the root** (active todo maintained by Claude): `Yes (recommended)` / `No` (1 question)
@@ -169,6 +179,7 @@ For each file to create:
    - `{{DATE}}` — today's date in ISO (YYYY-MM-DD)
    - `{{HAS_PLAN}}`, `{{HAS_ARCHITECTURE}}`, `{{HAS_GLOSSARY}}`, `{{HAS_CHANGELOG}}` — `true`/`false`
    - `{{HAS_DATA_MODEL}}`, `{{HAS_SECURITY}}`, `{{HAS_DESIGN_SYSTEM}}`, `{{HAS_ROADMAP}}`, `{{HAS_I18N}}`, `{{HAS_PROCESS}}`, `{{HAS_RELEASE}}`, `{{HAS_AGENT_EVALS}}` — `true`/`false` (specialized docs)
+   - `{{HAS_LOOP}}` — `true`/`false` (loop scaffolding opted in, Call 2c)
    - `{{GLOBAL_CLAUDE_NOTE}}` — deference note to the global CLAUDE.md **+ the list of omitted sections** (see "CLAUDE.md generation"), or **empty string** if no global detected
    - `{{REMOTE_PROVIDER}}` — `github` / `gitlab` / empty string
    - `{{REMOTE_VISIBILITY}}` — `private` / `public` / empty string
@@ -192,6 +203,8 @@ There is **one** template (`CLAUDE.md.tpl`). When a global CLAUDE.md exists, a "
      > `> **Relationship with the global CLAUDE.md**: this file is loaded **in addition to** the global (\`~/.claude/CLAUDE.md\` + enterprise policy) — on conflict the global/enterprise rule wins. **Omitted here (your global already covers them):** <comma-separated section titles, or "none">.`
   5. **Recap to the user**: list what you omitted and why; they can **veto** (keep any section).
 - Net effect: a **thin** global → output ≈ the full template (minus only what it truly covers); a **rich** global → output approaches the old lean. The result **scales with the global's real content**, with no holes.
+
+**`## Invariants` section (only if `HAS_LOOP=true`)**: after generating `CLAUDE.md`, if loop scaffolding was opted in, read `${CLAUDE_PLUGIN_ROOT}/skills/bootstrap/templates/loop/CLAUDE-invariants.md` and insert its `## Invariants` section into the generated `CLAUDE.md` **immediately before the `## Posture` heading** (i.e. after the *last child* of `## Conventions`, never between the `## Conventions` heading and its `###` subsections), stripping the snippet's leading `<!-- ... -->` comment lines. If `HAS_LOOP=false`, do **not** add it (non-loop projects stay lean — the verifier is what gives invariants teeth, cf. ADR 0030). This section is never omitted by the global-tailoring logic above.
 
 ### File mapping (always created)
 
@@ -224,6 +237,15 @@ There is **one** template (`CLAUDE.md.tpl`). When a global CLAUDE.md exists, a "
 | `HAS_AGENT_EVALS=true` | `AGENT-EVALS.md.tpl` | `docs/AGENT-EVALS.md` |
 | `intent.source` ∈ `paste`/`file` | `intake-INTENT.md.tpl` | `intake/INTENT.md` |
 | `intent.source` ≠ `skipped` | `docs-VISION.md.tpl` | `docs/VISION.md` |
+| `HAS_LOOP=true` | `loop/README.md.tpl` | `loop/README.md` |
+| `HAS_LOOP=true` | `loop/maker.md` | `loop/maker.md` |
+| `HAS_LOOP=true` | `loop/verifier.md` | `loop/verifier.md` |
+| `HAS_LOOP=true` | `loop/LOOP.md` | `loop/LOOP.md` |
+| `HAS_LOOP=true` | `loop/run-loop.sh` | `loop/run-loop.sh` (mark executable: `chmod +x`) |
+| `HAS_LOOP=true` | `loop/backlog.md` | `loop/backlog.md` |
+| `HAS_LOOP=true` | `loop/gitignore` | `loop/.gitignore` |
+
+> `loop/maker.md`, `loop/verifier.md`, `loop/LOOP.md`, `loop/run-loop.sh`, `loop/backlog.md`, `loop/gitignore` carry no `{{KEY}}` — copy verbatim (`loop/gitignore` is written to the destination `loop/.gitignore`). Only `loop/README.md.tpl` is substituted (`{{PROJECT_NAME}}`). `loop/CLAUDE-invariants.md` is **not** a generated file — it is the snippet inserted into `CLAUDE.md` (see below). Do **not** create `loop/blocked.md` or `loop/lessons.md` — the loop writes those on demand.
 
 ### Persisted state
 
@@ -246,6 +268,7 @@ Write `.groundrules.json` at the root with this schema:
     "acceptanceCriteria": [...]
   },
   "appliedPractices": [],
+  "loop": { "scaffolded": true | false, "at": "YYYY-MM-DD" | null },
   "policies": { "noAiAttribution": true | false },
   "generatedFiles": [ ... relative paths ... ],
   "skippedFiles": { "<path>": "<reason>" }
@@ -254,6 +277,8 @@ Write `.groundrules.json` at the root with this schema:
 
 `policies.noAiAttribution` reflects the `NO_AI_ATTRIBUTION` detected in phase 1 — it lets other skills (`migrate`, etc.) know the policy without re-scanning.
 
+`loop.scaffolded` records whether the `loop/` namespace was generated (Call 2c) — it lets `/groundrules:realize` (later) know the scaffolding exists, and keeps the opt-in idempotent (resume mode skips an already-scaffolded `loop/`). `false`/`null` when not opted in. The Call 2c answer lives **only** in this top-level `loop` object, **not** under `answers` (avoid a duplicate `answers.loop` key).
+
 `groundrulesVersion` can evolve (via `/groundrules:migrate`), `bootstrappedWithVersion` stays frozen. `migrations` accumulates `{from, to, at}` entries. `appliedPractices` is filled by `/groundrules:apply-best-practices`. If the intent is skipped, `intent.source = "skipped"` and the other fields are `null`.
 
 ## Phase 6 — Git
@@ -261,7 +286,7 @@ Write `.groundrules.json` at the root with this schema:
 1. If `.git/` absent in cwd → `git init -b main`.
 2. `git add -A`
 3. Check there's something to commit: `git diff --cached --quiet` → if nothing, skip the commit.
-4. Otherwise: `git commit -m "chore: bootstrap project structure with groundrules v1.3.3"`
+4. Otherwise: `git commit -m "chore: bootstrap project structure with groundrules"` (no version string — it would drift; the version lives in `.groundrules.json` and the file signatures)
 
 > **AI attribution**: the commit message must **never** contain an AI attribution marker (`Co-Authored-By` trailer, "Generated with Claude Code" mention, etc.). This is the bootstrap default, and it is **mandatory** if `NO_AI_ATTRIBUTION=true` — this rule **overrides any default attribution guidance** of the agent.
 
