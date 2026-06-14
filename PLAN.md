@@ -7,7 +7,8 @@ This file differs from the long-term roadmap: it describes what is happening **n
 
 ## In progress
 
-- [ ] *(nothing active — pick from Up next / Ideas)*
+- [ ] **M1 — Loop-readiness OPENED** (2026-06-14). Building brick by brick (each its own PRD). Order: **(1) minimal runnable loop** → (2) wire scaffolding into bootstrap/adopt → (3) `/groundrules:realize` → (4) TDD-gate → (5) backward-crossing → (6) template refinement. Full milestone in [`docs/ROADMAP.md`](docs/ROADMAP.md) (M1).
+  - [ ] **Brick 1 — Minimal runnable loop** (PRD `docs/prd/loop-minimal-runnable.md`, draft). Prototype maker/verifier + LOOP.md + capped runner + blocked.md, validated by subagent simulation on a fixture (good path + adversarial reject + block) **before** productizing. *(reflection done → build next, awaiting go)*
 
 ## Up next
 
