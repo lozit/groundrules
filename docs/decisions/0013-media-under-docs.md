@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.5.0 -->
+<!-- generated-by: groundrules v1.6.0 -->
 # 0013 — Move media under docs/ (docs/media/ instead of top-level media/)
 
 **Date**: 2026-06-04

@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.5.0 -->
+<!-- generated-by: groundrules v1.6.0 -->
 # PRD — /groundrules:realize (the forward bridge: approved plan → partitioned backlog)
 
 > Product Requirements Document for a single feature. Written **before** building, so the agent

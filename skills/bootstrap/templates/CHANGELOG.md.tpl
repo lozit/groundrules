@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.5.0 -->
+<!-- generated-by: groundrules v1.6.0 -->
 # Changelog
 
 All notable changes to this project are documented in this file.

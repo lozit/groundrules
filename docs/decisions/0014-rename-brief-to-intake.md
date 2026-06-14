@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.5.0 -->
+<!-- generated-by: groundrules v1.6.0 -->
 # 0014 — Rename the brief/ folder to intake/
 
 **Date**: 2026-06-06

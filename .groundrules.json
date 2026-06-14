@@ -1,5 +1,5 @@
 {
-  "groundrulesVersion": "1.5.0",
+  "groundrulesVersion": "1.6.0",
   "bootstrappedAt": "2026-05-11",
   "bootstrappedWithVersion": "0.1.0",
   "migrations": [
@@ -116,6 +116,12 @@
       "to": "1.5.0",
       "at": "2026-06-14",
       "note": "V1.5 new /groundrules:vision skill (guided VISION interview, create-if-absent/refine-in-place); content-aware CLAUDE.md tailoring retires CLAUDE.lean.md.tpl (ADR 0029 supersedes 0009 — omit only global-covered sections, bias-to-keep, omission list + veto; adopt additions gap-driven); adopt opt-in docs/ADOPTION-LOG.md (field->plugin feedback channel); superpowers research captured in LEARNINGS + ROADMAP M1 verifier/maker contract + M3 dashboard. Features validated by fresh-subagent E2Es."
+    },
+    {
+      "from": "1.5.0",
+      "to": "1.6.0",
+      "at": "2026-06-14",
+      "note": "V1.6 M1 loop-readiness: opt-in maker/verifier loop scaffolding in bootstrap/adopt (loop/ namespace, ADR 0030) + conditional ## Invariants; new /groundrules:realize skill (approved plan -> partitioned [loop]/[supervised] backlog) with a TDD-before-loop gate (pre-written red acceptance test, writer != maker); blocked.md backward-crossing triage convention; CLAUDE.md 'Claude Code workflow' routes work by regime (ADR 0027). Validated by adversarial fresh-subagent E2Es; loop prototype in docs/prototypes/loop/."
     }
   ],
   "answers": {

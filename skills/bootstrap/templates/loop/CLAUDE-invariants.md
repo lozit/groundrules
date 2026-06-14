@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.5.0 -->
+<!-- generated-by: groundrules v1.6.0 -->
 <!-- Inserted into CLAUDE.md only when loop scaffolding is opted in (after ## Conventions). -->
 ## Invariants
 

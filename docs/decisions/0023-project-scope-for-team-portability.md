@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.5.0 -->
+<!-- generated-by: groundrules v1.6.0 -->
 # 0023 — Recommend project-scope install for team portability (no CLAUDE.md bloat, no vendoring)
 
 **Date**: 2026-06-08

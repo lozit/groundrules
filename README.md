@@ -188,6 +188,7 @@ Not everything here is a research result — and we won't pretend it is. Some ch
 | **Keep a Changelog** — a curated, human-readable history | `git log` is a transcript, not a summary; a hand-curated changelog tells a *person* what actually changed between versions. The `[Unreleased]` accumulator keeps it current without per-commit churn. | [keepachangelog.com](https://keepachangelog.com/en/1.1.0/) · [`CHANGELOG.md`](CHANGELOG.md) |
 | **Conventional Commits** — `feat:` / `fix:` / `docs:` … | A predictable commit grammar makes history scannable for humans and parseable for tooling (automated changelog, version bumps). | [conventionalcommits.org](https://www.conventionalcommits.org/) |
 | **Semantic Versioning** — `MAJOR.MINOR.PATCH` | A version number that *means something*: consumers can tell at a glance whether an update is a fix, a feature, or a breaking change. | [semver.org](https://semver.org/) |
+| **Test-Driven Development** — a failing test *before* the code (**loop regime only**) | When a task is handed to the autonomous loop (`/groundrules:realize`), a pre-written, currently-**red** acceptance test is the loop's back pressure: the maker makes it green, an independent verifier replays it. Red-first is Kent Beck's discipline; groundrules applies it as the *loop precondition* — **not** a global mandate (interactive work keeps the human as back pressure, handoff-not-gospel). | [Beck, *TDD by Example*](https://www.oreilly.com/library/view/test-driven-development/0321146530/) · [ADR 0027](docs/decisions/0027-reflection-realization-interactive-loop.md) |
 
 These aren't dressed up as science — they're conventions we chose deliberately, and the choice itself is recorded where every other one is: [`docs/decisions/`](docs/decisions/).
 
@@ -252,6 +253,7 @@ The findings behind the design choices above:
 - **Keep a Changelog** — [keepachangelog.com](https://keepachangelog.com/en/1.1.0/)
 - **Conventional Commits** — [conventionalcommits.org](https://www.conventionalcommits.org/)
 - **Semantic Versioning** — [semver.org](https://semver.org/)
+- **Test-Driven Development** — Kent Beck, *Test-Driven Development: By Example* (Addison-Wesley, 2002) — red-first as the loop's back pressure. [O'Reilly](https://www.oreilly.com/library/view/test-driven-development/0321146530/)
 
 The complete per-decision history lives in [`docs/decisions/`](docs/decisions/) and [`CHANGELOG.md`](CHANGELOG.md).
 

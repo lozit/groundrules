@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.5.0 -->
+<!-- generated-by: groundrules v1.6.0 -->
 # Loop — autonomous maker/verifier execution for {{PROJECT_NAME}}
 
 This directory makes {{PROJECT_NAME}} executable by an **autonomous loop**, not only interactively. It
