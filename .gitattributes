@@ -1,0 +1,17 @@
+# GitHub Linguist — language-bar classification.
+#
+# This repo is a Claude Code plugin made almost entirely of Markdown (README, CLAUDE.md,
+# SKILL.md, docs, ADRs) plus generation templates. It contains no Go.
+#
+# Two Linguist defaults combine to mislabel it as "Go Template 100%":
+#   1. Markdown is a `prose` language, excluded from the language bar by default.
+#   2. The *.tpl templates use `{{KEY}}` placeholders — the same double-brace syntax as
+#      Go's text/template — so Linguist detects them as "Go Template", leaving them as the
+#      only counted files.
+#
+# Fix: the *.tpl files are Markdown with placeholders (not Go), and we want the bar to
+# reflect that the project is Markdown.
+
+*.tpl linguist-language=Markdown
+*.tpl linguist-detectable=true
+*.md  linguist-detectable=true
