@@ -7,6 +7,26 @@ One entry per learning. Keep the format simple: title, context, lesson.
 
 ---
 
+## A skill's `allowed-tools` must match its write pattern — append/edit needs `Edit`, fresh files need only `Write`
+
+**Why**: 2026-06-14, the brick-3 `/groundrules:realize` E2E (whose subagent audited the frontmatter)
+caught that its Phase 4 mandated "append / never overwrite" on two existing files while `allowed-tools`
+listed only `Read, Write, …` — no `Edit`. A faithful run constrained to that grant would have to
+Read-the-whole-file-then-Write-it-back to "append", which **is** an overwrite and races a
+concurrently-edited file — the exact clobber the phase forbids. The same audit surfaced that `bootstrap`
+(also `Edit`-less) had been given a brick-2 instruction to "insert `## Invariants` into the *generated*
+CLAUDE.md" — an edit-after-write it couldn't perform. Both passed every static check (signatures,
+placeholders, drift) because the mismatch is between the *tool grant* and the *prose*, invisible until
+you execute the skill under its real constraints.
+
+**When to apply**: authoring or changing any side-effecting skill. (1) If a phase **edits or appends to
+an existing file**, `allowed-tools` must include `Edit`, and the prose should say "append with `Edit`",
+not Read+Write-back. (2) If a skill only **composes fresh files**, `Write` alone is right — and any
+"insert X into the generated file" step must be reworded to **splice-before-the-single-`Write`**
+(compose-then-write), not write-then-rewrite (the `bootstrap` `## Invariants` fix). Cross-check the
+frontmatter `allowed-tools` against what every phase actually does to disk. A fresh-subagent E2E that
+*executes* the skill is what catches this — a static read won't.
+
 ## A hardcoded version string in a generated artifact drifts — the release sweep only bumps signatures
 
 **Why**: 2026-06-14, the brick-2 fresh-subagent E2E caught `bootstrap` Phase 6 emitting
