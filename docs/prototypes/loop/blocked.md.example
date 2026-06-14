@@ -1,0 +1,39 @@
+<!-- generated-by: groundrules v1.5.0 -->
+# blocked.md — the backward crossing (example)
+
+> The loop writes this file when it hits something it **cannot verify its way out of** — a real
+> decision the spec doesn't settle, or a task that won't go green. Writing here is how a *realization*
+> loop re-enters *reflection* (human territory) instead of guessing (ADR 0027 §3). Each blocker is one
+> `##` section, appended; a human triages it → re-decompose the task, decide it (often an **ADR**, which
+> makes the next loop run smarter), or fix it interactively. The loop leaves the task **unchecked** in
+> `TODO.md` and moves on.
+
+This is an **example** of the shape. A live `blocked.md` lives at the project root next to `TODO.md`.
+
+---
+
+## Task: Add a `max_length` truncation option to `slugify`
+
+**Status**: BLOCKED (maker, iteration 3) — implicit decision, not mine to make.
+
+**The decision the spec doesn't settle**: when a slug exceeds `max_length`, where do we cut?
+- (a) Hard-cut at exactly `max_length` characters — may leave a trailing hyphen or split a word
+      (`"hello-world"` → `"hello-wo"`).
+- (b) Cut at the last hyphen boundary at or before `max_length` — never splits a word
+      (`"hello-world"` → `"hello"`), but can return far fewer characters than asked.
+- (c) Hard-cut, then strip any trailing hyphen (`"hello-world"` → `"hello-wo"` stays, `"hello-"` → `"hello"`).
+
+These produce **different observable outputs** for the same input, and the acceptance test does not
+pin it down. Picking one silently would bake a product decision into a loop commit.
+
+**Why I won't guess**: this is a behaviour choice a user will depend on; it belongs in reflection (an
+ADR or a sharpened task), not in an autonomous maker turn. Truncation also interacts with the existing
+"collapse and trim hyphens" rule — order matters — which compounds the ambiguity.
+
+**What would unblock me**:
+- A task line that states the rule explicitly (e.g. "truncate at the last hyphen ≤ max_length, then
+  trim a trailing hyphen"), **or**
+- An ADR deciding the truncation semantics, referenced from the task.
+
+**Suggested triage**: decide → ADR (truncation is a small but real product semantic), then re-add the
+task with the rule inlined and an acceptance test that pins the chosen behaviour.

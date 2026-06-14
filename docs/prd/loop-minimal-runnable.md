@@ -5,7 +5,12 @@
 > builds the right thing — not a coherent surprise. Validate it (and answer the open questions)
 > before any code. Update it if the scope shifts.
 
-**Date**: 2026-06-14 · **Status**: draft · **Milestone**: M1 loop-readiness (first brick)
+**Date**: 2026-06-14 · **Status**: ✅ built & validated (2026-06-14) · **Milestone**: M1 loop-readiness (first brick)
+
+> **Outcome**: prototype in `docs/prototypes/loop/`, validated by subagent simulation on the `slugify`
+> fixture (good path converges · adversarial green-but-gamed diff REJECTed · under-specified task
+> BLOCKED). Verdict + contract fixes in `docs/LEARNINGS.md`. The three open questions below were
+> resolved with their leans. **Next brick**: wire opt-in scaffolding into `bootstrap`/`adopt`.
 
 ## Problem
 
@@ -98,14 +103,17 @@ Ordered steps, each with a validation point.
 - **Over-building the prototype.** Mitigation: minimal by design — one fixture, one task, the
   smallest contract that exercises convergence + rejection + block.
 
-## Open questions
+## Open questions — resolved
 
-<!-- Anything still ambiguous — resolve before building. Delete when empty. -->
-- **Prototype location**: `docs/prototypes/loop/` (proposed) vs a `/tmp` fixture only vs draft
-  templates under `skills/bootstrap/templates/loop/` (marked not-yet-wired). Lean: `docs/prototypes/loop/`
-  for the artifacts + a `/tmp` fixture for the run.
-- **Validation depth**: subagent-simulated cycle (achievable here, proves the *contract*) vs a real
-  `claude -p` shell-loop run (heavier, needs the CLI in a loop). Lean: simulate now; document the live
-  run as a user-runnable step.
-- **Fixture task choice**: a self-contained pure function with a crisp acceptance test (lean) vs
-  something more representative. Lean: the simplest task that still exercises maker/verifier/block.
+- **Prototype location** → **resolved: `docs/prototypes/loop/`** for the artifacts (marked not-shipped
+  in its `README.md`) + a `/tmp` copy of `fixture/` for each run. As leaned.
+- **Validation depth** → **resolved: subagent simulation now** (proved the contract across all three
+  paths); the live `claude -p` run is provided via `run-loop.sh` and documented as a user-runnable step,
+  gated by the hard `MAX` cap. As leaned.
+- **Fixture task choice** → **resolved: `slugify(text)`** — a self-contained pure function with a crisp
+  pre-written acceptance test, plus a deliberately under-specified `max_length` task to exercise the
+  block path. As leaned.
+
+> One finding promoted a *downstream* open question (tracked in ROADMAP M1) to a requirement: the
+> verifier must be able to **reject a too-weak test** — the adversarial path proved a green test alone
+> rubber-stamps a gamed diff. See `docs/LEARNINGS.md`.

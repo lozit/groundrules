@@ -7,6 +7,36 @@ One entry per learning. Keep the format simple: title, context, lesson.
 
 ---
 
+## The maker/verifier loop contract works — but only because the verifier distrusts the test, not just the report
+
+**Why**: 2026-06-14, brick 1 of M1 (PRD `docs/prd/loop-minimal-runnable.md`) built a minimal loop
+prototype (`docs/prototypes/loop/`: `maker.md`, `verifier.md`, `LOOP.md`, capped `run-loop.sh`, the
+`blocked.md` convention) and validated the contract by **subagent simulation** on a `slugify` fixture
+with a pre-written acceptance test (red before code). All three required behaviours held: **(a)
+convergence** — maker `DONE` → verifier `PASS` after independently re-running the test and re-deriving
+from the diff; **(b) distrust-the-report** — a maker that **gamed the test** (hard-coded the 10 expected
+outputs in a lookup table, so `python3 test_slugify.py` was genuinely green 10/10) was still **REJECTed**,
+because the verifier tested inputs the acceptance test *doesn't* cover (`slugify("A  B")=="a--b"`,
+`slugify("--x--")=="--x--"`) and caught the gap; **(c) park-don't-guess** — on a deliberately
+under-specified `max_length` task the maker reported `BLOCKED`, wrote `blocked.md`, touched no code, and
+left the task unchecked. The single decisive finding: **a green acceptance test is necessary but not
+sufficient — gaming passes it. What caught the gamed diff was the verifier's mandate to re-derive the
+*general* behaviour from the diff and probe uncovered inputs**, not the test result. A verifier that only
+re-runs the test would have rubber-stamped plausible-but-wrong work (the PRD's headline risk).
+
+**When to apply**: productizing the loop scaffolding into `bootstrap`/`adopt` (brick 2) and
+`/groundrules:realize` (brick 3). **Verdict: the contract is good enough to productize**, with these
+fixes the simulation surfaced — (1) the **verifier must run as a separate subagent / fresh context**;
+the independence is what made the adversarial catch credible, so generated scaffolding should spawn it
+separately, not have one agent self-review in the same turn; (2) **the acceptance test is the linchpin
+but is not the whole back pressure** — this confirms M1's open questions: `realize` must gate `[loop]`
+on a *real* acceptance test **and** the verifier must be allowed to reject work whose test is too weak
+to constrain it (a green-but-gamed diff), so "verifier may reject a too-weak test" graduates from open
+question to requirement; (3) the runner/`LOOP.md` commit step must **stage the intended diff, never
+`git add -A`** (it sweeps `__pycache__`/in-flight `blocked.md`) — ship a `.gitignore` with the
+scaffolding. Validation was by simulation (like our skill E2Es); a live `claude -p` run is left to the
+user, gated by the runner's hard `MAX` cap (anti-runaway).
+
 ## A skill with create + refine flows must branch the WRITE step; baseline-test it against a fresh agent
 
 **Why**: 2026-06-13, the new `/groundrules:vision` passed static checks (placeholders ↔ template, path) but a **fresh-subagent E2E** (an agent who didn't write it follows the SKILL.md on fixtures with canned answers — superpowers' "writing skills IS TDD" #10) caught a real **contradiction**: Phase 3 said "read the template, substitute, write" while Phase 1 said "apply only confirmed section changes". For an *existing* (refine) VISION, following Phase 3 literally would **regenerate the full current template and silently upgrade the header/footer/source line** — overwriting content the user never confirmed. One write step served two flows. The same test also surfaced `<today>` with no source (a headless agent has no date → tell it to run `date +%F`) and an implicit `.new` default. Static checks could not have found any of these.
