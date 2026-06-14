@@ -158,8 +158,11 @@ This file is alive — but keep it a **map, not the territory**. It is loaded in
 
 ## Claude Code workflow
 
-- **Before a non-trivial feature**: write a PRD (`/groundrules:prd` — or your superpowers spec if you use it), then build against it
-- **Plan mode** (`shift+tab`) before any non-trivial task
+- **Match the work to the regime** before diving in (reflection before realization — know your phase):
+  - a **decision / fork** (an unsettled choice) → capture it as an **ADR** (`/groundrules:add-adr`) *before* acting
+  - a **non-trivial feature** → a **PRD** (`/groundrules:prd`, or your superpowers spec) first, then build against it
+  - an **interactive, non-trivial** change → **plan mode** (`shift+tab`) before you start
+  - an **atomic, testable, isolatable** task → if this repo has `loop/` scaffolding, hand it to **`/groundrules:realize`** → the loop (it gates `[loop]` on a pre-written, red acceptance test); otherwise just build it
 - **`/compact [hint]`** mid-task to compress context; **`/clear`** when switching tasks
 - **Git worktrees** for parallel sessions: `claude --worktree <name>`
 - **Custom skills/commands** in `.claude/` — if you do something more than once a day, automate it
