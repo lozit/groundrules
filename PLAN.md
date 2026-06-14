@@ -7,7 +7,7 @@ This file differs from the long-term roadmap: it describes what is happening **n
 
 ## In progress
 
-- [ ] **Loop walkthrough + validation suite** (PRD `docs/prd/loop-walkthrough.md`, **draft → ready to build**). Goal: **show how to use the loop** on a fresh project (empty → bootstrap loop → realize → run → converge → block → triage), doubling as a validation series. New `test/loop/`: `WALKTHROUGH.md` (narrated, expected outcome per step), `validate-runner.sh` (deterministic — stub `claude`, asserts `MAX` cap + `DONE` stop, no LLM), `fixtures/` (slugify red test + mixed plan). Behavioural layer = subagent-sim, live `claude -p` documented opt-in. Forks + 3 open questions resolved 2026-06-14. *(reflection done → build)*
+- [x] **Loop walkthrough + validation suite** ✅ (PRD `docs/prd/loop-walkthrough.md`). New `test/loop/` (repo's first `test/`): `WALKTHROUGH.md` (empty → bootstrap loop → realize → run → converge → block → triage, expected outcome per step, tagged `[shell]`/`[agent]`/`[human]`), `validate-runner.sh` (deterministic — stubs `claude`, **11/11**: `MAX` cap · `DONE` stop · per-iteration freshness · cap guards · missing-CLI, no tokens), `fixtures/` (slugify red test + mixed plan), `README.md` index. README "age of loops" pointer + CHANGELOG. **Fresh-subagent replay** end-to-end on `/tmp`: all `[shell]` checks pass, slugify converges (green + loop commit + `[x]`), block path writes `blocked.md` + `Resolution:` stub; caught 1 minor doc inaccuracy (`ls loop/` → `ls -a` for the dotfile), fixed. Under `[Unreleased]`.
 
 ## Up next
 

@@ -8,6 +8,9 @@ versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- **Loop walkthrough + validation suite** (`test/loop/`) — shows **how to use the loop** on a fresh project end-to-end (empty folder → `bootstrap` loop opt-in → `/groundrules:realize` → run the loop → a loop-authored commit → a `BLOCKED` → triage), doubling as a validation series. `WALKTHROUGH.md` narrates each step with its expected outcome (tagged `[shell]` / `[agent]` / `[human]`); `validate-runner.sh` is the **deterministic** layer — stubs `claude` to assert `run-loop.sh`'s `MAX` cap, `DONE` stop, and per-iteration freshness (no LLM, 11 checks); fixtures provide a red `slugify` acceptance test + a mixed plan. The behavioural contract (converge / reject-gamed / block / TDD-gate / triage) runs live or subagent-replayed; outcomes are stated as invariants, not transcripts. PRD `docs/prd/loop-walkthrough.md`. The repo's first `test/`.
+
 ## [1.6.0] - 2026-06-14
 
 > **M1 — Loop-readiness.** groundrules becomes the reflection layer a loop runs on: opt-in maker/verifier loop scaffolding, the `/groundrules:realize` forward bridge (with a TDD-before-loop gate), the `blocked.md` backward-crossing convention, and a generated `CLAUDE.md` that routes work by regime. Built brick by brick, each spec'd in a PRD and validated by an adversarial subagent E2E. See ADR 0027 (method) + ADR 0030 (loop namespace).

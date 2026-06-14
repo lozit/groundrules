@@ -31,7 +31,7 @@ That is groundrules' thesis, arrived at independently — and the **same [contex
 
 And it answers the paradigm's sharpest risk. Loops ship code fast, but they accrue **comprehension debt** — code that exists and works, yet no human ever read. groundrules' ADR trail, learnings journal, and the *why* it preserves are the antidote: **loops write the code fast; groundrules keeps the understanding of the code.**
 
-> Today groundrules is the **memory + reflection layer** a loop runs on — and now ships **opt-in loop scaffolding** (`loop/`: a maker/verifier split with an independent, report-distrusting verifier, a capped runner, and a loop-safe backlog; off by default, offered by `bootstrap`/`adopt`). The `realize` bridge that auto-fills the backlog from an approved plan is the next direction — see [ADR 0027](docs/decisions/0027-reflection-realization-interactive-loop.md), [ADR 0030](docs/decisions/0030-loop-namespace-and-backlog.md), and the [roadmap](docs/ROADMAP.md).
+> Today groundrules is the **memory + reflection layer** a loop runs on — and ships **opt-in loop scaffolding** (`loop/`: a maker/verifier split with an independent, report-distrusting verifier, a capped runner, and a loop-safe backlog; off by default, offered by `bootstrap`/`adopt`), plus **`/groundrules:realize`** (turn an approved plan into a partitioned backlog, gated on a pre-written red acceptance test). **See it end-to-end — and how to use it — in [`test/loop/WALKTHROUGH.md`](test/loop/WALKTHROUGH.md)** (empty folder → bootstrap → realize → a loop-authored commit). Decisions: [ADR 0027](docs/decisions/0027-reflection-realization-interactive-loop.md), [ADR 0030](docs/decisions/0030-loop-namespace-and-backlog.md); the [roadmap](docs/ROADMAP.md).
 
 ## How it works
 

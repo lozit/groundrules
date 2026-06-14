@@ -1,0 +1,17 @@
+<!-- generated-by: groundrules v1.6.0 -->
+# test/loop — loop walkthrough + validation suite
+
+How to **use the groundrules loop** on a fresh project, in a way that also **validates** it. Spec'd in
+[`docs/prd/loop-walkthrough.md`](../../docs/prd/loop-walkthrough.md).
+
+| File | What it is |
+|------|------------|
+| [`WALKTHROUGH.md`](WALKTHROUGH.md) | The narrated end-to-end demo: empty folder → `bootstrap` (loop) → `realize` → run the loop → converge → block → triage, with the expected outcome at each step. **Start here.** |
+| [`validate-runner.sh`](validate-runner.sh) | The **deterministic** layer — stubs `claude` to prove `run-loop.sh`'s `MAX` cap, `DONE` stop, and per-iteration freshness. No LLM, no tokens. `bash test/loop/validate-runner.sh`. |
+| [`fixtures/test_slugify.py`](fixtures/test_slugify.py) | A pre-written, currently-**red** acceptance test (the loop's back pressure) for the demo `slugify` task. |
+| [`fixtures/sample-plan.md`](fixtures/sample-plan.md) | A small **mixed** plan to feed `/groundrules:realize` (one `[loop]`-eligible task + two `[supervised]`). |
+
+**Two layers, on purpose.** The loop is LLM-driven (no `bootstrap`/`realize` CLI), so only the runner is
+testable deterministically. `validate-runner.sh` pins that; the behavioural contract (converge / reject
+a gamed diff / block / TDD gate / triage) is demonstrated in `WALKTHROUGH.md`, run live or replayed by a
+subagent. See the PRD for the rationale.
