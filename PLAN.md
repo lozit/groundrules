@@ -7,7 +7,7 @@ This file differs from the long-term roadmap: it describes what is happening **n
 
 ## In progress
 
-- [ ] *(empty — M1 Loop-readiness shipped in v1.6.0; next milestone enters here when tackled)*
+- [ ] **Loop walkthrough + validation suite** (PRD `docs/prd/loop-walkthrough.md`, **draft → ready to build**). Goal: **show how to use the loop** on a fresh project (empty → bootstrap loop → realize → run → converge → block → triage), doubling as a validation series. New `test/loop/`: `WALKTHROUGH.md` (narrated, expected outcome per step), `validate-runner.sh` (deterministic — stub `claude`, asserts `MAX` cap + `DONE` stop, no LLM), `fixtures/` (slugify red test + mixed plan). Behavioural layer = subagent-sim, live `claude -p` documented opt-in. Forks + 3 open questions resolved 2026-06-14. *(reflection done → build)*
 
 ## Up next
 
