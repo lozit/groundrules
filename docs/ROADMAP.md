@@ -12,7 +12,10 @@ tackled.
 
 ## Milestones
 
-### M1 — Loop-readiness (groundrules as the reflection layer for loop execution)
+### M1 — Loop-readiness (groundrules as the reflection layer for loop execution) — ✅ SHIPPED v1.6.0
+
+> **✅ Shipped in v1.6.0** (2026-06-14) — all six items below, each spec'd in a PRD (`docs/prd/`) and
+> validated by an adversarial fresh-subagent E2E. Detail in `CHANGELOG.md` `[1.6.0]`.
 
 Make a groundrules repo executable by an autonomous **loop**, not only by interactive sessions —
 while staying the antidote to the *comprehension debt* loops create (ADRs/LEARNINGS/the *why*).
@@ -26,13 +29,13 @@ implementation deferred to per-feature PRDs.
 > PRD-altitude above (risks, success metrics) and durable memory (ADR/LEARNINGS/VISION). See the
 > superpowers learning in `docs/LEARNINGS.md`.
 
-- [ ] **Loop scaffolding, opt-in in `bootstrap`/`adopt`** (once per project): `maker`/`verifier`
+- [x] **Loop scaffolding, opt-in in `bootstrap`/`adopt`** (once per project): `maker`/`verifier`
       sub-agents, `LOOP.md`, a capped runner, an *Invariants* section in `CLAUDE.md`, the
       `blocked.md` convention. *(PRD needed)*
-- [ ] **`/groundrules:realize`** — the forward bridge: transform an approved (plan-mode) plan into a
+- [x] **`/groundrules:realize`** — the forward bridge: transform an approved (plan-mode) plan into a
       *partitioned* backlog (atomic + verifiable + invariant-aware; `[loop]` vs `[supervised]`),
       refusing `[loop]` without a real stop condition. *(PRD needed)*
-- [ ] **TDD-before-loop (acceptance test = back pressure).** The loop's verifiable stop condition is
+- [x] **TDD-before-loop (acceptance test = back pressure).** The loop's verifiable stop condition is
       an **acceptance test authored in *reflection*** — the executable form of the PRD's *Success
       criteria*, written by someone other than the maker (writer/verifier separation). `realize`
       **gates `[loop]` on its existence**: no acceptance test → the task stays `[supervised]`. TDD is
@@ -43,16 +46,16 @@ implementation deferred to per-feature PRDs.
       - *Open questions*: who authors the acceptance test when there is **no PRD** (a mini-spec at
         `realize` time?); can the `verifier` **reject a too-weak test** (a test that passes trivially
         is no back pressure)?
-- [ ] **Verifier/maker contract** (borrowed from superpowers — see `docs/LEARNINGS.md`). The loop's
+- [x] **Verifier/maker contract** (borrowed from superpowers — see `docs/LEARNINGS.md`). The loop's
       review uses a **two-stage ordered verifier** (spec-compliance THEN code-quality), framed to
       **distrust the maker's self-report and re-derive from the diff**, gated by **evidence-before-claim**
       (no "done" without a fresh verification run this turn). The maker reports a **four-status protocol**
       (DONE / DONE_WITH_CONCERNS / BLOCKED / NEEDS_CONTEXT) — `BLOCKED` is the backward-crossing trigger.
       The atomic todo must pass a **"no placeholders"** bar. All as Markdown prompt templates (no runtime);
       reject superpowers' coercive register and mandatory-TDD (handoff-not-gospel).
-- [ ] **Backward crossing** — triage `blocked.md` (re-decompose / decide→ADR / interactive-fix) as a
+- [x] **Backward crossing** — triage `blocked.md` (re-decompose / decide→ADR / interactive-fix) as a
       **convention** in the generated `CLAUDE.md` first; promote to a skill only if it earns it.
-- [ ] **Template refinement** — sharpen "plan mode before any non-trivial task" into
+- [x] **Template refinement** — sharpen "plan mode before any non-trivial task" into
       "interactive non-trivial → plan mode; atomic/testable/isolatable → spec + loop; decision → ADR".
 
 ### M2 — Support harnesses beyond Claude Code
