@@ -37,9 +37,38 @@ bash loop/run-loop.sh --max 5
 ```
 
 The runner drives `claude -p` headless, a fresh agent each iteration (the model forgets; the repo
-remembers). It stops on an empty backlog or when `MAX` is reached. **Triage `blocked.md`** after a run:
-re-decompose the task, decide it (often an ADR — which makes the next run smarter), or fix it
-interactively.
+remembers). It stops on an empty backlog or when `MAX` is reached.
+
+## Triaging `blocked.md` (the backward crossing)
+
+When the loop writes `blocked.md`, it has hit something it **can't verify its way out of** and has
+re-entered **reflection** — your territory. Triage every open blocker; this is the price of running the
+loop. For each, pick **one** route by *why* it blocked:
+
+| Why it blocked | Route | How |
+|---|---|---|
+| The task was **too big / vague** to be atomic | **Re-decompose** | Split it into atomic, testable sub-tasks — run `/groundrules:realize` again on the smaller pieces. |
+| It hid a **real decision** the spec didn't settle | **Decide → ADR** | A **human** makes the call and records it with `/groundrules:add-adr`; then re-add the now-decided task to `loop/backlog.md` (via `realize` or by hand). |
+| It needs a **human touch** the loop can't give (exploratory, cross-cutting, judgement) | **Fix interactively** | Do it in a normal session; leave it `[supervised]`. |
+
+**The decision is the human's, not the triager's.** Triage *routes* a blocker; it does **not** resolve a
+parked decision by guessing (same guard as the maker — could-act ≠ cleared-to-act). An agent triaging
+may re-decompose and fix interactively, but for a hidden decision it routes to an ADR and **waits for the
+human** — it never invents the answer.
+
+**If a blocker fits more than one row**, prefer in this order: **Decide → ADR** (a hidden decision must
+be settled first) **> Re-decompose > Fix interactively**.
+
+**Closing a blocker** (the audit trail — `blocked.md` is not a graveyard): replace its
+`Resolution: (open — awaiting triage)` line, **beginning with the route label** so it stays greppable:
+- `Resolution: Re-decompose → <N tasks re-added to backlog.md>`
+- `Resolution: Decide → ADR (pending human decision)` — a legitimate *tracked, not closed* state; becomes
+  `Decide → ADR 00NN; task re-added` only once the human decides. **Don't fabricate an ADR number for a
+  decision not yet made.**
+- `Resolution: Fix interactively → <commit / "stays [supervised]">`
+
+**A resolved blocker should leave the repo smarter, not just unblocked** — a decision becomes an ADR
+that makes the next run smarter (the loop *bonifies* the repo).
 
 ## Boundaries
 

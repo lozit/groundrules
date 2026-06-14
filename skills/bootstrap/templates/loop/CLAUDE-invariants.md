@@ -10,3 +10,5 @@ call. Keep it short and checkable; state your own:
 - <fill in — e.g. no secrets, credentials, or `.env` values committed>
 - <fill in — e.g. public API / DB schema not changed without an ADR>
 - <fill in — e.g. no edit outside the task's stated scope>
+
+> **Loop blocked?** On a parked decision, triage `loop/blocked.md` (re-decompose / decide → ADR / fix interactively) — see `loop/README.md`.

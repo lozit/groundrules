@@ -7,6 +7,25 @@ One entry per learning. Keep the format simple: title, context, lesson.
 
 ---
 
+## A safety guard doesn't travel between prompt surfaces — restate it everywhere an agent can act
+
+**Why**: 2026-06-14, the brick-5 backward-crossing E2E found that the "don't guess a parked decision"
+guard lived only in `loop/maker.md` (where the maker writes the blocker), **not** in the triage
+convention (`loop/README.md`) that a *different* agent reads later. The triage table said "Decide → ADR:
+**make the call**, record it with `add-adr`" — addressed to a human, but with nothing forbidding an
+autonomous *triage* agent from reading "make the call" as license to invent the decision. The guard the
+maker respects didn't automatically protect the triager; the two are separate prompt surfaces read by
+separate agents at separate times. (Fixed: the anti-guess guard — could-act ≠ cleared-to-act — is now
+stated in the triage convention itself, plus a multi-category tie-breaker and a "routed-but-pending ≠
+resolved" close-out state so a human-pending decision isn't falsely marked done.)
+
+**When to apply**: whenever a workflow is split across multiple prompts/docs read by different agents (a
+maker prompt + a triage convention; a skill that hands off to another skill; scaffolding + its README).
+A safety guard, a vocabulary, or a "don't do X" rule **must be repeated at each surface where an agent
+could act on it** — it is not inherited from the doc that first stated it. Audit every hand-off point and
+restate the guard there. A fresh-subagent E2E that drives *that specific surface in isolation* is what
+exposes the missing guard (the maker E2E would never have caught it — only the triage E2E did).
+
 ## A red acceptance test must fail on a behavioural assertion, not just a missing import
 
 **Why**: 2026-06-14, the brick-4 TDD-gate E2E surfaced that "the test is currently red (exit ≠ 0)" is

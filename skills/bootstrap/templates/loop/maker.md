@@ -56,7 +56,9 @@ For `BLOCKED` / `NEEDS_CONTEXT` (where no code ran), `TEST RUN:` is `not run —
   fragile assumption, a perf cliff, a follow-up worth a new task). List the concern explicitly.
 - **BLOCKED** — a real decision the task doesn't settle, an invariant you'd have to break, or an
   external blocker. **Append a `## <task>` section to `loop/blocked.md`** stating: the task, the precise
-  decision/obstacle, the options you see, and why you won't guess. Then stop.
+  decision/obstacle, the options you see, why you won't guess, and a final line
+  **`Resolution: (open — awaiting triage)`** (the human replaces it when triaging — see the triage
+  convention in `loop/README.md`). Then stop.
 - **NEEDS_CONTEXT** — the task is too vague to implement without inventing scope, or a referenced
   file/spec/test is missing. Say exactly what you need.
 
