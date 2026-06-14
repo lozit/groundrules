@@ -23,6 +23,16 @@ groundrules' answer is a *method*, not just a folder of templates: **write every
 
 The full reasoning and token economics: [`docs/CONTEXT-ECONOMY.md`](docs/CONTEXT-ECONOMY.md) ([ADR 0021](docs/decisions/0021-context-economy-index-over-doc-search.md)).
 
+## Built for the age of loops
+
+The way people drive coding agents is shifting from **prompts to loops**: instead of typing each prompt, you run a loop that restarts the agent from a *fresh* context every iteration and lets the **repo** — not the model — carry the memory. Claude Code's creator [puts it plainly](https://www.youtube.com/watch?v=SlGRN8jh2RI): *"I don't prompt Claude anymore… my job is to write loops."* The [technique](https://ghuntley.com/ralph/)'s slogan is blunter still: **the model forgets, the repo remembers.**
+
+That is groundrules' thesis, arrived at independently — and the **same [context-rot](https://www.understandingai.org/p/context-rot-the-emerging-challenge) research** underwrites both: a short, fresh context each turn isn't a compromise, it's the goal. A loop only survives its amnesiac restarts on **durable, on-disk state** — a vision of what to build, a plan checked off run after run, lessons so it stops repeating mistakes, decisions for the *why*, and git for what's done. **That state is exactly what groundrules generates.** It makes a repo *loop-ready*: the structure a loop re-reads at the start of every iteration.
+
+And it answers the paradigm's sharpest risk. Loops ship code fast, but they accrue **comprehension debt** — code that exists and works, yet no human ever read. groundrules' ADR trail, learnings journal, and the *why* it preserves are the antidote: **loops write the code fast; groundrules keeps the understanding of the code.**
+
+> Today groundrules is the **memory + reflection layer** a loop runs on. Generating the loop *scaffolding* itself (a maker/verifier split, a `realize` bridge from plan to backlog) is the next direction — see [ADR 0027](docs/decisions/0027-reflection-realization-interactive-loop.md) and the [roadmap](docs/ROADMAP.md).
+
 ## How it works
 
 It starts the moment you run `/groundrules:bootstrap` in a fresh folder.

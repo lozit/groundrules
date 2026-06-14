@@ -9,6 +9,7 @@ versions follow [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Changed
+- **README `## Built for the age of loops`** (after *Why*) — explains how groundrules fits the *"write loops, not prompts"* shift: the loop paradigm's "the model forgets, the repo remembers" is groundrules' own thesis (same context-rot evidence), groundrules generates the durable on-disk state a loop re-reads each iteration (*loop-ready*), and it's the antidote to the **comprehension debt** loops create ("loops write the code fast; groundrules keeps the understanding"). Honest about present (memory + reflection layer) vs roadmap (loop scaffolding — ADR 0027 / M1). Also added `.gitattributes` so GitHub Linguist shows Markdown, not "Go Template" (the `{{KEY}}` templates were mis-detected).
 - **Skill `description:` fields rewritten WHEN-first (CSO)** — all 12 skill descriptions now state *when to use* the skill, not a workflow summary (a summary can make Claude follow the description and skip the SKILL body — superpowers' `writing-skills`, see `docs/LEARNINGS.md`). New authoring rule in `.claude/rules/plugin-meta.md`; `vision` is the reference shape.
 - **AGENT-EVALS guard hardening format** — the `AGENT-EVALS.md.tpl` and the `checkpoint` skill now document an optional **rationalization table** (excuse-under-pressure → rebuttal) + **red-flag stop-line** for a *stubborn* guard that keeps getting rationalized away (borrowed from superpowers; formalizes the eval→guard loop, ADR 0022).
 
