@@ -12,6 +12,8 @@ This file differs from the long-term roadmap: it describes what is happening **n
 
 ## Up next
 
+- [ ] **`/goal` interop — PRD then build** ([ADR 0031](docs/decisions/0031-goal-interop-swappable-loop-executor.md), **Accepted** 2026-06-17). Decision settled: loop executor is swappable; `/goal` = light loop, the groundrules loop (`run-loop.sh` + prompts) = high-fidelity loop; choose by stakes; `run-loop.sh` repositioned (high-fidelity executor + harness-neutral fallback). **Next = a PRD** to implement: `realize` emits a `/goal`-ready condition · `/goal` interop note in generated `loop/README.md` (mirror the superpowers note) · **explain the two fidelity levels in `README.md`** (when `/goal` vs full loop, why `/goal` alone is lighter). *(reflection done → PRD when tackled)*
+
 
 > **Long-term milestones moved to [`docs/ROADMAP.md`](docs/ROADMAP.md)** — M1 *Loop-readiness* (loop scaffolding opt-in, `/groundrules:realize`, triage convention; ADR 0027) and M2 *Multi-harness support*. They enter "In progress" here, and get a PRD/ADR, only when actively tackled.
 

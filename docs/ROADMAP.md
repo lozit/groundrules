@@ -58,6 +58,14 @@ implementation deferred to per-feature PRDs.
 - [x] **Template refinement** — sharpen "plan mode before any non-trivial task" into
       "interactive non-trivial → plan mode; atomic/testable/isolatable → spec + loop; decision → ADR".
 
+**Follow-up (post-v1.6.0) — `/goal` interop ([ADR 0031](decisions/0031-goal-interop-swappable-loop-executor.md), accepted).**
+The loop *executor* is swappable: Claude Code's native **`/goal`** is the **light** loop (simple,
+transcript-verifiable goals), the groundrules loop (`run-loop.sh` + the maker/verifier prompts) is the
+**high-fidelity** loop (independent re-run of the oracle, fresh context, decision-parking) — choose by
+stakes. `run-loop.sh` is repositioned as the high-fidelity executor **and** the harness-neutral fallback
+(ties into M2). Implementation deferred to a PRD: `realize` emits a `/goal`-ready condition, an interop
+note in the generated `loop/README.md`, and a `README.md` explanation of the two fidelity levels.
+
 ### M2 — Support harnesses beyond Claude Code
 
 The strategic reason the repo is named `groundrules` (harness-neutral). Keep the generated **output**

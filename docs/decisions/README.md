@@ -59,3 +59,5 @@ No ADR needed for trivial choices or implementation details.
 | [0027](0027-reflection-realization-interactive-loop.md) | Reflection/realization phases; interactive/loop regimes; loop-readiness direction | Accepted | 2026-06-13 |
 | [0028](0028-git-workflow-conventions.md) | Git workflow: neutral branching, boundary commits, AI attribution-unless-forbidden | Accepted | 2026-06-13 |
 | [0029](0029-content-aware-claude-md-tailoring.md) | Content-aware CLAUDE.md tailoring; retire the lean template (supersedes 0009) | Accepted | 2026-06-14 |
+| [0030](0030-loop-namespace-and-backlog.md) | `loop/` is the loop's namespace; the loop reads `loop/backlog.md`, `PLAN.md` only points to it | Accepted | 2026-06-14 |
+| [0031](0031-goal-interop-swappable-loop-executor.md) | `/goal` interop: the loop executor is swappable (`/goal` = light loop, groundrules loop = high-fidelity); reposition `run-loop.sh` | Accepted | 2026-06-17 |
