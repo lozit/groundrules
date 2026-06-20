@@ -155,10 +155,17 @@ On confirmation:
   so the spec is durable and so the verifier's "test untampered" check (which compares via `git diff`)
   has a tracked baseline. An untracked test = a guard that guards nothing. Remind the user (you don't
   commit — Phase 4 §3).
-- **Next**: run the loop from the project root — `bash loop/run-loop.sh --max <N>` (the `MAX` cap is the
-  anti-runaway). realize itself does **not** create `loop/blocked.md`; *once you have run the loop*, it
-  may have parked decisions there — triage them then (re-decompose / decide → ADR / fix interactively —
-  the backward crossing).
+- **Next — run the loop. Two executors, choose by stakes** ([ADR 0031](../../docs/decisions/0031-goal-interop-swappable-loop-executor.md)):
+  - **High-fidelity (the whole backlog):** `bash loop/run-loop.sh --max <N>` from the project root —
+    fresh context per iteration, the verifier *re-runs the oracle*, parks decisions. The `MAX` cap is the
+    anti-runaway.
+  - **Light (one task, in-the-box):** Claude Code's `/goal` — paste a **command-based** condition
+    derived from that task's acceptance command, e.g. `` /goal "the command `<test command>` exits 0" ``.
+    Quicker, but its evaluator judges the *transcript*, not an independent re-run — see `loop/README.md`
+    → *Two ways to run the loop*. For each `[loop]` task, **print its ready-to-paste `/goal` line** here.
+  - realize itself does **not** create `loop/blocked.md`; *once you have run the loop* it may have parked
+    decisions there — triage them then (re-decompose / decide → ADR / fix interactively — the backward
+    crossing).
 
 ## Important rules
 

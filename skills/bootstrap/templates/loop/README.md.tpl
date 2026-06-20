@@ -29,15 +29,40 @@ you (the realization→reflection backward crossing).
 | `blocked.md` | Written by the loop when it parks a decision for you (the backward crossing). |
 | `lessons.md` | Optional — lessons the loop accumulates across iterations. |
 
-## Running it
+## Two ways to run the loop
+
+The **executor is swappable** — groundrules wrote the goal (the backlog + the red acceptance tests);
+you pick the engine **by stakes**. Both pursue the *same* tests; they differ in fidelity.
+
+### High-fidelity — the groundrules loop (whole backlog)
 
 ```bash
 # from the project root; MAX caps the iterations (anti-runaway, mandatory)
 bash loop/run-loop.sh --max 5
 ```
+Drives `claude -p` headless, a **fresh agent each iteration** (the model forgets; the repo remembers).
+The **verifier re-runs the acceptance test itself** and re-derives from the diff, and a real decision is
+**parked in `blocked.md`**. It iterates the **whole backlog** and stops on an empty backlog or `MAX`.
+Reach for this when the result matters.
 
-The runner drives `claude -p` headless, a fresh agent each iteration (the model forgets; the repo
-remembers). It stops on an empty backlog or when `MAX` is reached.
+### Light — Claude Code's `/goal` (one task, in-the-box)
+
+```bash
+# one command-based condition, derived from a task's acceptance command:
+/goal "the command `<test command>` exits 0"
+```
+`/goal` keeps Claude working across turns until a fast evaluator judges the condition met. Quick and
+zero-setup — but it pursues **one goal** (not the whole backlog), its context **accumulates** (no fresh
+restart), and its evaluator judges the **transcript**, not an independent re-run. Keep the condition
+**command-based** (a binary check the maker actually runs), never a vague "make it good". `realize`
+prints a ready-to-paste `/goal` line per `[loop]` task.
+
+> **Want `/goal`'s speed *and* the high-fidelity check?** After a `/goal` run goes green, optionally do
+> one pass with [`verifier.md`](verifier.md) on the diff — an independent re-run of the oracle that
+> `/goal`'s transcript-judging evaluator doesn't give you. (Manual; not automated.)
+
+**Rule of thumb:** a single, self-evident, command-verifiable task → `/goal`; a backlog, or anything
+where correctness matters → the groundrules loop.
 
 ## Triaging `blocked.md` (the backward crossing)
 

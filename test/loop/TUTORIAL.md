@@ -89,6 +89,10 @@ and offer to author one first — that's the gate doing its job.)
 ```bash
 bash loop/run-loop.sh --max 8     # drives headless `claude -p` — a fresh agent per iteration; costs tokens
 ```
+This is the **high-fidelity** executor (the verifier re-runs `go test` itself). For a lighter, in-the-box
+alternative on a single task — `/goal "the command \`go test ./...\` exits 0"` — and when to pick which,
+see `loop/README.md` → *Two ways to run the loop*.
+
 You'll see **one of two valid arcs** (stated as **invariants** — the exact transcript varies):
 
 - **One-shot green.** A capable maker may write the correct "snapshot the input, build a **new** grid"

@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 # generated-by: groundrules v1.7.0
 #
-# run-loop.sh — the capped runner for the maker/verifier loop.
+# run-loop.sh — the capped runner for the maker/verifier loop (the HIGH-FIDELITY executor).
+#
+# For a lighter, in-the-box loop on a single self-evident task, Claude Code's `/goal` is an alternative
+# (it judges the transcript rather than re-running the oracle) — see loop/README.md "Two ways to run".
 #
 # Delivery: Claude Code (drives `claude -p` headless). Harness portability is a separate milestone.
 #

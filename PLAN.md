@@ -7,7 +7,7 @@ This file differs from the long-term roadmap: it describes what is happening **n
 
 ## In progress
 
-- [ ] **`/goal` interop — implement ADR 0031** (PRD `docs/prd/goal-interop.md`, **draft**). Surface the swappable executor where users act: `realize` recap emits both launch options per `[loop]` task (light `/goal "<command-based condition>"` + high-fidelity `run-loop.sh`), a "Two ways to run the loop" section in generated `loop/README.md`, and a two-fidelity-levels explanation in `README.md`. Docs + a recap enhancement only — no runtime, no detection, no new skill. **4 open questions** (condition placement · README placement · post-`/goal` verifier gate · QUICKSTART/TUTORIAL touch-ups), all with leans. *(reflection → validate PRD before build)*
+- [x] **`/goal` interop — ADR 0031 implemented** ✅ (PRD `docs/prd/goal-interop.md`). Surfaced the swappable executor where users act: `realize` Phase 5 recap emits both launch options per `[loop]` task (light `/goal "<command-based condition>"` + high-fidelity `run-loop.sh`, choose-by-stakes); "Two ways to run the loop" section in `loop/README.md.tpl`; two-fidelity explanation in `README.md`; QUICKSTART/TUTORIAL pointers (command-based `/goal`); `run-loop.sh` header note. Docs + recap only (no runtime/detection/skill). **Fresh-subagent validation**: 5/5 surfaces PASS + 3/3 critical checks (no broken ADR links in the generated template, no `/goal`-is-better contradiction, all conditions command-based). Under `[Unreleased]`.
 
 ## Up next
 

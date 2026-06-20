@@ -8,6 +8,9 @@ versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- **`/goal` interop surfaced** (implements [ADR 0031](docs/decisions/0031-goal-interop-swappable-loop-executor.md)). The loop's swappable executor is now visible where users act: `/groundrules:realize`'s recap prints **both launch options** per `[loop]` task — light **`/goal "<command-based condition>"`** (derived from the task's acceptance command) and high-fidelity **`bash loop/run-loop.sh`** — framed *choose by stakes*. The generated `loop/README.md` gains a **"Two ways to run the loop"** section (light `/goal` = one task, transcript-judged vs high-fidelity loop = whole backlog, fresh context, verifier re-runs the oracle, parks decisions), with the honest tradeoff and an optional post-`/goal` verifier-gate note. README + QUICKSTART + TUTORIAL + the `run-loop.sh` header point to it. Docs + a recap enhancement only — no runtime, no detection, no new skill. PRD `docs/prd/goal-interop.md`.
+
 ## [1.7.0] - 2026-06-20
 
 > **Premortem & anti-sycophancy.** A new skill and posture that make groundrules push back on *plans*, not just diffs — grounded in 2026 sycophancy research. Plus a field-test fix (commit the acceptance test before the loop) and an intro refresh.

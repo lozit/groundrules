@@ -56,15 +56,16 @@ them every iteration; left as placeholders, they guard nothing.
 Two engines — pick by how much the result matters ([ADR 0031](../../docs/decisions/0031-goal-interop-swappable-loop-executor.md)):
 
 ```bash
-# Light & in-the-box — Claude loops on its own until the condition holds:
-/goal "the to_roman tests pass"
+# Light & in-the-box — Claude loops on its own until a command-based condition holds:
+/goal "the command `python3 test_roman.py` exits 0"
 
 # …or the full groundrules loop — independent verification, fresh context, parks real decisions:
 bash loop/run-loop.sh --max 5
 ```
 Either way, **groundrules already did the important part** — it turned your plain request into a
 *verifiable goal*. The engine just runs toward it. (Rule of thumb: `/goal` for a quick, self-evident
-goal; the full loop when you want the strong back pressure.)
+goal; the full loop when you want the strong back pressure. Full comparison: `loop/README.md` →
+*Two ways to run the loop*.)
 
 ## 5. Check the result
 
