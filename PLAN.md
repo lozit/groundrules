@@ -7,9 +7,7 @@ This file differs from the long-term roadmap: it describes what is happening **n
 
 ## In progress
 
-- [x] **Loop quickstart — 5-step everyday flow** ✅ `test/loop/QUICKSTART.md`: blank project → bootstrap (loop opt-in) → ask in chat → set a red test + `realize` → launch (`/goal` light *or* `run-loop.sh` full, per ADR 0031) → check. The entry-point doc; README + `test/loop/README.md` point here first. Under `[Unreleased]`.
-- [x] **Loop tutorial — Conway's Game of Life** ✅ (extends PRD `docs/prd/loop-walkthrough.md`). `test/loop/TUTORIAL.md` (learn the loop by building GoL in Go) + `fixtures/game-of-life/` (PRD + go.mod + red oracle `life_test.go`, no `life.go`). Chosen over slugify because the in-place bug fails blinker/glider → the loop visibly engages. Oracle self-verified (red→green; naive in-place fails 2 tests); **fresh-subagent replay** ran real `go test` → converges 4/4, `life.go` pure. Caught + fixed an overstated "first attempt fails" claim (a competent maker often one-shots it) → reframed to two valid outcomes + an opt-in *Force the engage* (seed the in-place bug). Under `[Unreleased]`.
-- [x] **Loop walkthrough + validation suite** ✅ (PRD `docs/prd/loop-walkthrough.md`). New `test/loop/` (repo's first `test/`): `WALKTHROUGH.md` (empty → bootstrap loop → realize → run → converge → block → triage, expected outcome per step, tagged `[shell]`/`[agent]`/`[human]`), `validate-runner.sh` (deterministic — stubs `claude`, **11/11**: `MAX` cap · `DONE` stop · per-iteration freshness · cap guards · missing-CLI, no tokens), `fixtures/` (slugify red test + mixed plan), `README.md` index. README "age of loops" pointer + CHANGELOG. **Fresh-subagent replay** end-to-end on `/tmp`: all `[shell]` checks pass, slugify converges (green + loop commit + `[x]`), block path writes `blocked.md` + `Resolution:` stub; caught 1 minor doc inaccuracy (`ls loop/` → `ls -a` for the dotfile), fixed. Under `[Unreleased]`.
+- [ ] *(empty — v1.6.1 shipped; next item enters here when tackled)*
 
 ## Up next
 
@@ -35,6 +33,8 @@ Raw ideas, captured before they're lost. Not yet vetted. Each gets triaged later
 - [ ] ...
 
 ## Recently done
+
+- [x] **Released V1.6.1 — loop docs + validation + `/goal` decision** (docs/tests only, no plugin behaviour change): three-tier loop guide `test/loop/` (**QUICKSTART** 5-step everyday flow → **TUTORIAL** build Conway's Game of Life, Go oracle, watch it engage → **WALKTHROUGH** validation reference) + deterministic **`validate-runner.sh`** (stubs `claude`, 11/11) + fixtures; **[ADR 0031](docs/decisions/0031-goal-interop-swappable-loop-executor.md)** `/goal` interop (swappable executor: `/goal` light vs groundrules loop high-fidelity); README "Updating" moved under Installation. 105 signatures swept, pushed + tagged + GitHub release. Each doc validated by a fresh-subagent replay/read. (2026-06-20)
 
 - [x] **Released V1.6.0 — M1 Loop-readiness** (6 bricks, each PRD + adversarial fresh-subagent E2E): opt-in maker/verifier **loop scaffolding** (`loop/` namespace, ADR 0030) · new skill **`/groundrules:realize`** (plan → partitioned `[loop]`/`[supervised]` backlog) · **TDD-before-loop gate** (pre-written red acceptance test, writer ≠ maker) · **backward-crossing convention** (triaging `blocked.md`) · generated `CLAUDE.md` **routes work by regime** (ADR 0027). Prototype validated in `docs/prototypes/loop/`. 94 signatures swept, pushed + tagged + GitHub release. Detail in CHANGELOG `[1.6.0]`. (2026-06-14)
 
