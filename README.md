@@ -65,6 +65,27 @@ claude --plugin-dir /path/to/groundrules
 
 > groundrules is a Claude Code plugin today. Extending it to other harnesses is a planned direction — the repo is named `groundrules` (harness-neutral) for that reason.
 
+## Updating the plugin
+
+Updating is **two steps** — and skipping the second is the most common trap.
+
+```
+# 1. Refresh the marketplace catalog — this does NOT update your installed plugin
+/plugin marketplace update claude-code-groundrules
+
+# 2. Update the installed plugin itself — the step people miss
+/plugin install groundrules@claude-code-groundrules     # re-installing pulls the new version
+# (or: /plugin → select groundrules → Update)
+```
+
+Then **restart Claude Code**. A *new* skill ships in its own directory and only registers on a **full restart** — `/reload-plugins` alone surfaces edits to existing skills, not a brand-new command.
+
+> **Why two steps?** `/plugin marketplace update` only refreshes the *catalog*; your *installed* plugin stays on its old version until you explicitly reinstall/update it. If a new command (e.g. `/groundrules:slim`) doesn't appear even after a restart, you almost certainly did step 1 but not step 2. Check the version you actually have: `ls ~/.claude/plugins/cache/claude-code-groundrules/groundrules/`.
+
+To avoid the trap entirely, turn on auto-update: `/plugin` → **Marketplaces** tab → select `claude-code-groundrules` → **Enable auto-update**.
+
+`bootstrap`, `adopt` and `migrate` also run a **best-effort update check** when invoked (single `git ls-remote`, ~3s timeout, silent when offline) and print a notice if a newer version is published. To update an already-bootstrapped **project** after updating the plugin, run `/groundrules:migrate` in that project.
+
 ## The workflow
 
 Seven skills ordered by a project's lifecycle, plus six cross-cutting skills:
@@ -191,27 +212,6 @@ Not everything here is a research result — and we won't pretend it is. Some ch
 | **Test-Driven Development** — a failing test *before* the code (**loop regime only**) | When a task is handed to the autonomous loop (`/groundrules:realize`), a pre-written, currently-**red** acceptance test is the loop's back pressure: the maker makes it green, an independent verifier replays it. Red-first is Kent Beck's discipline; groundrules applies it as the *loop precondition* — **not** a global mandate (interactive work keeps the human as back pressure, handoff-not-gospel). | [Beck, *TDD by Example*](https://www.oreilly.com/library/view/test-driven-development/0321146530/) · [ADR 0027](docs/decisions/0027-reflection-realization-interactive-loop.md) |
 
 These aren't dressed up as science — they're conventions we chose deliberately, and the choice itself is recorded where every other one is: [`docs/decisions/`](docs/decisions/).
-
-## Updating the plugin
-
-Updating is **two steps** — and skipping the second is the most common trap.
-
-```
-# 1. Refresh the marketplace catalog — this does NOT update your installed plugin
-/plugin marketplace update claude-code-groundrules
-
-# 2. Update the installed plugin itself — the step people miss
-/plugin install groundrules@claude-code-groundrules     # re-installing pulls the new version
-# (or: /plugin → select groundrules → Update)
-```
-
-Then **restart Claude Code**. A *new* skill ships in its own directory and only registers on a **full restart** — `/reload-plugins` alone surfaces edits to existing skills, not a brand-new command.
-
-> **Why two steps?** `/plugin marketplace update` only refreshes the *catalog*; your *installed* plugin stays on its old version until you explicitly reinstall/update it. If a new command (e.g. `/groundrules:slim`) doesn't appear even after a restart, you almost certainly did step 1 but not step 2. Check the version you actually have: `ls ~/.claude/plugins/cache/claude-code-groundrules/groundrules/`.
-
-To avoid the trap entirely, turn on auto-update: `/plugin` → **Marketplaces** tab → select `claude-code-groundrules` → **Enable auto-update**.
-
-`bootstrap`, `adopt` and `migrate` also run a **best-effort update check** when invoked (single `git ls-remote`, ~3s timeout, silent when offline) and print a notice if a newer version is published. To update an already-bootstrapped **project** after updating the plugin, run `/groundrules:migrate` in that project.
 
 ## Requirements for the remote
 
