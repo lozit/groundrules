@@ -7,7 +7,7 @@ This file differs from the long-term roadmap: it describes what is happening **n
 
 ## In progress
 
-- [x] **Premortem + anti-sycophancy** ✅ ([ADR 0032](docs/decisions/0032-premortem-anti-sycophancy.md)). From intake `premortem-et-complaisance-llm.md`: new skill **`/groundrules:premortem`** (assume-it-failed adversarial pass → causes × early signals → fold into PRD Risks) + `PRD.md.tpl` Risks hint + `CLAUDE.md.tpl` Posture pointer + README sycophancy row refreshed with verified 2026 evidence (Science ~50%, AISI reframing>instruction) **alongside** Sharma 2023. Honest sourcing (no "+30% on LLM"). Workflow drift 14/14. Under `[Unreleased]`.
+- [ ] *(empty — v1.7.0 shipped; next item enters here when tackled)*
 
 ## Up next
 
@@ -33,6 +33,8 @@ Raw ideas, captured before they're lost. Not yet vetted. Each gets triaged later
 - [ ] ...
 
 ## Recently done
+
+- [x] **Released V1.7.0 — premortem & anti-sycophancy** ([ADR 0032](docs/decisions/0032-premortem-anti-sycophancy.md)): new skill **`/groundrules:premortem`** (assume-it-failed adversarial pass — the reflection-side twin of the loop verifier) + premortem hint in `PRD.md.tpl` Risks + Posture pointer in `CLAUDE.md`; README sycophancy row refreshed with **verified** 2026 evidence (Science ~50%, AISI reframing>instruction) alongside Sharma 2023, honest sourcing (no "+30% on LLM"). + field-test fix (commit the acceptance test before the loop) + README intro hook. 106 signatures swept, pushed + tagged + GitHub release. Skill validated by a fresh-subagent run (non-rubber-stamp; 5 issues fixed incl. a real contradiction). (2026-06-20)
 
 - [x] **Released V1.6.1 — loop docs + validation + `/goal` decision** (docs/tests only, no plugin behaviour change): three-tier loop guide `test/loop/` (**QUICKSTART** 5-step everyday flow → **TUTORIAL** build Conway's Game of Life, Go oracle, watch it engage → **WALKTHROUGH** validation reference) + deterministic **`validate-runner.sh`** (stubs `claude`, 11/11) + fixtures; **[ADR 0031](docs/decisions/0031-goal-interop-swappable-loop-executor.md)** `/goal` interop (swappable executor: `/goal` light vs groundrules loop high-fidelity); README "Updating" moved under Installation. 105 signatures swept, pushed + tagged + GitHub release. Each doc validated by a fresh-subagent replay/read. (2026-06-20)
 
