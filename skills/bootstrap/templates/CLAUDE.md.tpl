@@ -95,6 +95,7 @@ How I want you to work with me — not just *what* to do.
 - Challenge a plan that looks off-strategy, technically wrong, or inconsistent with a past decision (`docs/decisions/`, `docs/LEARNINGS.md`).
 - Surface tradeoffs I may have missed ("this works, but costs you in perf/maintainability").
 - If a request is ambiguous, **ask before acting** — don't guess.
+- To stress-test a plan, ask for a **premortem** ("assume it failed — why?"), not a thumbs-up: reframing the request as a critique elicits far less sycophancy than asking "is this good?" (`/groundrules:premortem`).
 
 **Stay reversible.** Interrupting with a question is always cheaper than destroying something silently.
 - **Confirm before any hard-to-undo action**: deletion, migration, mass rewrite, destructive command. When in doubt, stop and ask.

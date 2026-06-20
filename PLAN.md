@@ -7,7 +7,7 @@ This file differs from the long-term roadmap: it describes what is happening **n
 
 ## In progress
 
-- [ ] *(empty — v1.6.1 shipped; next item enters here when tackled)*
+- [x] **Premortem + anti-sycophancy** ✅ ([ADR 0032](docs/decisions/0032-premortem-anti-sycophancy.md)). From intake `premortem-et-complaisance-llm.md`: new skill **`/groundrules:premortem`** (assume-it-failed adversarial pass → causes × early signals → fold into PRD Risks) + `PRD.md.tpl` Risks hint + `CLAUDE.md.tpl` Posture pointer + README sycophancy row refreshed with verified 2026 evidence (Science ~50%, AISI reframing>instruction) **alongside** Sharma 2023. Honest sourcing (no "+30% on LLM"). Workflow drift 14/14. Under `[Unreleased]`.
 
 ## Up next
 

@@ -40,6 +40,10 @@ Ordered steps, each with a validation point.
 
 What could go wrong, and the mitigation.
 
+<!-- Populate this adversarially, not optimistically — run a premortem (Gary Klein, HBR 2007): assume
+     this shipped and FAILED, indisputably, then list the causes ranked by probability × impact, each
+     with the early signal that would have caught it. Reframing "is my plan good?" into "it failed —
+     why?" elicits far less sycophancy than asking for validation. (`/groundrules:premortem` runs it.) -->
 {{RISKS}}
 
 ## Open questions

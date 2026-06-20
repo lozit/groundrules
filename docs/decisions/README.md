@@ -61,3 +61,4 @@ No ADR needed for trivial choices or implementation details.
 | [0029](0029-content-aware-claude-md-tailoring.md) | Content-aware CLAUDE.md tailoring; retire the lean template (supersedes 0009) | Accepted | 2026-06-14 |
 | [0030](0030-loop-namespace-and-backlog.md) | `loop/` is the loop's namespace; the loop reads `loop/backlog.md`, `PLAN.md` only points to it | Accepted | 2026-06-14 |
 | [0031](0031-goal-interop-swappable-loop-executor.md) | `/goal` interop: the loop executor is swappable (`/goal` = light loop, groundrules loop = high-fidelity); reposition `run-loop.sh` | Accepted | 2026-06-17 |
+| [0032](0032-premortem-anti-sycophancy.md) | Adopt the premortem as a reflection-phase adversarial technique (anti-sycophancy): PRD-Risks hint + Posture pointer + `/groundrules:premortem` skill | Accepted | 2026-06-20 |
