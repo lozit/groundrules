@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.6.1 -->
+<!-- generated-by: groundrules v1.7.0 -->
 # Changelog
 
 All notable changes to this project are documented in this file.
@@ -8,11 +8,18 @@ versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [1.7.0] - 2026-06-20
+
+> **Premortem & anti-sycophancy.** A new skill and posture that make groundrules push back on *plans*, not just diffs — grounded in 2026 sycophancy research. Plus a field-test fix (commit the acceptance test before the loop) and an intro refresh.
+
 ### Added
 - **New skill `/groundrules:premortem` + anti-sycophancy posture** ([ADR 0032](docs/decisions/0032-premortem-anti-sycophancy.md)). Adopts Gary Klein's **premortem** as groundrules' reflection-side adversarial pass (the twin of the loop's verifier): point it at a plan / PRD / ADR / strategy and it assumes the thing **already failed**, enumerates causes ranked by probability × impact with the early signal for each, in a strictly adversarial register, then offers to fold the result into a PRD's *Risks*. Rationale is evidence-backed: sycophancy is measured (~50% more affirmation than humans, [Science 2026](https://arxiv.org/abs/2510.01395)) and **reframing a claim as a question beats an explicit "don't be sycophantic" instruction** ([AISI 2026](https://arxiv.org/pdf/2602.23971)) — so a reframing *technique* outperforms our posture *instruction* alone. Also: a premortem hint in `PRD.md.tpl` *Risks*, a one-line premortem pointer in the generated `CLAUDE.md` *Posture*, and the README sycophancy row refreshed with the 2026 evidence (kept **alongside** Sharma 2023). Honest sourcing: premortem is an *established technique* (HBR 2007), never the mis-quoted "+30% on an LLM" (a 1989 human study).
 
 ### Fixed
 - **Commit the acceptance test before the loop** (field-test finding). A real-world quickstart run converged correctly but left the pre-written test **untracked** — so the loop's commit held only the implementation, and the verifier's "acceptance test untampered" check (which compares via `git diff`) had no tracked baseline to guard against. Now: `QUICKSTART`/`TUTORIAL` commit the red test *before* launching; `realize` Phase 5 reminds to commit the test + backlog; `verifier.md` check 7 flags an untracked test; `LOOP.md` commits `loop/lessons.md` with the iteration (it's tracked on purpose). Captured in `docs/LEARNINGS.md`: a guard that compares against git only works on committed files.
+
+### Changed
+- **README intro** — replaced the flow one-liner ("Interview → … → optional remote", covered lower down) with a "shows its work" hook: the sourced concepts groundrules takes positions on (context rot, sycophancy + premortem, Nygard's ADRs, TDD as loop back pressure, write-loops-not-prompts) and what it deliberately rejects (no GraphRAG/graphify; no coercive mandatory-TDD), linking the receipts.
 
 ## [1.6.1] - 2026-06-20
 

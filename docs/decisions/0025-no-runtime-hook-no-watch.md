@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.6.1 -->
+<!-- generated-by: groundrules v1.7.0 -->
 # 0025 — Won't-do: PreToolUse `{{KEY}}` hook and `/watch-bootstrap`
 
 **Date**: 2026-06-08

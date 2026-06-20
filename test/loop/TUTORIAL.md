@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.6.1 -->
+<!-- generated-by: groundrules v1.7.0 -->
 # Tutorial — learn the loop by building Conway's Game of Life
 
 By the end of this (~15 min) you'll have watched an **autonomous loop implement Conway's Game of Life

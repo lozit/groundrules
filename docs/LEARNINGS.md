@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.6.1 -->
+<!-- generated-by: groundrules v1.7.0 -->
 # Learnings — groundrules
 
 Non-trivial learnings that emerged during the project. Reverse-chronological order (newest at the top).

@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.6.1 -->
+<!-- generated-by: groundrules v1.7.0 -->
 # PRD — TDD-before-loop gate (acceptance test = the loop's back pressure)
 
 > Product Requirements Document for a single feature. Written **before** building, so the agent

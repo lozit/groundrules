@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.6.1 -->
+<!-- generated-by: groundrules v1.7.0 -->
 # Security & Compliance — {{PROJECT_NAME}}
 
 **Living** document of security and compliance (GDPR / privacy) choices.

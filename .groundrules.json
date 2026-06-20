@@ -1,5 +1,5 @@
 {
-  "groundrulesVersion": "1.6.1",
+  "groundrulesVersion": "1.7.0",
   "bootstrappedAt": "2026-05-11",
   "bootstrappedWithVersion": "0.1.0",
   "migrations": [
@@ -128,6 +128,12 @@
       "to": "1.6.1",
       "at": "2026-06-20",
       "note": "V1.6.1 docs/tests only (no plugin behaviour change): three-tier loop guide test/loop/ (QUICKSTART -> TUTORIAL[Conway Game of Life, Go oracle] -> WALKTHROUGH) + deterministic validate-runner.sh (stubs claude to assert run-loop.sh MAX cap/DONE stop) + fixtures; ADR 0031 /goal interop (swappable loop executor: /goal=light, groundrules loop=high-fidelity); README 'Updating the plugin' moved under Installation. ADR index 0030+0031 backfilled."
+    },
+    {
+      "from": "1.6.1",
+      "to": "1.7.0",
+      "at": "2026-06-20",
+      "note": "V1.7 premortem & anti-sycophancy (ADR 0032): new skill /groundrules:premortem (assume-it-failed adversarial pass, the reflection-side twin of the loop verifier) + premortem hint in PRD.md.tpl Risks + premortem pointer in CLAUDE.md Posture; README sycophancy row refreshed with verified 2026 evidence (Science ~50%, AISI reframing>instruction) alongside Sharma 2023; honest sourcing (no +30%-on-LLM). Fix: commit the acceptance test before the loop (field-test). README intro 'shows its work' hook."
     }
   ],
   "answers": {

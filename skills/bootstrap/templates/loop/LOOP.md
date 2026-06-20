@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.6.1 -->
+<!-- generated-by: groundrules v1.7.0 -->
 # LOOP — the fixed prompt, replayed each iteration
 
 This is the prompt `loop/run-loop.sh` feeds to a **fresh** agent every iteration. It is intentionally

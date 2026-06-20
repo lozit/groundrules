@@ -1,4 +1,4 @@
-// generated-by: groundrules v1.6.1 (loop tutorial fixture)
+// generated-by: groundrules v1.7.0 (loop tutorial fixture)
 //
 // The ORACLE for the Game of Life task — the loop's deterministic back pressure.
 // Pre-written before any implementation (writer != maker): it does not compile until `life.go`
