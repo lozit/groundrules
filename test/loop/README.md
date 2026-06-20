@@ -6,7 +6,8 @@ How to **use the groundrules loop** on a fresh project, in a way that also **val
 
 | File | What it is |
 |------|------------|
-| [`TUTORIAL.md`](TUTORIAL.md) | **Learn the loop by building Conway's Game of Life** (Go) — the teaching path. Has a deterministic oracle (`go test`) and a real trap, so you watch the loop *engage*. **Start here to learn.** |
+| [`QUICKSTART.md`](QUICKSTART.md) | **Your first loop in 5 steps** — the everyday flow (blank project → bootstrap → ask in chat → set a red test → run). ~5 min. **Start here.** |
+| [`TUTORIAL.md`](TUTORIAL.md) | **Learn the loop by building Conway's Game of Life** (Go) — the deeper teaching path. Has a deterministic oracle (`go test`) and a real trap, so you watch the loop *engage*. |
 | [`WALKTHROUGH.md`](WALKTHROUGH.md) | A terser reference run (slugify) + the deterministic checks at each step — the validation path. |
 | [`validate-runner.sh`](validate-runner.sh) | The **deterministic** layer — stubs `claude` to prove `run-loop.sh`'s `MAX` cap, `DONE` stop, and per-iteration freshness. No LLM, no tokens. `bash test/loop/validate-runner.sh`. |
 | [`fixtures/game-of-life/`](fixtures/game-of-life/) | The tutorial fixture: a `PRD.md`, `go.mod`, and the pre-written **red** oracle `life_test.go` (block · corner · blinker · glider). No `life.go` — the loop writes it. |
