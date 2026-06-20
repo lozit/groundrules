@@ -7,11 +7,11 @@ This file differs from the long-term roadmap: it describes what is happening **n
 
 ## In progress
 
-- [ ] *(empty — v1.7.0 shipped; next item enters here when tackled)*
+- [ ] **`/goal` interop — implement ADR 0031** (PRD `docs/prd/goal-interop.md`, **draft**). Surface the swappable executor where users act: `realize` recap emits both launch options per `[loop]` task (light `/goal "<command-based condition>"` + high-fidelity `run-loop.sh`), a "Two ways to run the loop" section in generated `loop/README.md`, and a two-fidelity-levels explanation in `README.md`. Docs + a recap enhancement only — no runtime, no detection, no new skill. **4 open questions** (condition placement · README placement · post-`/goal` verifier gate · QUICKSTART/TUTORIAL touch-ups), all with leans. *(reflection → validate PRD before build)*
 
 ## Up next
 
-- [ ] **`/goal` interop — PRD then build** ([ADR 0031](docs/decisions/0031-goal-interop-swappable-loop-executor.md), **Accepted** 2026-06-17). Decision settled: loop executor is swappable; `/goal` = light loop, the groundrules loop (`run-loop.sh` + prompts) = high-fidelity loop; choose by stakes; `run-loop.sh` repositioned (high-fidelity executor + harness-neutral fallback). **Next = a PRD** to implement: `realize` emits a `/goal`-ready condition · `/goal` interop note in generated `loop/README.md` (mirror the superpowers note) · **explain the two fidelity levels in `README.md`** (when `/goal` vs full loop, why `/goal` alone is lighter). *(reflection done → PRD when tackled)*
+- [ ] *(empty — `/goal` interop moved to In progress)*
 
 
 > **Long-term milestones moved to [`docs/ROADMAP.md`](docs/ROADMAP.md)** — M1 *Loop-readiness* (loop scaffolding opt-in, `/groundrules:realize`, triage convention; ADR 0027) and M2 *Multi-harness support*. They enter "In progress" here, and get a PRD/ADR, only when actively tackled.
