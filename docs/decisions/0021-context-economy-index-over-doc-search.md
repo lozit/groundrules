@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.6.0 -->
+<!-- generated-by: groundrules v1.6.1 -->
 # 0021 — Context economy: index over doc-search for a project's own docs
 
 **Date**: 2026-06-08

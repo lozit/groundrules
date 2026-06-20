@@ -1,4 +1,4 @@
-# generated-by: groundrules v1.6.0
+# generated-by: groundrules v1.6.1
 # Loop working artifacts that should not be committed.
 # blocked.md and lessons.md ARE committed on purpose (durable loop memory) — not listed here.
 __pycache__/

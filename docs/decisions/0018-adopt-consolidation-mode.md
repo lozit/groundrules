@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.6.0 -->
+<!-- generated-by: groundrules v1.6.1 -->
 # 0018 — adopt: map-in-place vs consolidate strategies
 
 **Date**: 2026-06-06

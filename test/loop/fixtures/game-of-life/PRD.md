@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.6.0 (loop tutorial fixture) -->
+<!-- generated-by: groundrules v1.6.1 (loop tutorial fixture) -->
 # PRD — Game of Life (banc d'essai du loop Groundrules)
 
 > Objet : sujet minimal servant à valider le mécanisme de loop goal-driven.

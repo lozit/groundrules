@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.6.0 -->
+<!-- generated-by: groundrules v1.6.1 -->
 # Role: Verifier
 
 You review **one** maker turn and return **PASS** or **REJECT**. You are an independent reviewer, not a

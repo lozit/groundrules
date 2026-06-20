@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.6.0 -->
+<!-- generated-by: groundrules v1.6.1 -->
 # Changelog
 
 All notable changes to this project are documented in this file.
@@ -7,6 +7,10 @@ Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
+
+## [1.6.1] - 2026-06-20
+
+> **Loop docs + validation.** A three-tier guide for the loop shipped in 1.6.0 (QUICKSTART → TUTORIAL → WALKTHROUGH), a deterministic runner test, and the `/goal` interop decision. Docs/tests only — no change to the plugin's skills, templates, or generated output.
 
 ### Added
 - **Loop quickstart — your first loop in 5 steps** (`test/loop/QUICKSTART.md`). The everyday flow, conversational and short (~5 min): blank project → `/groundrules:bootstrap` (loop opt-in) → ask for something loopable in the chat → set up the loop (a **failing acceptance test first**, then `/groundrules:realize`) → **launch it** (light `/goal "<condition>"` *or* the full `run-loop.sh` — per ADR 0031) → check the commit. Positioned as the entry point; `TUTORIAL.md` (Game of Life) is the deeper path, `WALKTHROUGH.md` the validation reference. README + `test/loop/README.md` point newcomers here first.

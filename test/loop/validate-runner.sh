@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# generated-by: groundrules v1.6.0
+# generated-by: groundrules v1.6.1
 #
 # validate-runner.sh — the DETERMINISTIC layer of the loop validation suite.
 #

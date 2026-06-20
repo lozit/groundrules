@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.6.0 -->
+<!-- generated-by: groundrules v1.6.1 -->
 # Loop backlog
 
 The tasks the autonomous loop is allowed to execute. **The loop reads only this file** — never

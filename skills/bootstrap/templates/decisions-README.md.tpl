@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.6.0 -->
+<!-- generated-by: groundrules v1.6.1 -->
 # Architecture Decisions (ADR)
 
 This folder contains the project's **Architecture Decision Records**: each structural decision made during the project is recorded in a file.

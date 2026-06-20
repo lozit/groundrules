@@ -1,5 +1,5 @@
 {
-  "groundrulesVersion": "1.6.0",
+  "groundrulesVersion": "1.6.1",
   "bootstrappedAt": "2026-05-11",
   "bootstrappedWithVersion": "0.1.0",
   "migrations": [
@@ -122,6 +122,12 @@
       "to": "1.6.0",
       "at": "2026-06-14",
       "note": "V1.6 M1 loop-readiness: opt-in maker/verifier loop scaffolding in bootstrap/adopt (loop/ namespace, ADR 0030) + conditional ## Invariants; new /groundrules:realize skill (approved plan -> partitioned [loop]/[supervised] backlog) with a TDD-before-loop gate (pre-written red acceptance test, writer != maker); blocked.md backward-crossing triage convention; CLAUDE.md 'Claude Code workflow' routes work by regime (ADR 0027). Validated by adversarial fresh-subagent E2Es; loop prototype in docs/prototypes/loop/."
+    },
+    {
+      "from": "1.6.0",
+      "to": "1.6.1",
+      "at": "2026-06-20",
+      "note": "V1.6.1 docs/tests only (no plugin behaviour change): three-tier loop guide test/loop/ (QUICKSTART -> TUTORIAL[Conway Game of Life, Go oracle] -> WALKTHROUGH) + deterministic validate-runner.sh (stubs claude to assert run-loop.sh MAX cap/DONE stop) + fixtures; ADR 0031 /goal interop (swappable loop executor: /goal=light, groundrules loop=high-fidelity); README 'Updating the plugin' moved under Installation. ADR index 0030+0031 backfilled."
     }
   ],
   "answers": {
