@@ -8,6 +8,9 @@ versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+- **Commit the acceptance test before the loop** (field-test finding). A real-world quickstart run converged correctly but left the pre-written test **untracked** — so the loop's commit held only the implementation, and the verifier's "acceptance test untampered" check (which compares via `git diff`) had no tracked baseline to guard against. Now: `QUICKSTART`/`TUTORIAL` commit the red test *before* launching; `realize` Phase 5 reminds to commit the test + backlog; `verifier.md` check 7 flags an untracked test; `LOOP.md` commits `loop/lessons.md` with the iteration (it's tracked on purpose). Captured in `docs/LEARNINGS.md`: a guard that compares against git only works on committed files.
+
 ## [1.6.1] - 2026-06-20
 
 > **Loop docs + validation.** A three-tier guide for the loop shipped in 1.6.0 (QUICKSTART → TUTORIAL → WALKTHROUGH), a deterministic runner test, and the `/goal` interop decision. Docs/tests only — no change to the plugin's skills, templates, or generated output.

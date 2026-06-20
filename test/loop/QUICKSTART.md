@@ -39,8 +39,17 @@ or ask Claude to):
 
 `/groundrules:realize` takes your **plan** (a pasted task, a `docs/prd/` PRD, or the tasks in `PLAN.md`),
 checks the acceptance test is **red**, then writes the task into `loop/backlog.md`, *gated on that test*. (No test? It **refuses to loop** and offers to author one first — the test is the back
-pressure, on purpose.) Set one or two **`## Invariants`** in `CLAUDE.md` too (e.g. "the test suite stays
-green") — the loop's verifier checks them every iteration.
+pressure, on purpose.)
+
+**Commit the test before you launch** — it's the *frozen spec*, authored before the maker:
+
+```bash
+git add test_roman.py && git commit -m "test: add to_roman acceptance test (red)"
+```
+Why it matters: the verifier checks the maker didn't tamper with the test via `git diff` — on an
+**untracked** file that check sees nothing, so committing it first is what makes the guard real. Set one
+or two **`## Invariants`** in `CLAUDE.md` too (e.g. "the test suite stays green") — the verifier checks
+them every iteration; left as placeholders, they guard nothing.
 
 ## 4. Launch the loop
 

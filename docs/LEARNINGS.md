@@ -7,6 +7,25 @@ One entry per learning. Keep the format simple: title, context, lesson.
 
 ---
 
+## Commit the acceptance test before the loop — an untracked test makes the "untampered" guard guard nothing
+
+**Why**: 2026-06-20, a field test of the loop quickstart (a real `to_roman` task) converged correctly —
+real algorithm, cleanly-scoped commit, natural stop — but surfaced a flow gap: the pre-written
+`test_roman.py` was **never committed**, so the loop's commit held only the implementation, and the
+*spec that proves correctness wasn't in git*. Worse, the verifier's Stage-1 "acceptance test untampered"
+check works via `git diff -- <test>`: on an **untracked** file that diff is empty, so a maker could
+rewrite the test and the verifier would see nothing. The guard was guarding nothing. (Also surfaced: the
+loop appended `loop/lessons.md` but didn't commit it, though our `loop/.gitignore` keeps it tracked on
+purpose; and placeholder `## Invariants` mean the invariants diff-check guards nothing either.)
+
+**When to apply**: the acceptance test is the **frozen spec**, authored in reflection (writer ≠ maker) —
+it must be **committed *before* the loop runs**, for two reasons: (1) the spec is durable; (2) the
+verifier's tamper-check needs a tracked baseline. Surfaces that now say so: `QUICKSTART`/`TUTORIAL` (commit
+the test before launching), `realize` Phase 5 recap (remind), `verifier.md` check 7 (flag an untracked
+test), `LOOP.md` (commit `loop/lessons.md` with the iteration). General rule for any TDD-gated loop: **a
+guard that compares against git only works on committed files** — commit the thing you want protected
+before the autonomous agent can touch it.
+
 ## A safety guard doesn't travel between prompt surfaces — restate it everywhere an agent can act
 
 **Why**: 2026-06-14, the brick-5 backward-crossing E2E found that the "don't guess a parked decision"

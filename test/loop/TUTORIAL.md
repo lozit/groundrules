@@ -55,9 +55,12 @@ cp "$GROUNDRULES/test/loop/fixtures/game-of-life/PRD.md"        docs/prd/game-of
 cp "$GROUNDRULES/test/loop/fixtures/game-of-life/go.mod"        .
 cp "$GROUNDRULES/test/loop/fixtures/game-of-life/life_test.go"  .
 go test ./...        # RED — "undefined: Step". The oracle exists; the code doesn't yet.
+git add docs/prd/game-of-life.md go.mod life_test.go && git commit -m "spec: Game of Life PRD + red oracle"
 ```
 (`$GROUNDRULES` = wherever the plugin repo lives.) The red test is the point: it's the loop's back
-pressure, and it was written **before** the implementation.
+pressure, written **before** the implementation — and **committed before** the loop runs, so it's the
+frozen spec (and the verifier's "test untampered" check, which works via `git diff`, actually has a
+tracked baseline to compare against).
 
 Set your invariants in `CLAUDE.md` → `## Invariants`, e.g.:
 ```markdown

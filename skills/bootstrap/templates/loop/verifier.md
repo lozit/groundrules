@@ -37,7 +37,10 @@ Re-derive everything from the artifacts:
 5. **Invariants intact.** Check the diff against `CLAUDE.md` → `## Invariants`. Any violation → REJECT.
 6. **No out-of-scope changes.** The diff touches files unrelated to the task → REJECT (scope creep is a
    defect even when it "works").
-7. **Acceptance test untampered.** The maker edited the acceptance test to make it pass → REJECT.
+7. **Acceptance test untampered.** The maker edited the acceptance test to make it pass → REJECT. This
+   check works via `git diff` against the **committed** test — if the acceptance test is still
+   *untracked*, you have no baseline and can't detect tampering: flag that it must be committed first
+   (it's the frozen spec) before trusting a green run.
 
 ### Stage 2 — Code quality (only if Stage 1 fully passes)
 - Correctness on edge cases the acceptance test doesn't pin down (empty input, boundaries, ordering).

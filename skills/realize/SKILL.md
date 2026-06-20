@@ -150,6 +150,11 @@ On confirmation:
 
 - **Looped** (N): list them → `loop/backlog.md`.
 - **Supervised** (M): list them + the reason each wasn't looped (esp. the "no stop condition" refusals).
+- **Commit the acceptance test(s) first** (and the `loop/backlog.md` you just wrote): each `[loop]`
+  task's pre-written red test is the *frozen spec* — it must be **committed before the loop runs**, both
+  so the spec is durable and so the verifier's "test untampered" check (which compares via `git diff`)
+  has a tracked baseline. An untracked test = a guard that guards nothing. Remind the user (you don't
+  commit — Phase 4 §3).
 - **Next**: run the loop from the project root — `bash loop/run-loop.sh --max <N>` (the `MAX` cap is the
   anti-runaway). realize itself does **not** create `loop/blocked.md`; *once you have run the loop*, it
   may have parked decisions there — triage them then (re-decompose / decide → ADR / fix interactively —

@@ -30,10 +30,11 @@ read it, don't rely on memory of a previous turn.
    report. For real independence the verifier should run as a **separate subagent / fresh context**.
 
 5. **Act on the verdict.**
-   - **PASS** → commit **the intended diff** (the files the task changed + the `loop/backlog.md`
-     check-off), message referencing the task. Stage explicitly rather than `git add -A`: that would
-     sweep build artifacts and any in-flight `loop/blocked.md` into the commit. Then flip `- [ ]` →
-     `- [x]` in `loop/backlog.md`. Optionally append a one-line lesson to `loop/lessons.md`.
+   - **PASS** → flip `- [ ]` → `- [x]` in `loop/backlog.md` and (optionally) append a one-line lesson to
+     `loop/lessons.md`, **then commit the intended diff** — the files the task changed **+** the
+     `loop/backlog.md` check-off **+ `loop/lessons.md` if you touched it** (it's tracked on purpose —
+     durable loop memory). Message references the task. Stage explicitly rather than `git add -A`: that
+     would sweep build artifacts and any in-flight `loop/blocked.md` into the commit.
    - **REJECT** → leave the task unchecked. If this task has now been REJECTed across multiple
      iterations with no progress, or the maker reported **BLOCKED**, **write/append `loop/blocked.md`**
      and leave the task for human triage (the backward crossing). Otherwise the next iteration retries
