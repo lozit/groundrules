@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.7.0 -->
+<!-- generated-by: groundrules v1.8.0 -->
 # Agent evals — {{PROJECT_NAME}}
 
 > A log of the **agent's own** observed failure modes on this project — recurring mistakes,

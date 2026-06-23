@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.7.0 -->
+<!-- generated-by: groundrules v1.8.0 -->
 # 0032 — Adopt the premortem as a reflection-phase adversarial technique (anti-sycophancy)
 
 **Date**: 2026-06-20

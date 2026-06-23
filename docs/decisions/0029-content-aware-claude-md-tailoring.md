@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.7.0 -->
+<!-- generated-by: groundrules v1.8.0 -->
 # 0029 — Content-aware CLAUDE.md tailoring (retire the lean template)
 
 **Date**: 2026-06-14

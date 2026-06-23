@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.7.0 -->
+<!-- generated-by: groundrules v1.8.0 -->
 # Internationalization (i18n) — {{PROJECT_NAME}}
 
 **Living** strategy for multilingual support.

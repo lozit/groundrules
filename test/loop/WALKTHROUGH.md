@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.7.0 -->
+<!-- generated-by: groundrules v1.8.0 -->
 # Loop walkthrough — from an empty folder to a working loop
 
 This shows **how to use the groundrules loop** end-to-end on a fresh project, and **doubles as the

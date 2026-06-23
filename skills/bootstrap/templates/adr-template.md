@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.7.0 -->
+<!-- generated-by: groundrules v1.8.0 -->
 # NNNN — Short decision title
 
 **Date**: YYYY-MM-DD

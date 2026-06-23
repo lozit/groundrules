@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# generated-by: groundrules v1.7.0
+# generated-by: groundrules v1.8.0
 #
 # run-loop.sh — the capped runner for the minimal maker/verifier loop (M1 prototype).
 #

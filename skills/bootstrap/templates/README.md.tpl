@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.7.0 -->
+<!-- generated-by: groundrules v1.8.0 -->
 # {{PROJECT_NAME}}
 
 {{DESCRIPTION}}

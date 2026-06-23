@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# generated-by: groundrules v1.7.0
+# generated-by: groundrules v1.8.0
 #
 # run-loop.sh — the capped runner for the maker/verifier loop (the HIGH-FIDELITY executor).
 #

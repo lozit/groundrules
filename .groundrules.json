@@ -1,5 +1,5 @@
 {
-  "groundrulesVersion": "1.7.0",
+  "groundrulesVersion": "1.8.0",
   "bootstrappedAt": "2026-05-11",
   "bootstrappedWithVersion": "0.1.0",
   "migrations": [
@@ -134,6 +134,12 @@
       "to": "1.7.0",
       "at": "2026-06-20",
       "note": "V1.7 premortem & anti-sycophancy (ADR 0032): new skill /groundrules:premortem (assume-it-failed adversarial pass, the reflection-side twin of the loop verifier) + premortem hint in PRD.md.tpl Risks + premortem pointer in CLAUDE.md Posture; README sycophancy row refreshed with verified 2026 evidence (Science ~50%, AISI reframing>instruction) alongside Sharma 2023; honest sourcing (no +30%-on-LLM). Fix: commit the acceptance test before the loop (field-test). README intro 'shows its work' hook."
+    },
+    {
+      "from": "1.7.0",
+      "to": "1.8.0",
+      "at": "2026-06-23",
+      "note": "V1.8 /goal interop surfaced (implements ADR 0031): realize Phase 5 recap emits both launch options per [loop] task (light /goal with a command-based condition + high-fidelity run-loop.sh, choose-by-stakes); 'Two ways to run the loop' section in generated loop/README.md; two-fidelity explanation in README.md; QUICKSTART/TUTORIAL pointers; run-loop.sh header note. Docs + recap only (no runtime/detection/skill). PRD docs/prd/goal-interop.md."
     }
   ],
   "answers": {
