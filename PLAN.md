@@ -7,7 +7,7 @@ This file differs from the long-term roadmap: it describes what is happening **n
 
 ## In progress
 
-- [x] **`/goal` interop — ADR 0031 implemented** ✅ (PRD `docs/prd/goal-interop.md`). Surfaced the swappable executor where users act: `realize` Phase 5 recap emits both launch options per `[loop]` task (light `/goal "<command-based condition>"` + high-fidelity `run-loop.sh`, choose-by-stakes); "Two ways to run the loop" section in `loop/README.md.tpl`; two-fidelity explanation in `README.md`; QUICKSTART/TUTORIAL pointers (command-based `/goal`); `run-loop.sh` header note. Docs + recap only (no runtime/detection/skill). **Fresh-subagent validation**: 5/5 surfaces PASS + 3/3 critical checks (no broken ADR links in the generated template, no `/goal`-is-better contradiction, all conditions command-based). Under `[Unreleased]`.
+- [ ] *(empty — v1.8.0 shipped; next item enters here when tackled)*
 
 ## Up next
 
@@ -33,6 +33,8 @@ Raw ideas, captured before they're lost. Not yet vetted. Each gets triaged later
 - [ ] ...
 
 ## Recently done
+
+- [x] **Released V1.8.0 — `/goal` interop surfaced** (implements [ADR 0031](docs/decisions/0031-goal-interop-swappable-loop-executor.md), PRD `docs/prd/goal-interop.md`): `realize` recap emits both launch options per `[loop]` task (light `/goal "<command-based condition>"` + high-fidelity `run-loop.sh`, choose-by-stakes); "Two ways to run the loop" in generated `loop/README.md`; two-fidelity explanation in README; QUICKSTART/TUTORIAL pointers; `run-loop.sh` header note. Docs + recap only (no runtime/detection/skill). Fresh-subagent validation 5/5 surfaces + 3/3 critical checks. 107 signatures swept, pushed + tagged + GitHub release. (2026-06-23)
 
 - [x] **Released V1.7.0 — premortem & anti-sycophancy** ([ADR 0032](docs/decisions/0032-premortem-anti-sycophancy.md)): new skill **`/groundrules:premortem`** (assume-it-failed adversarial pass — the reflection-side twin of the loop verifier) + premortem hint in `PRD.md.tpl` Risks + Posture pointer in `CLAUDE.md`; README sycophancy row refreshed with **verified** 2026 evidence (Science ~50%, AISI reframing>instruction) alongside Sharma 2023, honest sourcing (no "+30% on LLM"). + field-test fix (commit the acceptance test before the loop) + README intro hook. 106 signatures swept, pushed + tagged + GitHub release. Skill validated by a fresh-subagent run (non-rubber-stamp; 5 issues fixed incl. a real contradiction). (2026-06-20)
 
