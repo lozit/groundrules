@@ -91,7 +91,7 @@ To avoid the trap entirely, turn on auto-update: `/plugin` → **Marketplaces** 
 Seven skills ordered by a project's lifecycle, plus seven cross-cutting skills:
 
 1. **`bootstrap`** — *new, empty folder.* Interview + intent capture (paste / file / interview) + from-scratch generation of the whole structure, `git init`, optional remote.
-2. **`adopt`** — *existing (brownfield) project.* Scans, maps existing files to roles, generates only what's missing, backfills `.groundrules.json`. Never overwrites; supports `--dry-run` and a **consolidate** mode that migrates an existing layout onto the canonical paths.
+2. **`adopt`** — *existing (brownfield) project.* Scans, maps existing files to roles, generates only what's missing, backfills `.groundrules.json`. Map-in-place never overwrites; supports `--dry-run`, a **consolidate** mode that migrates an existing layout onto the canonical paths (per-file), and a **full** mode (`--full`) that consolidates *and* reformats everything onto the canonical layout behind a single grouped confirmation — for a project you fully own.
 3. **`learn`** — *after a correction or a discovery.* Adds an actionable rule to `docs/LEARNINGS.md` (*Why* + *When to apply*).
 4. **`add-adr`** — *a structural decision is made.* Creates a numbered ADR and updates the index.
 5. **`apply-best-practices`** — *want outside input.* Fetches the up-to-date `shanraisshan/claude-code-best-practice` and proposes recommendations tailored to your `docs/VISION.md`. (The only skill that needs the network.)

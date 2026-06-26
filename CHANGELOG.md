@@ -8,6 +8,9 @@ versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- **`adopt` — "Full adoption" mode** (implements [ADR 0033](docs/decisions/0033-adopt-full-mode.md)). A third adoption strategy alongside `Map in place` and `Consolidate`, for a project you fully own: it goes all the way — **reformat is the default** (sources are transformed into the groundrules template structure), **merged sources are removed** (`git rm`) for a clean canonical layout, and Call 3b pre-checks **every applicable** doc as a completeness pass. Everything lands behind a **single grouped confirmation** (the Phase 3 recap becomes the gate, enumerating every migrate/merge/reformat/removal) — informed and reversible via git history, never per-file, never silent. Selectable two ways: a third option in the Call 1 interview **and** a `--full` flag (composes with `--dry-run`). `.groundrules.json` records `adoptionMode: "full"`. Extends the consolidate mechanics of [ADR 0018](docs/decisions/0018-adopt-consolidation-mode.md) without a new skill.
+
 ## [1.8.0] - 2026-06-23
 
 > **`/goal` interop.** The loop's swappable executor is now visible where users act — `realize` surfaces both launch options, and the generated loop docs explain when to reach for Claude Code's `/goal` vs the high-fidelity groundrules loop. Implements ADR 0031.

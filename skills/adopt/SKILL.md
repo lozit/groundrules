@@ -11,6 +11,8 @@ You will bring an **existing project** (already has code, docs, a git repo) unde
 
 If `$ARGUMENTS` contains `--dry-run` (or `dry-run`): run all analysis phases but **write no file**; end with a "would have done" report.
 
+If `$ARGUMENTS` contains `--full` (or `full`): select the **Full adoption** strategy without asking the Call 1 strategy question (cf. ADR 0033) — set `adoptionMode = "full"` and skip straight to it. `--full` and `--dry-run` compose: full plan, no writes. Full mode is the aggressive lane for a project you fully own — it consolidates **and reformats** by default and removes merged sources, behind a **single grouped confirmation** (Phase 3), never per-file and never silent.
+
 ## Phase 0 — Guardrails
 
 1. If `.groundrules.json` (or a legacy pre-1.0 `.starter-kit.json`) exists in the cwd → *"This project is already managed by groundrules. Use `/groundrules:migrate` to update it."* Stop.
@@ -74,9 +76,10 @@ find . -path ./node_modules -prune -o -path ./.git -prune -o \
 
 ### Call 1 — Base
 - **Confirm the project name** (suggest the `name` from `package.json` or the folder).
-- **Adoption strategy** (1 question — this drives the whole run):
+- **Adoption strategy** (1 question — this drives the whole run). Skip this question if `--full` was passed (strategy already fixed to Full):
   - `Map in place (default)` — existing files keep their current paths; groundrules only records their roles (`adoptedFiles`) and generates what's missing. Zero file moves. Duplicates with the canonical layout are tolerated and documented.
-  - `Consolidate into the groundrules layout` — existing equivalents are **migrated** to the canonical paths (e.g. `tasks/todo.md` → `PLAN.md`, `tasks/lessons.md` → `docs/LEARNINGS.md`, business specs → `intake/`), with per-file confirmation. See Phase 4b.
+  - `Consolidate into the groundrules layout` — existing equivalents are **migrated** to the canonical paths (e.g. `tasks/todo.md` → `PLAN.md`, `tasks/lessons.md` → `docs/LEARNINGS.md`, business specs → `intake/`), with **per-file** confirmation and **optional** reformat. See Phase 4b.
+  - `Full adoption` — for a project you fully own: like Consolidate but goes all the way (cf. ADR 0033). Reformat is the **default** (sources are transformed into the groundrules template structure), merged sources are **removed** (`git rm`) for a clean canonical layout, and Call 3b pre-checks **every applicable** doc for completeness. Everything lands behind a **single grouped confirmation** (Phase 3) — informed and reversible (git history preserved), never per-file, never silent. Sets `adoptionMode = "full"`.
 
 ### Call 2 — Intent
 *"Which source for the project vision?"* — offer the **detected business docs** first:
@@ -94,6 +97,8 @@ Pre-check based on the scan. Only offer what **doesn't already exist**:
 ### Call 3b — Optional / specialized docs (multiSelect — ALWAYS ask)
 
 **This question is mandatory and must always be asked** (unless every option already exists on disk). Present a multiSelect listing **all** optional docs below — never silently skip it, and never gate the *list* on detection. Detection only decides what's **pre-checked**; every not-yet-existing option is still offered so the user can pick any of them.
+
+> **Full mode (completeness pass):** when `adoptionMode = "full"`, **pre-check every applicable** option (not just the detected ones), framed as *"to be a complete groundrules project, these are still missing"*. It stays a multiSelect — the user unchecks what they don't want; nothing is generated silently (cf. ADR 0033).
 
 - `docs/ARCHITECTURE.md` — pre-check if a code project
 - `docs/GLOSSARY.md` — pre-check if domain jargon detected
@@ -136,19 +141,23 @@ Show, in clear text:
 
 Then `AskUserQuestion`: `Confirm` / `Cancel`. (In `--dry-run`, stop here with the report.)
 
+> **Full mode — this recap is the single confirmation gate** (cf. ADR 0033). Because Phase 4b will **not** re-prompt per file in Full mode, this recap must enumerate **every** action it will take: each `🚚` migrate/merge, each file that will be **reformatted** into the template structure, and each merged source that will be **removed** (`git rm`). The one `Confirm` here authorizes all of it. If the list is too long to be a meaningful single decision, say so and offer to fall back to Consolidate (per-file) instead.
+
 ## Phase 4 — Generation (missing only)
 
 For each file to create: same mechanics as `bootstrap` Phase 5 (read the template `${CLAUDE_PLUGIN_ROOT}/skills/bootstrap/templates/<tpl>`, substitute `{{KEY}}`, `Write`). **Never overwrite** an existing file; **never delete**.
 
 If `HAS_LOOP=true`: generate the `loop/` namespace exactly as `bootstrap` (same file-mapping rows — `README.md.tpl` substituted, the rest verbatim, `run-loop.sh` made executable, `gitignore` → `loop/.gitignore`; do not create `blocked.md`/`lessons.md`). Skip any `loop/*` file that already exists (missing-only). Record the created files in `generatedFiles`.
 
-## Phase 4b — Consolidation (only if strategy = Consolidate)
+## Phase 4b — Consolidation (only if strategy = Consolidate or Full)
 
-For each adopted file whose role has a **canonical groundrules path** (PLAN → `PLAN.md`, learnings → `docs/LEARNINGS.md`, design system → `docs/DESIGN_SYSTEM.md`, data model → `docs/DATA_MODEL.md`, release runbook → `RELEASE.md`, upstream specs/raw inputs → `intake/`, glossary → `docs/GLOSSARY.md`…), migrate it — **each file individually confirmed** (group the questions 3-4 at a time):
+> **Full vs Consolidate.** In **Consolidate**, every step below is **per-file confirmed** (3–4 at a time) and reformat is **offered**. In **Full** mode (cf. ADR 0033), the **Phase 3 recap already authorized everything** — so here you **do not re-prompt**: reformat is **applied by default** (step 3), and merged sources are **removed** (`git rm`, step 2) by default. Execute the recap; don't ask again.
+
+For each adopted file whose role has a **canonical groundrules path** (PLAN → `PLAN.md`, learnings → `docs/LEARNINGS.md`, design system → `docs/DESIGN_SYSTEM.md`, data model → `docs/DATA_MODEL.md`, release runbook → `RELEASE.md`, upstream specs/raw inputs → `intake/`, glossary → `docs/GLOSSARY.md`…), migrate it — in Consolidate, **each file individually confirmed** (group the questions 3-4 at a time); in Full, per the authorized recap:
 
 1. **1:1 move** (the source IS the artifact, target doesn't exist): `git mv <old> <new>` — preserves history. Binary inputs (Excel, images…) going to `intake/` are plain `git mv` too.
-2. **Merge** (target already exists or was just generated, or several sources feed one target): `Read` the source(s), integrate the content into the target's structure (e.g. existing lessons become LEARNINGS entries; existing tasks land in the PLAN sections), `Write` the target. Then ask for the source file: `Remove it (git rm)` / `Keep it with a pointer line` ("→ migrated to <new path>") / `Keep as-is`.
-3. **Reformat opportunity** (offer, don't impose): when the source format differs from the groundrules template (e.g. raw lessons → rule format with Why / When to apply), offer `Migrate as-is` / `Migrate and reformat`.
+2. **Merge** (target already exists or was just generated, or several sources feed one target): `Read` the source(s), integrate the content into the target's structure (e.g. existing lessons become LEARNINGS entries; existing tasks land in the PLAN sections), `Write` the target. Then the source file's fate: in **Consolidate**, ask — `Remove it (git rm)` / `Keep it with a pointer line` ("→ migrated to <new path>") / `Keep as-is` (default keep-with-pointer). In **Full**, default to `Remove it (git rm)` for a clean canonical layout — no prompt (it was listed in the Phase 3 recap).
+3. **Reformat**: when the source format differs from the groundrules template (e.g. raw lessons → rule format with Why / When to apply) — in **Consolidate**, offer `Migrate as-is` / `Migrate and reformat`; in **Full**, **reformat by default** (no prompt).
 4. After all moves: **sweep internal references** — update paths that pointed to the old locations in `CLAUDE.md`, `README.md` and the migrated docs themselves (show what changed). **Exclude historical records**: past CHANGELOG entries, migration notes and dated logs describe the old paths *truthfully* — rewriting them falsifies history.
 
 Never migrate: code, configs, CI files, anything not mapped to a groundrules doc role. When in doubt, leave it and report.
@@ -173,13 +182,13 @@ Write `.groundrules.json` (bootstrap schema, see ADR 0004) with the adoption mar
   "policies": { "noAiAttribution": true | false },
   "generatedFiles": [ ... files CREATED by adopt ... ],
   "adoptedFiles": { "<path>": "<role: README|PLAN|backlog|intent-source|...>" },
-  "adoptionMode": "map" | "consolidate",
+  "adoptionMode": "map" | "consolidate" | "full",
   "migratedFiles": { "<old path>": "<new path>" },
   "skippedFiles": { "<path>": "<reason>" }
 }
 ```
 
-`adoptionMode` records the strategy. `migratedFiles` (consolidate only) maps old → new paths so `migrate`/`verify-bootstrap` know the provenance; migrated targets also join `generatedFiles` (they are now canonical, template-diffable files).
+`adoptionMode` records the strategy (`map` / `consolidate` / `full`). `migratedFiles` (consolidate **and** full) maps old → new paths so `migrate`/`verify-bootstrap` know the provenance; migrated targets also join `generatedFiles` (they are now canonical, template-diffable files).
 
 `adopted: true` + `bootstrappedWithVersion: null` distinguish an adopted project from a bootstrapped one. `adoptedFiles` maps the existing files to roles (info for `migrate`/`verify-bootstrap`).
 
@@ -213,7 +222,7 @@ If accepted:
 
 ## Important rules
 
-- **Never overwrite or delete** without explicit action. In map-in-place mode adopt never deletes — it suggests. In consolidate mode, removals of migrated sources happen only via the per-file `git rm` confirmation of Phase 4b (default remains keep-with-pointer).
+- **Never overwrite or delete** without explicit action. In map-in-place mode adopt never deletes — it suggests. In consolidate mode, removals of migrated sources happen only via the per-file `git rm` confirmation of Phase 4b (default remains keep-with-pointer). In **full** mode, removals (`git rm`) and reformats are the default but happen only after the **single grouped confirmation** of Phase 3 enumerated them — informed and reversible (git history), never silent (cf. ADR 0033).
 - **Case guard**: never create a file that collides in case with an existing one.
 - **superpowers**: `docs/superpowers/**` is not root planning — different altitude, don't touch it.
 - **Faithfulness to the source** for intent synthesis: don't invent; "To be defined" if the source is thin.
