@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.8.0 -->
+<!-- generated-by: groundrules v1.9.0 -->
 # Changelog
 
 All notable changes to this project are documented in this file.
@@ -7,6 +7,10 @@ Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
+
+## [1.9.0] - 2026-06-26
+
+> **`adopt` Full adoption mode.** A third adoption strategy for a project you fully own — consolidate *and* reformat everything onto the canonical groundrules layout, behind a single grouped confirmation. Implements ADR 0033.
 
 ### Added
 - **`adopt` — "Full adoption" mode** (implements [ADR 0033](docs/decisions/0033-adopt-full-mode.md)). A third adoption strategy alongside `Map in place` and `Consolidate`, for a project you fully own: it goes all the way — **reformat is the default** (sources are transformed into the groundrules template structure), **merged sources are removed** (`git rm`) for a clean canonical layout, and Call 3b pre-checks **every applicable** doc as a completeness pass. Everything lands behind a **single grouped confirmation** (the Phase 3 recap becomes the gate, enumerating every migrate/merge/reformat/removal) — informed and reversible via git history, never per-file, never silent. Selectable two ways: a third option in the Call 1 interview **and** a `--full` flag (composes with `--dry-run`). `.groundrules.json` records `adoptionMode: "full"`. Extends the consolidate mechanics of [ADR 0018](docs/decisions/0018-adopt-consolidation-mode.md) without a new skill.

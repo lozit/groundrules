@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.8.0 -->
+<!-- generated-by: groundrules v1.9.0 -->
 # Adoption log — {{PROJECT_NAME}}
 
 > A **dated, frozen** record of the `/groundrules:adopt` run on **{{DATE}}**: what was here, and what

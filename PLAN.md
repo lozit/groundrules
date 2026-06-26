@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.8.0 -->
+<!-- generated-by: groundrules v1.9.0 -->
 # PLAN — groundrules
 
 **Active** plan/todo for the project. Maintained by Claude during work.
@@ -7,7 +7,7 @@ This file differs from the long-term roadmap: it describes what is happening **n
 
 ## In progress
 
-- [ ] *(empty — v1.8.0 shipped; next item enters here when tackled)*
+- [ ] *(empty — v1.9.0 shipped; next item enters here when tackled)*
 
 ## Up next
 
@@ -33,6 +33,8 @@ Raw ideas, captured before they're lost. Not yet vetted. Each gets triaged later
 - [ ] ...
 
 ## Recently done
+
+- [x] **Released V1.9.0 — `adopt` Full adoption mode** (implements [ADR 0033](docs/decisions/0033-adopt-full-mode.md)): third adoption strategy alongside map-in-place and consolidate, for a project you fully own — reformat by default, `git rm` merged sources for a clean canonical layout, Call 3b completeness pre-check, all behind a single grouped confirmation (Phase 3 recap is the gate, never per-file, never silent). Selectable via Call 1 option + a `--full` flag (composes with `--dry-run`). `adoptionMode` gains `"full"`. Reuses the consolidate Phase 4b mechanics (ADR 0018), no new skill. 103 signatures swept, pushed + tagged + GitHub release. (2026-06-26)
 
 - [x] **Released V1.8.0 — `/goal` interop surfaced** (implements [ADR 0031](docs/decisions/0031-goal-interop-swappable-loop-executor.md), PRD `docs/prd/goal-interop.md`): `realize` recap emits both launch options per `[loop]` task (light `/goal "<command-based condition>"` + high-fidelity `run-loop.sh`, choose-by-stakes); "Two ways to run the loop" in generated `loop/README.md`; two-fidelity explanation in README; QUICKSTART/TUTORIAL pointers; `run-loop.sh` header note. Docs + recap only (no runtime/detection/skill). Fresh-subagent validation 5/5 surfaces + 3/3 critical checks. 107 signatures swept, pushed + tagged + GitHub release. (2026-06-23)
 

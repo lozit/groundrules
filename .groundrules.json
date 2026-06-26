@@ -1,5 +1,5 @@
 {
-  "groundrulesVersion": "1.8.0",
+  "groundrulesVersion": "1.9.0",
   "bootstrappedAt": "2026-05-11",
   "bootstrappedWithVersion": "0.1.0",
   "migrations": [
@@ -140,6 +140,12 @@
       "to": "1.8.0",
       "at": "2026-06-23",
       "note": "V1.8 /goal interop surfaced (implements ADR 0031): realize Phase 5 recap emits both launch options per [loop] task (light /goal with a command-based condition + high-fidelity run-loop.sh, choose-by-stakes); 'Two ways to run the loop' section in generated loop/README.md; two-fidelity explanation in README.md; QUICKSTART/TUTORIAL pointers; run-loop.sh header note. Docs + recap only (no runtime/detection/skill). PRD docs/prd/goal-interop.md."
+    },
+    {
+      "from": "1.8.0",
+      "to": "1.9.0",
+      "at": "2026-06-26",
+      "note": "V1.9 adopt 'Full adoption' mode (ADR 0033): third adoption strategy alongside map-in-place and consolidate, for a project you fully own — reformat by default, git rm merged sources for a clean canonical layout, Call 3b completeness pre-check, all behind a single grouped confirmation (Phase 3 recap is the gate, never per-file, never silent). Selectable via Call 1 option and a --full flag (composes with --dry-run). adoptionMode gains 'full'. Reuses the consolidate Phase 4b mechanics (ADR 0018), no new skill."
     }
   ],
   "answers": {
