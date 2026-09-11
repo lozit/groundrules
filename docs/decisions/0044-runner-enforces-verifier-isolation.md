@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.11.0 -->
+<!-- generated-by: groundrules v1.12.0 -->
 # 0044 — The runner spawns the verifier separately; isolation stops being a request and becomes a fact
 
 **Date**: 2026-09-09

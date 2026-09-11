@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.11.0 -->
+<!-- generated-by: groundrules v1.12.0 -->
 # 0043 — `validated` is retired; a case makes an entry `probed`, and a class is never validated
 
 **Date**: 2026-09-09

@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.11.0 -->
+<!-- generated-by: groundrules v1.12.0 -->
 # 0042 — The eval suite runs on `skill-creator`'s harness, because the runner ADR 0037 chose is gated
 
 **Date**: 2026-09-09
