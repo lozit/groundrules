@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.11.0 -->
+<!-- generated-by: groundrules v1.12.0 -->
 # Changelog
 
 All notable changes to this project are documented in this file.
@@ -6,7 +6,7 @@ All notable changes to this project are documented in this file.
 Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versions follow [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [1.12.0] - 2026-09-11
 
 ### Changed
 - **Eval case 4 was rebuilt to recreate its failure, stayed green, and was retired.** Its first form handed a fresh agent one insertion into a three-release changelog: 3/3 green, and worthless, since the recorded failure happened mid-session by a scripted string anchor into a large file under load. The rebuild recreated the **pressure** rather than the description — three simultaneous insertions into a **seven-release** file where each section name recurs seven times, exactly the shape that makes a scripted edit the tempting shortcut. Green 3/3 again, graded mechanically, published versions intact to the character. **Six runs across two designs, zero reproductions**, so the case is removed along with its fixture. The conclusion the evidence supports: this failure is a property of how a long-running agent edits **under load** — choosing a programmatic anchor over locating the section — which a fresh subagent given a focused task simply does not have, and it is not casable this way. Its verification becomes **longitudinal**: the guard is now actually loaded (the session-start fix below, absent when the failure recurred), and the measurement is whether it recurs. Weaker than a case, and what is actually available. **The suite is three cases, not four** — retiring one beats keeping a green that cannot fail.

@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.11.0 -->
+<!-- generated-by: groundrules v1.12.0 -->
 # Role: Maker
 
 You implement **one** atomic task from the backlog, then report. You are one half of a maker/verifier

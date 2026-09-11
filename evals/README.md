@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.11.0 -->
+<!-- generated-by: groundrules v1.12.0 -->
 # `evals/` — the executable suite over this plugin's own configuration
 
 Maintainer-side tooling. It tests **groundrules' own configuration** — the instructions in

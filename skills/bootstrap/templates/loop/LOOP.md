@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.11.0 -->
+<!-- generated-by: groundrules v1.12.0 -->
 # LOOP — the maker prompt, replayed each iteration
 
 This is the prompt `loop/run-loop.sh` feeds to a **fresh** agent at the start of every iteration. It is
