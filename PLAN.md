@@ -7,7 +7,7 @@ This file differs from the long-term roadmap: it describes what is happening **n
 
 ## In progress
 
-- [ ] **Rebuild case 4's conditions, or retire it** — it is green 3/3 and the green is worthless: the recorded failure (a scripted string-anchor insertion into a large file, mid-session, under load) did not reproduce when a fresh agent got a small fixture and one instruction. Rebuild the *pressure*, not the description — several insertions at once, across a longer file and more than one target — or accept that the failure is a property of how this agent works under load and cannot be cased. Its `docs/AGENT-EVALS.md` entry stays `watching` either way; a green from a case that cannot fail is worse than a red.
+- [ ] *(closed 2026-09-11 — case 4 rebuilt, still green 3/3, retired on the evidence; see `docs/AGENT-EVALS.md`)* Superseded: — it is green 3/3 and the green is worthless: the recorded failure (a scripted string-anchor insertion into a large file, mid-session, under load) did not reproduce when a fresh agent got a small fixture and one instruction. Rebuild the *pressure*, not the description — several insertions at once, across a longer file and more than one target — or accept that the failure is a property of how this agent works under load and cannot be cased. Its `docs/AGENT-EVALS.md` entry stays `watching` either way; a green from a case that cannot fail is worse than a red.
 
 - [ ] *(empty)*
 

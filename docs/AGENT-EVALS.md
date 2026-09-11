@@ -49,12 +49,19 @@ loaded the file holding it — the meta `CLAUDE.md` had no *Session start* secti
 this plugin ships gives every generated project one. Fixed by giving the dogfood the list it ships;
 the general lesson is in `docs/LEARNINGS.md`.
 
-**Status**: watching — case 4 of `evals/evals.json` grades it, and is the suite's first **fully
-deterministic** case: count the headings, no judge. **Run 3/3 green on 2026-09-10, and the green is
-not evidence**: the failure did not reproduce. The recorded failure happened mid-session, inserting
-by a scripted string anchor into a large real file under load; the case hands a fresh agent a small
-fixture and one focused instruction. Different task. The case needs the *conditions* rebuilt — several
-insertions at once, across a longer file — before a green means anything.
+**Status**: watching — **no case, and a case was tried and retired.** Two designs, six runs, zero
+reproductions: first a single insertion into a three-release changelog (3/3 green 2026-09-10), then
+the conditions deliberately rebuilt — three simultaneous insertions into a seven-release file, where
+each section name recurs seven times and a scripted edit is the tempting shortcut (3/3 green
+2026-09-11). Both were fully deterministic to grade, and both passed cleanly.
+
+The conclusion the evidence supports: **this failure is a property of how a long-running agent edits
+under load**, specifically choosing a programmatic string anchor over locating the section — and a
+fresh subagent handed a focused editing task has neither the habit nor the load. It is not casable
+this way. So its verification is **longitudinal, not a case**: the guard is now actually loaded
+(session-start list, 2026-09-10, which it was not when this failure recurred), and the measurement
+is whether it recurs again. If it does, the guard is wrong; if it does not, that is as much as this
+entry can honestly claim.
 
 ## 2026-09-08 — Called a gated command "verified present" after reading only its `--help`
 
