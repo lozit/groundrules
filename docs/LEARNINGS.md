@@ -19,13 +19,20 @@ produced was green for a reason other than *the guard works*:
   knowledge of Claude Code, so it measured competence and not this plugin's configuration. Only a
   **checkable false premise** — a version number wrong in a way verifiable here and unknowable
   elsewhere — made it discriminate.
-- **Case 4** — green 3/3 on its first outing, and the recorded failure **did not reproduce**. The
-  entry describes inserting into a large file mid-session, by a scripted string anchor, under load;
-  the case handed a fresh agent a small file and one focused instruction. Different task, so the
-  green says the task was easy.
+- **Case 4** — green 3/3, then **rebuilt to recreate the pressure** (three simultaneous insertions
+  into a seven-release file, each section name recurring seven times), green 3/3 again, then
+  **retired**. Six runs across two designs, zero reproductions. The failure turned out to be a
+  property of how a long-running agent edits *under load* — choosing a programmatic anchor over
+  locating the section — which a fresh subagent given a focused task simply does not have.
 
 Only **case 3** was written the other way round — a prompt whose comfortable answer is the wrong one
 — and it is the only case that has ever produced a delta.
+
+**Some failures are not casable at all, and saying so beats a decorative green.** Case 4 was retired
+on that evidence rather than kept. When the failure belongs to the *conditions* of a long session —
+accumulated context, a scripted habit, load — a fresh-agent case recreates the task and not the
+conditions. Its verification is then **longitudinal**: put the guard somewhere loaded and watch
+whether the failure recurs. That is weaker than a case, and it is what is actually available.
 
 **When to apply**: when writing an eval case from a recorded failure, do not transcribe the entry
 into a prompt. **Ask what made the failure happen** — the pressure, the size, the shortcut that was
