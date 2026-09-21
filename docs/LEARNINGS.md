@@ -24,12 +24,20 @@ a peer measuring the machine, not by anything visible from inside the repository
 
 **When to apply**: whenever you pick a home for a check — a hook, a CI job, a wrapper, a scheduled
 task. **Run the command that proves it would execute there**, on the machine that matters:
-`core.hooksPath`, the actual `PATH`, whether the slot is already occupied, whether anything can
-bypass it (`--no-verify` walks past every local hook, including from the person merging the PR that
-introduces the defect). Prefer the placement that **travels with the repository and cannot be
-skipped** — which is why CI won here, as the better instrument and not as a fallback. And a control
-whose failure has never been observed is a badge: this one was proven by opening a throwaway PR that
-removed an index row, watching it go red, restoring the row, and watching the same workflow go green.
+`core.hooksPath`, the actual `PATH`, whether anything can bypass it (`--no-verify` walks past every
+local hook, including from the person merging the PR that introduces the defect). Prefer the
+placement that **travels with the repository and cannot be skipped** — which is why CI won here, as
+the better instrument and not as a fallback. And a control whose failure has never been observed is
+a badge: this one was proven by opening a throwaway PR that removed an index row, watching it go
+red, restoring the row, and watching the same workflow go green.
+
+**And check what occupies the slot, not only whether the slot is reachable.** Reachability answers
+*would my control run*; occupancy answers *what am I replacing*. Here the slot held `ggshield`'s
+secret scan, so the placement was not merely dead — writing into it would have **displaced a working
+guard while reading as installed**. That failure is the worst class this repository keeps meeting:
+silent, and the file looks right. The two questions are asked by different commands, and stopping at
+the first one is how you miss the second — the occupancy was found only because the next step was
+*look at the place you are about to write*, not because anyone went looking for it.
 
 ## Writing a case that *reproduces* a failure is far harder than writing one that *describes* it
 
