@@ -24,6 +24,33 @@ before a push/release).
 
 ---
 
+## 2026-09-21 — Verified a peer's measurements, then accepted the conclusion drawn from them
+
+**Observed**: told that a repository `pre-commit` hook would be dead here because
+`core.hooksPath` redirects, the agent checked the redirect, listed the target directory, and ran
+`git rev-parse --git-path hooks` — all three true — then wrote into `docs/LEARNINGS.md` that a
+repository hook *never runs on this machine*. It runs: the occupying script ends by calling
+`$(git rev-parse --git-common-dir)/hooks/pre-commit` and failing the commit if it fails. **The
+file was never opened.** The false half was corrected the same day by another session and only
+then read directly.
+
+**Pattern**: a variant of *asserts / trusts without verifying* that survives the usual guard,
+because verification *did* happen — on the **premises**. Checking every fact a peer measured and
+adopting the **inference** they drew from it is not verification; it is agreement with extra
+steps, and it feels like diligence, which is why it passes. The tell is that the conclusion
+concerns something none of the checked commands touched: here, the *behaviour* of a file whose
+*path* had been confirmed three ways.
+
+**Guard**: when a conclusion is handed to you with its evidence, ask **what the evidence does not
+cover**, and check that instead — the premises are already someone's homework. Concretely: a claim
+about what a program *does* is settled by reading the program, never by resolving where it lives.
+Configuration says who holds a slot; only the code says what it does with what it displaces.
+
+**Status**: watching — no case. Casing it needs a peer handing over true measurements and a wrong
+inference, which is an interaction rather than a prompt, and the retired case 4 is the precedent
+for not pretending otherwise. Verification is longitudinal: the guard is now in a file that is
+actually read at session start.
+
 ## 2026-09-09 — Opened a duplicate `### Changed` section in `CHANGELOG.md`, twice in two days
 
 **Observed**: inserting an entry under `## [Unreleased]`, the agent anchored on the literal string
