@@ -65,7 +65,7 @@ No ADR needed for trivial choices or implementation details.
 | [0033](0033-adopt-full-mode.md) | adopt: "Full adoption" mode (consolidate + reformat, single grouped confirmation, `--full`) | Accepted | 2026-06-26 |
 | [0034](0034-posture-keep-the-diff-small.md) | Posture: a "keep the diff small" axis (simplicity + surgical changes), harvested from karpathy-skills | Accepted | 2026-06-29 |
 | [0035](0035-no-auto-capture-memory-layer.md) | Considered an auto-capture memory layer (claude-mem class); declined — reaffirms ADR 0020/0021/0025 | Accepted | 2026-06-29 |
-| [0036](0036-git-workflow-corrected.md) | Git workflow corrected: PR on protected `main`, no AI attribution (supersedes 0028) | Accepted | 2026-09-02 |
+| [0036](0036-git-workflow-corrected.md) | Git workflow corrected: PR on protected `main`, no AI attribution (supersedes 0028; commit rule amended by 0046) | Accepted | 2026-09-02 |
 | [0037](0037-executable-evals-over-agent-config.md) | An executable eval suite over the agent's configuration (`evals/`), native format, out of band | Accepted | 2026-09-02 |
 | [0038](0038-close-reconcile-plan-against-diff.md) | `/groundrules:close`: reconcile `PLAN.md` against the diff — proposes, never auto-writes; a check, not a reminder | Accepted | 2026-09-08 |
 | [0039](0039-conditional-superpowers-interop.md) | The superpowers interop section is conditional (`{{HAS_SUPERPOWERS}}`), detected rather than asked | Accepted | 2026-09-08 |
@@ -74,3 +74,5 @@ No ADR needed for trivial choices or implementation details.
 | [0042](0042-skill-creator-harness-as-the-runner.md) | The eval suite runs on `skill-creator`'s harness, the runner ADR 0037 chose being gated (amends 0037) | Accepted | 2026-09-09 |
 | [0043](0043-probed-not-validated.md) | `validated` retired: a case makes an entry `probed` on one instance, never the class (amends 0037) | Accepted | 2026-09-09 |
 | [0044](0044-runner-enforces-verifier-isolation.md) | The runner spawns the verifier separately; the loop's isolation becomes a fact rather than a request | Accepted | 2026-09-09 |
+| [0045](0045-the-lock-was-scoped-to-four-skills.md) | `disable-model-invocation` applied per skill: five methodology skills open, five destructive ones stay locked (refines 0003) | Accepted | 2026-09-21 |
+| [0046](0046-orchestrated-working-regime.md) | Orchestrated regime: the request for work carries the authorisation for the commit (amends 0036's commit rule) | Accepted | 2026-09-21 |
