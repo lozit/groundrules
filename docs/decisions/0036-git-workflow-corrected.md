@@ -55,6 +55,12 @@ and carried over here verbatim in intent.
 commits of one chunk of work; commit at natural boundaries within it, never a mega-commit per
 release.
 
+> **2026-09-21 — the commit rule here is amended by [ADR 0046](0046-orchestrated-working-regime.md).**
+> *Commit and push only on explicit request* assumed an operator reading every message. Work is now
+> orchestrator-driven, and **the request for work carries the authorisation for the commit that
+> delivers it**. Everything else in this ADR stands: `main` is still protected, so *push* still means
+> short branch, push, PR — that is a repository constraint, not a permission that was lifted.
+
 ## Alternatives considered
 
 - **Lift the branch protection and keep trunk-based** (the other way to close the contradiction) —

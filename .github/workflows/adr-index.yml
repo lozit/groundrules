@@ -1,0 +1,23 @@
+# generated-by: groundrules v1.12.0
+#
+# The ADR index invariant, checked where the omission lands: a pull request.
+#
+# It exists because on 2026-09-21 an ADR reached `main` without its row in
+# docs/decisions/README.md and survived. A local hook would not have caught it —
+# core.hooksPath on the maintainer's machine points elsewhere, so a repo hook never runs,
+# and `--no-verify` walks past any that did. CI travels with the clone and cannot be skipped.
+#
+# Bounded on purpose: one workflow, one job, one step. This repository's stack is
+# "None. Pure Markdown + JSON" — adding CI is a surface, so it stays the size of the
+# invariant it guards. Anything more wants an ADR first.
+
+name: ADR index
+
+on: pull_request
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash test/check-adr-index.sh
