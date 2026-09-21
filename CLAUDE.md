@@ -11,8 +11,12 @@ Set by the operator directly in-session on 2026-09-21. It governs how work arriv
 - **Commits and pushes follow the work.** Do not stop to ask for authorisation to commit or push; the
   request for the work is the authorisation for the commit that carries it. This replaces the former
   *commit only on explicit request*.
+- **Merging the PR is part of the regime too** (operator, in-session, 2026-09-21). The work is not
+  delivered until it lands, so the PR is the delivery mechanism rather than an approval gate — at
+  zero required approvals, stopping to ask *may I merge* rebuilds the round trip the regime removed.
 - **`main` stays protected**, so *push* still means: short branch, push it, open the PR. Nothing
-  direct to `main` — a repository constraint, not a permission that was just lifted.
+  direct to `main` — a repository constraint, not a permission that was just lifted. Merging that PR
+  is how the work lands; pushing to `main` is still not a thing that happens.
 - **Refusing is retained, and it is the point.** Push back on work that is wrong, unsafe, or
   inconsistent with an ADR or a LEARNING: say why, judge it together, and the orchestrator decides.
   With nobody reading each message, that objection is the only remaining control — a refusal that

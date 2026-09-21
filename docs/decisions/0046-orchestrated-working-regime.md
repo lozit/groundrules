@@ -33,10 +33,20 @@ approval is sought for committing or pushing the work that was asked for. This r
 natural boundaries, the message referencing the `CHANGELOG` section rather than re-listing it, no AI
 attribution — stands unchanged.
 
+**1b. Merging the PR is part of it** (operator, in-session, 2026-09-21). The original wording said
+*commits and pushes*, which left merging undecided; it was practised as the completion of directed
+work and **flagged each time as an interpretation rather than written down**, since codifying a
+widening of one's own permissions on a peer's request plus one's own inference is exactly what
+decision 3 forbids. The operator closed the gap through the channel decision 3 names. The reasoning
+that held in the meantime: the work is not delivered until it lands, so at zero required approvals
+the PR is a **delivery mechanism, not an approval gate**, and stopping to ask *may I merge* rebuilds
+the round trip decision 1 removed.
+
 **2. `main` stays protected, so *push* still means: short branch, push it, open the PR.** This is a
 **repository constraint, not a permission that was just lifted**, and it is stated here because the
 ADR outlives the file: a reader meeting decision 1 alone could reasonably conclude that pushing to
-`main` is now allowed. It is not, and `main` would refuse it regardless.
+`main` is now allowed. It is not, and `main` would refuse it regardless. Merging the PR is how work
+lands; pushing to `main` remains something that does not happen.
 
 **3. Two clauses are preserved, and they are the price of decision 1 rather than politeness.**
 
