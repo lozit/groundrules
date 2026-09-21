@@ -6,6 +6,11 @@ All notable changes to this project are documented in this file.
 Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versions follow [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+- **Five skills can now be invoked by the model, not only by a slash command** ([ADR 0045](docs/decisions/0045-the-lock-was-scoped-to-four-skills.md), amending [ADR 0003](docs/decisions/0003-multi-skill-architecture.md)). ADR 0003 settled *manual invocation only* in May, and its argument is about side effects — *"there's no scenario where Claude should silently run `bootstrap`"*. It was written when the plugin had **four** skills; it now has fifteen, and every one had inherited the flag without its criterion ever being applied to them. The cost was measured on a project running the plugin for three weeks: `docs/prd/` empty, `loop/backlog.md` empty, no loop ever run — **every entry point into the methodology was waiting for a human to type a command**, so the methodology could not start. The criterion is now applied per skill. `bootstrap`, `migrate`, `adopt`, `slim` and `apply-best-practices` stay locked, because a wrong firing restructures or damages a project. `prd`, `realize`, `premortem`, `checkpoint` and `learn` open, because they are additive, reversible and under version control. **The back pressure that matters is untouched**: `realize` still refuses `[loop]` on any task without a re-runnable stop condition, and `run-loop.sh` keeps its mandatory ceiling — those fire by construction, where a per-task human signature only delayed them. The slash command keeps working everywhere; this adds a second way in, and `checkpoint`'s description no longer calls itself *the manual complement*. The tradeoff is real and reaches every user: a model may write a PRD nobody asked for — a markdown file under git, against three weeks of an empty `docs/prd/`.
+
 ## [1.12.0] - 2026-09-11
 
 ### Changed

@@ -1,7 +1,6 @@
 ---
 name: realize
 description: Use when you have an approved plan and want to hand part of it to an autonomous loop. It partitions the plan into loop-safe ([loop]) vs human-supervised ([supervised]) tasks, refuses to loop anything without a re-runnable stop condition, and writes the loop-safe ones into loop/backlog.md. Requires loop scaffolding; defers to superpowers when present. The forward crossing from an approved plan to an executable backlog.
-disable-model-invocation: true
 allowed-tools: Read, Edit, Write, Bash, AskUserQuestion
 ---
 

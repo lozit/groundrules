@@ -1,7 +1,6 @@
 ---
 name: prd
 description: Use before building a non-trivial feature, to spec it first (problem, success criteria, scope, constraints, build plan, risks). Defers to superpowers if that plugin is in use.
-disable-model-invocation: true
 allowed-tools: Read, Write, Bash, AskUserQuestion
 ---
 
