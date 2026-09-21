@@ -36,16 +36,28 @@ reachable does not fire.
 *does this skill have structural or irreversible side effects, such that the user is the only right
 initiator?*
 
-**Stay locked** — a wrong firing damages or restructures a project:
+**Opening a skill takes two conditions, not one.** It must be **additive, reversible and under
+version control** — the safety condition — **and** its being locked must **block a methodology from
+starting** — the reason condition. The first says opening is *harmless*; the second says it is
+*worth doing*. Either alone leaves a skill where it is.
+
+**Stay locked** — a wrong firing damages or restructures a project, so the safety condition fails:
 `bootstrap` · `migrate` · `adopt` · `slim` · `apply-best-practices`
 
-**Become model-invokable** — additive, reversible, and under version control:
+**Become model-invokable** — both conditions hold:
 `prd` · `realize` · `premortem` · `checkpoint` · `learn`
 
-The slash command keeps working for all of them; this only adds a second way in. The remaining
-skills (`add-adr`, `close`, `idea`, `vision`, `verify-bootstrap`) are untouched — none blocks a
-methodology from starting, and [ADR 0034](0034-posture-keep-the-diff-small.md) asks for the smallest
-change that does the job.
+**Untouched** — safe, but nothing is blocked by their being locked, so the reason condition fails:
+`add-adr` · `close` · `idea` · `vision` · `verify-bootstrap`
+
+`close` is what proves the second condition is doing work rather than decorating the first. It is
+the safest skill in the plugin — it only ever *proposes*, and never writes without a confirmation —
+so on the safety condition alone it would be the strongest candidate of the fifteen. It stays locked
+because a locked `close` blocks nothing from starting: it reconciles a methodology already running.
+[ADR 0034](0034-posture-keep-the-diff-small.md) asks for the smallest change that does the job, and
+opening it would not do a job.
+
+The slash command keeps working for all fifteen; this only adds a second way in.
 
 ## Consequences
 

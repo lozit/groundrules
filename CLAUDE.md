@@ -100,6 +100,7 @@ Conventions recorded in [ADR 0036](docs/decisions/0036-git-workflow-corrected.md
   - **Skill-list drift** (mechanical): diff `ls skills/` against the README `## The workflow` list — every skill dir must appear there. Also check that any new generated output (a new `*.tpl` → a file/folder) is reflected in `## What's generated`.
   - **Justification drift**: its two sections `## What the research says` and `## Established practices we adopt` — did this release add/change a choice (a skill, a posture, a convention)? If so, add/update the matching row and its `## References` entry.
   - The product-side equivalent of the skill-list check is the `checkpoint` skill's 4th bucket ("shipped a user-facing surface → sync the doc"); this meta rule is the dogfood mechanical version for *our* README.
+- **Mechanical checks — run them, don't read them.** `bash test/check-adr-index.sh` (every ADR has an index row, every row a file, no duplicates) and `bash test/loop/validate-runner.sh` (the runner's cap, its `DONE` stop, and the maker/verifier split). Both are deterministic, offline and free. The ADR one exists because on 2026-09-21 an ADR shipped without its index row and survived: the invariant was guarded by a line in this checklist, read at release, days after the omission. **A checklist item is still a reminder** — these fire only when invoked, and wiring them to the moment of omission is an open question, not a solved one.
 - Keep `CHANGELOG.md` up to date (Keep-a-Changelog) — `[Unreleased]` is the accumulator between releases.
 
 ## When to document
