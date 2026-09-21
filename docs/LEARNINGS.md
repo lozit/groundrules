@@ -13,14 +13,29 @@ One entry per learning. Keep the format simple: title, context, lesson.
 script. The obvious placement looked like a git `pre-commit` hook: version-control machinery rather
 than a harness runtime guard, so [ADR 0025](decisions/0025-no-runtime-hook-no-watch.md) does not
 reach it, harness-agnostic so [ADR 0023](decisions/0023-project-scope-for-team-portability.md) does
-not either, and firing before the omission lands. The reasoning about the *line* was right and the
-placement was still dead: `git config --global core.hooksPath` on this machine points at
-`ggshield`'s directory, and **`core.hooksPath` replaces the hooks directory outright — git never
-falls back to `.git/hooks`.** `git rev-parse --git-path hooks` resolves there too, and that
-directory's `pre-commit` slot already holds the secret scan, so installing into it would have
-displaced a security control. The hook would have sat in the repository looking installed, green
-from the day it shipped, on the only machine where the omission has ever happened. It was caught by
-a peer measuring the machine, not by anything visible from inside the repository.
+not either, and firing before the omission lands.
+
+`git config --global core.hooksPath` on this machine points at `ggshield`'s directory, and
+**`core.hooksPath` replaces the hooks directory outright — git itself never falls back to
+`.git/hooks`.** That much is true, and it is where the reasoning nearly stopped. **Reading the hook
+that occupies the slot is what settles it**: `dotfiles/ggshield/pre-commit` ends with
+
+```sh
+_ggshield_local_hook=$(git rev-parse --git-common-dir)/hooks/pre-commit
+[ -f "$_ggshield_local_hook" ] && { "$_ggshield_local_hook" "$@" || exit 1; }
+ggshield secret scan pre-commit "$@"
+```
+
+— it **calls** the repository's hook and fails the commit if that fails. The slot is **chained, not
+occupied**, so a `.git/hooks/pre-commit` here would have run after all. **Git does not fall back;
+this particular occupant chains deliberately** — and no amount of reasoning about `core.hooksPath`
+would have revealed that, because it is a property of the file, not of git.
+
+Two things do stand. Writing into `~/.local/share/ggshield/git-hooks/` — where the entries are
+symlinks into `dotfiles`, beside a `pre-commit.bak-` from a previous overwrite — **would** destroy a
+working control while reading as installed. And CI still wins, for the reasons that were never about
+the slot: `.git/hooks/` is **not versioned and does not survive a clone**, and `--no-verify` walks
+past any local hook, including for whoever merges the PR that introduces the defect.
 
 **When to apply**: whenever you pick a home for a check — a hook, a CI job, a wrapper, a scheduled
 task. **Run the command that proves it would execute there**, on the machine that matters:
@@ -31,13 +46,14 @@ the better instrument and not as a fallback. And a control whose failure has nev
 a badge: this one was proven by opening a throwaway PR that removed an index row, watching it go
 red, restoring the row, and watching the same workflow go green.
 
-**And check what occupies the slot, not only whether the slot is reachable.** Reachability answers
-*would my control run*; occupancy answers *what am I replacing*. Here the slot held `ggshield`'s
-secret scan, so the placement was not merely dead — writing into it would have **displaced a working
-guard while reading as installed**. That failure is the worst class this repository keeps meeting:
-silent, and the file looks right. The two questions are asked by different commands, and stopping at
-the first one is how you miss the second — the occupancy was found only because the next step was
-*look at the place you are about to write*, not because anyone went looking for it.
+**And read what occupies the slot — occupancy is not a second question, it answers the first.**
+Whether your control runs is a property of the occupant's *code*, not of the configuration that
+points at it: here `core.hooksPath` said *your hook is unreachable* and the occupying script said
+*I call it myself*. Configuration tells you who holds the slot; only reading them tells you what
+they do with what they displace. Both halves bite. **Read it, and you learn your control is
+reachable after all** — as here. **Skip it, and you can destroy a working guard while reading as
+installed** — which is what writing into the `ggshield` directory itself would have done, and the
+worst class this repository keeps meeting: silent, and the file looks right.
 
 ## Writing a case that *reproduces* a failure is far harder than writing one that *describes* it
 
