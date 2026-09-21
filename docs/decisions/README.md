@@ -74,4 +74,5 @@ No ADR needed for trivial choices or implementation details.
 | [0042](0042-skill-creator-harness-as-the-runner.md) | The eval suite runs on `skill-creator`'s harness, the runner ADR 0037 chose being gated (amends 0037) | Accepted | 2026-09-09 |
 | [0043](0043-probed-not-validated.md) | `validated` retired: a case makes an entry `probed` on one instance, never the class (amends 0037) | Accepted | 2026-09-09 |
 | [0044](0044-runner-enforces-verifier-isolation.md) | The runner spawns the verifier separately; the loop's isolation becomes a fact rather than a request | Accepted | 2026-09-09 |
+| [0045](0045-the-lock-was-scoped-to-four-skills.md) | `disable-model-invocation` applied per skill: five methodology skills open, five destructive ones stay locked (refines 0003) | Accepted | 2026-09-21 |
 | [0046](0046-orchestrated-working-regime.md) | Orchestrated regime: the request for work carries the authorisation for the commit (amends 0036's commit rule) | Accepted | 2026-09-21 |
