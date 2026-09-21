@@ -7,6 +7,30 @@ One entry per learning. Keep the format simple: title, context, lesson.
 
 ---
 
+## Before choosing where a control fires, check that it *can* fire there — from outside the repo
+
+**Why**: 2026-09-21. An ADR had reached `main` without its index row, so the invariant became a
+script. The obvious placement looked like a git `pre-commit` hook: version-control machinery rather
+than a harness runtime guard, so [ADR 0025](decisions/0025-no-runtime-hook-no-watch.md) does not
+reach it, harness-agnostic so [ADR 0023](decisions/0023-project-scope-for-team-portability.md) does
+not either, and firing before the omission lands. The reasoning about the *line* was right and the
+placement was still dead: `git config --global core.hooksPath` on this machine points at
+`ggshield`'s directory, and **`core.hooksPath` replaces the hooks directory outright — git never
+falls back to `.git/hooks`.** `git rev-parse --git-path hooks` resolves there too, and that
+directory's `pre-commit` slot already holds the secret scan, so installing into it would have
+displaced a security control. The hook would have sat in the repository looking installed, green
+from the day it shipped, on the only machine where the omission has ever happened. It was caught by
+a peer measuring the machine, not by anything visible from inside the repository.
+
+**When to apply**: whenever you pick a home for a check — a hook, a CI job, a wrapper, a scheduled
+task. **Run the command that proves it would execute there**, on the machine that matters:
+`core.hooksPath`, the actual `PATH`, whether the slot is already occupied, whether anything can
+bypass it (`--no-verify` walks past every local hook, including from the person merging the PR that
+introduces the defect). Prefer the placement that **travels with the repository and cannot be
+skipped** — which is why CI won here, as the better instrument and not as a fallback. And a control
+whose failure has never been observed is a badge: this one was proven by opening a throwaway PR that
+removed an index row, watching it go red, restoring the row, and watching the same workflow go green.
+
 ## Writing a case that *reproduces* a failure is far harder than writing one that *describes* it
 
 **Why**: 2026-09-10, and it is now three cases out of four. Every green the `evals/` suite has
