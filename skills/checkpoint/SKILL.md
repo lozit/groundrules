@@ -1,7 +1,6 @@
 ---
 name: checkpoint
-description: Use to run the capture ritual on demand — when something was decided, learned, or the agent drifted — routed to ADR / LEARNINGS / AGENT-EVALS. The manual complement to the agent's proactive capture before a push or release.
-disable-model-invocation: true
+description: Use to run the capture ritual on demand — when something was decided, learned, or the agent drifted — routed to ADR / LEARNINGS / AGENT-EVALS. Complements the agent's proactive capture before a push or release.
 allowed-tools: Read, Write, Edit, Bash, AskUserQuestion
 ---
 

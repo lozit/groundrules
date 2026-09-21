@@ -1,7 +1,6 @@
 ---
 name: learn
 description: Use when a non-trivial lesson emerged (a pitfall avoided, a correction, a discovered convention) and you want it recorded as a rule (Why + When to apply) at the top of docs/LEARNINGS.md.
-disable-model-invocation: true
 allowed-tools: Read, Edit, AskUserQuestion, Bash
 ---
 
