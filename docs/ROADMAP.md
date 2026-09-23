@@ -74,6 +74,13 @@ The strategic reason the repo is named `groundrules` (harness-neutral). Keep the
 which harnesses first, how the Markdown SKILL instructions port vs. need per-harness adapters, and
 the per-harness distribution model (there is no universal "plugin").
 
+> **Start here**: [ADR 0047](decisions/0047-agents-md-deferred-to-m2.md) parks the `AGENTS.md`
+> question against this milestone with the groundwork already done — the spec read, the harness
+> behaviour measured (a pointer `AGENTS.md` beside a `CLAUDE.md` is read by **nothing**; an
+> `@AGENTS.md` import loads both), the generated file measured at ~86% harness-neutral, and the cost
+> counted at 77 references across 10 skills. Re-run its three-directory test before acting: those
+> numbers are a product behaviour, not a contract.
+
 ### M3 — Cross-project dashboard (companion tool)
 
 A tool that scans a folder of projects, detects the groundrules ones (normalized structure +
