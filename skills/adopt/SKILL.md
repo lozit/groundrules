@@ -111,6 +111,7 @@ Pre-check based on the scan. Only offer what **doesn't already exist**:
 - `docs/PROCESS.md` — pre-check if a process/method doc is detected (phased workflow, validation gates)
 - `RELEASE.md` — pre-check if CI/CD or hosting config is detected (`.gitlab-ci.yml`, `.github/workflows/`, `netlify.toml`, `vercel.json`…)
 - `docs/AGENT-EVALS.md` — offered (unchecked by default): a log of the agent's observed failure modes (mistakes, hallucinations, drifts) + the guard added. Distinct from `LEARNINGS.md`.
+- `INBOX.md` (root) — offered (unchecked by default): what reaches this project from outside, dated and verbatim, not yet triaged. Worth offering on a brownfield project, where work routinely arrives from people who are not the one running the session. groundrules never fills it.
 
 Skip an individual option only if that exact file already exists (then list it under "adopted", not here). If **none** of these exist yet, the full list is shown with the detected ones pre-checked.
 
