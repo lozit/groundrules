@@ -16,9 +16,17 @@ reaching a private document store through `VAULT_ROOT`, reading `01-projects/<sl
 printing its unpicked lines. **It was refused**, on two grounds this repository had already paid
 for, and rewritten to what this ADR records.
 
-**It would have been the first executable the plugin ever generated.** Verified: no `.sh`, no hook,
-nothing runtime in any template today. [ADR 0025](0025-no-runtime-hook-no-watch.md) refused that
-class in its own words — *"a runtime hook is machinery against groundrules' nature (ADR 0002
+**It would have been the first thing the plugin generates that runs without being invoked.** A
+correction to the first version of this ADR, which claimed it would be *the first executable the
+plugin ever generated* — that was false, and the check behind it scanned one directory level while
+the claim was about the whole plugin. The plugin does generate an executable: `loop/run-loop.sh`,
+`chmod +x`, when the loop scaffolding is opted into.
+
+The true distinction is sharper, and it makes the refusal stronger rather than weaker. `run-loop.sh`
+is a **runner the user invokes deliberately**, opt-in, with a hard iteration ceiling; nothing
+happens until someone types it. A `SessionStart` hook runs **unasked, in the agent's startup path,
+on every session of every bootstrapped project**. [ADR 0025](0025-no-runtime-hook-no-watch.md)
+refused that class in its own words — *"a runtime hook is machinery against groundrules' nature (ADR 0002
 'template over code'; offline-first; 'pure Markdown + JSON, no runtime')"* — and added that a hook
 coupled to one harness's format does not port, which
 [ADR 0047](0047-agents-md-deferred-to-m2.md) reaffirmed six days earlier for generated output. The
@@ -51,8 +59,9 @@ decision**: the convention is general and belongs here; the transport is particu
 whoever has a particular source. The estate that asked for this keeps its hook, in its own
 dotfiles, bound to its own layout.
 
-**4. Nothing executable, nothing naming a harness or a store.** The plugin still ships zero
-runtime.
+**4. Nothing that runs unasked, and nothing naming a harness or a store.** The one executable the
+plugin generates — `loop/run-loop.sh`, opt-in and user-invoked — is unchanged and is not the
+category being refused here.
 
 ## Alternatives considered
 
