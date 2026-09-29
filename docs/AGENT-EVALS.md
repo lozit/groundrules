@@ -46,10 +46,19 @@ cover**, and check that instead — the premises are already someone's homework.
 about what a program *does* is settled by reading the program, never by resolving where it lives.
 Configuration says who holds a slot; only the code says what it does with what it displaces.
 
+**Recurred 2026-09-29**, same guard, different vector — the evidence was self-produced rather than
+borrowed. Writing [ADR 0048](decisions/0048-the-convention-here-the-transport-elsewhere.md), the
+agent ran `ls skills/bootstrap/templates/ | grep '\.sh$'`, saw nothing, and wrote that the plugin
+generates **no executable at all**. The command listed **one directory level**; the claim was about
+the whole plugin, and `skills/bootstrap/templates/loop/run-loop.sh` had been there since v1.6.
+Caught by the agent itself after the merge, corrected in a follow-up. The guard covers it exactly —
+*ask what the evidence does not cover* — and it did not fire, because a command you ran yourself
+feels like verification in a way a peer's does not.
+
 **Status**: watching — no case. Casing it needs a peer handing over true measurements and a wrong
 inference, which is an interaction rather than a prompt, and the retired case 4 is the precedent
 for not pretending otherwise. Verification is longitudinal: the guard is now in a file that is
-actually read at session start.
+actually read at session start — and it has now failed once **since** being put there.
 
 ## 2026-09-09 — Opened a duplicate `### Changed` section in `CHANGELOG.md`, twice in two days
 
