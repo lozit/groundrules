@@ -55,7 +55,7 @@ If a signature is found:
 Search the whole file content for the **known placeholders** from bootstrap phase 5 (exact whitelist):
 
 ```
-\{\{(PROJECT_NAME|DESCRIPTION|STACK|DATE|HAS_PLAN|HAS_ARCHITECTURE|HAS_GLOSSARY|HAS_CHANGELOG|HAS_DATA_MODEL|HAS_SECURITY|HAS_DESIGN_SYSTEM|HAS_ROADMAP|HAS_I18N|HAS_PROCESS|HAS_RELEASE|HAS_AGENT_EVALS|GLOBAL_CLAUDE_NOTE|REMOTE_PROVIDER|REMOTE_VISIBILITY|CONTENT|INTENT_SOURCE|GOAL|USERS|CONSTRAINTS|NONGOALS|ACCEPTANCE)\}\}
+\{\{(PROJECT_NAME|DESCRIPTION|STACK|DATE|HAS_PLAN|HAS_ARCHITECTURE|HAS_GLOSSARY|HAS_CHANGELOG|HAS_INBOX|HAS_DATA_MODEL|HAS_SECURITY|HAS_DESIGN_SYSTEM|HAS_ROADMAP|HAS_I18N|HAS_PROCESS|HAS_RELEASE|HAS_AGENT_EVALS|GLOBAL_CLAUDE_NOTE|REMOTE_PROVIDER|REMOTE_VISIBILITY|CONTENT|INTENT_SOURCE|GOAL|USERS|CONSTRAINTS|NONGOALS|ACCEPTANCE)\}\}
 ```
 
 For every match, apply the **backtick rule** before flagging: a placeholder **wrapped in backticks** (`` `{{KEY}}` ``) is a *documentation reference* (a doc/CHANGELOG/PLAN line that mentions the placeholder by name), **not** an unsubstituted placeholder — **ignore it**. Only a **bare** occurrence (not inside backticks) is a real leftover. This matters on self-referential projects: a project's own `CHANGELOG.md`/`PLAN.md` legitimately contains backticked `{{HAS_PROCESS}}`, `{{INTENT_SOURCE}}`, etc.

@@ -5,10 +5,13 @@
 {{GLOBAL_CLAUDE_NOTE}}
 ## Session start — read first, in order
 
-1. `PLAN.md` — where the project stands **now** (if present)
-2. `docs/LEARNINGS.md` — rules learned from past corrections (apply them!)
-3. `docs/VISION.md` — goal, scope, non-goals (if present)
-4. The artifacts of whatever is in progress per `PLAN.md`
+1. `INBOX.md` — what was handed to this project from outside, not yet triaged (if present). Read it
+   first: it may change what the rest of this list means. Triage what is there, leave nothing
+   silently.
+2. `PLAN.md` — where the project stands **now** (if present)
+3. `docs/LEARNINGS.md` — rules learned from past corrections (apply them!)
+4. `docs/VISION.md` — goal, scope, non-goals (if present)
+5. The artifacts of whatever is in progress per `PLAN.md`
 
 <!-- Adjust this list to your project: keep it short, ordered, and current. -->
 

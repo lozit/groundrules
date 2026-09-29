@@ -77,3 +77,4 @@ No ADR needed for trivial choices or implementation details.
 | [0045](0045-the-lock-was-scoped-to-four-skills.md) | `disable-model-invocation` applied per skill: five methodology skills open, five destructive ones stay locked (refines 0003) | Accepted | 2026-09-21 |
 | [0046](0046-orchestrated-working-regime.md) | Orchestrated regime: the request for work carries the authorisation for the commit (amends 0036's commit rule) | Accepted | 2026-09-21 |
 | [0047](0047-agents-md-deferred-to-m2.md) | `AGENTS.md` deferred to M2, with the harness behaviour measured now (a pointer is read by nothing) | Accepted | 2026-09-23 |
+| [0048](0048-the-convention-here-the-transport-elsewhere.md) | Optional `INBOX.md`: the plugin ships the convention, the caller ships the transport (a `SessionStart` hook was refused) | Accepted | 2026-09-29 |

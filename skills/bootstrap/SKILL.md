@@ -24,7 +24,7 @@ You will bootstrap a Claude Code project in the **current working directory**. F
    - `.git/` (existing git repo)
    - `.groundrules.json` (state from a previous invocation — if present, **load it**; it is what selects `resume` in the mode table at step 4, and this line does not decide the mode on its own); a legacy pre-1.0 `.starter-kit.json` counts the same — load it and recommend `/groundrules:migrate` (V1.0 renamed the plugin and the state file)
    - `CLAUDE.md`, `README.md`, `docs/`, `intake/`, `docs/media/`, `PLAN.md`, `CHANGELOG.md`, `.gitignore`, `docs/VISION.md`, `intake/INTENT.md`
-   - optional specialized docs: `docs/DATA_MODEL.md`, `docs/SECURITY.md`, `docs/DESIGN_SYSTEM.md`, `docs/ROADMAP.md`, `docs/I18N.md`, `docs/PROCESS.md`, `RELEASE.md`, `docs/AGENT-EVALS.md`
+   - optional specialized docs: `docs/DATA_MODEL.md`, `docs/SECURITY.md`, `docs/DESIGN_SYSTEM.md`, `docs/ROADMAP.md`, `docs/I18N.md`, `docs/PROCESS.md`, `RELEASE.md`, `docs/AGENT-EVALS.md`, `INBOX.md`
    - **`PLAN.md` equivalents** (planning aliases, **same altitude**) — detection is **case-insensitive** and **nested** (up to ~3 levels, excluding `node_modules`/`.git`): `plan.md`, `TODO.md`, `todo.md`, `todos.md`, `TASKS.md`, `BACKLOG.md`, including under a path (e.g. `docs/gtd/todos.md`). There may be **several** — report all of them. **Case guard**: **never** generate `PLAN.md` if an equivalent name exists in a different case (collision on a case-sensitive FS).
    - `docs/superpowers/plans/` (superpowers **per-feature** plans — **different altitude**, *not* a `PLAN.md` alias)
    - **superpowers in use** → `HAS_SUPERPOWERS`, which decides whether the generated `CLAUDE.md` carries the interop section (Phase 5). Three signals, in order, **all read-only and best-effort**; the first that fires wins:
@@ -95,6 +95,8 @@ A single **multiSelect** `AskUserQuestion`: *"Which specialized docs do you want
 - **`docs/PROCESS.md`** — the working-method contract: phases, validation gates, interview style. Check if the user wants a phased, gated way of working (spec → prototype → build).
 - **`RELEASE.md`** — operational release runbook: environments, commands, checklists, rollback, known fragilities. Check **only if the project deploys somewhere** (detected CI config, hosting, or the user says so).
 - **`docs/AGENT-EVALS.md`** — a log of the **agent's own** observed failure modes on this project (recurring mistakes, hallucinations, drifts) and the guard added for each. Distinct from `LEARNINGS.md` (which is about the project/domain). Offer it (unchecked by default); useful on long-running agent-driven projects.
+
+- **`INBOX.md`** (root, not `docs/`) — what was handed to this project **from outside** and is not yet triaged: a colleague, a ticket, another repository, a note made away from the desk. One dated line per subject, verbatim; triage marks it, never deletes it. Offer it when work is likely to reach the project from somewhere other than the person running the session. **groundrules never fills it** — how lines arrive is the project's business — it only gives the place a name and puts it first in the generated `CLAUDE.md`'s session-start list.
 
 Adapt suggestions to context: if the stack/intent suggests a UI, pre-suggest `DESIGN_SYSTEM`; a DB → `DATA_MODEL`; etc. Impose nothing: no check = no file.
 
@@ -211,7 +213,7 @@ For each file to create:
    - `{{STACK}}` — stack or empty string
    - `{{DATE}}` — today's date in ISO (YYYY-MM-DD)
    - `{{HAS_PLAN}}`, `{{HAS_ARCHITECTURE}}`, `{{HAS_GLOSSARY}}`, `{{HAS_CHANGELOG}}` — `true`/`false`
-   - `{{HAS_DATA_MODEL}}`, `{{HAS_SECURITY}}`, `{{HAS_DESIGN_SYSTEM}}`, `{{HAS_ROADMAP}}`, `{{HAS_I18N}}`, `{{HAS_PROCESS}}`, `{{HAS_RELEASE}}`, `{{HAS_AGENT_EVALS}}` — `true`/`false` (specialized docs)
+   - `{{HAS_DATA_MODEL}}`, `{{HAS_SECURITY}}`, `{{HAS_DESIGN_SYSTEM}}`, `{{HAS_ROADMAP}}`, `{{HAS_I18N}}`, `{{HAS_PROCESS}}`, `{{HAS_RELEASE}}`, `{{HAS_AGENT_EVALS}}`, `{{HAS_INBOX}}` — `true`/`false` (specialized docs)
    - `{{HAS_LOOP}}` — `true`/`false` (loop scaffolding opted in, Call 2c)
    - `{{HAS_SUPERPOWERS}}` — `true`/`false` (superpowers detected, Phase 1)
 
@@ -273,6 +275,7 @@ There is **one** template (`CLAUDE.md.tpl`). When a global CLAUDE.md exists, a "
 | `HAS_PROCESS=true` | `PROCESS.md.tpl` | `docs/PROCESS.md` |
 | `HAS_RELEASE=true` | `RELEASE.md.tpl` | `RELEASE.md` |
 | `HAS_AGENT_EVALS=true` | `AGENT-EVALS.md.tpl` | `docs/AGENT-EVALS.md` |
+| `HAS_INBOX=true` | `INBOX.md.tpl` | `INBOX.md` |
 | `intent.source` ∈ `paste`/`file` | `intake-INTENT.md.tpl` | `intake/INTENT.md` |
 | `intent.source` ≠ `skipped` | `docs-VISION.md.tpl` | `docs/VISION.md` |
 | `HAS_LOOP=true` | `loop/README.md.tpl` | `loop/README.md` |
