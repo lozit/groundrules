@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.12.0 -->
+<!-- generated-by: groundrules v1.13.0 -->
 # 0048 — An optional `INBOX.md`: the plugin ships the convention, the caller ships the transport
 
 **Date**: 2026-09-29

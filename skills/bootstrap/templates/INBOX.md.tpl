@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.12.0 -->
+<!-- generated-by: groundrules v1.13.0 -->
 # INBOX — {{PROJECT_NAME}}
 
 What was handed to this project **from outside**, not yet triaged. A colleague, a ticket, another

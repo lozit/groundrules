@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.12.0 -->
+<!-- generated-by: groundrules v1.13.0 -->
 # 0047 — `AGENTS.md`: deferred to M2, with the measurements taken now
 
 **Date**: 2026-09-23

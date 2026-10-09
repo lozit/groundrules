@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# generated-by: groundrules v1.12.0
+# generated-by: groundrules v1.13.0
 #
 # check-adr-index.sh — every ADR file has a row in the index, and every row points at a file.
 #

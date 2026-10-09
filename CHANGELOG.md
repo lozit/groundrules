@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.12.0 -->
+<!-- generated-by: groundrules v1.13.0 -->
 # Changelog
 
 All notable changes to this project are documented in this file.
@@ -6,7 +6,7 @@ All notable changes to this project are documented in this file.
 Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versions follow [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [1.13.0] - 2026-10-09
 
 ### Added
 - **An optional `INBOX.md`: what was handed to this project from outside, not yet triaged** ([ADR 0048](docs/decisions/0048-the-convention-here-the-transport-elsewhere.md)). Offered by `bootstrap` and `adopt`, unchecked by default, at the repository root: one dated line per subject, **verbatim**, and triage **marks** a line (`→ ADR 0012`, `→ PLAN.md`, `→ dropped`) rather than deleting it — the file is a record of what arrived, not a queue that empties. It is named **first** in the generated `CLAUDE.md`'s session-start list, before `PLAN.md`, because what arrived can change what the rest of the list means; no conditional was needed, the list already marks optional entries *(if present)*. **The plugin never fills it** — how lines get there is the caller's business, described nowhere here.

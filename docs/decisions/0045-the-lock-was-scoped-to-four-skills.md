@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.12.0 -->
+<!-- generated-by: groundrules v1.13.0 -->
 # 0045 — `disable-model-invocation` was scoped to four skills and inherited by fifteen
 
 **Date**: 2026-09-21

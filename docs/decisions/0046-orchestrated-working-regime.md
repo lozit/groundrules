@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.12.0 -->
+<!-- generated-by: groundrules v1.13.0 -->
 # 0046 — Orchestrated working regime: the request for work carries the authorisation for the commit
 
 **Date**: 2026-09-21
