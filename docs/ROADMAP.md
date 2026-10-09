@@ -66,20 +66,22 @@ stakes. `run-loop.sh` is repositioned as the high-fidelity executor **and** the 
 (ties into M2). Implementation deferred to a PRD: `realize` emits a `/goal`-ready condition, an interop
 note in the generated `loop/README.md`, and a `README.md` explanation of the two fidelity levels.
 
-### M2 — Support harnesses beyond Claude Code
+### M2 — Support harnesses beyond Claude Code — 🚧 IN PROGRESS (scoped by ADR 0049)
 
 The strategic reason the repo is named `groundrules` (harness-neutral). Keep the generated **output**
-(docs/, CLAUDE.md, ADRs) harness-agnostic; only the *delivery* of the skills changes per harness
-(Cursor, Codex/OpenAI, Gemini CLI, OpenCode…). Scope to be defined in its own ADR when tackled:
-which harnesses first, how the Markdown SKILL instructions port vs. need per-harness adapters, and
-the per-harness distribution model (there is no universal "plugin").
+(docs/, CLAUDE.md, ADRs) harness-agnostic; only the *delivery* of the skills changes per harness.
 
-> **Start here**: [ADR 0047](decisions/0047-agents-md-deferred-to-m2.md) parks the `AGENTS.md`
-> question against this milestone with the groundwork already done — the spec read, the harness
-> behaviour measured (a pointer `AGENTS.md` beside a `CLAUDE.md` is read by **nothing**; an
-> `@AGENTS.md` import loads both), the generated file measured at ~86% harness-neutral, and the cost
-> counted at 77 references across 10 skills. Re-run its three-directory test before acting: those
-> numbers are a product behaviour, not a contract.
+> **Scoped by [ADR 0049](decisions/0049-m2-scoped-on-the-open-standards.md)** (2026-10-09). Two
+> premises written here earlier no longer hold: there **is** now a universal plugin manifest
+> ([Agent Plugins](https://agent-plugins.org/specification)), and the skill format is an open
+> standard ([Agent Skills](https://agentskills.io/specification)) our fifteen skills already
+> validate against. Windsurf, once named here as a target, is now Devin Desktop. So M2 is
+> **conformance plus neutral wording**, not per-harness adapters, and a harness is claimed only once
+> the eval suite has run in it — OpenCode first. Steps and their order live in the ADR; the backlog
+> lives in [`PLAN.md`](../PLAN.md).
+>
+> `AGENTS.md` is the last step, parked by [ADR 0047](decisions/0047-agents-md-deferred-to-m2.md)
+> with its measurements (re-run 2026-10-09: unchanged).
 
 ### M3 — Cross-project dashboard (companion tool)
 

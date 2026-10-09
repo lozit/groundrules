@@ -78,3 +78,4 @@ No ADR needed for trivial choices or implementation details.
 | [0046](0046-orchestrated-working-regime.md) | Orchestrated regime: the request for work carries the authorisation for the commit (amends 0036's commit rule) | Accepted | 2026-09-21 |
 | [0047](0047-agents-md-deferred-to-m2.md) | `AGENTS.md` deferred to M2, with the harness behaviour measured now (a pointer is read by nothing) | Accepted | 2026-09-23 |
 | [0048](0048-the-convention-here-the-transport-elsewhere.md) | Optional `INBOX.md`: the plugin ships the convention, the caller ships the transport (a `SessionStart` hook was refused) | Accepted | 2026-09-29 |
+| [0049](0049-m2-scoped-on-the-open-standards.md) | M2 scoped on the open standards: Agent Skills conformance and neutral wording, no per-harness adapters, support claimed only where measured | Accepted | 2026-10-09 |
