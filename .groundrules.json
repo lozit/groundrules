@@ -1,5 +1,5 @@
 {
-  "groundrulesVersion": "1.12.0",
+  "groundrulesVersion": "1.13.0",
   "bootstrappedAt": "2026-05-11",
   "bootstrappedWithVersion": "0.1.0",
   "migrations": [
@@ -164,6 +164,12 @@
       "to": "1.12.0",
       "at": "2026-09-11",
       "note": "V1.12 the loop's verifier becomes genuinely independent (ADR 0044): run-loop.sh makes TWO invocations per iteration — a maker pass that leaves its work uncommitted, then a separate verifier pass with a fresh context that judges the working tree and holds the write; validate-runner.sh asserts the split by counting invocations. The verifier preamble's 'nothing else' now bars the maker's narration rather than the artifacts its own checks require. AGENT-EVALS retires 'validated' for 'watching' / 'probed: <case>, N/N since <date>' (ADR 0043): a case covers one instance, never the behavioural class. The eval suite moves to skill-creator's harness, the CLI runner being gated (ADR 0042). The meta CLAUDE.md gains the Session start reading list the plugin ships to every project but never applied to itself — guards in LEARNINGS and AGENT-EVALS were unreadable here, hence unable to fire. No user-facing template change beyond the loop."
+    },
+    {
+      "from": "1.12.0",
+      "to": "1.13.0",
+      "at": "2026-10-09",
+      "note": "V1.13 optional INBOX.md at the repository root (ADR 0048) — what was handed to the project from outside, dated and verbatim, not yet triaged; offered by bootstrap and adopt, unchecked by default, and named FIRST in the generated CLAUDE.md session-start list (no conditional: the list already marks optional entries '(if present)'). The plugin never fills it — how lines arrive is the caller's business. The request behind it asked for a SessionStart hook reading one estate's private document layout and was refused on ADR 0025 (nothing the plugin generates runs unasked) and on the rule that it never describes one estate's layout; the principle recorded is the convention here, the transport elsewhere. AGENTS.md investigated and deferred to M2 with the harness behaviour measured (ADR 0047). Dogfood: the orchestrated working regime recorded (ADR 0046, amends 0036's commit rule), 'validated' retired for 'probed' (ADR 0043), the ADR index invariant made a CI check. No other change to generated output."
     }
   ],
   "answers": {

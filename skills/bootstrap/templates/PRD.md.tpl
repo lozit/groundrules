@@ -1,4 +1,4 @@
-<!-- generated-by: groundrules v1.12.0 -->
+<!-- generated-by: groundrules v1.13.0 -->
 # PRD — {{FEATURE}}
 
 > Product Requirements Document for a single feature. Written **before** building, so the agent
