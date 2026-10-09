@@ -7,6 +7,31 @@ One entry per learning. Keep the format simple: title, context, lesson.
 
 ---
 
+## `head <file>` can return a summary instead of the file — verify reads with `sed`, `awk` or Python
+
+**Why**: 2026-10-09. A subagent reading `skills/bootstrap/templates/loop/verifier.md` reported a
+signature line that did not match the file. Reproduced directly: `head -1 <file>` on that 111-line
+file returned **`[111 more lines]`** — a placeholder, not the line. A token-optimising proxy (`rtk`,
+wired in by a hook that rewrites commands) sits in front of read commands here, and it can answer a
+read with its own summary.
+
+**Measured, so the scope is known rather than guessed.** On that file: `head -1 <file>` →
+placeholder. `sed -n '1p'`, `grep -m1`, `awk 'NR==1'`, `wc -l`, `cat <file> | head -1` and
+`tail -n +1 <file> | head -1` → all exact. Bare `head` is not *always* summarised — `head -30` on
+another file returned content the same day — so the rule is not *head is broken* but **head is not
+dependable**, and that is worse: a tool that usually works is one you stop checking.
+
+**When to apply**: whenever a read is **evidence** — a version string, a signature, a line you are
+about to quote, a count you will act on. Prefer `sed -n`, `awk`, `grep`, Python, or `git show
+HEAD:<path>` for the versioned object. Reserve `head`/`tail` for trimming the output of another
+command, where they are piped and harmless. **A proxy that returns a plausible-looking placeholder
+is more dangerous than one that errors**: `[111 more lines]` reads like tool output, not like a
+failure, so nothing prompts a second look.
+
+**One thing not reproduced, and recorded as such**: the subagent reported reading a *stale version
+string*, not a placeholder. Only the placeholder was reproducible here. Whether the proxy can also
+return outdated content is unknown — treat it as open rather than settled.
+
 ## Before choosing where a control fires, check that it *can* fire there — from outside the repo
 
 **Why**: 2026-09-21. An ADR had reached `main` without its index row, so the invariant became a

@@ -6,6 +6,14 @@ All notable changes to this project are documented in this file.
 Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versions follow [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Fixed
+- **The frozen loop prototype contradicted itself**, and the contradiction was mine. On 2026-09-09 the verifier preamble's absolute *"nothing else"* was reworded to bar the maker's **narration** rather than the artifacts its own checks 5 and 7 require — applied to `docs/prototypes/loop/verifier.md`, but **not** to the paraphrase in `docs/prototypes/loop/LOOP.md`, which still said *handed **only** … **never** …*. So the prototype's two files disagreed about the scope of the bar. The paraphrase now matches. The freeze recorded in [ADR 0044](docs/decisions/0044-runner-enforces-verifier-isolation.md) §6 covers the prototype's **single-invocation shape**, not a self-contradiction, which is why the wording fix belonged there in the first place. Found by eval case 1, which also noted that the shipped `LOOP.md` had been rewritten on the maker's side and no longer carries the list at all.
+
+### Changed
+- **A tooling gotcha that can falsify a verification is recorded** (`docs/LEARNINGS.md`). A subagent reported a signature line that did not match the file; reproduced directly, `head -1 <file>` on a 111-line file returns **`[111 more lines]`** — a placeholder, not the line. A token-optimising proxy sits in front of read commands here and can answer a read with its own summary. Measured rather than guessed: `sed -n '1p'`, `grep -m1`, `awk 'NR==1'`, `wc -l` and piped `cat … | head -1` are all exact, and bare `head` is not *always* summarised — which is worse than if it were, because a tool that usually works is one you stop checking. The rule recorded is therefore *`head` is not dependable for evidence*, with `sed`/`awk`/Python/`git show` as the reliable reads. **A proxy returning a plausible placeholder is more dangerous than one that errors**: `[111 more lines]` reads like output, not like a failure. One thing was **not** reproduced and is marked open: the subagent reported a *stale version string* rather than a placeholder, and whether the proxy can also return outdated content is unknown.
+
 ## [1.13.0] - 2026-10-09
 
 ### Added
