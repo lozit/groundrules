@@ -11,7 +11,13 @@ This file differs from the long-term roadmap: it describes what is happening **n
 
 ## Up next
 
-- [ ] *(empty)*
+M2 — multi-harness, in the order [ADR 0049](docs/decisions/0049-m2-scoped-on-the-open-standards.md) sets:
+
+- [ ] **Spec conformance** — `license: MIT` on the fifteen skills, `allowed-tools` space-separated; `gh skill publish . --dry-run` must come back without warnings on skills.
+- [ ] **Neutral wording** — name the act and the place, the command as a shortcut; start with `bootstrap`, `adopt`, `apply-best-practices`, `verify-bootstrap`, `migrate`, `slim`. Eval suite on the PR.
+- [ ] **Degrade `$ARGUMENTS` and `AskUserQuestion` gracefully** — 8 and 14 skills respectively; no behaviour change in Claude Code.
+- [ ] **Measure OpenCode** — run the eval suite there, and check whether it honours `disable-model-invocation` on the five locked skills, before any README support claim.
+- [ ] **`AGENTS.md`** — re-measure and decide in its own ADR (ADR 0047).
 
 
 > **Long-term milestones moved to [`docs/ROADMAP.md`](docs/ROADMAP.md)** — M1 *Loop-readiness* (loop scaffolding opt-in, `/groundrules:realize`, triage convention; ADR 0027) and M2 *Multi-harness support*. They enter "In progress" here, and get a PRD/ADR, only when actively tackled.
